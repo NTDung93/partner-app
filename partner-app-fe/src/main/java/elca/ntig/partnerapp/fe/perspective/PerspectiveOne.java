@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.perspective;
 
+import elca.ntig.partnerapp.fe.common.constant.IdentifierConstant;
 import elca.ntig.partnerapp.fe.config.BasicConfig;
 import javafx.event.Event;
 import javafx.geometry.Orientation;
@@ -27,14 +28,15 @@ import java.util.logging.Logger;
 
 import static javafx.scene.layout.Priority.ALWAYS;
 
-@Perspective(id = BasicConfig.PERSPECTIVE_ONE,
-        name = "contactPerspective",
+@Perspective(id = PerspectiveOne.ID,
+        name = PerspectiveOne.ID,
         components = {
                 BasicConfig.COMPONENT_LEFT,
                 BasicConfig.COMPONENT_RIGHT,
                 BasicConfig.STATEFUL_CALLBACK},
         resourceBundleLocation = "bundles.languageBundle")
 public class PerspectiveOne implements FXPerspective {
+    public static final String ID = "PerspectiveOne";
     private Logger log = Logger.getLogger(PerspectiveOne.class.getName());
     @Resource
     public Context context;
@@ -77,7 +79,7 @@ public class PerspectiveOne implements FXPerspective {
         // define toolbars and menu entries
         JACPToolBar toolbar = layout.getRegisteredToolBar(ToolbarPosition.NORTH);
         Button pressMe = new Button(resourceBundle.getString("p2.button"));
-        pressMe.setOnAction((event) -> context.send(BasicConfig.PERSPECTIVE_TWO, "show"));
+        pressMe.setOnAction((event) -> context.send(PerspectiveTwo.ID, "show"));
         toolbar.addAllOnEnd(pressMe);
         toolbar.add(new Label(resourceBundle.getString("p1.button")));
 

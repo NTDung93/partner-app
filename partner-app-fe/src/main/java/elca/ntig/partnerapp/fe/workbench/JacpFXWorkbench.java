@@ -1,6 +1,7 @@
 package elca.ntig.partnerapp.fe.workbench;
 
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
+import elca.ntig.partnerapp.fe.perspective.PerspectiveTwo;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,20 +22,23 @@ import org.jacpfx.rcp.components.menuBar.JACPMenuBar;
 import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.workbench.FXWorkbench;
 
-@Workbench(id = "id1", name = "workbench",
+import static elca.ntig.partnerapp.fe.config.BasicConfig.*;
+
+@Workbench(id = JacpFXWorkbench.ID,
+        name = JacpFXWorkbench.ID,
         perspectives = {
-                BasicConfig.PERSPECTIVE_TWO,
-                BasicConfig.PERSPECTIVE_ONE
+                PerspectiveOne.ID,
+                PerspectiveTwo.ID
         })
 public class JacpFXWorkbench implements FXWorkbench {
-
+    public static final String ID = "PartnerAppWorkbench";
     @Resource
     private Context context;
 
     @Override
     public void handleInitialLayout(final Message<Event, Object> action,
                                     final WorkbenchLayout<Node> layout, final Stage stage) {
-        layout.setWorkbenchXYSize(1024, 768);
+        layout.setWorkbenchXYSize(WORKBENCH_X_SIZE, WORKBENCH_Y_SIZE);
         layout.registerToolBar(ToolbarPosition.NORTH);
         layout.setStyle(StageStyle.DECORATED);
         layout.setMenuEnabled(true);

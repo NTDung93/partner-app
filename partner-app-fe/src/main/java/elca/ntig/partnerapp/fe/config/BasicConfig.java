@@ -1,13 +1,17 @@
 package elca.ntig.partnerapp.fe.config;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@ComponentScan
+//import org.springframework.context.annotation.ComponentScan;
+//import org.springframework.context.annotation.Configuration;
+//
+//@Configuration
+//@ComponentScan
 public class BasicConfig {
-    public static final String PERSPECTIVE_ONE = "idPone";
-    public static final String PERSPECTIVE_TWO = "idPtwo";
+    // Application launcher
+    public static final String BASE_PACKAGE = "elca.ntig.partnerapp.fe";
+
+    // Workbench
+    public static final int WORKBENCH_X_SIZE = 1024;
+    public static final int WORKBENCH_Y_SIZE = 768;
 
     public static final String COMPONENT_LEFT = "id002";
     public static final String COMPONENT_RIGHT = "id003";

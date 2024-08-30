@@ -1,6 +1,8 @@
 package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
+import elca.ntig.partnerapp.fe.perspective.PerspectiveTwo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.jacpfx.api.annotations.Resource;
@@ -25,10 +27,10 @@ public class DialogFragment {
     public void init() {
         name.setOnKeyReleased(event->{
             final String nameValue = name.getText();
-            if(context.getParentId().equals(BasicConfig.PERSPECTIVE_ONE)) {
-                context.send(BasicConfig.PERSPECTIVE_ONE.concat(".").concat(BasicConfig.STATEFUL_CALLBACK), nameValue);
+            if(context.getParentId().equals(PerspectiveOne.ID)) {
+                context.send(PerspectiveOne.ID.concat(".").concat(BasicConfig.STATEFUL_CALLBACK), nameValue);
             } else {
-                context.send(BasicConfig.PERSPECTIVE_TWO.concat(".").concat(BasicConfig.STATELESS_CALLBACK), nameValue);
+                context.send(PerspectiveTwo.ID.concat(".").concat(BasicConfig.STATELESS_CALLBACK), nameValue);
             }
         });
     }

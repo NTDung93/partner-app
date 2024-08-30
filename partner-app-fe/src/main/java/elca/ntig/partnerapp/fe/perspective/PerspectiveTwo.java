@@ -27,8 +27,8 @@ import java.util.logging.Logger;
 
 import static javafx.scene.layout.Priority.ALWAYS;
 
-@Perspective(id = BasicConfig.PERSPECTIVE_TWO,
-        name = "contactPerspective",
+@Perspective(id = PerspectiveTwo.ID,
+        name = PerspectiveTwo.ID,
         components = {
                 BasicConfig.COMPONENT_LEFT,
                 BasicConfig.COMPONENT_RIGHT,
@@ -36,6 +36,7 @@ import static javafx.scene.layout.Priority.ALWAYS;
         viewLocation = "/fxml/perspectiveTwo.fxml",
         resourceBundleLocation = "bundles.languageBundle")
 public class PerspectiveTwo implements FXPerspective {
+    public static final String ID = "PerspectiveTwo";
     private Logger log = Logger.getLogger(PerspectiveTwo.class.getName());
     @FXML
     private SplitPane mainLayout;
@@ -91,7 +92,7 @@ public class PerspectiveTwo implements FXPerspective {
 
 
         Button pressMe = new Button(resourceBundle.getString("p1.button"));
-        pressMe.setOnAction((event) -> context.send(BasicConfig.PERSPECTIVE_ONE, "show"));
+        pressMe.setOnAction((event) -> context.send(PerspectiveOne.ID, "show"));
         toolbar.addAllOnEnd(pressMe);
         toolbar.add(new Label(resourceBundle.getString("p2.button")));
         // let them grow

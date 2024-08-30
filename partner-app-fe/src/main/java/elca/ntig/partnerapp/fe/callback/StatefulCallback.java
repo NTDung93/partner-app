@@ -23,6 +23,7 @@
 package elca.ntig.partnerapp.fe.callback;
 
 import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
 import javafx.event.Event;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.Component;
@@ -54,7 +55,7 @@ public class StatefulCallback implements CallbackComponent {
     @Override
     public Object handle(final Message<Event, Object> message) {
         if(!message.messageBodyEquals(FXUtil.MessageUtil.INIT))     {
-           context.setReturnTarget(BasicConfig.PERSPECTIVE_ONE.concat(".").concat(BasicConfig.COMPONENT_RIGHT));
+           context.setReturnTarget(PerspectiveOne.ID.concat(".").concat(BasicConfig.COMPONENT_RIGHT));
             return "Hello: " + message.getTypedMessageBody(String.class)+" from StatefulCallback";
         }
         return null;
