@@ -1,17 +1,28 @@
 package elca.ntig.partnerapp.fe.workbench;
 
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
 import elca.ntig.partnerapp.fe.perspective.PerspectiveTwo;
 import javafx.event.Event;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.workbench.Workbench;
 import org.jacpfx.api.componentLayout.WorkbenchLayout;
 import org.jacpfx.api.message.Message;
+import org.jacpfx.api.util.ToolbarPosition;
+import org.jacpfx.controls.optionPane.JACPDialogButton;
+import org.jacpfx.controls.optionPane.JACPDialogUtil;
+import org.jacpfx.controls.optionPane.JACPOptionPane;
 import org.jacpfx.rcp.componentLayout.FXComponentLayout;
+import org.jacpfx.rcp.components.menuBar.JACPMenuBar;
+import org.jacpfx.rcp.context.Context;
 import org.jacpfx.rcp.workbench.FXWorkbench;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,47 +37,35 @@ public class PartnerAppWorkbench implements FXWorkbench {
 
     public static final String ID = "PartnerAppWorkbench";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PartnerAppWorkbench.class);
+    @Resource
+    private Context context;
 
     @Override
     public void handleInitialLayout(final Message<Event, Object> action, final WorkbenchLayout<Node> layout, final Stage stage) {
-        Resolution resolution = resolutionByPrimaryScreenBounds();
-        stage.setMaximized(true);
-        layout.setWorkbenchXYSize(resolution.width(), resolution.height());
+        layout.setWorkbenchXYSize(ApplicationConfig.WORKBENCH_X_SIZE, ApplicationConfig.WORKBENCH_Y_SIZE);
+        layout.registerToolBar(ToolbarPosition.NORTH);
         layout.setStyle(StageStyle.DECORATED);
-        layout.setMenuEnabled(false);
+        layout.setMenuEnabled(true);
     }
 
     @Override
     public void postHandle(final FXComponentLayout layout) {
+        final JACPMenuBar menu = layout.getMenu();
+        final Menu menuFile = new Menu("File");
+        menuFile.getItems().add(createHelpItem());
+        menu.getMenus().addAll(menuFile);
     }
 
-    private Resolution resolutionByPrimaryScreenBounds() {
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        LOGGER.debug("Screen size: " + primScreenBounds.getMaxX() + "x" + primScreenBounds.getMaxY());
-        if (primScreenBounds.getMaxX() >= Resolution.RECOMMENDED.width()) {
-            return Resolution.RECOMMENDED;
-        }
-        return Resolution.DEGRADED;
+    private MenuItem createHelpItem() {
+        final MenuItem itemHelp = new MenuItem("Help");
+        itemHelp.setOnAction((event) -> {
+            JACPOptionPane dialog = JACPDialogUtil.createOptionPane("Help", "Add some help text ");
+            dialog.setDefaultButton(JACPDialogButton.OK);
+            dialog.setDefaultCloseButtonOrientation(Pos.CENTER_RIGHT);
+            dialog.setOnOkAction((arg) -> this.context.hideModalDialog());
+            this.context.showModalDialog(dialog);
+        });
+        return itemHelp;
     }
 
-    private enum Resolution {
-        RECOMMENDED(1920, 960), DEGRADED(1280, 720);
-
-        private final int width;
-        private final int height;
-
-        Resolution(int width, int height) {
-            this.width = width;
-            this.height = height;
-        }
-
-        public int width() {
-            return width;
-        }
-
-        public int height() {
-            return height;
-        }
-    }
 }
