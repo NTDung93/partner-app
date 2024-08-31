@@ -1,6 +1,6 @@
 package elca.ntig.partnerapp.fe.perspective;
 
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,9 +30,9 @@ import static javafx.scene.layout.Priority.ALWAYS;
 @Perspective(id = PerspectiveTwo.ID,
         name = PerspectiveTwo.ID,
         components = {
-                BasicConfig.COMPONENT_LEFT,
-                BasicConfig.COMPONENT_RIGHT,
-                BasicConfig.STATELESS_CALLBACK},
+                ApplicationConfig.COMPONENT_LEFT,
+                ApplicationConfig.COMPONENT_RIGHT,
+                ApplicationConfig.STATELESS_CALLBACK},
         viewLocation = "/fxml/perspectiveTwo.fxml",
         resourceBundleLocation = "bundles.languageBundle")
 public class PerspectiveTwo implements FXPerspective {
@@ -98,9 +98,9 @@ public class PerspectiveTwo implements FXPerspective {
         // let them grow
         LayoutUtil.GridPaneUtil.setFullGrow(ALWAYS, mainLayout);
         // register left menu
-        perspectiveLayout.registerTargetLayoutComponent(BasicConfig.TARGET_CONTAINER_LEFT, leftMenu);
+        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_CONTAINER_LEFT, leftMenu);
         // register main content
-        perspectiveLayout.registerTargetLayoutComponent(BasicConfig.TARGET_CONTAINER_MAIN, mainContent);
+        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_CONTAINER_MAIN, mainContent);
         log.info("on PostConstruct of PerspectiveTwo");
     }
 

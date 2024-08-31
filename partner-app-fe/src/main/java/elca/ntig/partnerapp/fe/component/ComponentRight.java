@@ -22,7 +22,7 @@
  ************************************************************************/
 package elca.ntig.partnerapp.fe.component;
 
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -45,13 +45,13 @@ import java.util.logging.Logger;
  *
  * @author Andy Moncsek
  */
-@DeclarativeView(id = BasicConfig.COMPONENT_RIGHT,
+@DeclarativeView(id = ApplicationConfig.COMPONENT_RIGHT,
         name = "SimpleView",
         viewLocation = "/fxml/ComponentRight.fxml",
         active = true,
         resourceBundleLocation = "bundles.languageBundle",
         localeID = "en_US",
-        initialTargetLayoutId = BasicConfig.TARGET_CONTAINER_MAIN)
+        initialTargetLayoutId = ApplicationConfig.TARGET_CONTAINER_MAIN)
 public class ComponentRight implements FXComponent {
     private Logger log = Logger.getLogger(ComponentRight.class.getName());
     @Resource

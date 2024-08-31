@@ -22,7 +22,7 @@
  ************************************************************************/
 package elca.ntig.partnerapp.fe.component;
 
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.fragment.DialogFragment;
 import javafx.event.Event;
 import javafx.geometry.Insets;
@@ -46,11 +46,11 @@ import java.util.logging.Logger;
  *
  * @author Andy Moncsek
  */
-@View(id = BasicConfig.COMPONENT_LEFT,
+@View(id = ApplicationConfig.COMPONENT_LEFT,
         name = "SimpleView",
         active = true,
         resourceBundleLocation = "bundles.languageBundle",
-        initialTargetLayoutId = BasicConfig.TARGET_CONTAINER_LEFT)
+        initialTargetLayoutId = ApplicationConfig.TARGET_CONTAINER_LEFT)
 public class ComponentLeft implements FXComponent {
     private Node pane;
     private Logger log = Logger.getLogger(ComponentLeft.class.getName());

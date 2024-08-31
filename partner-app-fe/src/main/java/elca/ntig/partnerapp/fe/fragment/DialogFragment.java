@@ -1,6 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment;
 
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
 import elca.ntig.partnerapp.fe.perspective.PerspectiveTwo;
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 
-@Fragment(id = BasicConfig.DIALOG_FRAGMENT,
+@Fragment(id = ApplicationConfig.DIALOG_FRAGMENT,
         viewLocation = "/fxml/DialogFragment.fxml",
         resourceBundleLocation = "bundles.languageBundle",
         localeID = "en_US",
@@ -28,9 +28,9 @@ public class DialogFragment {
         name.setOnKeyReleased(event->{
             final String nameValue = name.getText();
             if(context.getParentId().equals(PerspectiveOne.ID)) {
-                context.send(PerspectiveOne.ID.concat(".").concat(BasicConfig.STATEFUL_CALLBACK), nameValue);
+                context.send(PerspectiveOne.ID.concat(".").concat(ApplicationConfig.STATEFUL_CALLBACK), nameValue);
             } else {
-                context.send(PerspectiveTwo.ID.concat(".").concat(BasicConfig.STATELESS_CALLBACK), nameValue);
+                context.send(PerspectiveTwo.ID.concat(".").concat(ApplicationConfig.STATELESS_CALLBACK), nameValue);
             }
         });
     }

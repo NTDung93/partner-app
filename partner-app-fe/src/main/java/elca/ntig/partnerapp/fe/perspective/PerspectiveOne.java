@@ -1,7 +1,6 @@
 package elca.ntig.partnerapp.fe.perspective;
 
-import elca.ntig.partnerapp.fe.common.constant.IdentifierConstant;
-import elca.ntig.partnerapp.fe.config.BasicConfig;
+import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import javafx.event.Event;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -31,9 +30,9 @@ import static javafx.scene.layout.Priority.ALWAYS;
 @Perspective(id = PerspectiveOne.ID,
         name = PerspectiveOne.ID,
         components = {
-                BasicConfig.COMPONENT_LEFT,
-                BasicConfig.COMPONENT_RIGHT,
-                BasicConfig.STATEFUL_CALLBACK},
+                ApplicationConfig.COMPONENT_LEFT,
+                ApplicationConfig.COMPONENT_RIGHT,
+                ApplicationConfig.STATEFUL_CALLBACK},
         resourceBundleLocation = "bundles.languageBundle")
 public class PerspectiveOne implements FXPerspective {
     public static final String ID = "PerspectiveOne";
@@ -98,9 +97,9 @@ public class PerspectiveOne implements FXPerspective {
         // Register root component
         perspectiveLayout.registerRootComponent(mainLayout);
         // register left menu
-        perspectiveLayout.registerTargetLayoutComponent(BasicConfig.TARGET_CONTAINER_LEFT, leftMenu);
+        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_CONTAINER_LEFT, leftMenu);
         // register main content
-        perspectiveLayout.registerTargetLayoutComponent(BasicConfig.TARGET_CONTAINER_MAIN, mainContent);
+        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_CONTAINER_MAIN, mainContent);
         log.info("on PostConstruct of PerspectiveOne");
     }
 
