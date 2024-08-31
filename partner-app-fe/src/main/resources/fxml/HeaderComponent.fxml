@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Region?>
 <VBox minHeight="150" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      stylesheets="@../stylesheets/HeaderComponent.css">
+      stylesheets="@../styles/HeaderComponent.css">
     <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
         <Label fx:id="lblSampleText" styleClass="header-sample-text"/>
         <Region HBox.hgrow="ALWAYS"/>

@@ -11,10 +11,12 @@ import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * A sample JacpFX Component
  */
+@Component
 @DeclarativeView(id = HeaderComponent.ID,
         viewLocation = "/fxml/HeaderComponent.fxml",
         resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME,

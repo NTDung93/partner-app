@@ -1,7 +1,6 @@
 package elca.ntig.partnerapp.fe.workbench;
 
-import elca.ntig.partnerapp.fe.perspective.PerspectiveOne;
-import elca.ntig.partnerapp.fe.perspective.PerspectiveTwo;
+import elca.ntig.partnerapp.fe.perspective.SamplePerspective;
 import javafx.event.Event;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -19,8 +18,7 @@ import org.slf4j.LoggerFactory;
 @Workbench(id = PartnerAppWorkbench.ID,
         name = PartnerAppWorkbench.ID,
         perspectives = {
-                PerspectiveOne.ID,
-                PerspectiveTwo.ID,
+                SamplePerspective.ID
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 

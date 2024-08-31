@@ -8,6 +8,6 @@
       style="-fx-background-color: blue;"
       VBox.vgrow="ALWAYS"
       alignment="CENTER"
-      stylesheets="@../stylesheets/SampleFragment.css">
+      stylesheets="@../styles/SampleFragment.css">
     <Label fx:id="lblContentSampleText" styleClass="content-sample-text"/>
 </VBox>
