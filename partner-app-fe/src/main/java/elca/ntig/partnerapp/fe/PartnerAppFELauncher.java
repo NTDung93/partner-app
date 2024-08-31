@@ -25,10 +25,8 @@ public class PartnerAppFELauncher extends AFXSpringJavaConfigLauncher {
         Application.launch(args);
     }
 
-    //This method gives you access to the JavaFX stage. You may define a stylesheet for your application.
     @Override
     public void postInit(Stage stage) {
-
     }
 
     @Override

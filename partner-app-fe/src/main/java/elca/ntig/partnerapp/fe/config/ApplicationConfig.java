@@ -28,15 +28,4 @@ public class ApplicationConfig {
     public static final String TARGET_HEADER_CONTAINER = "HeaderContainer";
     public static final String TARGET_LEFT_MENU_CONTAINER = "LeftMenuContainer";
     public static final String TARGET_RIGHT_CONTENT_CONTAINER = "RightContentContainer";
-
-    public static final String COMPONENT_LEFT = "id002";
-    public static final String COMPONENT_RIGHT = "id003";
-    public static final String STATELESS_CALLBACK = "id004";
-    public static final String STATEFUL_CALLBACK = "id005";
-
-
-    public static final String DIALOG_FRAGMENT = "idD1";
-
-    public static final String TARGET_CONTAINER_LEFT = "PLeft";
-    public static final String TARGET_CONTAINER_MAIN = "PMain";
 }
