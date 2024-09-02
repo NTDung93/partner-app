@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import javafx.event.Event;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Component;
         viewLocation = "/fxml/HeaderComponent.fxml",
         resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME,
         name = HeaderComponent.ID,
-        initialTargetLayoutId = ApplicationConfig.TARGET_HEADER_CONTAINER)
+        initialTargetLayoutId = TargetConstant.TARGET_HEADER_CONTAINER)
 public class HeaderComponent implements FXComponent {
     public static final String ID = "HeaderComponent";
 

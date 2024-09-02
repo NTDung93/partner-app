@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import javafx.event.Event;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 @DeclarativeView(id = MenuComponent.ID,
         viewLocation = "/fxml/MenuComponent.fxml",
         name = MenuComponent.ID,
-        initialTargetLayoutId = ApplicationConfig.TARGET_LEFT_MENU_CONTAINER)
+        initialTargetLayoutId = TargetConstant.TARGET_LEFT_MENU_CONTAINER)
 public class MenuComponent implements FXComponent {
     public static final String ID = "MenuComponent";
 

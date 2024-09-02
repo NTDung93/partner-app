@@ -1,0 +1,7 @@
+.language-button-active {
+    -fx-background-color: blue;
+}
+
+.language-button-inactive {
+    -fx-background-color: grey;
+}

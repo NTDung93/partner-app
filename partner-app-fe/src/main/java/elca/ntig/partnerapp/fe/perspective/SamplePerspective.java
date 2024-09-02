@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.perspective;
 
+import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.component.HeaderComponent;
 import elca.ntig.partnerapp.fe.component.MenuComponent;
 import elca.ntig.partnerapp.fe.component.SampleContentComponent;
@@ -57,8 +58,8 @@ public class SamplePerspective implements FXPerspective {
      */
     public void onStartPerspective(final PerspectiveLayout perspectiveLayout, final FXComponentLayout layout,
                                    final ResourceBundle resourceBundle) {
-        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_HEADER_CONTAINER, vbxHeaderContainer);
-        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_LEFT_MENU_CONTAINER, vbxLeftMenuContainer);
-        perspectiveLayout.registerTargetLayoutComponent(ApplicationConfig.TARGET_RIGHT_CONTENT_CONTAINER, vbxRightContentContainer);
+        perspectiveLayout.registerTargetLayoutComponent(TargetConstant.TARGET_HEADER_CONTAINER, vbxHeaderContainer);
+        perspectiveLayout.registerTargetLayoutComponent(TargetConstant.TARGET_LEFT_MENU_CONTAINER, vbxLeftMenuContainer);
+        perspectiveLayout.registerTargetLayoutComponent(TargetConstant.TARGET_RIGHT_CONTENT_CONTAINER, vbxRightContentContainer);
     }
 }
