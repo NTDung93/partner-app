@@ -41,9 +41,6 @@ public class SamplePerspective implements FXPerspective {
     @FXML
     private VBox vbxRightContentContainer;
 
-    @Autowired
-    private ObservableResourceFactory observableResourceFactory;
-
     @Override
     public void handlePerspective(Message<Event, Object> message, PerspectiveLayout perspectiveLayout) {
 

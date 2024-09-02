@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.LanguageConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.SamplePerspective;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import javafx.event.Event;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -30,7 +31,8 @@ import org.springframework.stereotype.Component;
 @Workbench(id = PartnerAppWorkbench.ID,
         name = PartnerAppWorkbench.ID,
         perspectives = {
-                SamplePerspective.ID
+                ViewPartnerPerspective.ID,
+//                SamplePerspective.ID,
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 
@@ -70,6 +72,7 @@ public class PartnerAppWorkbench implements FXWorkbench {
 
     private Button createLanguageButton(String text, boolean isActive, JACPMenuBar menu) {
         Button button = new Button(text);
+        button.getStyleClass().add(ClassNameConstant.LANGUAGE_BUTTON);
         button.getStyleClass().add(isActive ? ClassNameConstant.LANGUAGE_BUTTON_ACTIVE : ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
 
         button.setOnAction(e -> {
@@ -77,7 +80,7 @@ public class PartnerAppWorkbench implements FXWorkbench {
                     .filter(node -> node instanceof Button)
                     .forEach(node -> {
                         node.getStyleClass().removeAll(ClassNameConstant.LANGUAGE_BUTTON_ACTIVE, ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
-                        node.getStyleClass().add(ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
+                        node.getStyleClass().addAll(ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
                     });
 
             button.getStyleClass().remove(ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
