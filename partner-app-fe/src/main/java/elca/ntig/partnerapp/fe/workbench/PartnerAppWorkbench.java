@@ -31,8 +31,8 @@ import org.springframework.stereotype.Component;
 @Workbench(id = PartnerAppWorkbench.ID,
         name = PartnerAppWorkbench.ID,
         perspectives = {
+                SamplePerspective.ID,
                 ViewPartnerPerspective.ID,
-//                SamplePerspective.ID,
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 

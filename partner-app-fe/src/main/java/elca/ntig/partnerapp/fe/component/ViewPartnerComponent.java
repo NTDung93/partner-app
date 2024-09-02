@@ -3,6 +3,7 @@ package elca.ntig.partnerapp.fe.component;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.FormFragment;
+import elca.ntig.partnerapp.fe.fragment.TableFragment;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
@@ -45,10 +46,15 @@ public class ViewPartnerComponent implements FXComponent {
     private Node initFragment() {
         final VBox container = new VBox();
         VBox.setVgrow(container, Priority.ALWAYS);
-        final ManagedFragmentHandler<FormFragment> handler = context.getManagedFragmentHandler(FormFragment.class);
-        final FormFragment controller = handler.getController();
-        controller.init();
-        container.getChildren().addAll(handler.getFragmentNode());
+
+        final ManagedFragmentHandler<FormFragment> formHandler = context.getManagedFragmentHandler(FormFragment.class);
+        final ManagedFragmentHandler<TableFragment> tableHandler = context.getManagedFragmentHandler(TableFragment.class);
+        final FormFragment formController = formHandler.getController();
+        final TableFragment tableController = tableHandler.getController();
+        formController.init();
+        tableController.init();
+
+        container.getChildren().addAll(formHandler.getFragmentNode(), tableHandler.getFragmentNode());
         return container;
     }
 }

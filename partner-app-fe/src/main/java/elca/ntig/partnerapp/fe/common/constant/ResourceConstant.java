@@ -5,5 +5,6 @@ public class ResourceConstant {
 
     // view location
     public static final String FORM_FRAGMENT_FXML = "/fxml/fragments/FormFragment.fxml";
+    public static final String TABLE_FRAGMENT_FXML = "/fxml/fragments/TableFragment.fxml";
 
 }
