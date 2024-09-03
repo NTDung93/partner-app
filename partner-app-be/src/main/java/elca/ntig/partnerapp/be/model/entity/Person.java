@@ -17,12 +17,12 @@ import java.time.LocalDate;
 @Setter
 public class Person extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PARTNER_ID")
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "PARTNER_ID", referencedColumnName = "PARTNER_ID", nullable = false)
+    @MapsId("id")
+    @JoinColumn(name = "PARTNER_ID")
     private Partner partner;
 
     @Column(name = "LAST_NAME", nullable = false)
