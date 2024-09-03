@@ -11,10 +11,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Partner extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

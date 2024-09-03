@@ -13,10 +13,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

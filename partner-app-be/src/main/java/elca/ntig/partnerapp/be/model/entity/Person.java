@@ -11,10 +11,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person extends BaseEntity{
     @Id
     @Column(name = "PARTNER_ID")
