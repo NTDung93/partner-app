@@ -11,6 +11,7 @@
     <modules>
         <module>partner-app-be</module>
         <module>partner-app-fe</module>
+        <module>partner-app-common</module>
     </modules>
 
     <properties>
