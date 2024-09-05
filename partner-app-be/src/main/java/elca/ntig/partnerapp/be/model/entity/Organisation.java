@@ -2,10 +2,7 @@ package elca.ntig.partnerapp.be.model.entity;
 
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Organisation extends BaseEntity{

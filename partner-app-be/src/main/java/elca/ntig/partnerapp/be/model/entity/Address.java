@@ -4,10 +4,7 @@ import elca.ntig.partnerapp.be.model.enums.addess.AddressType;
 import elca.ntig.partnerapp.be.model.enums.addess.CantonAbbr;
 import elca.ntig.partnerapp.be.model.enums.addess.Country;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address extends BaseEntity{
@@ -24,7 +22,7 @@ public class Address extends BaseEntity{
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "PARTNER_ID", referencedColumnName = "PARTNER_ID", nullable = false)
+    @JoinColumn(name = "PARTNER_ID")
     private Partner partner;
 
     @Enumerated(EnumType.STRING)
