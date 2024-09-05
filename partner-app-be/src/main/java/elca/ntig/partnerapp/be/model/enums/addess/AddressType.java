@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum AddressType {
-    HOME("Home"),
-    WORK("Work"),
-    OTHER("Other");
+    MAIN("PRINCIP"),
+    SECONDARY("SECOND"),
+    CORRESPONDENCE("CORRESP");
 
-    private final String value;
+    private final String code;
 }

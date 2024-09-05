@@ -6,9 +6,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Nationality {
-    FRANCE("FR"),
-    GERMANY("DE"),
-    SWITZERLAND("CH");
+    SWITZERLAND("CH"),
+    GERMAN("DE"),
+    SPANISH("ES"),
+    FRENCH("FR"),
+    BRITISH("GB"),
+    ITALIAN("IT");
 
     private final String code;
 }

@@ -6,20 +6,32 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CantonAbbr {
-    // France (http://www.statoids.com/yfr.html)
-    AIN("AI"),
-    CHARENTE("CT"),
-    GIRONDE("GI"),
-
-    // Germany (https://en.wikipedia.org/wiki/States_of_Germany)
-    BADEN_WURTTEMBERG("BW"),
-    BAVARIA("BY"),
-    BERLIN("BE"),
-
-    // Switzerland (https://en.wikipedia.org/wiki/Cantons_of_Switzerland)
-    ZURICH("ZH"),
+    AARGAU("AG"),
+    APPENZELL_INNER_RHODES("AI"),
+    APPENZELL_OUTER_RHODES("AR"),
     BERN("BE"),
-    GENEVA("GE");
+    BASEL_COUNTRY("BL"),
+    BASEL_CITY("BS"),
+    FRIBOURG("FR"),
+    GENEVA("GE"),
+    GLARUS("GL"),
+    GRISONS("GR"),
+    HJURA("JU"),
+    LUCERNE("LU"),
+    NEUCHATEL("NE"),
+    NIDWALD("NW"),
+    OBWALD("OW"),
+    ST_GALL("SG"),
+    SCHAFFHOUSE("SH"),
+    SOLOTHURN("SO"),
+    SCHWYZ("SZ"),
+    THURGAU("TG"),
+    TESSIN("TI"),
+    URI("UR"),
+    VAUD("VD"),
+    VALAIS("VS"),
+    ZUG("ZG"),
+    ZURICH("ZH");
 
-    private final String value;
+    private final String code;
 }
