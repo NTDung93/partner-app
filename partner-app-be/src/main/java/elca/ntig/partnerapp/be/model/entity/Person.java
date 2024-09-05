@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.model.entity;
 
+import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;
 import lombok.*;
@@ -43,6 +44,7 @@ public class Person extends BaseEntity{
     @Column(name = "AVS_NUMBER", length = 13)
     private String avsNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "MARITAL_STATUS", length = 10)
-    private String maritalStatus;
+    private MaritalStatus maritalStatus;
 }
