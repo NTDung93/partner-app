@@ -12,22 +12,22 @@ public class NationalityConverter implements AttributeConverter<Nationality, Str
     private static Logger logger = Logger.getLogger(NationalityConverter.class);
 
     @Override
-    public String convertToDatabaseColumn(Nationality attribute) {
-        if (attribute == null) {
+    public String convertToDatabaseColumn(Nationality nationalityEnum) {
+        if (nationalityEnum == null) {
             return null;
         }
-        return attribute.getCode();
+        return nationalityEnum.getCode();
     }
 
     @Override
-    public Nationality convertToEntityAttribute(String dbData) {
-        if (dbData == null || dbData.isEmpty()) {
+    public Nationality convertToEntityAttribute(String data) {
+        if (data == null || data.trim().isEmpty()) {
             return null;
         }
         try {
-            return Nationality.toEnumConstant(dbData);
+            return Nationality.toEnumConstant(data);
         } catch (ResourceNotFoundException e) {
-            logger.error("Bugs coming: " + e);
+            logger.error("Bugs coming when convert Nationality: " + e);
             return null;
         }
     }

@@ -20,15 +20,11 @@ public enum Nationality {
     private final String code;
 
     public static Nationality toEnumConstant(String code) {
-        if (code == null || code.isEmpty()) {
-//            throw new IllegalArgumentException("Nationality must not be empty!");
+        if (code == null || code.trim().isEmpty()) {
             return null;
         }
 
-        Nationality[] enumConstants = Nationality.values();
-        List<Nationality> nationalityList = Arrays.asList(enumConstants);
-
-        return nationalityList.stream()
+        return Arrays.stream(Nationality.values())
                 .filter(nationality -> nationality.getCode().equals(code))
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Nationality", "code", code));

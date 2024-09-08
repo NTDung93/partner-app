@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.be.model.entity;
 
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
+import elca.ntig.partnerapp.be.utils.converter.LanguageConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,6 @@ public class Partner extends BaseEntity{
     @Column(name = "PARTNER_ID")
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "LANG", nullable = false, length = 2)
     private Language language;
 

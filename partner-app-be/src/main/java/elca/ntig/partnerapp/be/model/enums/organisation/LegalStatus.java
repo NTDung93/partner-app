@@ -1,7 +1,10 @@
 package elca.ntig.partnerapp.be.model.enums.organisation;
 
+import elca.ntig.partnerapp.be.model.exception.ResourceNotFoundException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
@@ -19,4 +22,15 @@ public enum LegalStatus {
     PUBLIC_LAW_CORPORATION("CORP_PUB");
 
     private final String code;
+
+    public static LegalStatus toEnumConstant(String code) {
+        if (code == null || code.trim().isEmpty()) {
+            return null;
+        }
+
+        return Arrays.stream(LegalStatus.values())
+                .filter(legalStatus -> legalStatus.getCode().equals(code))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("LegalStatus", "code", code));
+    }
 }
