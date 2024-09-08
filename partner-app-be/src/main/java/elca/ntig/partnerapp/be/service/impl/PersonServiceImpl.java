@@ -17,8 +17,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
-//        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
-        Person person = personRepository.findById(id).get();
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
         return personMapper.toPersonResponseDto(person);
     }
 }

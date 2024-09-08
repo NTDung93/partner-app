@@ -3,6 +3,7 @@ package elca.ntig.partnerapp.be.model.entity;
 import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;
+import elca.ntig.partnerapp.be.utils.converter.NationalityConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,7 +35,8 @@ public class Person extends BaseEntity{
     @Column(name = "SEX", nullable = false, length = 1)
     private SexEnum sex;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
+//    @Convert(converter = NationalityConverter.class)
     @Column(name = "NATIONALITY", length = 2)
     private Nationality nationality;
 
