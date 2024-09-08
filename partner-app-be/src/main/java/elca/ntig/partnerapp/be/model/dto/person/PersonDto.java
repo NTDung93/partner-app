@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.model.dto;
+package elca.ntig.partnerapp.be.model.dto.person;
 
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;

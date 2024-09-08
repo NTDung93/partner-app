@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.model.dto;
+package elca.ntig.partnerapp.be.model.dto.organisation;
 
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;

@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Builder
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person extends BaseEntity{

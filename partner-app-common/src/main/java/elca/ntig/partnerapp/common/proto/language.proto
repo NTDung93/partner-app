@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enum.partner";
+
+enum Language {
+  NULL_LANGUAGE = 0;
+  DEUTSCH = 1;
+  ENGLISH = 2;
+  FRENCH = 3;
+  ITALIAN = 4;
+}

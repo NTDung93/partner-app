@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.model.dto;
+package elca.ntig.partnerapp.be.model.dto.address;
 
 import elca.ntig.partnerapp.be.model.enums.addess.AddressType;
 import elca.ntig.partnerapp.be.model.enums.addess.CantonAbbr;

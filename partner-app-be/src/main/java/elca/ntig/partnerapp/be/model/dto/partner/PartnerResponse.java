@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.model.dto;
+package elca.ntig.partnerapp.be.model.dto.partner;
 
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
@@ -7,15 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PartnerDto {
+public class PartnerResponse {
     private Integer id;
     private Language language;
-    private Status status;
     private String phoneNumber;
-    private int version;
+    private Status status;
 }
