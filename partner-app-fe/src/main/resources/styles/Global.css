@@ -1,0 +1,20 @@
+.language-button {
+    -fx-background-color: transparent;
+    -fx-font-weight: bolder;
+    -fx-padding: 3;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.language-button:hover {
+    -fx-background-color: #2dbfe3;
+    -fx-text-fill: white;
+}
+
+.language-button-active {
+    -fx-text-fill: #2dbfe3;
+}
+
+.language-button-inactive {
+    -fx-text-fill: grey;
+}

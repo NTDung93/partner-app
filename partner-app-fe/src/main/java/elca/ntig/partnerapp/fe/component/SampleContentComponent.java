@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.SampleFragment;
@@ -18,7 +19,7 @@ import org.jacpfx.rcp.context.Context;
 @View(id = SampleContentComponent.ID,
         name = SampleContentComponent.ID,
         resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME,
-        initialTargetLayoutId = ApplicationConfig.TARGET_RIGHT_CONTENT_CONTAINER)
+        initialTargetLayoutId = TargetConstant.TARGET_RIGHT_CONTENT_CONTAINER)
 public class SampleContentComponent implements FXComponent {
     public static final String ID = "SampleContentComponent";
 

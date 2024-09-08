@@ -6,6 +6,6 @@
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       VBox.vgrow = "ALWAYS"
-      stylesheets="@../stylesheets/MenuComponent.css">
+      stylesheets="@../styles/MenuComponent.css">
     <Label fx:id="lblMenuSampleText" styleClass="menu-sample-text"/>
 </VBox>

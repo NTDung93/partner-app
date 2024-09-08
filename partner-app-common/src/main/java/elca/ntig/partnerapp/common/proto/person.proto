@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+import "google/protobuf/timestamp.proto";
+import "elca/ntig/partnerapp/common/proto/language.proto";
+import "elca/ntig/partnerapp/common/proto/sex_enum.proto";
+import "elca/ntig/partnerapp/common/proto/marital_status.proto";
+import "elca/ntig/partnerapp/common/proto/status.proto";
+import "elca/ntig/partnerapp/common/proto/nationality.proto";
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
+
+service GreetingService{
+  rpc getPersonById(GetPersonRequest) returns (PersonResponse){
+  }
+}
+
+message GetPersonRequest {
+  uint32 id = 1;
+}
+
+message PersonResponse {
+  uint32 id = 1;
+  string lastName = 2;
+  string firstName = 3;
+  Language language = 4;
+  SexEnum sex = 5;
+  Nationality nationality = 6;
+  string avsNumber = 7;
+  google.protobuf.Timestamp birthDate = 8;
+  MaritalStatus maritalStatus = 9;
+  string phoneNumber = 10;
+  Status status = 11;
+}

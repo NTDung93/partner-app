@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enum.common";
+
+enum Status {
+  NULL_STATUS = 0;
+  ACTIVE = 1;
+  INACTIVE = 2;
+}
