@@ -18,8 +18,9 @@ public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBa
 
     @Override
     public void getPersonById(GetPersonRequest request, StreamObserver<PersonResponse> responseObserver) {
-        PersonResponseDto personResponse = personService.getPersonById(request.getId());
-        responseObserver.onNext(personMapper.toPersonResponse(personResponse));
+        PersonResponseDto personResponseDto = personService.getPersonById(request.getId());
+        PersonResponse personResponse = personMapper.toPersonResponse(personResponseDto);
+        responseObserver.onNext(personResponse);
         responseObserver.onCompleted();
     }
 }

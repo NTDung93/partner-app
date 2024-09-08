@@ -7,8 +7,6 @@ import "sex_enum.proto";
 import "marital_status.proto";
 import "status.proto";
 import "nationality.proto";
-import "local_date.proto";
-import "google/protobuf/timestamp.proto";
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
@@ -30,7 +28,7 @@ message PersonResponse {
   SexEnum sex = 5;
   Nationality nationality = 6;
   string avsNumber = 7;
-  google.protobuf.Timestamp birthDate = 8;
+  string birthDate = 8;
   MaritalStatus maritalStatus = 9;
   string phoneNumber = 10;
   Status status = 11;

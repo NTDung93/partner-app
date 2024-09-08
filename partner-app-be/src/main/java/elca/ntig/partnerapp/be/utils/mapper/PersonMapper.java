@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
+
 import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponse;
@@ -14,6 +15,6 @@ public interface PersonMapper {
     @Mapping(source = "partner.status", target = "status")
     PersonResponseDto toPersonResponseDto(Person person);
 
-    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapLocalDateToTimestamp")
+    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapLocalDateToString")
     PersonResponse toPersonResponse(PersonResponseDto personResponseDto);
 }
