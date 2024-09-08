@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Language {
-    DEUTSCH("DE"),
-    ENGLISH("EN"),
-    FRENCH("FR"),
-    ITALIAN("IT");
+    LANG_DEUTSCH("DE"),
+    LANG_ENGLISH("EN"),
+    LANG_FRENCH("FR"),
+    LANG_ITALIAN("IT");
 
     private final String code;
 }

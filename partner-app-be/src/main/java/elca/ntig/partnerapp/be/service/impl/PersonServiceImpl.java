@@ -1,7 +1,7 @@
 package elca.ntig.partnerapp.be.service.impl;
 
-import elca.ntig.partnerapp.be.mapper.PersonMapper;
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponse;
+import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
+import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.model.exception.ResourceNotFoundException;
 import elca.ntig.partnerapp.be.repository.PersonRepository;
@@ -16,8 +16,9 @@ public class PersonServiceImpl implements PersonService {
     private final PersonMapper personMapper;
 
     @Override
-    public PersonResponse getPersonById(Integer id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
-        return personMapper.toPersonResponse(person);
+    public PersonResponseDto getPersonById(Integer id) {
+//        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
+        Person person = personRepository.findById(id).get();
+        return personMapper.toPersonResponseDto(person);
     }
 }

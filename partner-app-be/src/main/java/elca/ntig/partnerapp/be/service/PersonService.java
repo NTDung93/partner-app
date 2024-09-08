@@ -1,7 +1,7 @@
 package elca.ntig.partnerapp.be.service;
 
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponse;
+import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 
 public interface PersonService {
-    PersonResponse getPersonById(Integer id);
+    PersonResponseDto getPersonById(Integer id);
 }

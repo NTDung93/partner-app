@@ -2,17 +2,18 @@ syntax = "proto3";
 
 package elca.ntig.partnerapp.common.proto;
 
+import "language.proto";
+import "sex_enum.proto";
+import "marital_status.proto";
+import "status.proto";
+import "nationality.proto";
+import "local_date.proto";
 import "google/protobuf/timestamp.proto";
-import "elca/ntig/partnerapp/common/proto/language.proto";
-import "elca/ntig/partnerapp/common/proto/sex_enum.proto";
-import "elca/ntig/partnerapp/common/proto/marital_status.proto";
-import "elca/ntig/partnerapp/common/proto/status.proto";
-import "elca/ntig/partnerapp/common/proto/nationality.proto";
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
 
-service GreetingService{
+service PersonService{
   rpc getPersonById(GetPersonRequest) returns (PersonResponse){
   }
 }
