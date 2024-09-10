@@ -11,8 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public enum SexEnum {
     MALE("M"),
-    FEMALE("F"),
-    NULL_SEX_ENUM(null);
+    FEMALE("F");
 
     private final String code;
 

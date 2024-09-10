@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +22,6 @@ public class SearchPeopleCriteriasDto {
     private SexEnum sex;
     private Nationality nationality;
     private String avsNumber;
-    private String birthDate;
+    private LocalDate birthDate;
     private Status status;
 }

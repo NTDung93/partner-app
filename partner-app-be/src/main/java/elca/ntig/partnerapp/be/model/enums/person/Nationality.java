@@ -15,8 +15,7 @@ public enum Nationality {
     SPANISH("ES"),
     FRENCH("FR"),
     BRITISH("GB"),
-    ITALIAN("IT"),
-    UNRECOGNIZED("UNRECOGNIZED");
+    ITALIAN("IT");
 
     private final String code;
 
