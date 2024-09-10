@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -16,6 +18,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchPeopleCriteriasDto {
+    @NotEmpty(message = "Person's last name cannot be blank")
+    @Size(min = 2, message = "Person's last name must have at least 2 characters")
     private String lastName;
     private String firstName;
     private Language language;
