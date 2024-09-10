@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonResponse {
+public class PersonResponseDto {
     private Integer id;
     private String lastName;
     private String firstName;

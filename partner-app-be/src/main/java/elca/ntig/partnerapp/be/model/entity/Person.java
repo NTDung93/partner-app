@@ -3,6 +3,8 @@ package elca.ntig.partnerapp.be.model.entity;
 import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;
+import elca.ntig.partnerapp.be.utils.converter.NationalityConverter;
+import elca.ntig.partnerapp.be.utils.converter.SexEnumConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person extends BaseEntity{
+public class Person extends BaseEntity {
     @Id
     @Column(name = "PARTNER_ID")
     private Integer id;
@@ -30,11 +32,9 @@ public class Person extends BaseEntity{
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "SEX", nullable = false, length = 1)
     private SexEnum sex;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "NATIONALITY", length = 2)
     private Nationality nationality;
 

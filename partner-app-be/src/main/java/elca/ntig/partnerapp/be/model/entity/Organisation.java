@@ -2,6 +2,9 @@ package elca.ntig.partnerapp.be.model.entity;
 
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;
+import elca.ntig.partnerapp.be.utils.converter.CodeNOGAConverter;
+import elca.ntig.partnerapp.be.utils.converter.LanguageConverter;
+import elca.ntig.partnerapp.be.utils.converter.LegalStatusConverter;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,7 +32,6 @@ public class Organisation extends BaseEntity{
     @Column(name = "ADDITIONAL_NAME")
     private String additionalName;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "LEGAL_STATUS", length = 10)
     private LegalStatus legalStatus;
 
@@ -39,7 +41,6 @@ public class Organisation extends BaseEntity{
     @Column(name = "IDE_NUMBER", length = 13)
     private String ideNumber;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "CODE_NOGA", length = 10)
     private CodeNOGA codeNoga;
 }

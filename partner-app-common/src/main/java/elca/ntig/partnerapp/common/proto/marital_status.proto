@@ -3,9 +3,9 @@ syntax = "proto3";
 package elca.ntig.partnerapp.common.proto;
 
 option java_multiple_files = true;
-option java_package = "elca.ntig.partnerapp.common.proto.enum.person";
+option java_package = "elca.ntig.partnerapp.common.proto.enums.person";
 
-enum MaritalStatus {
+enum MaritalStatusProto {
     NULL_MARITAL_STATUS = 0;
     SINGLE = 1;
     MARRIED = 2;
