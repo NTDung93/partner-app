@@ -1,14 +1,20 @@
 package elca.ntig.partnerapp.be.controller;
 
+import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
+import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
 import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 import elca.ntig.partnerapp.be.service.PersonService;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequest;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponse;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -17,10 +23,19 @@ public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBa
     private final PersonMapper personMapper;
 
     @Override
-    public void getPersonById(GetPersonRequest request, StreamObserver<PersonResponse> responseObserver) {
+    public void getPersonById(GetPersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
         PersonResponseDto personResponseDto = personService.getPersonById(request.getId());
-        PersonResponse personResponse = personMapper.toPersonResponse(personResponseDto);
-        responseObserver.onNext(personResponse);
+        PersonResponseProto personResponseProto = personMapper.toPersonResponseProto(personResponseDto);
+        responseObserver.onNext(personResponseProto);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void searchPeoplePagination(SearchPeoplePaginationRequestProto request, StreamObserver<SearchPeoplePaginationResponseProto> responseObserver) {
+        SearchPeopleCriteriasDto searchPeopleCriterias = personMapper.toSearchPeopleCriteriasDto(request.getCriterias());
+        SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto = personService.searchPeoplePagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchPeopleCriterias);
+        SearchPeoplePaginationResponseProto searchPeoplePaginationResponse = personMapper.toSearchPeoplePaginationResponse(searchPeoplePaginationResponseDto);
+        responseObserver.onNext(searchPeoplePaginationResponse);
         responseObserver.onCompleted();
     }
 }

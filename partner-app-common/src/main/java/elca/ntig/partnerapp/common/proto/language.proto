@@ -5,7 +5,7 @@ package elca.ntig.partnerapp.common.proto;
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.enums.partner";
 
-enum Language {
+enum LanguageProto {
   NULL_LANGUAGE = 0;
   LANG_DEUTSCH = 1;
   LANG_ENGLISH = 2;
