@@ -1,8 +1,8 @@
 package elca.ntig.partnerapp.be.model.exception;
 
 import io.grpc.Metadata;
-import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
+import io.grpc.Status;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
 
@@ -10,12 +10,14 @@ import javax.validation.ConstraintViolationException;
 
 @GrpcAdvice
 public class GrpcExceptionAdvice {
+    private static final Metadata.Key<String> KEY_NAME = Metadata.Key.of("key", Metadata.ASCII_STRING_MARSHALLER);
+
     @GrpcExceptionHandler(ResourceNotFoundException.class)
     public StatusRuntimeException handleResourceNotFoundException(ResourceNotFoundException e) {
+
         Status status = Status.NOT_FOUND.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();
-        Metadata.Key<String> key = Metadata.Key.of("key", Metadata.ASCII_STRING_MARSHALLER);
-        metadata.put(key, e.getMessage());
+        metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);
     }
 
@@ -24,8 +26,7 @@ public class GrpcExceptionAdvice {
 
         Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();
-        Metadata.Key<String> key = Metadata.Key.of("key", Metadata.ASCII_STRING_MARSHALLER);
-        metadata.put(key, e.getMessage());
+        metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);
     }
 }

@@ -64,3 +64,9 @@ message SearchPeoplePaginationResponseProto {
   bool last = 5;
   repeated PersonResponseProto content = 6;
 }
+
+message CustomErrorPerson {
+  string code = 1;
+  string message = 2;
+  string timestamp = 3;
+}
