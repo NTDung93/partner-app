@@ -1,6 +1,7 @@
 package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
+import elca.ntig.partnerapp.fe.common.enums.Language;
 import elca.ntig.partnerapp.fe.config.ApplicationConfig;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import javafx.event.Event;
@@ -52,10 +53,10 @@ public class HeaderComponent implements FXComponent {
     public void onPostConstructComponent() {
         lblSampleText.textProperty().bind(observableResourceFactory.getStringBinding("SamplePerspective.HeaderComponent.lbl.sampleText"));
         lblEn.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.EN);
+            observableResourceFactory.switchResourceByLanguage(Language.EN);
         });
         lblFr.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR);
+            observableResourceFactory.switchResourceByLanguage(Language.FR);
         });
     }
 }
