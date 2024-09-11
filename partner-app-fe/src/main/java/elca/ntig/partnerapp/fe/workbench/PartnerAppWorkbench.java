@@ -2,6 +2,8 @@ package elca.ntig.partnerapp.fe.workbench;
 
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.LanguageConstant;
+import elca.ntig.partnerapp.fe.common.enums.Language;
+import elca.ntig.partnerapp.fe.common.enums.Resolution;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.SamplePerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
@@ -38,12 +40,6 @@ public class PartnerAppWorkbench implements FXWorkbench {
 
     public static final String ID = "PartnerAppWorkbench";
 
-    private static final int RECOMMENDED_WIDTH = 1920;
-    private static final int RECOMMENDED_HEIGHT = 960;
-
-    private static final int DEGRADED_WIDTH = 1280;
-    private static final int DEGRADED_HEIGHT = 720;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(PartnerAppWorkbench.class);
 
     @Autowired
@@ -51,7 +47,7 @@ public class PartnerAppWorkbench implements FXWorkbench {
 
     @Override
     public void handleInitialLayout(final Message<Event, Object> action, final WorkbenchLayout<Node> layout, final Stage stage) {
-        Resolution resolution = resolutionByPrimaryScreenBounds();
+        Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
         stage.setMaximized(true);
         layout.setWorkbenchXYSize(resolution.width(), resolution.height());
         layout.setStyle(StageStyle.DECORATED);
@@ -86,41 +82,15 @@ public class PartnerAppWorkbench implements FXWorkbench {
             button.getStyleClass().remove(ClassNameConstant.LANGUAGE_BUTTON_INACTIVE);
             button.getStyleClass().add(ClassNameConstant.LANGUAGE_BUTTON_ACTIVE);
 
-            ObservableResourceFactory.Language language = LanguageConstant.FR.equals(text)
-                    ? ObservableResourceFactory.Language.FR
-                    : ObservableResourceFactory.Language.EN;
+            Language language = LanguageConstant.FR.equals(text)
+                    ? Language.FR
+                    : Language.EN;
             observableResourceFactory.switchResourceByLanguage(language);
         });
 
         return button;
     }
 
-    private Resolution resolutionByPrimaryScreenBounds() {
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        LOGGER.debug("Screen size: " + primScreenBounds.getMaxX() + "x" + primScreenBounds.getMaxY());
-        if (primScreenBounds.getMaxX() >= Resolution.RECOMMENDED.width()) {
-            return Resolution.RECOMMENDED;
-        }
-        return Resolution.DEGRADED;
-    }
 
-    private enum Resolution {
-        RECOMMENDED(RECOMMENDED_WIDTH, RECOMMENDED_HEIGHT), DEGRADED(DEGRADED_WIDTH, DEGRADED_HEIGHT);
 
-        private final int width;
-        private final int height;
-
-        Resolution(int width, int height) {
-            this.width = width;
-            this.height = height;
-        }
-
-        public int width() {
-            return width;
-        }
-
-        public int height() {
-            return height;
-        }
-    }
 }

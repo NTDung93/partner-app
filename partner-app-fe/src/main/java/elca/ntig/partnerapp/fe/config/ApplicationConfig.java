@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.config;
 
+import elca.ntig.partnerapp.fe.common.enums.Language;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import org.springframework.context.annotation.Bean;
 
@@ -12,7 +13,7 @@ public class ApplicationConfig {
     @Bean
     public ObservableResourceFactory observableResourceFactory() {
         ObservableResourceFactory observableResourceFactory = new ObservableResourceFactory();
-        observableResourceFactory.switchResourceByLanguage(ObservableResourceFactory.Language.FR);
+        observableResourceFactory.switchResourceByLanguage(Language.FR);
         return observableResourceFactory;
     }
 }

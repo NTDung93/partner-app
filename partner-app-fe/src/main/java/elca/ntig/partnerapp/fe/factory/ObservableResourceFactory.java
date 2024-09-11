@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.factory;
 
+import elca.ntig.partnerapp.fe.common.enums.Language;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -39,16 +40,5 @@ public class ObservableResourceFactory {
         };
     }
 
-    public enum Language {
-        FR(Locale.FRENCH), EN(Locale.ENGLISH);
-        private Locale locale;
 
-        Language(Locale locale) {
-            this.locale = locale;
-        }
-
-        public Locale getLocale() {
-            return locale;
-        }
-    }
 }
