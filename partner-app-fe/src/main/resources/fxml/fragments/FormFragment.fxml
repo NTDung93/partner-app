@@ -15,11 +15,13 @@
       xmlns:fx="http://javafx.com/fxml"
       styleClass="root"
       stylesheets="@../../styles/fragments/FormFragment.css">
+
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
-        <Label fx:id="fragmentTitle" styleClass="fragment-title"/>
+        <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
     </HBox>
 
     <GridPane hgap="100" vgap="20" alignment="CENTER">
+        <!-- First Column -->
         <Label text="Type *:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1">
             <items>

@@ -7,27 +7,13 @@
     -fx-padding: 0 0 20 0;
 }
 
-.fragment-title{
-    -fx-font-size: 20px;
+.header-section-title{
+    -fx-font-size: 20;
     -fx-font-weight: 600;
-}
-
-.hbox {
-    -fx-spacing: 5;
-}
-
-.hbox[alignment="CENTER_RIGHT"] {
-    -fx-spacing: 10;
-}
-
-.gridpane {
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-    -fx-alignment: CENTER;
 }
 
 .text-field,
 .combo-box,
 .date-picker {
-    -fx-pref-width: 200px; /* Adjust this value as needed */
+    -fx-pref-width: 200;
 }
