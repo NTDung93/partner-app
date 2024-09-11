@@ -11,19 +11,34 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <VBox
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      styleClass="root"
-      stylesheets="@../../styles/fragments/FormFragment.css">
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        styleClass="root"
+        stylesheets="@../../styles/fragments/FormFragment.css">
 
+    <!-- Header Section-->
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
         <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
     </HBox>
 
-    <GridPane hgap="100" vgap="20" alignment="CENTER">
-        <!-- First Column -->
-        <Label text="Type *:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+    <GridPane hgap="15" vgap="20" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" percentWidth="10.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="30.0"/>
+            <ColumnConstraints halignment="RIGHT" percentWidth="20.0"/>
+            <ColumnConstraints percentWidth="10.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
+        </columnConstraints>
+
+        <!-- Create Partner Button -->
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="5">
+            <Button text="Effacer critères"/>
+        </HBox>
+
+        <!-- Left Section -->
+        <Label text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Personne"/>
@@ -32,24 +47,24 @@
             </items>
         </ComboBox>
 
-        <Label text="Nom *:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-        <Label text="Prénom:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Numéro AVS:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Prénom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <Label text="Statut:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <HBox spacing="5" GridPane.rowIndex="4" GridPane.columnIndex="1">
+        <Label text="Numéro AVS" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="5" GridPane.columnIndex="1">
             <CheckBox text="Actif"/>
             <CheckBox text="Inactif"/>
         </HBox>
 
-        <!-- Second Column -->
-        <Label text="Langue de correspondance:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-        <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="3">
+        <!-- Right Section -->
+        <Label text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="4">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Choisir"/>
@@ -59,8 +74,8 @@
             </items>
         </ComboBox>
 
-        <Label text="Sexe:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="3">
+        <Label text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+        <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="4">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Choisir"/>
@@ -70,8 +85,8 @@
             </items>
         </ComboBox>
 
-        <Label text="Nationalité:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-        <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">
+        <Label text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        <ComboBox GridPane.rowIndex="3" GridPane.columnIndex="4">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Choisir"/>
@@ -79,12 +94,14 @@
             </items>
         </ComboBox>
 
-        <Label text="Date naissance:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
-        <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        <Label text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+        <DatePicker GridPane.rowIndex="4" GridPane.columnIndex="4"/>
 
         <!-- Buttons Section -->
-        <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+        <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
             <Button text="Effacer critères"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
             <Button text="Rechercher"/>
         </HBox>
     </GridPane>

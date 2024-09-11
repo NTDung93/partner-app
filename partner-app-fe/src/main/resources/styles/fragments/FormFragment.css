@@ -12,8 +12,15 @@
     -fx-font-weight: 600;
 }
 
-.text-field,
-.combo-box,
-.date-picker {
-    -fx-pref-width: 200;
+TextField,
+ComboBox,
+DatePicker {
+    -fx-pref-width: 1000;
+    -fx-background-color: transparent;
+    -fx-border-color: #afafaf;
+}
+
+Label {
+    -fx-text-fill: #afafaf;
+    -fx-font-size: 16;
 }
