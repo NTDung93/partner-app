@@ -3,10 +3,87 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.Label?>
-<HBox style="-fx-background-color: orange;"
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<VBox
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      HBox.hgrow="ALWAYS"
+      styleClass="root"
       stylesheets="@../../styles/fragments/FormFragment.css">
-    <Label fx:id="fragmentTitle" styleClass="fragment-title"/>
-</HBox>
+    <HBox styleClass="header-section" alignment="CENTER_LEFT">
+        <Label fx:id="fragmentTitle" styleClass="fragment-title"/>
+    </HBox>
+
+    <GridPane hgap="100" vgap="20" alignment="CENTER">
+        <Label text="Type *:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Personne"/>
+                    <String fx:value="Société"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Nom *:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Prénom:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Numéro AVS:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Statut:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <HBox spacing="5" GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <CheckBox text="Actif"/>
+            <CheckBox text="Inactif"/>
+        </HBox>
+
+        <!-- Second Column -->
+        <Label text="Langue de correspondance:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="3">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Choisir"/>
+                    <String fx:value="Français"/>
+                    <String fx:value="Anglais"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Sexe:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="3">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Choisir"/>
+                    <String fx:value="Masculin"/>
+                    <String fx:value="Féminin"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Nationalité:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="3">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Choisir"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Label text="Date naissance:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+        <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+        <!-- Buttons Section -->
+        <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+            <Button text="Effacer critères"/>
+            <Button text="Rechercher"/>
+        </HBox>
+    </GridPane>
+</VBox>

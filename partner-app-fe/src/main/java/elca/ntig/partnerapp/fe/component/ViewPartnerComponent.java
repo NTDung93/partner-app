@@ -54,7 +54,7 @@ public class ViewPartnerComponent implements FXComponent {
         formController.init();
         tableController.init();
 
-        container.getChildren().addAll(formHandler.getFragmentNode(), tableHandler.getFragmentNode());
+        container.getChildren().addAll(formHandler.getFragmentNode());
         return container;
     }
 }
