@@ -1,12 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.Label?>
-<VBox style="-fx-background-color: green;"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      VBox.vgrow="ALWAYS"
-      stylesheets="@../../styles/fragments/TableFragment.css">
-    <Label fx:id="tableName" styleClass="table-name"/>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Pagination?>
+<VBox
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        styleClass="root"
+        VBox.vgrow="ALWAYS"
+        stylesheets="@../../styles/fragments/TableFragment.css">
+
+    <!-- Header Section-->
+    <HBox styleClass="header-section" alignment="CENTER_LEFT">
+        <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label styleClass="export-label" text="Exporter en Excel" fx:id="exportLabel"/>
+    </HBox>
+
+    <!-- Table Section -->
+    <TableView fx:id="partnersTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="baseNumberColumn" text="N° Base" prefWidth="50">
+                <cellValueFactory>
+                    <PropertyValueFactory property="baseNumber"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="lastNameColumn" text="Nom" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="lastName"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="firstNameColumn" text="Prénom" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="firstName"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="languageColumn" text="Langue" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="language"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="genderColumn" text="Sexe" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="gender"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="nationalityColumn" text="Nationalité" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nationality"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="avsNumberColumn" text="No AVS" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="avsNumber"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="birthDateColumn" text="Date naissance" prefWidth="120">
+                <cellValueFactory>
+                    <PropertyValueFactory property="birthDate"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="civilStatusColumn" text="Etat civil" prefWidth="120">
+                <cellValueFactory>
+                    <PropertyValueFactory property="civilStatus"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="phoneNumberColumn" text="Numéro téléphone" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="phoneNumber"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusColumn" text="Statut" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="deleteIconColumn" text="" prefWidth="50">
+                <cellValueFactory>
+                    <PropertyValueFactory property="deleteIcon"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <!-- Pagination Section -->
+    <Pagination fx:id="pagination" pageCount="1" maxPageIndicatorCount="5" HBox.hgrow="ALWAYS" />
 </VBox>

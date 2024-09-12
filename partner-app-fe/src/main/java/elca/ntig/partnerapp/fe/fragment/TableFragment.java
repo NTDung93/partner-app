@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import javafx.scene.control.TableColumn;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,10 +21,73 @@ public class TableFragment {
     private ObservableResourceFactory observableResourceFactory;
 
     @FXML
-    private Label tableName;
+    private Label fragmentTitle;
+
+    @FXML
+    private Label exportLabel;
+
+    @FXML
+    private TableColumn<?, ?> baseNumberColumn;
+
+    @FXML
+    private TableColumn<?, ?> lastNameColumn;
+
+    @FXML
+    private TableColumn<?, ?> firstNameColumn;
+
+    @FXML
+    private TableColumn<?, ?> languageColumn;
+
+    @FXML
+    private TableColumn<?, ?> genderColumn;
+
+    @FXML
+    private TableColumn<?, ?> nationalityColumn;
+
+    @FXML
+    private TableColumn<?, ?> avsNumberColumn;
+
+    @FXML
+    private TableColumn<?, ?> birthDateColumn;
+
+    @FXML
+    private TableColumn<?, ?> civilStatusColumn;
+
+    @FXML
+    private TableColumn<?, ?> phoneNumberColumn;
+
+    @FXML
+    private TableColumn<?, ?> statusColumn;
+
+    @FXML
+    private TableColumn<?, ?> deleteIconColumn;
 
     public void init(){
-        tableName.textProperty()
-                .bind(observableResourceFactory.getStringBinding("TableFragment.lbl.tableName"));
+        fragmentTitle.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.lbl.fragmentTitle"));
+        exportLabel.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.lbl.exportLabel"));
+        baseNumberColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.baseNumber"));
+        lastNameColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.lastName"));
+        firstNameColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.firstName"));
+        languageColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.language"));
+        genderColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.gender"));
+        nationalityColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.nationality"));
+        avsNumberColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.avsNumber"));
+        birthDateColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.birthDate"));
+        civilStatusColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.civilStatus"));
+        phoneNumberColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.phoneNumber"));
+        statusColumn.textProperty()
+                .bind(observableResourceFactory.getStringBinding("TableFragment.col.status"));
     }
 }

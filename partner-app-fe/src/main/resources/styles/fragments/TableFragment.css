@@ -1,0 +1,47 @@
+.root {
+    -fx-padding: 0 40 20;
+}
+
+.header-section {
+    -fx-padding: 0 0 20 0;
+}
+
+.header-section-title {
+    -fx-font-size: 20;
+    -fx-font-weight: 600;
+    -fx-text-fill: black;
+}
+
+.export-label {
+    -fx-text-fill: blue;
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+.table-view {
+    -fx-padding: 10 0;
+}
+
+.table-column {
+    -fx-font-size: 12;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f2f2f2;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+.table-cell {
+    -fx-padding: 5;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.pagination {
+    -fx-padding: 10 0 0 0;
+    -fx-alignment: CENTER;
+}
+
