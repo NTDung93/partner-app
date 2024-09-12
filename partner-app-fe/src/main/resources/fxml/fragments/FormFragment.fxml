@@ -33,11 +33,11 @@
 
         <!-- Create Partner Button -->
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="5">
-            <Button styleClass="create-person-button" text="Nouvelle personne" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="create-person-button" fx:id="createPersonButton" text="Nouvelle personne" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Left Section -->
-        <Label text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label fx:id="typeLabel" text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
             <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
@@ -49,23 +49,23 @@
             </ComboBox>
         </HBox>
 
-        <Label text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label fx:id="lastNameLabel" text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Prénom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label fx:id="firstNameLabel" text="Prénom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <TextField GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <Label text="Numéro AVS" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <Label fx:id="avsNumberLabel" text="Numéro AVS" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
         <TextField promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-        <Label text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <Label fx:id="statusLabel" text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
         <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="5" GridPane.columnIndex="1">
             <CheckBox text="Actif"/>
             <CheckBox text="Inactif"/>
         </HBox>
 
         <!-- Right Section -->
-        <Label text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <Label fx:id="correspondenceLanguageLabel" text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
             <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
@@ -78,7 +78,7 @@
             </ComboBox>
         </HBox>
 
-        <Label text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+        <Label fx:id="sexLabel" text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
             <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
@@ -91,7 +91,7 @@
             </ComboBox>
         </HBox>
 
-        <Label text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        <Label fx:id="nationalityLabel" text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">
             <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
@@ -102,15 +102,15 @@
             </ComboBox>
         </HBox>
 
-        <Label text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+        <Label fx:id="birthDateLabel" text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
         <DatePicker GridPane.rowIndex="4" GridPane.columnIndex="4"/>
 
         <!-- Buttons Section -->
         <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
-            <Button styleClass="remove-criterias-button" text="Effacer critères" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="remove-criterias-button" fx:id="removeCriteriasButton" text="Effacer critères" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
-            <Button styleClass="search-button" text="Rechercher" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="search-button" fx:id="searchButton" text="Rechercher" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>
     </GridPane>
