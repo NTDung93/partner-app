@@ -13,7 +13,7 @@
 }
 
 Label {
-    -fx-text-fill: #afafaf;
+    -fx-text-fill: grey;
     -fx-font-size: 16;
 }
 
@@ -21,7 +21,7 @@ TextField,
 ComboBox,
 DatePicker {
     -fx-background-color: transparent;
-    -fx-border-color: #afafaf;
+    -fx-border-color: grey;
 }
 
 CheckBox {
@@ -43,7 +43,7 @@ Button{
 }
 
 .remove-criterias-button {
-    -fx-background-color: #afafaf;
+    -fx-background-color: grey;
     -fx-font-size: 15;
     -fx-text-fill: black;
 }

@@ -3,7 +3,7 @@
 }
 
 .header-section {
-    -fx-padding: 0 0 20 0;
+    -fx-padding: 0 0 10 0;
 }
 
 .header-section-title {
@@ -20,28 +20,21 @@
 }
 
 .table-view {
-    -fx-padding: 10 0;
+    -fx-background-color: transparent;
 }
 
-.table-column {
-    -fx-font-size: 12;
+.column-header-background {
+    -fx-background-color: transparent;
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #f2f2f2;
+.column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgrey transparent lightgrey transparent;
 }
 
-.table-row-cell:even {
-    -fx-background-color: #ffffff;
-}
-
-.table-cell {
+.column-header .label {
+    -fx-text-fill: grey;
+    -fx-font-weight: normal;
     -fx-padding: 5;
-    -fx-alignment: CENTER_LEFT;
-}
-
-.pagination {
-    -fx-padding: 10 0 0 0;
-    -fx-alignment: CENTER;
 }
 

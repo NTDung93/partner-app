@@ -27,31 +27,31 @@ public class TableFragment {
     private Label exportLabel;
 
     @FXML
-    private TableColumn<?, ?> baseNumberColumn;
+    private TableColumn<?, String> baseNumberColumn;
 
     @FXML
-    private TableColumn<?, ?> lastNameColumn;
+    private TableColumn<?, String> lastNameColumn;
 
     @FXML
-    private TableColumn<?, ?> firstNameColumn;
+    private TableColumn<?, String> firstNameColumn;
 
     @FXML
-    private TableColumn<?, ?> languageColumn;
+    private TableColumn<?, String> languageColumn;
 
     @FXML
-    private TableColumn<?, ?> genderColumn;
+    private TableColumn<?, String> genderColumn;
 
     @FXML
-    private TableColumn<?, ?> nationalityColumn;
+    private TableColumn<?, String> nationalityColumn;
 
     @FXML
-    private TableColumn<?, ?> avsNumberColumn;
+    private TableColumn<?, String> avsNumberColumn;
 
     @FXML
-    private TableColumn<?, ?> birthDateColumn;
+    private TableColumn<?, String> birthDateColumn;
 
     @FXML
-    private TableColumn<?, ?> civilStatusColumn;
+    private TableColumn<?, String> civilStatusColumn;
 
     @FXML
     private TableColumn<?, ?> phoneNumberColumn;
@@ -62,7 +62,7 @@ public class TableFragment {
     @FXML
     private TableColumn<?, ?> deleteIconColumn;
 
-    public void init(){
+    public void init() {
         fragmentTitle.textProperty()
                 .bind(observableResourceFactory.getStringBinding("TableFragment.lbl.fragmentTitle"));
         exportLabel.textProperty()
