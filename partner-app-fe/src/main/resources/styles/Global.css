@@ -4,6 +4,7 @@
     -fx-padding: 3;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
+    -fx-cursor: hand;
 }
 
 .language-button:hover {

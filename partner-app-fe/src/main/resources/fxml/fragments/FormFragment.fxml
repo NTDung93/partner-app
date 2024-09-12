@@ -24,28 +24,30 @@
     <GridPane hgap="15" vgap="20" alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" percentWidth="10.0"/>
-            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="10.0"/>
             <ColumnConstraints percentWidth="30.0"/>
             <ColumnConstraints halignment="RIGHT" percentWidth="20.0"/>
-            <ColumnConstraints percentWidth="10.0"/>
-            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="8.0"/>
+            <ColumnConstraints percentWidth="12.0"/>
         </columnConstraints>
 
         <!-- Create Partner Button -->
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="5">
-            <Button text="Effacer critères"/>
+            <Button styleClass="create-person-button" text="Nouvelle personne" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Left Section -->
         <Label text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="1">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Personne"/>
-                    <String fx:value="Société"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Personne"/>
+                        <String fx:value="Société"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
 
         <Label text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
@@ -64,45 +66,52 @@
 
         <!-- Right Section -->
         <Label text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-        <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="4">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Choisir"/>
-                    <String fx:value="Français"/>
-                    <String fx:value="Anglais"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
+            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Choisir"/>
+                        <String fx:value="Français"/>
+                        <String fx:value="Anglais"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
 
         <Label text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-        <ComboBox GridPane.rowIndex="2" GridPane.columnIndex="4">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Choisir"/>
-                    <String fx:value="Masculin"/>
-                    <String fx:value="Féminin"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
+            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Choisir"/>
+                        <String fx:value="Masculin"/>
+                        <String fx:value="Féminin"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
 
         <Label text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
-        <ComboBox GridPane.rowIndex="3" GridPane.columnIndex="4">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Choisir"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">
+            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Choisir"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
 
         <Label text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
         <DatePicker GridPane.rowIndex="4" GridPane.columnIndex="4"/>
 
         <!-- Buttons Section -->
         <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
-            <Button text="Effacer critères"/>
+            <Button styleClass="remove-criterias-button" text="Effacer critères" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
-            <Button text="Rechercher"/>
+            <Button styleClass="search-button" text="Rechercher" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS"/>
         </HBox>
     </GridPane>
 </VBox>

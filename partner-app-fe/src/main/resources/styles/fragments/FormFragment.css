@@ -10,17 +10,47 @@
 .header-section-title{
     -fx-font-size: 20;
     -fx-font-weight: 600;
-}
-
-TextField,
-ComboBox,
-DatePicker {
-    -fx-pref-width: 1000;
-    -fx-background-color: transparent;
-    -fx-border-color: #afafaf;
+    -fx-text-fill: black;
 }
 
 Label {
     -fx-text-fill: #afafaf;
     -fx-font-size: 16;
+}
+
+TextField,
+ComboBox,
+DatePicker {
+    -fx-background-color: transparent;
+    -fx-border-color: #afafaf;
+}
+
+CheckBox {
+    -fx-font-size: 16px;
+}
+
+Button{
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+}
+
+.create-person-button{
+    -fx-background-color: #74b251;
+    -fx-opacity: 0.7;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
+
+.remove-criterias-button {
+    -fx-background-color: #afafaf;
+    -fx-font-size: 15;
+    -fx-text-fill: black;
+}
+
+.search-button {
+    -fx-background-color: #0e6969;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
 }
