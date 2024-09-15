@@ -23,17 +23,18 @@
 
     <GridPane hgap="15" vgap="20" alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" percentWidth="10.0"/>
-            <ColumnConstraints percentWidth="10.0"/>
-            <ColumnConstraints percentWidth="30.0"/>
-            <ColumnConstraints halignment="RIGHT" percentWidth="20.0"/>
-            <ColumnConstraints percentWidth="8.0"/>
+            <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="18.0"/>
+            <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
             <ColumnConstraints percentWidth="12.0"/>
         </columnConstraints>
 
         <!-- Create Partner Button -->
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="5">
-            <Button styleClass="create-person-button" fx:id="createPersonButton" text="Nouvelle personne" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="create-person-button" fx:id="createPersonButton" text="Nouvelle personne"
+                    maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Left Section -->
@@ -65,7 +66,8 @@
         </HBox>
 
         <!-- Right Section -->
-        <Label fx:id="correspondenceLanguageLabel" text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <Label fx:id="correspondenceLanguageLabel" text="Langue de correspondance" GridPane.rowIndex="1"
+               GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
             <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
@@ -97,14 +99,18 @@
         </HBox>
 
         <Label fx:id="birthDateLabel" text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
-        <DatePicker GridPane.rowIndex="4" GridPane.columnIndex="4"/>
+        <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
+            <DatePicker fx:id="birthDatePicker" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
 
         <!-- Buttons Section -->
         <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
-            <Button styleClass="remove-criterias-button" fx:id="removeCriteriasButton" text="Effacer critères" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="remove-criterias-button" fx:id="removeCriteriasButton" text="Effacer critères"
+                    maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
-            <Button styleClass="search-button" fx:id="searchButton" text="Rechercher" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="search-button" fx:id="searchButton" text="Rechercher" maxWidth="Infinity"
+                    HBox.hgrow="ALWAYS"/>
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>
     </GridPane>
