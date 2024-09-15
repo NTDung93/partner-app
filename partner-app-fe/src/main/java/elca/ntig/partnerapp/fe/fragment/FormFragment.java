@@ -1,27 +1,25 @@
 package elca.ntig.partnerapp.fe.fragment;
 
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
+import elca.ntig.partnerapp.fe.common.cell.LanguageCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.SimpleObjectProperty;
+import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.util.StringConverter;
+import lombok.RequiredArgsConstructor;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Component
 @Fragment(id = FormFragment.ID,
@@ -32,6 +30,10 @@ public class FormFragment {
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
+    public final static String RESOURCE_BUNDLE_NAME = "bundles/languageBundle";
+
+//    @Autowired
+//    private BindingHelper bindingHelper;
 
     @FXML
     private Label fragmentTitle;
@@ -84,13 +86,12 @@ public class FormFragment {
     @FXML
     private ComboBox<NationalityProto> nationalityComboBox;
 
-//    private SimpleStringProperty personType = new SimpleStringProperty();
-//    private SimpleStringProperty organisationType = new SimpleStringProperty();
-
-    public void init(){
+    public void init() {
         // Bind text properties to resource bundle
         fragmentTitle.textProperty()
                 .bind(observableResourceFactory.getStringBinding("FormFragment.lbl.fragmentTitle"));
+//        fragmentTitle.textProperty()
+//                .bind(bindingHelper.textBinding("FormFragment.lbl.fragmentTitle"));
         createPersonButton.textProperty()
                 .bind(observableResourceFactory.getStringBinding("FormFragment.btn.createPerson"));
         typeLabel.textProperty()
@@ -121,21 +122,20 @@ public class FormFragment {
                 .bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
         nationalityComboBox.promptTextProperty()
                 .bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
-        // set default value for type comboBox
-        typeComboBox.setValue(typeComboBox.getItems().get(0));
 
-        // set ComboBox items to Enum values
-        languageComboBox.getItems().setAll(LanguageProto.values());
+        languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().remove(LanguageProto.NULL_LANGUAGE);
-        languageComboBox.getItems().remove(LanguageProto.values().length - 2);
-
+        languageComboBox.getItems().remove(LanguageProto.UNRECOGNIZED);
+        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == null) {
+                languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
+            }
+        });
         languageComboBox.setConverter(new StringConverter<LanguageProto>() {
             @Override
             public String toString(LanguageProto language) {
                 String value = language.getValueDescriptor().toString().substring(5).toLowerCase();
-                SimpleStringProperty stringProperty = new SimpleStringProperty(value);
-                stringProperty.bind(observableResourceFactory.getStringBinding("Enum.language." + value));
-                return stringProperty.getValue().substring(0, 1).toUpperCase() + stringProperty.getValue().substring(1);
+                return value.substring(0, 1).toUpperCase() + value.substring(1);
             }
 
             @Override
@@ -143,24 +143,7 @@ public class FormFragment {
                 return LanguageProto.valueOf("LANGUAGE_" + string.toUpperCase());
             }
         });
-
-        // Ensure default value is NULL_LANGUAGE if not selected
-        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal == null) {
-                languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
-            }
-        });
-
-
-//        searchButton.setOnAction(event -> {
-//            SearchPeopleCriteriasProto searchPeopleCriteriasProto = SearchPeopleCriteriasProto.newBuilder()
-//                    .setFirstName("John")
-//                    .setLastName("Doe")
-//                    .build();
-//        }
+//        languageComboBox.setCellFactory(param -> new LanguageCell());
+//        languageComboBox.setButtonCell(new LanguageCell());
     }
-
-//    private void updateTypeComboBoxItems() {
-//        typeComboBox.setItems(FXCollections.observableArrayList(personType.get(), organisationType.get()));
-//    }
 }
