@@ -3,7 +3,7 @@ package elca.ntig.partnerapp.fe.fragment;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
-import elca.ntig.partnerapp.fe.common.cell.LanguageCell;
+import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import javafx.fxml.FXML;
@@ -94,14 +94,33 @@ public class FormFragment {
         sexComboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
         nationalityComboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
 
-        //handle languageComboBox
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
-        languageComboBox.setCellFactory(cb -> new LanguageCell(observableResourceFactory));
-        languageComboBox.setButtonCell(new LanguageCell(observableResourceFactory));
+        languageComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
+        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
         languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal == null) {
                 languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
+            }
+        });
+
+        sexComboBox.getItems().addAll(SexEnumProto.values());
+        sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
+        sexComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
+        sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
+        sexComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == null) {
+                sexComboBox.setValue(SexEnumProto.NULL_SEX_ENUM);
+            }
+        });
+
+        nationalityComboBox.getItems().addAll(NationalityProto.values());
+        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
+        nationalityComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
+        nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
+        nationalityComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal == null) {
+                nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
             }
         });
     }

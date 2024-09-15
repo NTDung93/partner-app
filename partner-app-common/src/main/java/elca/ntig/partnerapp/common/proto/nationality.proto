@@ -7,10 +7,10 @@ option java_package = "elca.ntig.partnerapp.common.proto.enums.person";
 
 enum NationalityProto {
     NULL_NATIONALITY = 0;
-    SWITZERLAND = 1;
-    GERMAN = 2;
-    SPANISH = 3;
-    FRENCH = 4;
-    BRITISH = 5;
-    ITALIAN = 6;
+    NATIONALITY_SWITZERLAND = 1;
+    NATIONALITY_GERMAN = 2;
+    NATIONALITY_SPANISH = 3;
+    NATIONALITY_FRENCH = 4;
+    NATIONALITY_BRITISH = 5;
+    NATIONALITY_ITALIAN = 6;
 }

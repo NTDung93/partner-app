@@ -92,7 +92,6 @@
             <ComboBox fx:id="nationalityComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Choisir"/>
                     </FXCollections>
                 </items>
             </ComboBox>
