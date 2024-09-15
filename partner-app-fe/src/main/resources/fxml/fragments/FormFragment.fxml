@@ -39,11 +39,11 @@
         <!-- Left Section -->
         <Label fx:id="typeLabel" text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
-            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <ComboBox fx:id="typeComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Personne"/>
-                        <String fx:value="Société"/>
+                        <String fx:value="Person"/>
+                        <String fx:value="Organisation"/>
                     </FXCollections>
                 </items>
             </ComboBox>
@@ -67,12 +67,9 @@
         <!-- Right Section -->
         <Label fx:id="correspondenceLanguageLabel" text="Langue de correspondance" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
-            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Choisir"/>
-                        <String fx:value="Français"/>
-                        <String fx:value="Anglais"/>
                     </FXCollections>
                 </items>
             </ComboBox>
@@ -80,12 +77,9 @@
 
         <Label fx:id="sexLabel" text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
-            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <ComboBox fx:id="sexComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Choisir"/>
-                        <String fx:value="Masculin"/>
-                        <String fx:value="Féminin"/>
                     </FXCollections>
                 </items>
             </ComboBox>
@@ -93,7 +87,7 @@
 
         <Label fx:id="nationalityLabel" text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">
-            <ComboBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <ComboBox fx:id="nationalityComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Choisir"/>

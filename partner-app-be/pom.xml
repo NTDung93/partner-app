@@ -22,6 +22,7 @@
         <lombok.version>1.18.30</lombok.version>
         <common-lang.version>3.14.0</common-lang.version>
         <spring-boot-starter-validation.version>3.2.0</spring-boot-starter-validation.version>
+        <protobuf-java-util.version>3.21.12</protobuf-java-util.version>
     </properties>
 
     <dependencies>
@@ -105,7 +106,7 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
-            <version>3.21.12</version> <!-- Or the latest stable version -->
+            <version>${protobuf-java-util.version}</version>
         </dependency>
     </dependencies>
 

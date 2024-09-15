@@ -53,10 +53,10 @@ public class HeaderComponent implements FXComponent {
     public void onPostConstructComponent() {
         lblSampleText.textProperty().bind(observableResourceFactory.getStringBinding("SamplePerspective.HeaderComponent.lbl.sampleText"));
         lblEn.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(Language.EN);
+            observableResourceFactory.setResource(Language.EN);
         });
         lblFr.setOnMouseClicked(event -> {
-            observableResourceFactory.switchResourceByLanguage(Language.FR);
+            observableResourceFactory.setResource(Language.FR);
         });
     }
 }

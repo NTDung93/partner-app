@@ -12,16 +12,8 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
-import javax.validation.Validator;
-import java.util.Set;
 
 @GrpcService
 @RequiredArgsConstructor

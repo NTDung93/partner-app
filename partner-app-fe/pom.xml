@@ -15,9 +15,16 @@
         <jacp.version>2.1</jacp.version>
         <openjfx.version>11</openjfx.version>
         <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
+        <partner-app-common.version>1.0-SNAPSHOT</partner-app-common.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>elca.ntig</groupId>
+            <artifactId>partner-app-common</artifactId>
+            <version>${partner-app-common.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

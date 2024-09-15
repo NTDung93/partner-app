@@ -13,18 +13,18 @@ import java.util.ResourceBundle;
  */
 public class ObservableResourceFactory {
     public final static String RESOURCE_BUNDLE_NAME = "bundles/languageBundle";
-    private ObjectProperty<ResourceBundle> resources = new SimpleObjectProperty<>();
-
-    public ObjectProperty<ResourceBundle> resourcesProperty() {
-        return resources;
-    }
+    private ObjectProperty<ResourceBundle> resource = new SimpleObjectProperty<>();
 
     public final ResourceBundle getResources() {
         return resourcesProperty().get();
     }
 
-    public final void switchResourceByLanguage(Language language) {
+    public final void setResource(Language language) {
         resourcesProperty().set(ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME, language.getLocale()));
+    }
+
+    public ObjectProperty<ResourceBundle> resourcesProperty() {
+        return resource;
     }
 
     public StringBinding getStringBinding(String key) {

@@ -12,8 +12,9 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfig {
     @Bean
     public ObservableResourceFactory observableResourceFactory() {
+
         ObservableResourceFactory observableResourceFactory = new ObservableResourceFactory();
-        observableResourceFactory.switchResourceByLanguage(Language.FR);
+        observableResourceFactory.setResource(Language.FR);
         return observableResourceFactory;
     }
 }

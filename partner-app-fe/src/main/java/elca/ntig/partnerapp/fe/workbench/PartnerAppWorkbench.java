@@ -85,12 +85,9 @@ public class PartnerAppWorkbench implements FXWorkbench {
             Language language = LanguageConstant.FR.equals(text)
                     ? Language.FR
                     : Language.EN;
-            observableResourceFactory.switchResourceByLanguage(language);
+            observableResourceFactory.setResource(language);
         });
 
         return button;
     }
-
-
-
 }
