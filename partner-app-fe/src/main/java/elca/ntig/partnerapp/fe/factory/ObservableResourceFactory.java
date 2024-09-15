@@ -1,6 +1,7 @@
 package elca.ntig.partnerapp.fe.factory;
 
 import elca.ntig.partnerapp.fe.common.enums.Language;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,15 +29,19 @@ public class ObservableResourceFactory {
     }
 
     public StringBinding getStringBinding(String key) {
-        return new StringBinding() {
-            {
-                bind(resourcesProperty());
-            }
-
-            @Override
-            public String computeValue() {
-                return getResources().getString(key);
-            }
-        };
+//        return new StringBinding() {
+//            {
+//                bind(resourcesProperty());
+//            }
+//
+//            @Override
+//            public String computeValue() {
+//                return getResources().getString(key);
+//            }
+//        };
+        return Bindings.createStringBinding(() -> {
+            ResourceBundle resources = getResources();
+            return resources != null ? resources.getString(key) : "";
+        }, resourcesProperty());
     }
 }
