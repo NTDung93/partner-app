@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment;
 
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
@@ -66,7 +67,7 @@ public class FormFragment {
     private Button searchButton;
 
     @FXML
-    private ComboBox<String> typeComboBox;
+    private ComboBox<PartnerTypeProto> typeComboBox;
 
     @FXML
     private ComboBox<LanguageProto> languageComboBox;
@@ -108,6 +109,12 @@ public class FormFragment {
     }
 
     private void setupComboBoxes(){
+        typeComboBox.getItems().addAll(PartnerTypeProto.values());
+        typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
+        typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
+        typeComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.type.", 5));
+        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type.", 5));
+
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
         languageComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.language.", 5));

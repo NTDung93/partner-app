@@ -43,8 +43,6 @@
             <ComboBox fx:id="typeComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Person"/>
-                        <String fx:value="Organisation"/>
                     </FXCollections>
                 </items>
             </ComboBox>
