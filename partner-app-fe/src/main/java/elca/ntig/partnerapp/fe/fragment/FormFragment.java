@@ -13,6 +13,7 @@ import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
+import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.jacpfx.api.annotations.Resource;
@@ -35,6 +36,8 @@ public class FormFragment {
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
+
+    private BindingHelper bindingHelper;
 
     @Resource
     private Context context;
@@ -118,8 +121,8 @@ public class FormFragment {
     private CheckBox inactiveCheckBox;
 
     public void init() {
+        bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
-        bindComboBoxPromptTexts();
         setupComboBoxes();
         setupVisibility();
         handleClearCriteriaButtonOnClick();
@@ -213,31 +216,27 @@ public class FormFragment {
 
     private void bindTextProperties() {
         // Bind labels and buttons
-        bindTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
-        bindTextProperty(createPersonButton, "FormFragment.btn.createPerson");
-        bindTextProperty(typeLabel, "FormFragment.lbl.type");
-        bindTextProperty(lastNameLabel, "FormFragment.lbl.lastName");
-        bindTextProperty(firstNameLabel, "FormFragment.lbl.firstName");
-        bindTextProperty(avsNumberLabel, "FormFragment.lbl.avsNumber");
-        bindTextProperty(statusLabel, "FormFragment.lbl.status");
-        bindTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguage");
-        bindTextProperty(sexLabel, "FormFragment.lbl.sex");
-        bindTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
-        bindTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
-        bindTextProperty(clearCriteriaButton, "FormFragment.btn.clearCriteria");
-        bindTextProperty(searchButton, "FormFragment.btn.search");
-        bindTextProperty(lastNameErrorLabel, "Error.requiredField");
-        bindTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
-        bindTextProperty(birthDateErrorLabel, "Error.invalidDate");
-        bindTextProperty(activeCheckBox, "FormFragment.checkBox.active");
-        bindTextProperty(inactiveCheckBox, "FormFragment.checkBox.inactive");
-    }
-
-    private void bindComboBoxPromptTexts() {
-        // Bind prompt texts for ComboBoxes
-        bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
-        bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
-        bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindLabelTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
+        bindingHelper.bindLabelTextProperty(createPersonButton, "FormFragment.btn.createPerson");
+        bindingHelper.bindLabelTextProperty(typeLabel, "FormFragment.lbl.type");
+        bindingHelper.bindLabelTextProperty(lastNameLabel, "FormFragment.lbl.lastName");
+        bindingHelper.bindLabelTextProperty(firstNameLabel, "FormFragment.lbl.firstName");
+        bindingHelper.bindLabelTextProperty(avsNumberLabel, "FormFragment.lbl.avsNumber");
+        bindingHelper.bindLabelTextProperty(statusLabel, "FormFragment.lbl.status");
+        bindingHelper.bindLabelTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguage");
+        bindingHelper.bindLabelTextProperty(sexLabel, "FormFragment.lbl.sex");
+        bindingHelper.bindLabelTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
+        bindingHelper.bindLabelTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
+        bindingHelper.bindLabelTextProperty(clearCriteriaButton, "FormFragment.btn.clearCriteria");
+        bindingHelper.bindLabelTextProperty(searchButton, "FormFragment.btn.search");
+        bindingHelper.bindLabelTextProperty(lastNameErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
+        bindingHelper.bindLabelTextProperty(birthDateErrorLabel, "Error.invalidDate");
+        bindingHelper.bindLabelTextProperty(activeCheckBox, "FormFragment.checkBox.active");
+        bindingHelper.bindLabelTextProperty(inactiveCheckBox, "FormFragment.checkBox.inactive");
+        bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
     }
 
     private void setupComboBoxes() {
@@ -276,13 +275,5 @@ public class FormFragment {
 //                nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
 //            }
 //        });
-    }
-
-    private void bindTextProperty(Labeled control, String key) {
-        control.textProperty().bind(observableResourceFactory.getStringBinding(key));
-    }
-
-    private void bindPromptTextProperty(ComboBox<?> comboBox, String key) {
-        comboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding(key));
     }
 }
