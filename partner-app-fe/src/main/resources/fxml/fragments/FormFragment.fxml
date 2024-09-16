@@ -25,10 +25,10 @@
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
             <ColumnConstraints percentWidth="15.0"/>
-            <ColumnConstraints percentWidth="18.0"/>
-            <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="20.0"/>
+            <ColumnConstraints halignment="RIGHT" percentWidth="16.0"/>
             <ColumnConstraints percentWidth="15.0"/>
-            <ColumnConstraints percentWidth="12.0"/>
+            <ColumnConstraints percentWidth="18.0"/>
         </columnConstraints>
 
         <!-- Create Partner Button -->
@@ -49,18 +49,22 @@
         </HBox>
 
         <Label fx:id="lastNameLabel" text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <TextField fx:id="lastNameValue" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label fx:id="lastNameErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="2"
+               GridPane.columnIndex="2"/>
 
         <Label fx:id="firstNameLabel" text="Prénom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <TextField fx:id="firstNameValue" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
         <Label fx:id="avsNumberLabel" text="Numéro AVS" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextField promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <TextField fx:id="avsNumberValue" promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label fx:id="avsNumberErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="4"
+               GridPane.columnIndex="2"/>
 
         <Label fx:id="statusLabel" text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
         <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="5" GridPane.columnIndex="1">
-            <CheckBox text="Actif"/>
-            <CheckBox text="Inactif"/>
+            <CheckBox fx:id="activeCheckBox"/>
+            <CheckBox fx:id="inactiveCheckBox"/>
         </HBox>
 
         <!-- Right Section -->
@@ -97,16 +101,18 @@
 
         <Label fx:id="birthDateLabel" text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
-            <DatePicker fx:id="birthDatePicker" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <DatePicker fx:id="birthDateValue" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
+        <Label fx:id="birthDateErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="4"
+               GridPane.columnIndex="5"/>
 
         <!-- Buttons Section -->
         <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
-            <Button styleClass="remove-criterias-button" fx:id="removeCriteriasButton" text="Effacer critères"
+            <Button fx:id="clearCriteriaButton" styleClass="clear-criteria-button" text="Effacer critères"
                     maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
-            <Button styleClass="search-button" fx:id="searchButton" text="Rechercher" maxWidth="Infinity"
+            <Button fx:id="searchButton" styleClass="search-button" text="Rechercher" maxWidth="Infinity"
                     HBox.hgrow="ALWAYS"/>
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>

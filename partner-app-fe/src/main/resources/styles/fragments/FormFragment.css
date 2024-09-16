@@ -17,6 +17,11 @@ Label {
     -fx-font-size: 16;
 }
 
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+}
+
 TextField,
 ComboBox,
 DatePicker {
@@ -42,7 +47,7 @@ Button{
     -fx-font-size: 14;
 }
 
-.remove-criterias-button {
+.clear-criteria-button {
     -fx-background-color: grey;
     -fx-font-size: 15;
     -fx-text-fill: black;

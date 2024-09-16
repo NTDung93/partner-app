@@ -7,15 +7,16 @@ import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
+import javafx.scene.control.*;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 @Fragment(id = FormFragment.ID,
@@ -40,10 +41,25 @@ public class FormFragment {
     private Label lastNameLabel;
 
     @FXML
+    private TextField lastNameValue;
+
+    @FXML
+    private Label lastNameErrorLabel;
+
+    @FXML
     private Label firstNameLabel;
 
     @FXML
+    private TextField firstNameValue;
+
+    @FXML
     private Label avsNumberLabel;
+
+    @FXML
+    private TextField avsNumberValue;
+
+    @FXML
+    private Label avsNumberErrorLabel;
 
     @FXML
     private Label statusLabel;
@@ -61,7 +77,13 @@ public class FormFragment {
     private Label birthDateLabel;
 
     @FXML
-    private Button removeCriteriasButton;
+    private DatePicker birthDateValue;
+
+    @FXML
+    private Label birthDateErrorLabel;
+
+    @FXML
+    private Button clearCriteriaButton;
 
     @FXML
     private Button searchButton;
@@ -78,14 +100,84 @@ public class FormFragment {
     @FXML
     private ComboBox<NationalityProto> nationalityComboBox;
 
+    @FXML
+    private CheckBox activeCheckBox;
+
+    @FXML
+    private CheckBox inactiveCheckBox;
+
     public void init() {
         bindTextProperties();
         bindComboBoxPromptTexts();
         setupComboBoxes();
+        setupVisibility();
+        handleClearCriteriaButtonOnClick();
+        handleSearchButtonOnClick();
+    }
+
+    private void setupVisibility() {
+        lastNameErrorLabel.setVisible(false);
+        avsNumberErrorLabel.setVisible(false);
+        birthDateErrorLabel.setVisible(false);
+    }
+
+    private void handleClearCriteriaButtonOnClick() {
+        clearCriteriaButton.setOnAction(event -> {
+            lastNameValue.clear();
+            firstNameValue.clear();
+            avsNumberValue.clear();
+            activeCheckBox.setSelected(false);
+            inactiveCheckBox.setSelected(false);
+//            languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
+            languageComboBox.setValue(null);
+            sexComboBox.setValue(null);
+            nationalityComboBox.setValue(null);
+            birthDateValue.setValue(null);
+            setupVisibility();
+        });
+    }
+
+    private void handleSearchButtonOnClick() {
+        searchButton.setOnAction(event -> {
+            validateValues();
+        });
+    }
+
+    private void validateValues() {
+        validateName();
+        validateAvsNumber();
+        validateDate();
+    }
+
+    private void validateName() {
+        if (lastNameValue.getText().isEmpty()) {
+            lastNameErrorLabel.setVisible(true);
+        } else {
+            lastNameErrorLabel.setVisible(false);
+        }
+    }
+
+    private void validateAvsNumber() {
+        String avsNumber = avsNumberValue.getText().trim();
+        String avsNumberRegex = "^756\\.\\d{4}\\.\\d{4}\\.\\d{2}$"; // 756.xxxx.xxxx.xx
+
+        if ((!avsNumberValue.getText().isEmpty()) && (!avsNumber.matches(avsNumberRegex))) {
+            avsNumberErrorLabel.setVisible(true);
+        } else {
+            avsNumberErrorLabel.setVisible(false);
+        }
+    }
+
+    private void validateDate() {
+        if ((birthDateValue.getValue() != null) && (!birthDateValue.getValue().isBefore(LocalDate.now()))) {
+            birthDateErrorLabel.setVisible(true);
+        } else {
+            birthDateErrorLabel.setVisible(false);
+        }
     }
 
     private void bindTextProperties() {
-        // Bind labels and buttons to resource strings
+        // Bind labels and buttons
         bindTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
         bindTextProperty(createPersonButton, "FormFragment.btn.createPerson");
         bindTextProperty(typeLabel, "FormFragment.lbl.type");
@@ -97,8 +189,13 @@ public class FormFragment {
         bindTextProperty(sexLabel, "FormFragment.lbl.sex");
         bindTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
         bindTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
-        bindTextProperty(removeCriteriasButton, "FormFragment.btn.removeCriterias");
+        bindTextProperty(clearCriteriaButton, "FormFragment.btn.clearCriteria");
         bindTextProperty(searchButton, "FormFragment.btn.search");
+        bindTextProperty(lastNameErrorLabel, "Error.requiredField");
+        bindTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
+        bindTextProperty(birthDateErrorLabel, "Error.invalidDate");
+        bindTextProperty(activeCheckBox, "FormFragment.checkBox.active");
+        bindTextProperty(inactiveCheckBox, "FormFragment.checkBox.inactive");
     }
 
     private void bindComboBoxPromptTexts() {
@@ -108,7 +205,7 @@ public class FormFragment {
         bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
     }
 
-    private void setupComboBoxes(){
+    private void setupComboBoxes() {
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
@@ -119,31 +216,31 @@ public class FormFragment {
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
         languageComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
         languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
-        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal == null) {
-                languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
-            }
-        });
+//        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            if (newVal == null) {
+//                languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
+//            }
+//        });
 
         sexComboBox.getItems().addAll(SexEnumProto.values());
         sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
         sexComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
         sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
-        sexComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal == null) {
-                sexComboBox.setValue(SexEnumProto.NULL_SEX_ENUM);
-            }
-        });
+//        sexComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            if (newVal == null) {
+//                sexComboBox.setValue(SexEnumProto.NULL_SEX_ENUM);
+//            }
+//        });
 
         nationalityComboBox.getItems().addAll(NationalityProto.values());
         nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
         nationalityComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
         nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
-        nationalityComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal == null) {
-                nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
-            }
-        });
+//        nationalityComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            if (newVal == null) {
+//                nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
+//            }
+//        });
     }
 
     private void bindTextProperty(Labeled control, String key) {
