@@ -3,12 +3,14 @@ package elca.ntig.partnerapp.be.controller;
 import elca.ntig.partnerapp.be.helper.PersonServiceGrpcHelper;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
-import net.devh.boot.grpc.server.service.GrpcService;
+//import net.devh.boot.grpc.server.service.GrpcService;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
+import net.devh.boot.grpc.server.service.GrpcService;
+import org.springframework.stereotype.Service;
 
 @GrpcService
 @RequiredArgsConstructor

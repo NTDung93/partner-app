@@ -14,7 +14,7 @@
     <properties>
         <jacp.version>2.1</jacp.version>
         <openjfx.version>11</openjfx.version>
-        <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
+        <grpc-spring-boot.version>2.12.0.RELEASE</grpc-spring-boot.version>
         <partner-app-common.version>1.0-SNAPSHOT</partner-app-common.version>
         <lombok.version>1.18.30</lombok.version>
     </properties>
@@ -82,17 +82,13 @@
             <groupId>net.devh</groupId>
             <artifactId>grpc-client-spring-boot-starter</artifactId>
             <version>${grpc-spring-boot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.grpc</groupId>
-                    <artifactId>grpc-stub</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.grpc</groupId>
-                    <artifactId>grpc-protobuf</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>net.devh</groupId>-->
+<!--            <artifactId>grpc-client-spring-boot-starter</artifactId>-->
+<!--            <version>2.9.0.RELEASE</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>

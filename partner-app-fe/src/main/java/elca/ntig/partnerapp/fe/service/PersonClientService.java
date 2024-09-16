@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PersonClientService {
-    @GrpcClient("grpc-service")
+//    @GrpcClient("grpc-service")
     PersonServiceGrpc.PersonServiceBlockingStub personServiceStub;
 
     public SearchPeoplePaginationResponseProto searchPeoplePagination(SearchPeoplePaginationRequestProto request) {

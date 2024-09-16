@@ -9,16 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ComponentScan(basePackageClasses = PersonClientService.class)
 public class ApplicationConfig {
     @Bean
     public ObservableResourceFactory observableResourceFactory() {
         ObservableResourceFactory observableResourceFactory = new ObservableResourceFactory();
         observableResourceFactory.setResource(Language.FR);
         return observableResourceFactory;
-    }
-
-    @Bean
-    public PersonClientService personClientService() {
-        return new PersonClientService();
     }
 }

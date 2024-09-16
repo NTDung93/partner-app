@@ -10,6 +10,7 @@ import "nationality.proto";
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
+option java_outer_classname = "PersonProto";
 
 service PersonService{
   rpc getPersonById(GetPersonRequestProto) returns (PersonResponseProto){
