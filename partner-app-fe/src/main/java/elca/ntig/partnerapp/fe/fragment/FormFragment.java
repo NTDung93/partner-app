@@ -1,22 +1,30 @@
 package elca.ntig.partnerapp.fe.fragment;
 
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
+import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
+import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Fragment(id = FormFragment.ID,
@@ -27,6 +35,9 @@ public class FormFragment {
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
+
+    @Resource
+    private Context context;
 
     @FXML
     private Label fragmentTitle;
@@ -128,7 +139,6 @@ public class FormFragment {
             avsNumberValue.clear();
             activeCheckBox.setSelected(false);
             inactiveCheckBox.setSelected(false);
-//            languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
             languageComboBox.setValue(null);
             sexComboBox.setValue(null);
             nationalityComboBox.setValue(null);
@@ -140,7 +150,45 @@ public class FormFragment {
     private void handleSearchButtonOnClick() {
         searchButton.setOnAction(event -> {
             validateValues();
+            SearchPeopleCriteriasProto.Builder searchPeopleCriteriasProto = SearchPeopleCriteriasProto.newBuilder();
+            searchPeopleCriteriasProto
+                    .setLastName(lastNameValue.getText())
+                    .setFirstName(firstNameValue.getText())
+                    .setAvsNumber(avsNumberValue.getText())
+                    .addAllStatus(getStatuses());
+
+            if (languageComboBox.getValue() != null) {
+                searchPeopleCriteriasProto.setLanguage(languageComboBox.getValue());
+            }
+            if (sexComboBox.getValue() != null) {
+                searchPeopleCriteriasProto.setSex(sexComboBox.getValue());
+            }
+            if (nationalityComboBox.getValue() != null) {
+                searchPeopleCriteriasProto.setNationality(nationalityComboBox.getValue());
+            }
+            if (birthDateValue.getValue() != null) {
+                searchPeopleCriteriasProto.setBirthDate(birthDateValue.getValue().toString());
+            }
+            SearchPeoplePaginationRequestProto searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder()
+                    .setPageNo(0)
+                    .setPageSize(5)
+                    .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
+                    .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                    .setCriterias(searchPeopleCriteriasProto.build())
+                    .build();
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto);
         });
+    }
+
+    private List<StatusProto> getStatuses() {
+        List<StatusProto> statuses = new ArrayList<>();
+        if (activeCheckBox.isSelected()) {
+            statuses.add(StatusProto.ACTIVE);
+        }
+        if (inactiveCheckBox.isSelected()) {
+            statuses.add(StatusProto.INACTIVE);
+        }
+        return statuses;
     }
 
     private void validateValues() {
@@ -150,30 +198,17 @@ public class FormFragment {
     }
 
     private void validateName() {
-        if (lastNameValue.getText().isEmpty()) {
-            lastNameErrorLabel.setVisible(true);
-        } else {
-            lastNameErrorLabel.setVisible(false);
-        }
+        lastNameErrorLabel.setVisible(lastNameValue.getText().isEmpty());
     }
 
     private void validateAvsNumber() {
         String avsNumber = avsNumberValue.getText().trim();
-        String avsNumberRegex = "^756\\.\\d{4}\\.\\d{4}\\.\\d{2}$"; // 756.xxxx.xxxx.xx
-
-        if ((!avsNumberValue.getText().isEmpty()) && (!avsNumber.matches(avsNumberRegex))) {
-            avsNumberErrorLabel.setVisible(true);
-        } else {
-            avsNumberErrorLabel.setVisible(false);
-        }
+        String avsNumberRegex = "^756\\d{10}$"; // 756.xxxx.xxxx.xx
+        avsNumberErrorLabel.setVisible((!avsNumberValue.getText().isEmpty()) && (!avsNumber.matches(avsNumberRegex)));
     }
 
     private void validateDate() {
-        if ((birthDateValue.getValue() != null) && (!birthDateValue.getValue().isBefore(LocalDate.now()))) {
-            birthDateErrorLabel.setVisible(true);
-        } else {
-            birthDateErrorLabel.setVisible(false);
-        }
+        birthDateErrorLabel.setVisible((birthDateValue.getValue() != null) && (!birthDateValue.getValue().isBefore(LocalDate.now())));
     }
 
     private void bindTextProperties() {

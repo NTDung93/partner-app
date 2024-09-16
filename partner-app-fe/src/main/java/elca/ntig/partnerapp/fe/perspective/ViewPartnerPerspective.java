@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.perspective;
 
+import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import javafx.event.Event;
@@ -17,7 +18,10 @@ import java.util.ResourceBundle;
 
 @Perspective(id = ViewPartnerPerspective.ID,
         name = ViewPartnerPerspective.ID,
-        components = {ViewPartnerComponent.ID}
+        components = {
+                ViewPartnerComponent.ID,
+                SearchPeopleCallback.ID,
+        }
 )
 public class ViewPartnerPerspective implements FXPerspective {
     public static final String ID = "ViewPartnerPerspective";

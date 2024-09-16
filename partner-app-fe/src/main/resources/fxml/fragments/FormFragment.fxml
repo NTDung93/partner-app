@@ -50,7 +50,7 @@
 
         <Label fx:id="lastNameLabel" text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField fx:id="lastNameValue" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-        <Label fx:id="lastNameErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="2"
+        <Label fx:id="lastNameErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
                GridPane.columnIndex="2"/>
 
         <Label fx:id="firstNameLabel" text="Prénom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
@@ -103,7 +103,7 @@
         <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
             <DatePicker fx:id="birthDateValue" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
-        <Label fx:id="birthDateErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="4"
+        <Label fx:id="birthDateErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
                GridPane.columnIndex="5"/>
 
         <!-- Buttons Section -->
