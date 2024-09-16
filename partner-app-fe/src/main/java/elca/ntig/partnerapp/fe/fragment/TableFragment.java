@@ -1,9 +1,17 @@
 package elca.ntig.partnerapp.fe.fragment;
 
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -23,11 +31,19 @@ public class TableFragment {
 
     private BindingHelper bindingHelper;
 
+    private int rowsPerPage = 10;
+
     @FXML
     private Label fragmentTitle;
 
     @FXML
     private Label exportLabel;
+
+    @FXML
+    private TableView<PersonTableModel> partnersTable;
+
+    @FXML
+    private Pagination pagination;
 
     @FXML
     private TableColumn<?, String> baseNumberColumn;
@@ -68,6 +84,56 @@ public class TableFragment {
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
+        initializeTable();
+    }
+
+    public void updateTable(SearchPeoplePaginationResponseProto response) {
+        ObservableList<PersonTableModel> data = FXCollections.observableArrayList();
+
+        response.getContentList().forEach(person -> {
+            PersonTableModel model = new PersonTableModel(
+                    String.valueOf(person.getId()),
+                    person.getLastName(),
+                    person.getFirstName(),
+                    person.getLanguage().name(),
+                    person.getSex().name(),
+                    person.getNationality().name(),
+                    person.getAvsNumber(),
+                    person.getBirthDate(),
+                    person.getMaritalStatus().name(),
+                    person.getPhoneNumber(),
+                    person.getStatus().name()
+            );
+            data.add(model);
+        });
+
+        Platform.runLater(() -> {
+            partnersTable.setItems(data);
+        });
+
+//        int totalItems = (int) response.getTotalRecords();
+//        pagination.setPageCount((totalItems + rowsPerPage - 1) / rowsPerPage);
+//
+//        pagination.setPageFactory(pageIndex -> {
+//            int fromIndex = pageIndex * rowsPerPage;
+//            int toIndex = Math.min(fromIndex + rowsPerPage, data.size());
+//            partnersTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+//            return partnersTable;
+//        });
+    }
+
+    private void initializeTable() {
+        baseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("baseNumber"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        nationalityColumn.setCellValueFactory(new PropertyValueFactory<>("nationality"));
+        avsNumberColumn.setCellValueFactory(new PropertyValueFactory<>("avsNumber"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        civilStatusColumn.setCellValueFactory(new PropertyValueFactory<>("civilStatus"));
+        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
     private void bindTextProperties() {

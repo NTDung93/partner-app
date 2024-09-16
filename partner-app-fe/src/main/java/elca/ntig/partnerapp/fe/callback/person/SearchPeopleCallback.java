@@ -4,15 +4,19 @@ import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.constant.ServerContant;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
+import elca.ntig.partnerapp.fe.fragment.TableFragment;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import javafx.event.Event;
 import net.devh.boot.grpc.client.inject.GrpcClient;
+import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.Component;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.annotations.lifecycle.PreDestroy;
 import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.CallbackComponent;
+import org.jacpfx.rcp.context.Context;
 import org.springframework.stereotype.Service;
 
 import java.util.ResourceBundle;
@@ -23,6 +27,9 @@ public class SearchPeopleCallback implements CallbackComponent {
     public static final String ID = "SearchPeopleCallback";
 
     private ManagedChannel channel;
+
+    @Resource
+    private Context context;
 
     @GrpcClient("grpcService")
     private PersonServiceGrpc.PersonServiceBlockingStub stub;
@@ -45,6 +52,7 @@ public class SearchPeopleCallback implements CallbackComponent {
     public Object handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(SearchPeoplePaginationRequestProto.class)) {
             SearchPeoplePaginationResponseProto response = searchPeoplePagination((SearchPeoplePaginationRequestProto) message.getMessageBody());
+            context.send(ViewPartnerComponent.ID, response);
             return response;
         }
         return null;

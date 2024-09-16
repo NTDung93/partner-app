@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.FormFragment;
@@ -23,10 +24,13 @@ import org.jacpfx.rcp.context.Context;
 public class ViewPartnerComponent implements FXComponent {
     public static final String ID = "ViewPartnerComponent";
 
-    private Node root;
-
     @Resource
     private Context context;
+
+    private Node root;
+
+    private TableFragment tableController;
+    private FormFragment formController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -35,6 +39,12 @@ public class ViewPartnerComponent implements FXComponent {
 
     @Override
     public Node handle(Message<Event, Object> message) throws Exception {
+        if (message.isMessageBodyTypeOf(SearchPeoplePaginationResponseProto.class)) {
+            // Get the response
+            SearchPeoplePaginationResponseProto response = (SearchPeoplePaginationResponseProto) message.getMessageBody();
+            // Pass the response to the TableFragment controller
+            tableController.updateTable(response);
+        }
         return null;
     }
 
@@ -49,8 +59,8 @@ public class ViewPartnerComponent implements FXComponent {
 
         final ManagedFragmentHandler<FormFragment> formHandler = context.getManagedFragmentHandler(FormFragment.class);
         final ManagedFragmentHandler<TableFragment> tableHandler = context.getManagedFragmentHandler(TableFragment.class);
-        final FormFragment formController = formHandler.getController();
-        final TableFragment tableController = tableHandler.getController();
+        formController = formHandler.getController();
+        tableController = tableHandler.getController();
         formController.init();
         tableController.init();
 
