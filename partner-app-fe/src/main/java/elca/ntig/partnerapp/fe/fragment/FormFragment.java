@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,23 +78,36 @@ public class FormFragment {
     private ComboBox<NationalityProto> nationalityComboBox;
 
     public void init() {
-        fragmentTitle.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.fragmentTitle"));
-        createPersonButton.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.btn.createPerson"));
-        typeLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.type"));
-        lastNameLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.lastName"));
-        firstNameLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.firstName"));
-        avsNumberLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.avsNumber"));
-        statusLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.status"));
-        correspondenceLanguageLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.correspondenceLanguage"));
-        sexLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.sex"));
-        nationalityLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.nationality"));
-        birthDateLabel.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.lbl.birthDate"));
-        removeCriteriasButton.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.btn.removeCriterias"));
-        searchButton.textProperty().bind(observableResourceFactory.getStringBinding("FormFragment.btn.search"));
-        languageComboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
-        sexComboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
-        nationalityComboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding("FormFragment.comboBox.placeholder"));
+        bindTextProperties();
+        bindComboBoxPromptTexts();
+        setupComboBoxes();
+    }
 
+    private void bindTextProperties() {
+        // Bind labels and buttons to resource strings
+        bindTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
+        bindTextProperty(createPersonButton, "FormFragment.btn.createPerson");
+        bindTextProperty(typeLabel, "FormFragment.lbl.type");
+        bindTextProperty(lastNameLabel, "FormFragment.lbl.lastName");
+        bindTextProperty(firstNameLabel, "FormFragment.lbl.firstName");
+        bindTextProperty(avsNumberLabel, "FormFragment.lbl.avsNumber");
+        bindTextProperty(statusLabel, "FormFragment.lbl.status");
+        bindTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguage");
+        bindTextProperty(sexLabel, "FormFragment.lbl.sex");
+        bindTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
+        bindTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
+        bindTextProperty(removeCriteriasButton, "FormFragment.btn.removeCriterias");
+        bindTextProperty(searchButton, "FormFragment.btn.search");
+    }
+
+    private void bindComboBoxPromptTexts() {
+        // Bind prompt texts for ComboBoxes
+        bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
+        bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
+        bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
+    }
+
+    private void setupComboBoxes(){
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
         languageComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
@@ -123,5 +137,13 @@ public class FormFragment {
                 nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
             }
         });
+    }
+
+    private void bindTextProperty(Labeled control, String key) {
+        control.textProperty().bind(observableResourceFactory.getStringBinding(key));
+    }
+
+    private void bindPromptTextProperty(ComboBox<?> comboBox, String key) {
+        comboBox.promptTextProperty().bind(observableResourceFactory.getStringBinding(key));
     }
 }
