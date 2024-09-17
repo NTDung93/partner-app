@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
@@ -153,33 +154,35 @@ public class FormFragment {
     private void handleSearchButtonOnClick() {
         searchButton.setOnAction(event -> {
             validateValues();
-            SearchPeopleCriteriasProto.Builder searchPeopleCriteriasProto = SearchPeopleCriteriasProto.newBuilder();
-            searchPeopleCriteriasProto
-                    .setLastName(lastNameValue.getText())
-                    .setFirstName(firstNameValue.getText())
-                    .setAvsNumber(avsNumberValue.getText())
-                    .addAllStatus(getStatuses());
+            if (!lastNameErrorLabel.isVisible() && !avsNumberErrorLabel.isVisible() && !birthDateErrorLabel.isVisible()) {
+                SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
+                searchPeopleCriteriaProto
+                        .setLastName(lastNameValue.getText())
+                        .setFirstName(firstNameValue.getText())
+                        .setAvsNumber(avsNumberValue.getText())
+                        .addAllStatus(getStatuses());
 
-            if (languageComboBox.getValue() != null) {
-                searchPeopleCriteriasProto.setLanguage(languageComboBox.getValue());
+                if (languageComboBox.getValue() != null) {
+                    searchPeopleCriteriaProto.setLanguage(languageComboBox.getValue());
+                }
+                if (sexComboBox.getValue() != null) {
+                    searchPeopleCriteriaProto.setSex(sexComboBox.getValue());
+                }
+                if (nationalityComboBox.getValue() != null) {
+                    searchPeopleCriteriaProto.setNationality(nationalityComboBox.getValue());
+                }
+                if (birthDateValue.getValue() != null) {
+                    searchPeopleCriteriaProto.setBirthDate(birthDateValue.getValue().toString());
+                }
+                SearchPeoplePaginationRequestProto searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder()
+                        .setPageNo(0)
+                        .setPageSize(5)
+                        .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
+                        .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                        .setCriterias(searchPeopleCriteriaProto.build())
+                        .build();
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto);
             }
-            if (sexComboBox.getValue() != null) {
-                searchPeopleCriteriasProto.setSex(sexComboBox.getValue());
-            }
-            if (nationalityComboBox.getValue() != null) {
-                searchPeopleCriteriasProto.setNationality(nationalityComboBox.getValue());
-            }
-            if (birthDateValue.getValue() != null) {
-                searchPeopleCriteriasProto.setBirthDate(birthDateValue.getValue().toString());
-            }
-            SearchPeoplePaginationRequestProto searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder()
-                    .setPageNo(0)
-                    .setPageSize(5)
-                    .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
-                    .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
-                    .setCriterias(searchPeopleCriteriasProto.build())
-                    .build();
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto);
         });
     }
 
@@ -243,37 +246,22 @@ public class FormFragment {
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
-        typeComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.type.", 5));
-        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type.", 5));
+        typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
 
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
-        languageComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
-        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language.", 5));
-//        languageComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-//            if (newVal == null) {
-//                languageComboBox.setValue(LanguageProto.NULL_LANGUAGE);
-//            }
-//        });
+        languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
+        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
 
         sexComboBox.getItems().addAll(SexEnumProto.values());
         sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
-        sexComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
-        sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex.", 0));
-//        sexComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-//            if (newVal == null) {
-//                sexComboBox.setValue(SexEnumProto.NULL_SEX_ENUM);
-//            }
-//        });
+        sexComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.sex."));
+        sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
 
         nationalityComboBox.getItems().addAll(NationalityProto.values());
         nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
-        nationalityComboBox.setCellFactory(cb -> new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
-        nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality.", 12));
-//        nationalityComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-//            if (newVal == null) {
-//                nationalityComboBox.setValue(NationalityProto.NULL_NATIONALITY);
-//            }
-//        });
+        nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
+        nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
     }
 }

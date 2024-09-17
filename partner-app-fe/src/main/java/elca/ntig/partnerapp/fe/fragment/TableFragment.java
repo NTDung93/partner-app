@@ -1,6 +1,8 @@
 package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
@@ -8,13 +10,13 @@ import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Callback;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,40 +48,44 @@ public class TableFragment {
     private Pagination pagination;
 
     @FXML
-    private TableColumn<?, String> baseNumberColumn;
+    private TableColumn<PersonTableModel, String> baseNumberColumn;
 
     @FXML
-    private TableColumn<?, String> lastNameColumn;
+    private TableColumn<PersonTableModel, String> lastNameColumn;
 
     @FXML
-    private TableColumn<?, String> firstNameColumn;
+    private TableColumn<PersonTableModel, String> firstNameColumn;
 
     @FXML
-    private TableColumn<?, String> languageColumn;
+    private TableColumn<PersonTableModel, String> languageColumn;
 
     @FXML
-    private TableColumn<?, String> genderColumn;
+    private TableColumn<PersonTableModel, String> genderColumn;
 
     @FXML
-    private TableColumn<?, String> nationalityColumn;
+    private TableColumn<PersonTableModel, String> nationalityColumn;
 
     @FXML
-    private TableColumn<?, String> avsNumberColumn;
+    private TableColumn<PersonTableModel, String> avsNumberColumn;
 
     @FXML
-    private TableColumn<?, String> birthDateColumn;
+    private TableColumn<PersonTableModel, String> birthDateColumn;
 
     @FXML
-    private TableColumn<?, String> civilStatusColumn;
+    private TableColumn<PersonTableModel, String> civilStatusColumn;
 
     @FXML
-    private TableColumn<?, ?> phoneNumberColumn;
+    private TableColumn<PersonTableModel, String> phoneNumberColumn;
 
     @FXML
-    private TableColumn<?, ?> statusColumn;
+    private TableColumn<PersonTableModel, String> statusColumn;
 
     @FXML
-    private TableColumn<?, ?> deleteIconColumn;
+    private TableColumn<PersonTableModel, Void> deleteIconColumn;
+
+    private ObservableList<PersonTableModel> data;
+    private int currentPage = 0;
+    private int pageSize = 2;
 
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
@@ -87,8 +93,28 @@ public class TableFragment {
         initializeTable();
     }
 
+    private void initializeTable() {
+        baseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        nationalityColumn.setCellValueFactory(new PropertyValueFactory<>("nationality"));
+        avsNumberColumn.setCellValueFactory(new PropertyValueFactory<>("avsNumber"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        civilStatusColumn.setCellValueFactory(new PropertyValueFactory<>("civilStatus"));
+        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        languageColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.language."));
+        genderColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.sex."));
+        nationalityColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.nationality."));
+        civilStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.marital."));
+        statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
+    }
+
     public void updateTable(SearchPeoplePaginationResponseProto response) {
-        ObservableList<PersonTableModel> data = FXCollections.observableArrayList();
+        data = FXCollections.observableArrayList();
 
         response.getContentList().forEach(person -> {
             PersonTableModel model = new PersonTableModel(
@@ -109,32 +135,34 @@ public class TableFragment {
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+//            configurePagination(response);
         });
+    }
 
-//        int totalItems = (int) response.getTotalRecords();
-//        pagination.setPageCount((totalItems + rowsPerPage - 1) / rowsPerPage);
+//    private void configurePagination(SearchPeoplePaginationResponseProto response) {
+//        int totalRecords = (int) response.getTotalRecords();
+//        int totalPages = response.getTotalPages();
+//        pageSize = response.getPageSize();
+//
+//        pagination.setPageCount(totalPages);
+//        pagination.setCurrentPageIndex(currentPage);
 //
 //        pagination.setPageFactory(pageIndex -> {
-//            int fromIndex = pageIndex * rowsPerPage;
-//            int toIndex = Math.min(fromIndex + rowsPerPage, data.size());
-//            partnersTable.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+//            currentPage = pageIndex;
+//            loadPageData(pageIndex, totalRecords);
 //            return partnersTable;
 //        });
-    }
-
-    private void initializeTable() {
-        baseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("baseNumber"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
-        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        nationalityColumn.setCellValueFactory(new PropertyValueFactory<>("nationality"));
-        avsNumberColumn.setCellValueFactory(new PropertyValueFactory<>("avsNumber"));
-        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-        civilStatusColumn.setCellValueFactory(new PropertyValueFactory<>("civilStatus"));
-        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-    }
+//    }
+//
+//    private void loadPageData(int pageIndex, int totalRecords) {
+//        int fromIndex = pageIndex * pageSize;
+//        int toIndex = Math.min(fromIndex + pageSize, totalRecords);
+//
+//        if (fromIndex <= toIndex) {
+//            ObservableList<PersonTableModel> pageData = FXCollections.observableArrayList(data.subList(fromIndex, toIndex));
+//            Platform.runLater(() -> partnersTable.setItems(pageData));
+//        }
+//    }
 
     private void bindTextProperties() {
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");

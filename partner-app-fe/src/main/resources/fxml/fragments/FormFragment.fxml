@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Button?>
@@ -40,12 +39,7 @@
         <!-- Left Section -->
         <Label fx:id="typeLabel" text="Type *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
-            <ComboBox fx:id="typeComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <ComboBox fx:id="typeComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <Label fx:id="lastNameLabel" text="Nom *" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
@@ -58,7 +52,7 @@
 
         <Label fx:id="avsNumberLabel" text="Numéro AVS" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
         <TextField fx:id="avsNumberValue" promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-        <Label fx:id="avsNumberErrorLabel" text="" styleClass="error-label" GridPane.rowIndex="4"
+        <Label fx:id="avsNumberErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
                GridPane.columnIndex="2"/>
 
         <Label fx:id="statusLabel" text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
@@ -71,32 +65,17 @@
         <Label fx:id="correspondenceLanguageLabel" text="Langue de correspondance" GridPane.rowIndex="1"
                GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
-            <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <Label fx:id="sexLabel" text="Sexe" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
-            <ComboBox fx:id="sexComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <ComboBox fx:id="sexComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <Label fx:id="nationalityLabel" text="Nationalité" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">
-            <ComboBox fx:id="nationalityComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <ComboBox fx:id="nationalityComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <Label fx:id="birthDateLabel" text="Date naissance" GridPane.rowIndex="4" GridPane.columnIndex="3"/>

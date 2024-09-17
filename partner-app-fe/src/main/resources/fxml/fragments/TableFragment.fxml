@@ -26,65 +26,29 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
         <columns>
-            <TableColumn fx:id="baseNumberColumn" text="N° Base">
-                <cellValueFactory>
-                    <PropertyValueFactory property="baseNumber"/>
-                </cellValueFactory>
+            <TableColumn fx:id="baseNumberColumn" styleClass="center-align">
             </TableColumn>
-            <TableColumn fx:id="lastNameColumn" text="Nom">
-                <cellValueFactory>
-                    <PropertyValueFactory property="lastName"/>
-                </cellValueFactory>
+            <TableColumn fx:id="lastNameColumn">
             </TableColumn>
-            <TableColumn fx:id="firstNameColumn" text="Prénom">
-                <cellValueFactory>
-                    <PropertyValueFactory property="firstName"/>
-                </cellValueFactory>
+            <TableColumn fx:id="firstNameColumn">
             </TableColumn>
-            <TableColumn fx:id="languageColumn" text="Langue">
-                <cellValueFactory>
-                    <PropertyValueFactory property="language"/>
-                </cellValueFactory>
+            <TableColumn fx:id="languageColumn">
             </TableColumn>
-            <TableColumn fx:id="genderColumn" text="Sexe">
-                <cellValueFactory>
-                    <PropertyValueFactory property="gender"/>
-                </cellValueFactory>
+            <TableColumn fx:id="genderColumn">
             </TableColumn>
-            <TableColumn fx:id="nationalityColumn" text="Nationalité">
-                <cellValueFactory>
-                    <PropertyValueFactory property="nationality"/>
-                </cellValueFactory>
+            <TableColumn fx:id="nationalityColumn">
             </TableColumn>
-            <TableColumn fx:id="avsNumberColumn" text="No AVS">
-                <cellValueFactory>
-                    <PropertyValueFactory property="avsNumber"/>
-                </cellValueFactory>
+            <TableColumn fx:id="avsNumberColumn">
             </TableColumn>
-            <TableColumn fx:id="birthDateColumn" text="Date naissance">
-                <cellValueFactory>
-                    <PropertyValueFactory property="birthDate"/>
-                </cellValueFactory>
+            <TableColumn fx:id="birthDateColumn" styleClass="right-align">
             </TableColumn>
-            <TableColumn fx:id="civilStatusColumn" text="Etat civil">
-                <cellValueFactory>
-                    <PropertyValueFactory property="civilStatus"/>
-                </cellValueFactory>
+            <TableColumn fx:id="civilStatusColumn">
             </TableColumn>
-            <TableColumn fx:id="phoneNumberColumn" text="Numéro téléphone">
-                <cellValueFactory>
-                    <PropertyValueFactory property="phoneNumber"/>
-                </cellValueFactory>
+            <TableColumn fx:id="phoneNumberColumn">
             </TableColumn>
-            <TableColumn fx:id="statusColumn" text="Statut">
-                <cellValueFactory>
-                    <PropertyValueFactory property="status"/>
-                </cellValueFactory>
+            <TableColumn fx:id="statusColumn">
             </TableColumn>
-            <TableColumn fx:id="deleteIconColumn" text="">
-                <cellValueFactory>
-                    <PropertyValueFactory property="deleteIcon"/>
-                </cellValueFactory>
+            <TableColumn fx:id="deleteIconColumn">
             </TableColumn>
         </columns>
     </TableView>

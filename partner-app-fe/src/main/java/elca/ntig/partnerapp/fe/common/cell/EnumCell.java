@@ -10,12 +10,10 @@ import org.springframework.stereotype.Component;
 public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
     private final ObservableResourceFactory observableResourceFactory;
     private final String resourcePrefix;
-    private final int subStringIndex;
 
-    public EnumCell(ObservableResourceFactory observableResourceFactory, String resourcePrefix, int subStringIndex) {
+    public EnumCell(ObservableResourceFactory observableResourceFactory, String resourcePrefix) {
         this.observableResourceFactory = observableResourceFactory;
         this.resourcePrefix = resourcePrefix;
-        this.subStringIndex = subStringIndex;
     }
 
     @Override
@@ -25,6 +23,7 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
         if (empty || item == null) {
             setText(null);
         } else {
+            int subStringIndex = item.getValueDescriptor().toString().indexOf("_") + 1;
             String value = item.getValueDescriptor().toString().substring(subStringIndex).toLowerCase();
             textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
         }

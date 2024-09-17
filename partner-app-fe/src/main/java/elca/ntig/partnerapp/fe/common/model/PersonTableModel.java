@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonTableModel {
+    private String id;
     private String lastName;
-    private String baseNumber;
     private String firstName;
     private String language;
     private String gender;

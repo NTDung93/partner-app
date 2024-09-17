@@ -40,9 +40,7 @@ public class ViewPartnerComponent implements FXComponent {
     @Override
     public Node handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(SearchPeoplePaginationResponseProto.class)) {
-            // Get the response
             SearchPeoplePaginationResponseProto response = (SearchPeoplePaginationResponseProto) message.getMessageBody();
-            // Pass the response to the TableFragment controller
             tableController.updateTable(response);
         }
         return null;

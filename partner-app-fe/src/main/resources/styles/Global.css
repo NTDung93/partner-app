@@ -1,3 +1,9 @@
+.menu-bar{
+    -fx-background-color: white;
+    -fx-spacing: 0;
+    -fx-padding: 0 1em;
+}
+
 .language-button {
     -fx-background-color: transparent;
     -fx-font-weight: bolder;
