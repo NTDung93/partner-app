@@ -43,6 +43,10 @@
     -fx-background-color: white;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: lightgrey;
+}
+
 .center-align .label, .center-align{
     -fx-alignment: center;
 }

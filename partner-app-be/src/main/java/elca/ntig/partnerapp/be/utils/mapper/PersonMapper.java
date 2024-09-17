@@ -8,6 +8,7 @@ import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.utils.mapper.enums.LanguageMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.NationalityMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.SexEnumMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.StatusMapper;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,7 +23,8 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
                 DateMapper.class,
                 LanguageMapper.class,
                 SexEnumMapper.class,
-                NationalityMapper.class
+                NationalityMapper.class,
+                StatusMapper.class
         },
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
 )
@@ -35,6 +37,7 @@ public interface PersonMapper {
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapLocalDateToString")
     PersonResponseProto toPersonResponseProto(PersonResponseDto personResponseDto);
 
+    @Mapping(source = "statusList", target = "status")
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
     SearchPeopleCriteriasDto toSearchPeopleCriteriasDto(SearchPeopleCriteriasProto searchPeopleCriteriasDto);
 

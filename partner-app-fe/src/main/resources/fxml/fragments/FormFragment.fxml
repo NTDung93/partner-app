@@ -57,8 +57,8 @@
 
         <Label fx:id="statusLabel" text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
         <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="5" GridPane.columnIndex="1">
-            <CheckBox fx:id="activeCheckBox"/>
-            <CheckBox fx:id="inactiveCheckBox"/>
+            <CheckBox fx:id="activeCheckBox" selected="true"/>
+            <CheckBox fx:id="inactiveCheckBox" selected="true"/>
         </HBox>
 
         <!-- Right Section -->

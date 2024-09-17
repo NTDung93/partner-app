@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,5 +28,5 @@ public class SearchPeopleCriteriasDto {
     private Nationality nationality;
     private String avsNumber;
     private LocalDate birthDate;
-    private Status status;
+    private List<Status> status;
 }

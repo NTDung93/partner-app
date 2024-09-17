@@ -12,9 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -135,34 +132,8 @@ public class TableFragment {
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
-//            configurePagination(response);
         });
     }
-
-//    private void configurePagination(SearchPeoplePaginationResponseProto response) {
-//        int totalRecords = (int) response.getTotalRecords();
-//        int totalPages = response.getTotalPages();
-//        pageSize = response.getPageSize();
-//
-//        pagination.setPageCount(totalPages);
-//        pagination.setCurrentPageIndex(currentPage);
-//
-//        pagination.setPageFactory(pageIndex -> {
-//            currentPage = pageIndex;
-//            loadPageData(pageIndex, totalRecords);
-//            return partnersTable;
-//        });
-//    }
-//
-//    private void loadPageData(int pageIndex, int totalRecords) {
-//        int fromIndex = pageIndex * pageSize;
-//        int toIndex = Math.min(fromIndex + pageSize, totalRecords);
-//
-//        if (fromIndex <= toIndex) {
-//            ObservableList<PersonTableModel> pageData = FXCollections.observableArrayList(data.subList(fromIndex, toIndex));
-//            Platform.runLater(() -> partnersTable.setItems(pageData));
-//        }
-//    }
 
     private void bindTextProperties() {
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");

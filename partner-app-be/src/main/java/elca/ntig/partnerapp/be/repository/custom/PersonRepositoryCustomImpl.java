@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
 import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.model.entity.QPerson;
+import elca.ntig.partnerapp.be.model.enums.common.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,7 +47,9 @@ public class PersonRepositoryCustomImpl implements PersonRepositoryCustom{
             builder.and(person.birthDate.eq(criterias.getBirthDate()));
         }
         if (criterias.getStatus() != null) {
-            builder.and(person.partner.status.eq(criterias.getStatus()));
+            if (criterias.getStatus().size() == 1) {
+                builder.and(person.partner.status.eq(criterias.getStatus().get(0)));
+            }
         }
 
         List<Person> results = new JPAQuery<Person>(em).from(person)
