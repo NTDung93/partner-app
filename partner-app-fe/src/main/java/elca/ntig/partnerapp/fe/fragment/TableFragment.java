@@ -132,7 +132,12 @@ public class TableFragment {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteButton);
+                    PersonTableModel person = getTableView().getItems().get(getIndex());
+                    if (person.getStatus().equals("ACTIVE")) {
+                        setGraphic(deleteButton);
+                    } else {
+                        setGraphic(null);
+                    }
                 }
             }
         });
