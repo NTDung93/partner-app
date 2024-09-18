@@ -10,6 +10,7 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -35,19 +36,15 @@ import java.time.format.DateTimeFormatter;
         scope = Scope.PROTOTYPE)
 public class TableFragment {
     public static final String ID = "TableFragment";
-
     private static Logger logger = Logger.getLogger(TableFragment.class);
-
-    @Autowired
-    private ObservableResourceFactory observableResourceFactory;
-
     private BindingHelper bindingHelper;
-
     private ObservableList<PersonTableModel> data;
-
     private int pageNo = 0;
     private int pageSize = 3;
     private boolean isLastPage = false;
+
+    @Autowired
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
     private Context context;
@@ -116,31 +113,75 @@ public class TableFragment {
         initializePagination();
     }
 
-    private void initializePagination() {
-        previousButton.setText("<");
-        nextButton.setText(">");
-        pageNumber.setText(String.valueOf(pageNo + 1));
-        previousButton.setDisable(true);
-        nextButton.setDisable(true);
+    public void updateTable(SearchPeoplePaginationResponseProto response) {
+        data = FXCollections.observableArrayList();
 
-        nextButton.setOnAction(event -> {
-            pageNo++;
-            pageNumber.setText(String.valueOf(pageNo));
-            logger.info("Current page: " + pageNo);
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+        response.getContentList().forEach(person -> {
+            PersonTableModel model = new PersonTableModel(
+                    String.valueOf(person.getId()),
+                    person.getLastName(),
+                    person.getFirstName(),
+                    person.getLanguage().name(),
+                    person.getSex().name(),
+                    person.getNationality().name(),
+                    person.getAvsNumber(),
+                    person.getBirthDate(),
+                    person.getMaritalStatus().name(),
+                    person.getPhoneNumber(),
+                    person.getStatus().name()
+            );
+            data.add(model);
         });
 
-        previousButton.setOnAction(event -> {
-            if (pageNo > 0) {
-                pageNo--;
-                pageNumber.setText(String.valueOf(pageNo));
-                logger.info("Current page: " + pageNo);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+        pageNo = response.getPageNo();
+        pageSize = response.getPageSize();
+        isLastPage = response.getLast();
+
+        Platform.runLater(() -> {
+            partnersTable.setItems(data);
+            pageNumber.setText(String.valueOf(pageNo + 1));
+            if (isLastPage) {
+                nextButton.setDisable(true);
+            } else {
+                nextButton.setDisable(false);
+            }
+            if (pageNo == 0) {
+                previousButton.setDisable(true);
+            } else {
+                previousButton.setDisable(false);
             }
         });
     }
 
+    private void bindTextProperties() {
+        bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
+        bindingHelper.bindLabelTextProperty(exportLabel, "TableFragment.lbl.exportLabel");
+        bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
+        bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
+        bindingHelper.bindColumnTextProperty(firstNameColumn, "TableFragment.col.firstName");
+        bindingHelper.bindColumnTextProperty(languageColumn, "TableFragment.col.language");
+        bindingHelper.bindColumnTextProperty(genderColumn, "TableFragment.col.gender");
+        bindingHelper.bindColumnTextProperty(nationalityColumn, "TableFragment.col.nationality");
+        bindingHelper.bindColumnTextProperty(avsNumberColumn, "TableFragment.col.avsNumber");
+        bindingHelper.bindColumnTextProperty(birthDateColumn, "TableFragment.col.birthDate");
+        bindingHelper.bindColumnTextProperty(civilStatusColumn, "TableFragment.col.civilStatus");
+        bindingHelper.bindColumnTextProperty(phoneNumberColumn, "TableFragment.col.phoneNumber");
+        bindingHelper.bindColumnTextProperty(statusColumn, "TableFragment.col.status");
+    }
+
     private void initializeTable() {
+        setTableDefaultMessage();
+        setCellValueFactories();
+        setCellFactories();
+    }
+
+    private void setTableDefaultMessage() {
+        Label empty = new Label();
+        bindingHelper.bindLabelTextProperty(empty, "TableFragment.defaultMessage");
+        partnersTable.setPlaceholder(empty);
+    }
+
+    private void setCellValueFactories(){
         baseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -152,7 +193,9 @@ public class TableFragment {
         civilStatusColumn.setCellValueFactory(new PropertyValueFactory<>("civilStatus"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
 
+    private void setCellFactories(){
         languageColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.language."));
         genderColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.sex."));
         nationalityColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.nationality."));
@@ -214,59 +257,27 @@ public class TableFragment {
         });
     }
 
-    public void updateTable(SearchPeoplePaginationResponseProto response) {
-        data = FXCollections.observableArrayList();
+    private void initializePagination() {
+        previousButton.setText("<");
+        nextButton.setText(">");
+        pageNumber.setText(String.valueOf(pageNo + 1));
+        previousButton.setDisable(true);
+        nextButton.setDisable(true);
 
-        response.getContentList().forEach(person -> {
-            PersonTableModel model = new PersonTableModel(
-                    String.valueOf(person.getId()),
-                    person.getLastName(),
-                    person.getFirstName(),
-                    person.getLanguage().name(),
-                    person.getSex().name(),
-                    person.getNationality().name(),
-                    person.getAvsNumber(),
-                    person.getBirthDate(),
-                    person.getMaritalStatus().name(),
-                    person.getPhoneNumber(),
-                    person.getStatus().name()
-            );
-            data.add(model);
+        nextButton.setOnAction(event -> {
+            pageNo++;
+            pageNumber.setText(String.valueOf(pageNo));
+            logger.info("Current page: " + pageNo);
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
         });
 
-        pageNo = response.getPageNo();
-        pageSize = response.getPageSize();
-        isLastPage = response.getLast();
-
-        Platform.runLater(() -> {
-            partnersTable.setItems(data);
-            pageNumber.setText(String.valueOf(pageNo + 1));
-            if (isLastPage) {
-                nextButton.setDisable(true);
-            } else {
-                nextButton.setDisable(false);
-            }
-            if (pageNo == 0) {
-                previousButton.setDisable(true);
-            } else {
-                previousButton.setDisable(false);
+        previousButton.setOnAction(event -> {
+            if (pageNo > 0) {
+                pageNo--;
+                pageNumber.setText(String.valueOf(pageNo));
+                logger.info("Current page: " + pageNo);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
             }
         });
-    }
-
-    private void bindTextProperties() {
-        bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
-        bindingHelper.bindLabelTextProperty(exportLabel, "TableFragment.lbl.exportLabel");
-        bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
-        bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
-        bindingHelper.bindColumnTextProperty(firstNameColumn, "TableFragment.col.firstName");
-        bindingHelper.bindColumnTextProperty(languageColumn, "TableFragment.col.language");
-        bindingHelper.bindColumnTextProperty(genderColumn, "TableFragment.col.gender");
-        bindingHelper.bindColumnTextProperty(nationalityColumn, "TableFragment.col.nationality");
-        bindingHelper.bindColumnTextProperty(avsNumberColumn, "TableFragment.col.avsNumber");
-        bindingHelper.bindColumnTextProperty(birthDateColumn, "TableFragment.col.birthDate");
-        bindingHelper.bindColumnTextProperty(civilStatusColumn, "TableFragment.col.civilStatus");
-        bindingHelper.bindColumnTextProperty(phoneNumberColumn, "TableFragment.col.phoneNumber");
-        bindingHelper.bindColumnTextProperty(statusColumn, "TableFragment.col.status");
     }
 }

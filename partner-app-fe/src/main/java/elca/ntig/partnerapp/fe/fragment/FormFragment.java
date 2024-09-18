@@ -131,20 +131,8 @@ public class FormFragment {
         bindTextProperties();
         setupComboBoxes();
         setupVisibility();
-//        handleDatePickerListener();
         handleClearCriteriaButtonOnClick();
         handleSearchButtonOnClick();
-    }
-
-    private void handleDatePickerListener() {
-        birthDateValue.getEditor().textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.isEmpty()) {
-                    birthDateValue.setValue(null);
-                }
-            }
-        });
     }
 
     public void handlePagination(int pageNo, int pageSize) {
