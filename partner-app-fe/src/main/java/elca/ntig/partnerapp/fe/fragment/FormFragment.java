@@ -1,6 +1,5 @@
 package elca.ntig.partnerapp.fe.fragment;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
@@ -15,10 +14,9 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
@@ -36,6 +34,7 @@ import java.util.List;
         scope = Scope.PROTOTYPE)
 public class FormFragment {
     public static final String ID = "FormFragment";
+    private static Logger logger = Logger.getLogger(FormFragment.class);
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -170,6 +169,7 @@ public class FormFragment {
         searchButton.setOnAction(event -> {
             validateValues();
             if (!lastNameErrorLabel.isVisible() && !avsNumberErrorLabel.isVisible() && !birthDateErrorLabel.isVisible()) {
+                searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
                 searchPeopleCriteriaProto
                         .setLastName(lastNameValue.getText())
                         .setFirstName(firstNameValue.getText())
