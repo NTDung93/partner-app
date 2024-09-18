@@ -1,7 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
-import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
@@ -12,11 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.apache.log4j.Logger;
 
 @Component
 @Fragment(id = TableFragment.ID,
@@ -25,12 +27,12 @@ import org.springframework.stereotype.Component;
 public class TableFragment {
     public static final String ID = "TableFragment";
 
+    private static Logger logger = Logger.getLogger(TableFragment.class);
+
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
 
     private BindingHelper bindingHelper;
-
-    private int rowsPerPage = 10;
 
     @FXML
     private Label fragmentTitle;
@@ -81,8 +83,6 @@ public class TableFragment {
     private TableColumn<PersonTableModel, Void> deleteIconColumn;
 
     private ObservableList<PersonTableModel> data;
-    private int currentPage = 0;
-    private int pageSize = 2;
 
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
@@ -108,6 +108,34 @@ public class TableFragment {
         nationalityColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.nationality."));
         civilStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.marital."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
+
+        deleteIconColumn.setCellFactory(cell -> new TableCell<PersonTableModel, Void>() {
+            private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+            {
+                deleteIcon.setFitHeight(20);
+                deleteIcon.setFitWidth(20);
+            }
+
+            Button deleteButton = new Button();
+            {
+                deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
+                deleteButton.setGraphic(deleteIcon);
+                deleteButton.setOnAction(event -> {
+                    PersonTableModel person = getTableView().getItems().get(getIndex());
+                    logger.info("Delete person with id: " + person.getId());
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
     }
 
     public void updateTable(SearchPeoplePaginationResponseProto response) {

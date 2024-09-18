@@ -59,3 +59,8 @@
 .table-cell{
     -fx-border-color: white;
 }
+
+.delete-icon{
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}

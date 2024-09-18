@@ -2,8 +2,6 @@ package elca.ntig.partnerapp.fe.common.cell;
 
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 import org.springframework.stereotype.Component;
 
 @Component

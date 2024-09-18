@@ -48,7 +48,7 @@
             </TableColumn>
             <TableColumn fx:id="statusColumn">
             </TableColumn>
-            <TableColumn fx:id="deleteIconColumn">
+            <TableColumn fx:id="deleteIconColumn" styleClass="delete-icon">
             </TableColumn>
         </columns>
     </TableView>
