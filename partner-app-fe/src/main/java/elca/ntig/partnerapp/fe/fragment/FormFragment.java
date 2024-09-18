@@ -15,6 +15,8 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.jacpfx.api.annotations.Resource;
@@ -121,13 +123,38 @@ public class FormFragment {
     @FXML
     private CheckBox inactiveCheckBox;
 
+    SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
+    SearchPeoplePaginationRequestProto.Builder searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder();
+
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         setupComboBoxes();
         setupVisibility();
+//        handleDatePickerListener();
         handleClearCriteriaButtonOnClick();
         handleSearchButtonOnClick();
+    }
+
+    private void handleDatePickerListener() {
+        birthDateValue.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.isEmpty()) {
+                    birthDateValue.setValue(null);
+                }
+            }
+        });
+    }
+
+    public void handlePagination(int pageNo, int pageSize) {
+        searchPeoplePaginationRequestProto
+                .setPageNo(pageNo)
+                .setPageSize(pageSize)
+                .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
+                .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                .setCriterias(searchPeopleCriteriaProto.build());
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto.build());
     }
 
     private void setupVisibility() {
@@ -155,7 +182,6 @@ public class FormFragment {
         searchButton.setOnAction(event -> {
             validateValues();
             if (!lastNameErrorLabel.isVisible() && !avsNumberErrorLabel.isVisible() && !birthDateErrorLabel.isVisible()) {
-                SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
                 searchPeopleCriteriaProto
                         .setLastName(lastNameValue.getText())
                         .setFirstName(firstNameValue.getText())
@@ -173,10 +199,12 @@ public class FormFragment {
                 }
                 if (birthDateValue.getValue() != null) {
                     searchPeopleCriteriaProto.setBirthDate(birthDateValue.getValue().toString());
+                } else {
+                    searchPeopleCriteriaProto.clearBirthDate();
                 }
                 SearchPeoplePaginationRequestProto searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder()
                         .setPageNo(0)
-                        .setPageSize(5)
+                        .setPageSize(3)
                         .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
                         .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
                         .setCriterias(searchPeopleCriteriaProto.build())

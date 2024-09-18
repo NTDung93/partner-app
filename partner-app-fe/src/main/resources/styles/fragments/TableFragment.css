@@ -81,7 +81,6 @@
     -fx-text-fill: white;
     -fx-pref-width: 30;
     -fx-alignment: center;
-/*    make it circle*/
     -fx-border-radius: 20;
     -fx-background-radius: 20;
 }

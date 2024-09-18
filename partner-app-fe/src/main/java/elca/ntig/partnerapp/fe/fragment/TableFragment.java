@@ -4,7 +4,10 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
+import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,12 +16,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Callback;
+import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
 import org.jacpfx.api.annotations.fragment.Fragment;
+import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Fragment(id = TableFragment.ID,
@@ -36,7 +45,12 @@ public class TableFragment {
 
     private ObservableList<PersonTableModel> data;
 
-    private int currentPage = 1;
+    private int pageNo = 0;
+    private int pageSize = 3;
+    private boolean isLastPage = false;
+
+    @Resource
+    private Context context;
 
     @FXML
     private Label fragmentTitle;
@@ -105,7 +119,25 @@ public class TableFragment {
     private void initializePagination() {
         previousButton.setText("<");
         nextButton.setText(">");
-        pageNumber.setText(String.valueOf(currentPage));
+        pageNumber.setText(String.valueOf(pageNo + 1));
+        previousButton.setDisable(true);
+        nextButton.setDisable(true);
+
+        nextButton.setOnAction(event -> {
+            pageNo++;
+            pageNumber.setText(String.valueOf(pageNo));
+            logger.info("Current page: " + pageNo);
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+        });
+
+        previousButton.setOnAction(event -> {
+            if (pageNo > 0) {
+                pageNo--;
+                pageNumber.setText(String.valueOf(pageNo));
+                logger.info("Current page: " + pageNo);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+            }
+        });
     }
 
     private void initializeTable() {
@@ -127,14 +159,35 @@ public class TableFragment {
         civilStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.marital."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
 
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        birthDateColumn.setCellFactory(new Callback<TableColumn<PersonTableModel, String>, TableCell<PersonTableModel, String>>() {
+            @Override
+            public TableCell<PersonTableModel, String> call(TableColumn<PersonTableModel, String> param) {
+                return new TableCell<PersonTableModel, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            LocalDate date = LocalDate.parse(item);
+                            setText(date.format(dateFormatter));
+                        }
+                    }
+                };
+            }
+        });
+
         deleteIconColumn.setCellFactory(cell -> new TableCell<PersonTableModel, Void>() {
             private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+
             {
                 deleteIcon.setFitHeight(20);
                 deleteIcon.setFitWidth(20);
             }
 
             Button deleteButton = new Button();
+
             {
                 deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
                 deleteButton.setGraphic(deleteIcon);
@@ -181,8 +234,23 @@ public class TableFragment {
             data.add(model);
         });
 
+        pageNo = response.getPageNo();
+        pageSize = response.getPageSize();
+        isLastPage = response.getLast();
+
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+            pageNumber.setText(String.valueOf(pageNo + 1));
+            if (isLastPage) {
+                nextButton.setDisable(true);
+            } else {
+                nextButton.setDisable(false);
+            }
+            if (pageNo == 0) {
+                previousButton.setDisable(true);
+            } else {
+                previousButton.setDisable(false);
+            }
         });
     }
 

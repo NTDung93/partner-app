@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
+import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.FormFragment;
 import elca.ntig.partnerapp.fe.fragment.TableFragment;
@@ -42,6 +43,10 @@ public class ViewPartnerComponent implements FXComponent {
         if (message.isMessageBodyTypeOf(SearchPeoplePaginationResponseProto.class)) {
             SearchPeoplePaginationResponseProto response = (SearchPeoplePaginationResponseProto) message.getMessageBody();
             tableController.updateTable(response);
+        }
+        if (message.isMessageBodyTypeOf(PaginationModel.class)) {
+            PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
+            formController.handlePagination(paginationModel.getPageNo(), paginationModel.getPageSize());
         }
         return null;
     }
