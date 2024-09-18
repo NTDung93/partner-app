@@ -191,8 +191,8 @@ public class FormFragment {
                     searchPeopleCriteriaProto.clearBirthDate();
                 }
                 SearchPeoplePaginationRequestProto searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder()
-                        .setPageNo(0)
-                        .setPageSize(3)
+                        .setPageNo(PaginationConstant.DEFAULT_PAGE_NO)
+                        .setPageSize(PaginationConstant.DEFAULT_PAGE_SIZE)
                         .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
                         .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
                         .setCriterias(searchPeopleCriteriaProto.build())

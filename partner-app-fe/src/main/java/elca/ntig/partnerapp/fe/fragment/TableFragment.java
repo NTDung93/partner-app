@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
+import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
@@ -39,8 +40,8 @@ public class TableFragment {
     private static Logger logger = Logger.getLogger(TableFragment.class);
     private BindingHelper bindingHelper;
     private ObservableList<PersonTableModel> data;
-    private int pageNo = 0;
-    private int pageSize = 3;
+    private int pageNo = PaginationConstant.DEFAULT_PAGE_NO;
+    private int pageSize = PaginationConstant.DEFAULT_PAGE_SIZE;
     private boolean isLastPage = false;
 
     @Autowired
