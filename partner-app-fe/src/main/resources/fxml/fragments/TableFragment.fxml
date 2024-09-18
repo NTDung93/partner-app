@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.Button?>
 <VBox
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
@@ -54,5 +55,9 @@
     </TableView>
 
     <!-- Pagination Section -->
-    <Pagination fx:id="pagination" pageCount="1" maxPageIndicatorCount="5" HBox.hgrow="ALWAYS"/>
+    <HBox styleClass="pagination-section" alignment="CENTER_LEFT" >
+        <Button fx:id="previousButton" styleClass="pagination-button" />
+        <Label fx:id="pageNumber" styleClass="pagination-label"/>
+        <Button fx:id="nextButton" styleClass="pagination-button" />
+    </HBox>
 </VBox>

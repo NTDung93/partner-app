@@ -64,3 +64,24 @@
     -fx-cursor: hand;
     -fx-alignment: center;
 }
+
+.pagination-section{
+    -fx-padding: 0 0 30 0;
+}
+
+.pagination-button{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-font-size: 20;
+}
+
+.pagination-label{
+    -fx-font-size: 16;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-pref-width: 30;
+    -fx-alignment: center;
+/*    make it circle*/
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

@@ -34,6 +34,10 @@ public class TableFragment {
 
     private BindingHelper bindingHelper;
 
+    private ObservableList<PersonTableModel> data;
+
+    private int currentPage = 1;
+
     @FXML
     private Label fragmentTitle;
 
@@ -82,12 +86,26 @@ public class TableFragment {
     @FXML
     private TableColumn<PersonTableModel, Void> deleteIconColumn;
 
-    private ObservableList<PersonTableModel> data;
+    @FXML
+    private Button previousButton;
+
+    @FXML
+    private Button nextButton;
+
+    @FXML
+    private Label pageNumber;
 
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         initializeTable();
+        initializePagination();
+    }
+
+    private void initializePagination() {
+        previousButton.setText("<");
+        nextButton.setText(">");
+        pageNumber.setText(String.valueOf(currentPage));
     }
 
     private void initializeTable() {
