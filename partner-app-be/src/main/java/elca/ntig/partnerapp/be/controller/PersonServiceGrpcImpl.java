@@ -1,6 +1,6 @@
 package elca.ntig.partnerapp.be.controller;
 
-import elca.ntig.partnerapp.be.helper.PersonServiceGrpcHelper;
+import elca.ntig.partnerapp.be.mappingservice.PersonMappingService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 //import net.devh.boot.grpc.server.service.GrpcService;
@@ -10,12 +10,11 @@ import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.springframework.stereotype.Service;
 
 @GrpcService
 @RequiredArgsConstructor
 public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBase {
-    private final PersonServiceGrpcHelper personServiceGrpcHelper;
+    private final PersonMappingService personServiceGrpcHelper;
 
     @Override
     public void getPersonById(GetPersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {

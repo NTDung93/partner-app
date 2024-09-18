@@ -4,6 +4,7 @@ import javafx.beans.binding.StringBinding;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
+import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class BindingHelper {
 
     public BindingHelper(ObservableResourceFactory observableResourceFactory) {
         this.observableResourceFactory = observableResourceFactory;
+    }
+
+    public void bindTextProperty(Text control, String key) {
+        control.textProperty().bind(observableResourceFactory.getStringBinding(key));
     }
 
     public void bindLabelTextProperty(Labeled control, String key) {

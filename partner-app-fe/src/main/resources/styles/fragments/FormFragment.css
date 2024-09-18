@@ -1,6 +1,7 @@
 .root {
     -fx-padding: 40;
     -fx-background-color: white;
+    -fx-font-size: 16;
 }
 
 .header-section {
@@ -15,12 +16,18 @@
 
 Label {
     -fx-text-fill: grey;
-    -fx-font-size: 16;
+}
+
+.require-field{
+    -fx-fill: grey;
+}
+
+.red-asterisk {
+    -fx-fill: red;
 }
 
 .error-label {
     -fx-text-fill: red;
-    -fx-font-size: 14px;
 }
 
 TextField,
@@ -28,10 +35,12 @@ ComboBox,
 DatePicker {
     -fx-background-color: transparent;
     -fx-border-color: grey;
+    -fx-font-size: 15px;
 }
 
-CheckBox {
-    -fx-font-size: 16px;
+.error-input {
+    -fx-border-color: red;
+    -fx-border-width: 2;
 }
 
 Button{
@@ -45,7 +54,7 @@ Button{
     -fx-background-color: #74b251;
     -fx-opacity: 0.7;
     -fx-text-fill: white;
-    -fx-font-size: 14;
+    -fx-font-size: 15;
 }
 
 .clear-criteria-button {

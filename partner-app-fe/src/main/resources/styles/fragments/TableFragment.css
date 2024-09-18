@@ -1,6 +1,7 @@
 .root {
     -fx-padding: 0 40 20;
     -fx-background-color: white;
+    -fx-font-size: 16;
 }
 
 .header-section {
@@ -76,7 +77,6 @@
 }
 
 .pagination-label{
-    -fx-font-size: 16;
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-pref-width: 30;

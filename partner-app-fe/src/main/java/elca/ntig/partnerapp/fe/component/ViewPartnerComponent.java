@@ -4,7 +4,7 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
-import elca.ntig.partnerapp.fe.fragment.FormFragment;
+import elca.ntig.partnerapp.fe.fragment.PartnerFormFragment;
 import elca.ntig.partnerapp.fe.fragment.TableFragment;
 import javafx.event.Event;
 import javafx.scene.Node;
@@ -31,7 +31,7 @@ public class ViewPartnerComponent implements FXComponent {
     private Node root;
 
     private TableFragment tableController;
-    private FormFragment formController;
+    private PartnerFormFragment formController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -60,7 +60,7 @@ public class ViewPartnerComponent implements FXComponent {
         final VBox container = new VBox();
         VBox.setVgrow(container, Priority.ALWAYS);
 
-        final ManagedFragmentHandler<FormFragment> formHandler = context.getManagedFragmentHandler(FormFragment.class);
+        final ManagedFragmentHandler<PartnerFormFragment> formHandler = context.getManagedFragmentHandler(PartnerFormFragment.class);
         final ManagedFragmentHandler<TableFragment> tableHandler = context.getManagedFragmentHandler(TableFragment.class);
         formController = formHandler.getController();
         tableController = tableHandler.getController();

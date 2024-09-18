@@ -19,8 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchPeopleCriteriasDto {
-    @NotEmpty(message = "Person's last name cannot be blank")
-    @Size(min = 2, message = "Person's last name must have at least 2 characters")
     private String lastName;
     private String firstName;
     private Language language;

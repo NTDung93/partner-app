@@ -15,7 +15,7 @@
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
         <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Label styleClass="export-label" fx:id="exportLabel"/>
+        <!--        <Label styleClass="export-label" fx:id="exportLabel"/>-->
     </HBox>
 
     <TableView fx:id="partnersTable" VBox.vgrow="ALWAYS">
@@ -50,9 +50,9 @@
         </columns>
     </TableView>
 
-    <HBox styleClass="pagination-section" alignment="CENTER_LEFT" >
-        <Button fx:id="previousButton" styleClass="pagination-button" />
+    <HBox styleClass="pagination-section" alignment="CENTER_LEFT">
+        <Button fx:id="previousButton" styleClass="pagination-button"/>
         <Label fx:id="pageNumber" styleClass="pagination-label"/>
-        <Button fx:id="nextButton" styleClass="pagination-button" />
+        <Button fx:id="nextButton" styleClass="pagination-button"/>
     </HBox>
 </VBox>

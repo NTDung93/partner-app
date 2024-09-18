@@ -1,5 +1,6 @@
-package elca.ntig.partnerapp.be.helper;
+package elca.ntig.partnerapp.be.mappingservice.impl;
 
+import elca.ntig.partnerapp.be.mappingservice.PersonMappingService;
 import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
 import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
 import elca.ntig.partnerapp.be.service.PersonService;
@@ -14,15 +15,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PersonServiceGrpcHelper {
+public class PersonMappingServiceImpl implements PersonMappingService {
     private final PersonMapper personMapper;
     private final ArgumentValidator argumentValidator;
     private final PersonService personService;
 
+    @Override
     public PersonResponseProto getPersonByIdHelper(GetPersonRequestProto request){
         return personMapper.toPersonResponseProto(personService.getPersonById(request.getId()));
     }
 
+    @Override
     public SearchPeoplePaginationResponseProto searchPeoplePaginationHelper(SearchPeoplePaginationRequestProto request){
         SearchPeopleCriteriasDto searchPeopleCriterias = personMapper.toSearchPeopleCriteriasDto(request.getCriterias());
         argumentValidator.validate(searchPeopleCriterias);

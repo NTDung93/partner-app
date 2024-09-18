@@ -12,5 +12,12 @@ import javax.persistence.*;
 public abstract class BaseEntity {
     @Version
     @Column(nullable = false)
-    private int version;
+    private Integer version;
+
+    @PrePersist
+    private void prePersist() {
+        if (version == null) {
+            this.version = 0;
+        }
+    }
 }
