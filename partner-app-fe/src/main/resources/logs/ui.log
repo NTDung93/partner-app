@@ -52,3 +52,48 @@
 2024-09-19 09:56:53 INFO  TableFragment:272 - Current page: 2
 2024-09-19 09:56:54 INFO  TableFragment:280 - Current page: 1
 2024-09-19 09:56:54 INFO  TableFragment:280 - Current page: 0
+2024-09-19 23:38:50 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:38:50 INFO  TableFragment:378 - Current page: 2
+2024-09-19 23:38:51 INFO  TableFragment:378 - Current page: 3
+2024-09-19 23:39:24 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:39:26 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:39:29 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:39:29 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-19 23:39:31 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:39:32 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-19 23:39:33 INFO  TableFragment:150 - Sorting by: language, Direction: asc
+2024-09-19 23:39:35 INFO  TableFragment:150 - Sorting by: language, Direction: desc
+2024-09-19 23:39:38 INFO  TableFragment:150 - Sorting by: birthDate, Direction: asc
+2024-09-19 23:39:44 INFO  TableFragment:150 - Sorting by: birthDate, Direction: desc
+2024-09-19 23:39:46 INFO  TableFragment:150 - Sorting by: civilStatus, Direction: asc
+2024-09-19 23:39:47 INFO  TableFragment:150 - Sorting by: civilStatus, Direction: desc
+2024-09-19 23:39:48 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: asc
+2024-09-19 23:39:49 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: desc
+2024-09-19 23:39:50 INFO  TableFragment:150 - Sorting by: status, Direction: asc
+2024-09-19 23:39:51 INFO  TableFragment:150 - Sorting by: status, Direction: desc
+2024-09-19 23:39:53 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: asc
+2024-09-19 23:39:53 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: desc
+2024-09-19 23:40:14 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:40:15 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:40:56 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:40:56 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:40:58 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:40:58 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:40:59 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:41:00 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:41:02 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:03 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:04 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:04 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:07 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:08 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:09 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:10 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:10 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:11 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:12 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:13 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:15 INFO  TableFragment:150 - Sorting by: lastName, Direction: asc
+2024-09-19 23:41:15 INFO  TableFragment:150 - Sorting by: lastName, Direction: desc
+2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc

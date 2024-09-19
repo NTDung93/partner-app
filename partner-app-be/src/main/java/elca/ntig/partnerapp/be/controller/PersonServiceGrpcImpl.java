@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.be.controller;
 import elca.ntig.partnerapp.be.mappingservice.PersonMappingService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
-//import net.devh.boot.grpc.server.service.GrpcService;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;

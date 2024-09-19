@@ -1,0 +1,63 @@
+syntax = "proto3";
+import "language.proto";
+import "legal_status.proto";
+import "code_noga.proto";
+import "status.proto";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.entity.organisation";
+option java_outer_classname = "OrganisationProto";
+
+service OrganisationService{
+  rpc getOrganisationById(GetOrganisationRequestProto) returns (OrganisationResponseProto){
+  }
+
+  rpc searchOrganisationPagination(SearchOrganisationPaginationRequestProto) returns (SearchOrganisationPaginationResponseProto){
+  }
+}
+
+message GetOrganisationRequestProto {
+  uint32 id = 1;
+}
+
+message OrganisationResponseProto {
+  uint32 id = 1;
+  string name = 2;
+  string additionalName = 3;
+  LanguageProto language = 4;
+  LegalStatusProto legalStatus = 5;
+  string ideNumber = 6;
+  string creationDate = 7;
+  CodeNOGAProto codeNoga = 8;
+  string phoneNumber = 9;
+  StatusProto status = 10;
+}
+
+message SearchOrganisationCriteriasProto {
+  string name = 1;
+  string additionalName = 2;
+  LanguageProto language = 3;
+  LegalStatusProto legalStatus = 4;
+  string ideNumber = 5;
+  string creationDate = 6;
+  repeated StatusProto status = 7;
+}
+
+message SearchOrganisationPaginationRequestProto {
+  uint32 pageNo = 1;
+  uint32 pageSize = 2;
+  string sortBy = 3;
+  string sortDir = 4;
+  SearchOrganisationCriteriasProto criterias = 5;
+}
+
+message SearchOrganisationPaginationResponseProto {
+  uint32 pageNo = 1;
+  uint32 pageSize = 2;
+  uint32 totalPages = 3;
+  uint64 totalRecords = 4;
+  bool last = 5;
+  repeated OrganisationResponseProto content = 6;
+}

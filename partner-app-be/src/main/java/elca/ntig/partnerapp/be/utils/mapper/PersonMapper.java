@@ -39,7 +39,7 @@ public interface PersonMapper {
 
     @Mapping(source = "statusList", target = "status")
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
-    SearchPeopleCriteriasDto toSearchPeopleCriteriasDto(SearchPeopleCriteriasProto searchPeopleCriteriasDto);
+    SearchPeopleCriteriasDto toSearchPeopleCriteriasDto(SearchPeopleCriteriasProto searchPeopleCriteriasProto);
 
     @Mapping(source = "content", target = "contentList")
     SearchPeoplePaginationResponseProto toSearchPeoplePaginationResponse(SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto);
