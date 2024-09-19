@@ -156,7 +156,6 @@ public class TableFragment {
 
     private void bindTextProperties() {
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
-//        bindingHelper.bindLabelTextProperty(exportLabel, "TableFragment.lbl.exportLabel");
         bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
         bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
         bindingHelper.bindColumnTextProperty(firstNameColumn, "TableFragment.col.firstName");

@@ -131,6 +131,7 @@ public class PartnerFormFragment {
         bindTextProperties();
         setupComboBoxes();
         setupVisibility();
+        setupAvsNumberField();
         handleEvents();
     }
 
@@ -154,6 +155,44 @@ public class PartnerFormFragment {
         avsNumberErrorLabel.setVisible(false);
         birthDateErrorLabel.setVisible(false);
     }
+
+    private void setupAvsNumberField() {
+        TextFormatter<String> avsFormatter = new TextFormatter<>(change -> {
+            String digits = change.getControlNewText().replaceAll("\\D", "");
+
+            if (digits.length() > 13) {
+                digits = digits.substring(0, 13);
+            }
+
+            String formattedText = formatAvsNumber(digits);
+
+            change.setText(formattedText);
+            change.setRange(0, change.getControlText().length());
+
+            int caretPos = formattedText.length();
+            change.setCaretPosition(caretPos);
+            change.setAnchor(caretPos);
+
+            return change;
+        });
+
+        avsNumberValue.setTextFormatter(avsFormatter);
+    }
+
+    private String formatAvsNumber(String digits) {
+        StringBuilder formatted = new StringBuilder();
+        int length = digits.length();
+
+        for (int i = 0; i < length; i++) {
+            if (i == 3 || i == 7 || i == 11) {
+                formatted.append('.');
+            }
+            formatted.append(digits.charAt(i));
+        }
+
+        return formatted.toString();
+    }
+
 
     private void handleClearCriteriaButtonOnClick() {
         lastNameValue.clear();

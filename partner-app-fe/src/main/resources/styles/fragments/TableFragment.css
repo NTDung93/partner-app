@@ -84,3 +84,11 @@
     -fx-border-radius: 20;
     -fx-background-radius: 20;
 }
+
+.small-col{
+    -fx-pref-width: 100;
+}
+
+.big-col{
+    -fx-pref-width: 150;
+}
