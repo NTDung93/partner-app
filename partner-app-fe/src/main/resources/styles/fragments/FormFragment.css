@@ -55,16 +55,19 @@ Button{
     -fx-opacity: 0.7;
     -fx-text-fill: white;
     -fx-font-size: 15;
+    -fx-pref-width: 160;
 }
 
 .clear-criteria-button {
     -fx-background-color: grey;
     -fx-font-size: 15;
     -fx-text-fill: black;
+    -fx-pref-width: 160;
 }
 
 .search-button {
     -fx-background-color: #0e6969;
     -fx-text-fill: white;
     -fx-font-size: 15;
+    -fx-pref-width: 160;
 }

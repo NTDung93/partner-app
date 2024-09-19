@@ -33,8 +33,7 @@
 
         <!-- Create Partner Button -->
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="5" alignment="CENTER_LEFT">
-            <Button styleClass="create-person-button" fx:id="createPersonButton" maxWidth="Infinity"
-                    HBox.hgrow="ALWAYS"/>
+            <Button styleClass="create-person-button" fx:id="createPersonButton" maxWidth="Infinity"/>
         </HBox>
 
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
@@ -105,10 +104,10 @@
         <!-- Buttons Section -->
         <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnIndex="4">
             <Button fx:id="clearCriteriaButton" styleClass="clear-criteria-button"
-                    maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    maxWidth="Infinity"/>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="5">
-            <Button fx:id="searchButton" styleClass="search-button" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="searchButton" styleClass="search-button" maxWidth="Infinity"/>
         </HBox>
     </GridPane>
 </VBox>
