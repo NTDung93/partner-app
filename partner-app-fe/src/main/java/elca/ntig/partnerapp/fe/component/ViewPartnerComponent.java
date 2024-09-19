@@ -48,6 +48,9 @@ public class ViewPartnerComponent implements FXComponent {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
             formController.handlePagination(paginationModel);
         }
+        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy")) {
+            tableController.resetSortPolicy();
+        }
         return null;
     }
 

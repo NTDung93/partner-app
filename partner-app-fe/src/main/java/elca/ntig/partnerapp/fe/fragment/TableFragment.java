@@ -117,6 +117,11 @@ public class TableFragment {
         setupSortListener();
     }
 
+    public void resetSortPolicy(){
+        sortBy = PaginationConstant.DEFAULT_SORT_BY;
+        sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
+    }
+
     private void setupSortListener() {
         partnersTable.setOnSort(event -> {
             if (isUpdatingSort) {

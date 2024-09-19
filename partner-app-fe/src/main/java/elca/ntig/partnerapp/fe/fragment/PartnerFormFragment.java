@@ -13,6 +13,7 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -244,6 +245,7 @@ public class PartnerFormFragment {
         avsNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         birthDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         setupVisibility();
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy");
     }
 
     private void handleSearchButtonOnClick() {
