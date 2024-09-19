@@ -11,7 +11,6 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -45,6 +44,7 @@ public class TableFragment {
     private String sortBy = PaginationConstant.DEFAULT_SORT_BY;
     private String sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
     private boolean isLastPage = false;
+    private boolean isUpdatingSort = false;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -65,7 +65,7 @@ public class TableFragment {
     private Pagination pagination;
 
     @FXML
-    private TableColumn<PersonTableModel, String> baseNumberColumn;
+    private TableColumn<PersonTableModel, Integer> baseNumberColumn;
 
     @FXML
     private TableColumn<PersonTableModel, String> lastNameColumn;
@@ -114,6 +114,95 @@ public class TableFragment {
         bindTextProperties();
         initializeTable();
         initializePagination();
+        setupSortListener();
+    }
+
+    private void setupSortListener() {
+        partnersTable.setOnSort(event -> {
+            if (isUpdatingSort) {
+                return;
+            }
+
+            if (partnersTable.getSortOrder().isEmpty()) {
+                return;
+            }
+
+            TableColumn<PersonTableModel, ?> sortedColumn = partnersTable.getSortOrder().get(0);
+            TableColumn.SortType sortType = sortedColumn.getSortType();
+
+            String sortDirection;
+            if (sortType == TableColumn.SortType.ASCENDING) {
+                sortDirection = PaginationConstant.SORT_DIRECTION_ASC;
+            } else if (sortType == TableColumn.SortType.DESCENDING) {
+                sortDirection = PaginationConstant.SORT_DIRECTION_DESC;
+            } else {
+                return;
+            }
+
+            String sortByField = getSortByField(sortedColumn);
+            sortBy = sortByField;
+            sortDir = sortDirection;
+            logger.info("Sorting by: " + sortBy + ", Direction: " + sortDir);
+
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID),
+                    new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+        });
+    }
+
+    private String getSortByField(TableColumn<PersonTableModel, ?> column) {
+        if (column == baseNumberColumn) {
+            return "id";
+        } else if (column == lastNameColumn) {
+            return "lastName";
+        } else if (column == firstNameColumn) {
+            return "firstName";
+        } else if (column == languageColumn) {
+            return "language";
+        } else if (column == genderColumn) {
+            return "gender";
+        } else if (column == nationalityColumn) {
+            return "nationality";
+        } else if (column == avsNumberColumn) {
+            return "avsNumber";
+        } else if (column == birthDateColumn) {
+            return "birthDate";
+        } else if (column == civilStatusColumn) {
+            return "civilStatus";
+        } else if (column == phoneNumberColumn) {
+            return "phoneNumber";
+        } else if (column == statusColumn) {
+            return "status";
+        }
+        return "";
+    }
+
+    private TableColumn<PersonTableModel, ?> getSortByColumn(String sortByField) {
+        switch (sortByField) {
+            case "id":
+                return baseNumberColumn;
+            case "lastName":
+                return lastNameColumn;
+            case "firstName":
+                return firstNameColumn;
+            case "language":
+                return languageColumn;
+            case "gender":
+                return genderColumn;
+            case "nationality":
+                return nationalityColumn;
+            case "avsNumber":
+                return avsNumberColumn;
+            case "birthDate":
+                return birthDateColumn;
+            case "civilStatus":
+                return civilStatusColumn;
+            case "phoneNumber":
+                return phoneNumberColumn;
+            case "status":
+                return statusColumn;
+            default:
+                return null;
+        }
     }
 
     public void updateTable(SearchPeoplePaginationResponseProto response) {
@@ -121,7 +210,7 @@ public class TableFragment {
 
         response.getContentList().forEach(person -> {
             PersonTableModel model = new PersonTableModel(
-                    String.valueOf(person.getId()),
+                    person.getId(),
                     person.getLastName(),
                     person.getFirstName(),
                     person.getLanguage().name(),
@@ -142,6 +231,19 @@ public class TableFragment {
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+
+            if (!sortBy.isEmpty()) {
+                TableColumn<PersonTableModel, ?> sortColumn = getSortByColumn(sortBy);
+                if (sortColumn != null) {
+                    isUpdatingSort = true; // Prevent the listener from reacting to this change
+                    partnersTable.getSortOrder().clear();
+                    partnersTable.getSortOrder().add(sortColumn);
+                    sortColumn.setSortType(sortDir.equals(PaginationConstant.SORT_DIRECTION_ASC) ?
+                            TableColumn.SortType.ASCENDING : TableColumn.SortType.DESCENDING);
+                    isUpdatingSort = false;
+                }
+            }
+
             pageNumber.setText(String.valueOf(pageNo + 1));
             if (isLastPage) {
                 nextButton.setDisable(true);
@@ -183,7 +285,7 @@ public class TableFragment {
         partnersTable.setPlaceholder(empty);
     }
 
-    private void setCellValueFactories(){
+    private void setCellValueFactories() {
         baseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -197,7 +299,7 @@ public class TableFragment {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
-    private void setCellFactories(){
+    private void setCellFactories() {
         languageColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.language."));
         genderColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.sex."));
         nationalityColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.nationality."));
@@ -268,7 +370,6 @@ public class TableFragment {
 
         nextButton.setOnAction(event -> {
             pageNo++;
-            pageNumber.setText(String.valueOf(pageNo));
             logger.info("Current page: " + pageNo);
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
         });
@@ -276,7 +377,6 @@ public class TableFragment {
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
-                pageNumber.setText(String.valueOf(pageNo));
                 logger.info("Current page: " + pageNo);
                 context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
             }

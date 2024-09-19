@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonTableModel {
-    private String id;
+    private Integer id;
     private String lastName;
     private String firstName;
     private String language;
