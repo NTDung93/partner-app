@@ -42,6 +42,8 @@ public class TableFragment {
     private ObservableList<PersonTableModel> data;
     private int pageNo = PaginationConstant.DEFAULT_PAGE_NO;
     private int pageSize = PaginationConstant.DEFAULT_PAGE_SIZE;
+    private String sortBy = PaginationConstant.DEFAULT_SORT_BY;
+    private String sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
     private boolean isLastPage = false;
 
     @Autowired
@@ -268,7 +270,7 @@ public class TableFragment {
             pageNo++;
             pageNumber.setText(String.valueOf(pageNo));
             logger.info("Current page: " + pageNo);
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
         });
 
         previousButton.setOnAction(event -> {
@@ -276,7 +278,7 @@ public class TableFragment {
                 pageNo--;
                 pageNumber.setText(String.valueOf(pageNo));
                 logger.info("Current page: " + pageNo);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize));
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
             }
         });
     }

@@ -46,7 +46,7 @@ public class ViewPartnerComponent implements FXComponent {
         }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
-            formController.handlePagination(paginationModel.getPageNo(), paginationModel.getPageSize());
+            formController.handlePagination(paginationModel);
         }
         return null;
     }

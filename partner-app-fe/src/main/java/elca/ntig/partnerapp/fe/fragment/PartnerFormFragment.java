@@ -12,6 +12,7 @@ import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -144,12 +145,12 @@ public class PartnerFormFragment {
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
     }
 
-    public void handlePagination(int pageNo, int pageSize) {
+    public void handlePagination(PaginationModel paginationModel) {
         searchPeoplePaginationRequestProto
-                .setPageNo(pageNo)
-                .setPageSize(pageSize)
-                .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
-                .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                .setPageNo(paginationModel.getPageNo())
+                .setPageSize(paginationModel.getPageSize())
+                .setSortBy(paginationModel.getSortBy())
+                .setSortDir(paginationModel.getSortDir())
                 .setCriterias(searchPeopleCriteriaProto.build());
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto.build());
     }
@@ -252,7 +253,7 @@ public class PartnerFormFragment {
             searchPeopleCriteriaProto
                     .setLastName(lastNameValue.getText())
                     .setFirstName(firstNameValue.getText())
-                    .setAvsNumber(avsNumberValue.getText())
+                    .setAvsNumber(avsNumberValue.getText().replaceAll("\\.", ""))
                     .addAllStatus(getStatuses());
 
             if (languageComboBox.getValue() != null) {
@@ -310,7 +311,7 @@ public class PartnerFormFragment {
     }
 
     private void validateAvsNumber() {
-        String avsNumber = avsNumberValue.getText().trim();
+        String avsNumber = avsNumberValue.getText().trim().replaceAll("\\.", "");
         String avsNumberRegex = "^756\\d{10}$"; // 756.xxxx.xxxx.xx
         if ((!avsNumberValue.getText().isEmpty()) && (!avsNumber.matches(avsNumberRegex))) {
             avsNumberErrorLabel.setVisible(true);
