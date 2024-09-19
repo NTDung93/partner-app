@@ -64,6 +64,7 @@
 .delete-icon{
     -fx-cursor: hand;
     -fx-alignment: center;
+    -fx-pref-width: 80;
 }
 
 .pagination-section{
@@ -86,9 +87,9 @@
 }
 
 .small-col{
-    -fx-pref-width: 100;
+    -fx-pref-width: 80;
 }
 
-.big-col{
-    -fx-pref-width: 150;
+.big-col, .big-col .label{
+    -fx-pref-width: 160;
 }

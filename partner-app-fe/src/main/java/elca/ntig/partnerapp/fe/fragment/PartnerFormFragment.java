@@ -18,6 +18,7 @@ import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -27,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +135,7 @@ public class PartnerFormFragment {
         setupComboBoxes();
         setupVisibility();
         setupAvsNumberField();
+        setupDatePicker();
         handleEvents();
     }
 
@@ -179,6 +183,38 @@ public class PartnerFormFragment {
         avsNumberValue.setTextFormatter(avsFormatter);
     }
 
+    private void setupDatePicker() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        birthDateValue.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? formatter.format(date) : null;
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                try {
+                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
+                } catch (DateTimeParseException e) {
+                    return null;
+                }
+            }
+        });
+
+        birthDateValue.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                // Disable today's date and any date after today
+                if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #7abb81;");
+                }
+            }
+        });
+    }
+
     private String formatAvsNumber(String digits) {
         StringBuilder formatted = new StringBuilder();
         int length = digits.length();
@@ -192,7 +228,6 @@ public class PartnerFormFragment {
 
         return formatted.toString();
     }
-
 
     private void handleClearCriteriaButtonOnClick() {
         lastNameValue.clear();

@@ -42,7 +42,7 @@
             </TableColumn>
             <TableColumn fx:id="phoneNumberColumn">
             </TableColumn>
-            <TableColumn fx:id="statusColumn">
+            <TableColumn fx:id="statusColumn" styleClass="small-col">
             </TableColumn>
             <TableColumn fx:id="deleteIconColumn" styleClass="delete-icon">
             </TableColumn>

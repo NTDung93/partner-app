@@ -68,3 +68,7 @@ Button{
     -fx-text-fill: white;
     -fx-font-size: 15;
 }
+
+.disabled-date-picker{
+    -fx-background-color: #508358;
+}

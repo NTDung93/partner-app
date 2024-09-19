@@ -97,7 +97,7 @@
 
         <Label fx:id="birthDateLabel" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
-            <DatePicker fx:id="birthDateValue" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <DatePicker fx:id="birthDateValue" promptText="dd.MM.yyyy" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
         <Label fx:id="birthDateErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
                GridPane.columnIndex="5"/>
