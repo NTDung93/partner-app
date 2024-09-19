@@ -14,7 +14,7 @@
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         styleClass="root"
-        stylesheets="@../../styles/fragments/FormFragment.css">
+        stylesheets="@../../../styles/fragments/FormFragment.css">
 
     <!-- Header Section-->
     <HBox styleClass="header-section" alignment="CENTER_LEFT">

@@ -10,7 +10,7 @@
         xmlns:fx="http://javafx.com/fxml"
         styleClass="root"
         VBox.vgrow="ALWAYS"
-        stylesheets="@../../styles/fragments/TableFragment.css">
+        stylesheets="@../../../styles/fragments/TableFragment.css">
 
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
         <Label styleClass="header-section-title" fx:id="fragmentTitle"/>

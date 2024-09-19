@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.fe.fragment;
+package elca.ntig.partnerapp.fe.fragment.person;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
@@ -31,12 +31,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@Fragment(id = TableFragment.ID,
-        viewLocation = ResourceConstant.TABLE_FRAGMENT_FXML,
+@Fragment(id = PersonTableFragment.ID,
+        viewLocation = ResourceConstant.PERSON_TABLE_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class TableFragment {
+public class PersonTableFragment {
     public static final String ID = "TableFragment";
-    private static Logger logger = Logger.getLogger(TableFragment.class);
+    private static Logger logger = Logger.getLogger(PersonTableFragment.class);
     private BindingHelper bindingHelper;
     private ObservableList<PersonTableModel> data;
     private int pageNo = PaginationConstant.DEFAULT_PAGE_NO;

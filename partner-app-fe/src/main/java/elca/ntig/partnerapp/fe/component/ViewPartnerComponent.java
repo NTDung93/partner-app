@@ -4,8 +4,8 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
-import elca.ntig.partnerapp.fe.fragment.PartnerFormFragment;
-import elca.ntig.partnerapp.fe.fragment.TableFragment;
+import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;
+import elca.ntig.partnerapp.fe.fragment.person.PersonTableFragment;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
@@ -30,8 +30,8 @@ public class ViewPartnerComponent implements FXComponent {
 
     private Node root;
 
-    private TableFragment tableController;
-    private PartnerFormFragment formController;
+    private PersonTableFragment tableController;
+    private PersonFormFragment formController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -63,8 +63,8 @@ public class ViewPartnerComponent implements FXComponent {
         final VBox container = new VBox();
         VBox.setVgrow(container, Priority.ALWAYS);
 
-        final ManagedFragmentHandler<PartnerFormFragment> formHandler = context.getManagedFragmentHandler(PartnerFormFragment.class);
-        final ManagedFragmentHandler<TableFragment> tableHandler = context.getManagedFragmentHandler(TableFragment.class);
+        final ManagedFragmentHandler<PersonFormFragment> formHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        final ManagedFragmentHandler<PersonTableFragment> tableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
         formController = formHandler.getController();
         tableController = tableHandler.getController();
         formController.init();

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
+<VBox
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        styleClass="root"
+        VBox.vgrow="ALWAYS"
+        stylesheets="@../../../styles/fragments/TableFragment.css">
+
+    <HBox styleClass="header-section" alignment="CENTER_LEFT">
+        <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <TableView fx:id="partnersTable" VBox.vgrow="ALWAYS">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="baseNumberColumn" styleClass="center-align">
+            </TableColumn>
+            <TableColumn fx:id="lastNameColumn">
+            </TableColumn>
+            <TableColumn fx:id="firstNameColumn">
+            </TableColumn>
+            <TableColumn fx:id="languageColumn">
+            </TableColumn>
+            <TableColumn fx:id="genderColumn">
+            </TableColumn>
+            <TableColumn fx:id="nationalityColumn">
+            </TableColumn>
+            <TableColumn fx:id="avsNumberColumn">
+            </TableColumn>
+            <TableColumn fx:id="birthDateColumn" styleClass="right-align">
+            </TableColumn>
+            <TableColumn fx:id="civilStatusColumn">
+            </TableColumn>
+            <TableColumn fx:id="phoneNumberColumn">
+            </TableColumn>
+            <TableColumn fx:id="statusColumn" styleClass="small-col">
+            </TableColumn>
+            <TableColumn fx:id="deleteIconColumn" styleClass="delete-icon">
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <HBox styleClass="pagination-section" alignment="CENTER_LEFT">
+        <Button fx:id="previousButton" styleClass="pagination-button"/>
+        <Label fx:id="pageNumber" styleClass="pagination-label"/>
+        <Button fx:id="nextButton" styleClass="pagination-button"/>
+    </HBox>
+</VBox>

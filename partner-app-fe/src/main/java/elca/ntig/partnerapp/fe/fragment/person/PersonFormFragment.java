@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.fe.fragment;
+package elca.ntig.partnerapp.fe.fragment.person;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
@@ -36,12 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Fragment(id = PartnerFormFragment.ID,
-        viewLocation = ResourceConstant.FORM_FRAGMENT_FXML,
+@Fragment(id = PersonFormFragment.ID,
+        viewLocation = ResourceConstant.PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PartnerFormFragment {
+public class PersonFormFragment {
     public static final String ID = "FormFragment";
-    private static Logger logger = Logger.getLogger(PartnerFormFragment.class);
+    private static Logger logger = Logger.getLogger(PersonFormFragment.class);
     SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
     SearchPeoplePaginationRequestProto.Builder searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder();
     private BindingHelper bindingHelper;
