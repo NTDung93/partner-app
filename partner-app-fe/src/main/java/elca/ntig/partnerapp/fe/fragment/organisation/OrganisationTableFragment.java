@@ -1,6 +1,7 @@
 package elca.ntig.partnerapp.fe.fragment.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
@@ -145,14 +146,14 @@ public class OrganisationTableFragment implements BaseTableFragment {
         nextButton.setOnAction(event -> {
             pageNo++;
             logger.info("Current page: " + pageNo);
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_ORGANISATION));
         });
 
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
                 logger.info("Current page: " + pageNo);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_ORGANISATION));
             }
         });
     }
@@ -186,7 +187,7 @@ public class OrganisationTableFragment implements BaseTableFragment {
             logger.info("Sorting by: " + sortBy + ", Direction: " + sortDir);
 
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID),
-                    new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+                    new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_ORGANISATION));
         });
     }
 
@@ -318,22 +319,17 @@ public class OrganisationTableFragment implements BaseTableFragment {
         legalStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.legalStatus."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        creationDateColumn.setCellFactory(new Callback<TableColumn<OrganisationTableModel, String>, TableCell<OrganisationTableModel, String>>() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        creationDateColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, String>() {
             @Override
-            public TableCell<OrganisationTableModel, String> call(TableColumn<OrganisationTableModel, String> param) {
-                return new TableCell<OrganisationTableModel, String>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            LocalDate date = LocalDate.parse(item);
-                            setText(date.format(dateFormatter));
-                        }
-                    }
-                };
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    LocalDate date = LocalDate.parse(item);
+                    setText(date.format(dateFormatter));
+                }
             }
         });
 
@@ -371,9 +367,21 @@ public class OrganisationTableFragment implements BaseTableFragment {
                 }
             }
         });
+
+        codeNOGAColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.substring(5));
+                }
+            }
+        });
     }
 
-    public void resetSortPolicy(){
+    public void resetSortPolicy() {
         sortBy = PaginationConstant.DEFAULT_SORT_BY;
         sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
     }

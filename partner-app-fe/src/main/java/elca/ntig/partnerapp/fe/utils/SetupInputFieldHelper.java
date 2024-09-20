@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 
 public abstract class SetupInputFieldHelper {
     public void setupDatePickerImpl(DatePicker datePickerValue) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
         datePickerValue.setConverter(new StringConverter<LocalDate>() {
             @Override

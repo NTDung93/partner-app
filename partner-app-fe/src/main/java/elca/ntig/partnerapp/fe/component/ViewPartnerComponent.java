@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
@@ -62,11 +63,14 @@ public class ViewPartnerComponent implements FXComponent {
         if (message.isMessageBodyTypeOf(SearchOrganisationPaginationResponseProto.class)) {
             SearchOrganisationPaginationResponseProto response = (SearchOrganisationPaginationResponseProto) message.getMessageBody();
             organisationTableController.updateTable(response);
-            logger.info("response: " + response);
         }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
-            personFormController.handlePagination(paginationModel);
+            if (paginationModel.getPartnerType().equals(PartnerTypeProto.TYPE_PERSON)) {
+                personFormController.handlePagination(paginationModel);
+            } else {
+                organisationFormController.handlePagination(paginationModel);
+            }
         }
         if (message.getMessageBody().equals(MessageConstant.RESET_SORT_POLICY_FOR_PERSON)) {
             personTableController.resetSortPolicy();

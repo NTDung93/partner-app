@@ -17,6 +17,7 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -204,6 +205,16 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         typeComboBox.setOnAction(event -> handleTypeChange());
     }
 
+    public void handlePagination(PaginationModel paginationModel) {
+        searchOrganisationPaginationRequestProto
+                .setPageNo(paginationModel.getPageNo())
+                .setPageSize(paginationModel.getPageSize())
+                .setSortBy(paginationModel.getSortBy())
+                .setSortDir(paginationModel.getSortDir())
+                .setCriterias(searchOrganisationCriteriaProto.build());
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchOrganisationCallback.ID), searchOrganisationPaginationRequestProto.build());
+    }
+
     private void handleClearCriteriaButtonOnClick() {
         nameValue.clear();
         additionalNameValue.clear();
@@ -227,7 +238,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
             searchOrganisationCriteriaProto
                     .setName(nameValue.getText())
                     .setAdditionalName(additionalNameValue.getText())
-                    .setIdeNumber(ideNumberValue.getText().replaceAll("[-.]", ""))
+                    .setIdeNumber(ideNumberValue.getText().replaceAll("[.]", ""))
                     .addAllStatus(getStatuses());
 
             if (languageComboBox.getValue() != null) {

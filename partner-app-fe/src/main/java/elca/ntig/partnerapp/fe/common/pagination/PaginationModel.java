@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.common.pagination;
 
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,5 @@ public class PaginationModel {
     private int pageSize;
     private String sortBy;
     private String sortDir;
+    private PartnerTypeProto partnerType;
 }

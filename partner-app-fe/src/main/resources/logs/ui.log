@@ -268,3 +268,942 @@ content {
 2024-09-20 22:11:10 INFO  OrganisationFormFragment:261 - Switch to person
 2024-09-20 22:11:12 INFO  PersonFormFragment:284 - Switch to organisation
 2024-09-20 22:11:19 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:16:03 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:16:10 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:10 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:15 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:16:36 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:16:38 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:38 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:21:58 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 2
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:21:58 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 2
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:06 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:06 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:07 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:07 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:09 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:09 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:11 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:11 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:14 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:14 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:15 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:15 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:17 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:17 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:20 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:20 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:32 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:32 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:34 INFO  OrganisationTableFragment:147 - Current page: 1
+2024-09-20 22:22:34 INFO  OrganisationTableFragment:147 - Current page: 2
+2024-09-20 22:22:35 INFO  OrganisationTableFragment:147 - Current page: 3
+2024-09-20 22:22:36 INFO  OrganisationTableFragment:147 - Current page: 4
+2024-09-20 22:22:37 INFO  OrganisationTableFragment:147 - Current page: 5
+2024-09-20 22:22:39 INFO  OrganisationTableFragment:147 - Current page: 6
+2024-09-20 22:22:44 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:22:48 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 22:22:49 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 22:22:51 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:22:54 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:54 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:56 INFO  OrganisationTableFragment:147 - Current page: 1
+2024-09-20 22:22:56 INFO  OrganisationTableFragment:147 - Current page: 2
+2024-09-20 22:22:57 INFO  OrganisationTableFragment:147 - Current page: 3
+2024-09-20 22:22:57 INFO  OrganisationTableFragment:147 - Current page: 4
+2024-09-20 22:22:59 INFO  OrganisationTableFragment:186 - Sorting by: id, Direction: desc
+2024-09-20 22:28:53 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+content {
+  id: 48
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0967890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:28:53 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+content {
+  id: 48
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0967890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:28:55 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:29:00 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 22:29:01 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 22:37:51 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:37:52 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:37:54 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:37:55 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:37:58 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:38:01 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:38:03 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:42:03 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:04 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:05 INFO  PersonTableFragment:191 - Sorting by: id, Direction: desc
+2024-09-20 22:42:06 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:08 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:09 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:11 INFO  PersonTableFragment:191 - Sorting by: id, Direction: asc
+2024-09-20 22:42:13 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:18 INFO  PersonTableFragment:191 - Sorting by: birthDate, Direction: asc
+2024-09-20 22:42:22 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:25 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:26 INFO  PersonTableFragment:191 - Sorting by: birthDate, Direction: desc
+2024-09-20 22:42:29 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:31 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:32 INFO  PersonTableFragment:191 - Sorting by: civilStatus, Direction: asc
+2024-09-20 22:42:37 INFO  PersonTableFragment:191 - Sorting by: civilStatus, Direction: desc
+2024-09-20 22:42:41 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: asc
+2024-09-20 22:42:42 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: desc
+2024-09-20 22:42:45 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:47 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:53 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:58 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:00 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: asc
+2024-09-20 22:43:02 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:03 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:05 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: desc
+2024-09-20 22:43:08 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:09 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:13 INFO  PersonTableFragment:191 - Sorting by: id, Direction: asc
+2024-09-20 22:43:15 INFO  PersonTableFragment:191 - Sorting by: id, Direction: desc
+2024-09-20 22:43:16 INFO  PersonTableFragment:191 - Sorting by: lastName, Direction: asc
+2024-09-20 22:43:18 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:19 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:20 INFO  PersonTableFragment:191 - Sorting by: lastName, Direction: desc
+2024-09-20 22:43:22 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:23 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:27 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:43:32 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:43:34 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 22:43:36 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:43:38 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 22:47:54 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:47:54 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:47:56 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:47:59 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:48:00 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:48:02 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 22:48:02 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 22:48:27 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:48:28 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:48:29 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:48:30 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 22:48:31 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 22:48:32 INFO  OrganisationTableFragment:187 - Sorting by: name, Direction: asc
+2024-09-20 22:48:37 INFO  OrganisationTableFragment:187 - Sorting by: name, Direction: desc
+2024-09-20 22:48:38 INFO  OrganisationTableFragment:187 - Sorting by: additionalName, Direction: asc
+2024-09-20 22:48:39 INFO  OrganisationTableFragment:187 - Sorting by: additionalName, Direction: desc
+2024-09-20 22:48:40 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:48:41 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: desc
+2024-09-20 22:48:45 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:48:47 INFO  OrganisationTableFragment:187 - Sorting by: legalStatus, Direction: asc
+2024-09-20 22:49:26 INFO  OrganisationFormFragment:272 - Switch to person
+2024-09-20 22:55:42 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:57:06 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:57:07 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: desc
+2024-09-20 23:15:51 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:18:07 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: asc
+2024-09-20 23:18:09 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: desc
+2024-09-20 23:21:17 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:21:30 INFO  OrganisationTableFragment:187 - Sorting by: codeNoga, Direction: asc
+2024-09-20 23:21:33 INFO  OrganisationTableFragment:187 - Sorting by: codeNoga, Direction: desc
+2024-09-20 23:21:39 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 23:21:39 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 23:21:41 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 23:21:42 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 23:21:43 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 23:21:43 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 23:21:44 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 23:29:15 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:29:16 INFO  OrganisationFormFragment:272 - Switch to person
+2024-09-20 23:29:18 INFO  PersonFormFragment:284 - Switch to organisation

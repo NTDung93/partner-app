@@ -64,7 +64,7 @@
 .delete-icon{
     -fx-cursor: hand;
     -fx-alignment: center;
-    -fx-pref-width: 80;
+    /*-fx-pref-width: 80;*/
 }
 
 .pagination-section{

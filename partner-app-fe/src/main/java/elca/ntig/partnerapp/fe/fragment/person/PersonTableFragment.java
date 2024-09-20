@@ -1,9 +1,11 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -149,14 +151,14 @@ public class PersonTableFragment implements BaseTableFragment {
         nextButton.setOnAction(event -> {
             pageNo++;
             logger.info("Current page: " + pageNo);
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
         });
 
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
                 logger.info("Current page: " + pageNo);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
             }
         });
     }
@@ -190,7 +192,7 @@ public class PersonTableFragment implements BaseTableFragment {
             logger.info("Sorting by: " + sortBy + ", Direction: " + sortDir);
 
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID),
-                    new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+                    new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
         });
     }
 
@@ -330,22 +332,17 @@ public class PersonTableFragment implements BaseTableFragment {
         civilStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.marital."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        birthDateColumn.setCellFactory(new Callback<TableColumn<PersonTableModel, String>, TableCell<PersonTableModel, String>>() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        birthDateColumn.setCellFactory(cell -> new TableCell<PersonTableModel, String>() {
             @Override
-            public TableCell<PersonTableModel, String> call(TableColumn<PersonTableModel, String> param) {
-                return new TableCell<PersonTableModel, String>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            LocalDate date = LocalDate.parse(item);
-                            setText(date.format(dateFormatter));
-                        }
-                    }
-                };
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    LocalDate date = LocalDate.parse(item);
+                    setText(date.format(dateFormatter));
+                }
             }
         });
 
@@ -380,6 +377,25 @@ public class PersonTableFragment implements BaseTableFragment {
                     } else {
                         setGraphic(null);
                     }
+                }
+            }
+        });
+
+        avsNumberColumn.setCellFactory(cell -> new TableCell<PersonTableModel, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    StringBuilder formatted = new StringBuilder();
+                    for (int i = 0; i < item.length(); i++) {
+                        if (i == 3 || i == 7 || i == 11) {
+                            formatted.append(".");
+                        }
+                        formatted.append(item.charAt(i));
+                    }
+                    setText(formatted.toString());
                 }
             }
         });
