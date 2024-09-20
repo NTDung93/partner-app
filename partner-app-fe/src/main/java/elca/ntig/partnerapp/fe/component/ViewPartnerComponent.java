@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
@@ -9,6 +10,7 @@ import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationTableFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonTableFragment;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
@@ -33,6 +35,14 @@ public class ViewPartnerComponent implements FXComponent {
     @Resource
     private Context context;
     private Node root;
+
+    private VBox container = new VBox();
+
+    private ManagedFragmentHandler<PersonFormFragment> personFormHandler;
+    private ManagedFragmentHandler<PersonTableFragment> personTableHandler;
+    private ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler;
+    private ManagedFragmentHandler<OrganisationTableFragment> organisationTableHandler;
+
     private PersonFormFragment personFormController;
     private PersonTableFragment personTableController;
     private OrganisationFormFragment organisationFormController;
@@ -58,40 +68,53 @@ public class ViewPartnerComponent implements FXComponent {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
             personFormController.handlePagination(paginationModel);
         }
-        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy for person")) {
+        if (message.getMessageBody().equals(MessageConstant.RESET_SORT_POLICY_FOR_PERSON)) {
             personTableController.resetSortPolicy();
         }
-        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy for organisation")) {
+        if (message.getMessageBody().equals(MessageConstant.RESET_SORT_POLICY_FOR_ORGANISATION)) {
             organisationTableController.resetSortPolicy();
+        }
+        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
+            switchTypeToOrganisation();
+        }
+        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
+            switchTypeToPerson();
         }
         return null;
     }
 
     @PostConstruct
     public void onPostConstructComponent() {
+        container.setVgrow(container, Priority.ALWAYS);
         this.root = initFragment();
     }
 
     private Node initFragment() {
-        final VBox container = new VBox();
-        VBox.setVgrow(container, Priority.ALWAYS);
+        switchTypeToPerson();
+        return container;
+    }
 
-        final ManagedFragmentHandler<PersonFormFragment> personFormHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
-        final ManagedFragmentHandler<PersonTableFragment> personTableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
-        final ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler = context.getManagedFragmentHandler(OrganisationFormFragment.class);
-        final ManagedFragmentHandler<OrganisationTableFragment> organisationTableHandler = context.getManagedFragmentHandler(OrganisationTableFragment.class);
-        personFormController = personFormHandler.getController();
-        personTableController = personTableHandler.getController();
-        personFormController.init();
-        personTableController.init();
-
+    private void switchTypeToOrganisation() {
+        organisationFormHandler = context.getManagedFragmentHandler(OrganisationFormFragment.class);
+        organisationTableHandler = context.getManagedFragmentHandler(OrganisationTableFragment.class);
         organisationFormController = organisationFormHandler.getController();
         organisationTableController = organisationTableHandler.getController();
         organisationFormController.init();
         organisationTableController.init();
+        Platform.runLater(() -> {
+            container.getChildren().setAll(organisationFormHandler.getFragmentNode(), organisationTableHandler.getFragmentNode());
+        });
+    }
 
-//        container.getChildren().addAll(personFormHandler.getFragmentNode(), personTableHandler.getFragmentNode());
-        container.getChildren().addAll(organisationFormHandler.getFragmentNode(), organisationTableHandler.getFragmentNode());
-        return container;
+    private void switchTypeToPerson() {
+        personFormHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        personTableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
+        personFormController = personFormHandler.getController();
+        personTableController = personTableHandler.getController();
+        personFormController.init();
+        personTableController.init();
+        Platform.runLater(() -> {
+            container.getChildren().setAll(personFormHandler.getFragmentNode(), personTableHandler.getFragmentNode());
+        });
     }
 }

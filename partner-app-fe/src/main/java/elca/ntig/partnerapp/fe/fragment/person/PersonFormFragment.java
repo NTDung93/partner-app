@@ -10,6 +10,7 @@ import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
 import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
@@ -212,6 +213,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
     public void handleEvents() {
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
+        typeComboBox.setOnAction(event -> handleTypeChange());
     }
 
     public void handlePagination(PaginationModel paginationModel) {
@@ -238,7 +240,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         avsNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         birthDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         setupVisibility();
-        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy for person");
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_PERSON);
     }
 
     private void handleSearchButtonOnClick() {
@@ -273,6 +275,17 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
                     .setCriterias(searchPeopleCriteriaProto.build())
                     .build();
             context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto);
+        }
+    }
+
+    private void handleTypeChange() {
+        PartnerTypeProto selectedType = typeComboBox.getValue();
+        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
+            logger.info("Switch to organisation");
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
+            logger.info("Switch to person");
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
         }
     }
 

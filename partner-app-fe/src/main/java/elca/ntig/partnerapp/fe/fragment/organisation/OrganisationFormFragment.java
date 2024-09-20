@@ -14,6 +14,7 @@ import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -165,7 +166,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
     public void setupComboBoxes() {
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
-        typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
+        typeComboBox.setValue(PartnerTypeProto.TYPE_ORGANISATION);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
 
@@ -200,6 +201,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
     public void handleEvents() {
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
+        typeComboBox.setOnAction(event -> handleTypeChange());
     }
 
     private void handleClearCriteriaButtonOnClick() {
@@ -215,7 +217,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         ideNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         creationDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         setupVisibility();
-        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy for organisation");
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_ORGANISATION);
     }
 
     private void handleSearchButtonOnClick() {
@@ -247,6 +249,17 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
                     .setCriterias(searchOrganisationCriteriaProto.build())
                     .build();
             context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchOrganisationCallback.ID), searchOrganisationPaginationRequestProto);
+        }
+    }
+
+    private void handleTypeChange() {
+        PartnerTypeProto selectedType = typeComboBox.getValue();
+        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
+            logger.info("Switch to organisation");
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
+            logger.info("Switch to person");
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
         }
     }
 
