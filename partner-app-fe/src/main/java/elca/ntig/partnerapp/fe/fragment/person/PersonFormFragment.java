@@ -19,12 +19,10 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
-import elca.ntig.partnerapp.fe.utils.SetupDatePickerHelper;
-import elca.ntig.partnerapp.fe.utils.SetupInputFieldHelper;
+import elca.ntig.partnerapp.fe.utils.BasicSetupFormFragment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.StringConverter;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -34,8 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +39,7 @@ import java.util.List;
 @Fragment(id = PersonFormFragment.ID,
         viewLocation = ResourceConstant.PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonFormFragment extends SetupInputFieldHelper implements BaseFormFragment {
+public class PersonFormFragment extends BasicSetupFormFragment implements BaseFormFragment {
     public static final String ID = "FormFragment";
     private static Logger logger = Logger.getLogger(PersonFormFragment.class);
     SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
@@ -137,10 +133,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
-        setupComboBoxes();
-        setupVisibility();
-        setupAvsNumberField();
-        setupDatePicker();
+        setupUIControls();
         handleEvents();
     }
 
@@ -170,6 +163,14 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
     }
 
     @Override
+    public void setupUIControls() {
+        setupComboBoxes();
+        setupAvsNumberField();
+        setupDatePicker();
+        setupErrorLabelVisibility();
+    }
+
+    @Override
     public void setupComboBoxes() {
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
@@ -194,7 +195,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
     }
 
     @Override
-    public void setupVisibility() {
+    public void setupErrorLabelVisibility() {
         lastNameErrorLabel.setVisible(false);
         avsNumberErrorLabel.setVisible(false);
         birthDateErrorLabel.setVisible(false);
@@ -216,6 +217,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         typeComboBox.setOnAction(event -> handleTypeChange());
     }
 
+    @Override
     public void handlePagination(PaginationModel paginationModel) {
         searchPeoplePaginationRequestProto
                 .setPageNo(paginationModel.getPageNo())
@@ -226,7 +228,8 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto.build());
     }
 
-    private void handleClearCriteriaButtonOnClick() {
+    @Override
+    public void handleClearCriteriaButtonOnClick() {
         lastNameValue.clear();
         firstNameValue.clear();
         avsNumberValue.clear();
@@ -239,11 +242,12 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         lastNameValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         avsNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         birthDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
-        setupVisibility();
+        setupErrorLabelVisibility();
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_PERSON);
     }
 
-    private void handleSearchButtonOnClick() {
+    @Override
+    public void handleSearchButtonOnClick() {
         validateValues();
         if (!lastNameErrorLabel.isVisible() && !avsNumberErrorLabel.isVisible() && !birthDateErrorLabel.isVisible()) {
             searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
@@ -278,29 +282,23 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         }
     }
 
-    private void handleTypeChange() {
+    @Override
+    public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
-            logger.info("Switch to organisation");
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
         } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
-            logger.info("Switch to person");
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
         }
     }
 
-    private List<StatusProto> getStatuses() {
-        List<StatusProto> statuses = new ArrayList<>();
-        if (activeCheckBox.isSelected()) {
-            statuses.add(StatusProto.ACTIVE);
-        }
-        if (inactiveCheckBox.isSelected()) {
-            statuses.add(StatusProto.INACTIVE);
-        }
-        return statuses;
+    @Override
+    public List<StatusProto> getStatuses() {
+        return getStatusesImpl(activeCheckBox, inactiveCheckBox);
     }
 
-    private void validateValues() {
+    @Override
+    public void validateValues() {
         validateName();
         validateAvsNumber();
         validateDate();

@@ -2,16 +2,11 @@ package elca.ntig.partnerapp.fe.fragment.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
-import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
-import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
 import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
-import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
@@ -23,8 +18,7 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
-import elca.ntig.partnerapp.fe.utils.SetupDatePickerHelper;
-import elca.ntig.partnerapp.fe.utils.SetupInputFieldHelper;
+import elca.ntig.partnerapp.fe.utils.BasicSetupFormFragment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -44,7 +38,7 @@ import java.util.List;
 @Fragment(id = OrganisationFormFragment.ID,
         viewLocation = ResourceConstant.ORGANISATION_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class OrganisationFormFragment extends SetupInputFieldHelper implements BaseFormFragment {
+public class OrganisationFormFragment extends BasicSetupFormFragment implements BaseFormFragment {
 
     public static final String ID = "OrganisationFormFragment";
     private static Logger logger = Logger.getLogger(OrganisationFormFragment.class);
@@ -133,11 +127,8 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
-        setupComboBoxes();
-        setupVisibility();
-        setupIdeNumberField();
-        setupDatePicker();
         handleEvents();
+        setupUIControls();
     }
 
     @Override
@@ -164,6 +155,14 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
     }
 
     @Override
+    public void setupUIControls() {
+        setupComboBoxes();
+        setupIdeNumberField();
+        setupDatePicker();
+        setupErrorLabelVisibility();
+    }
+
+    @Override
     public void setupComboBoxes() {
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
@@ -183,7 +182,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
     }
 
     @Override
-    public void setupVisibility() {
+    public void setupErrorLabelVisibility() {
         nameErrorLabel.setVisible(false);
         ideNumberErrorLabel.setVisible(false);
         creationDateErrorLabel.setVisible(false);
@@ -205,6 +204,7 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         typeComboBox.setOnAction(event -> handleTypeChange());
     }
 
+    @Override
     public void handlePagination(PaginationModel paginationModel) {
         searchOrganisationPaginationRequestProto
                 .setPageNo(paginationModel.getPageNo())
@@ -215,7 +215,8 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchOrganisationCallback.ID), searchOrganisationPaginationRequestProto.build());
     }
 
-    private void handleClearCriteriaButtonOnClick() {
+    @Override
+    public void handleClearCriteriaButtonOnClick() {
         nameValue.clear();
         additionalNameValue.clear();
         ideNumberValue.clear();
@@ -227,11 +228,12 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         nameValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         ideNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         creationDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
-        setupVisibility();
+        setupErrorLabelVisibility();
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_ORGANISATION);
     }
 
-    private void handleSearchButtonOnClick() {
+    @Override
+    public void handleSearchButtonOnClick() {
         validateValues();
         if (!nameErrorLabel.isVisible() && !ideNumberErrorLabel.isVisible() && !creationDateErrorLabel.isVisible()) {
             searchOrganisationCriteriaProto = SearchOrganisationCriteriasProto.newBuilder();
@@ -263,29 +265,23 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
         }
     }
 
-    private void handleTypeChange() {
+    @Override
+    public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
-            logger.info("Switch to organisation");
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
         } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
-            logger.info("Switch to person");
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
         }
     }
 
-    private List<StatusProto> getStatuses() {
-        List<StatusProto> statuses = new ArrayList<>();
-        if (activeCheckBox.isSelected()) {
-            statuses.add(StatusProto.ACTIVE);
-        }
-        if (inactiveCheckBox.isSelected()) {
-            statuses.add(StatusProto.INACTIVE);
-        }
-        return statuses;
+    @Override
+    public List<StatusProto> getStatuses() {
+        return getStatusesImpl(activeCheckBox, inactiveCheckBox);
     }
 
-    private void validateValues() {
+    @Override
+    public void validateValues() {
         validateName();
         validateIdeNumber();
         validateDate();

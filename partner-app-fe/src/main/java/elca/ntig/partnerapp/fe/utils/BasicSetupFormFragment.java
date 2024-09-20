@@ -1,16 +1,25 @@
 package elca.ntig.partnerapp.fe.utils;
 
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import org.jacpfx.api.annotations.Resource;
+import org.jacpfx.rcp.context.Context;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class SetupInputFieldHelper {
+public abstract class BasicSetupFormFragment {
+    @Resource
+    private Context context;
+
     public void setupDatePickerImpl(DatePicker datePickerValue) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
@@ -128,5 +137,25 @@ public abstract class SetupInputFieldHelper {
         }
 
         return formatted.toString();
+    }
+
+    public void handleTypeChangeImpl(ComboBox<PartnerTypeProto> typeComboBox) {
+        PartnerTypeProto selectedType = typeComboBox.getValue();
+        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
+        }
+    }
+
+    public List<StatusProto> getStatusesImpl(CheckBox activeCheckBox, CheckBox inactiveCheckBox) {
+        List<StatusProto> statuses = new ArrayList<>();
+        if (activeCheckBox.isSelected()) {
+            statuses.add(StatusProto.ACTIVE);
+        }
+        if (inactiveCheckBox.isSelected()) {
+            statuses.add(StatusProto.INACTIVE);
+        }
+        return statuses;
     }
 }

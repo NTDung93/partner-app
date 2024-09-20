@@ -1207,3 +1207,6 @@ content {
 2024-09-20 23:29:15 INFO  PersonFormFragment:284 - Switch to organisation
 2024-09-20 23:29:16 INFO  OrganisationFormFragment:272 - Switch to person
 2024-09-20 23:29:18 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-21 00:07:00 INFO  PersonFormFragment:289 - Switch to organisation
+2024-09-21 00:07:46 INFO  PersonFormFragment:289 - Switch to organisation
+2024-09-21 00:07:47 INFO  OrganisationFormFragment:275 - Switch to person
