@@ -97,3 +97,148 @@
 2024-09-19 23:41:15 INFO  TableFragment:150 - Sorting by: lastName, Direction: desc
 2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
 2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-20 17:03:40 INFO  ViewPartnerComponent:55 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 17:03:40 INFO  ViewPartnerComponent:55 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 17:03:50 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: desc
+2024-09-20 17:03:51 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: asc
+2024-09-20 17:03:52 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: desc
+2024-09-20 17:03:55 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: asc
+2024-09-20 17:03:56 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: desc
+2024-09-20 17:04:02 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: asc
+2024-09-20 17:04:08 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: asc
+2024-09-20 17:04:09 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: desc
+2024-09-20 17:04:15 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: asc
+2024-09-20 17:04:33 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: desc
+2024-09-20 17:04:37 INFO  OrganisationTableFragment:189 - Sorting by: codeNoga, Direction: asc
+2024-09-20 17:04:38 INFO  OrganisationTableFragment:189 - Sorting by: codeNoga, Direction: desc
+2024-09-20 17:04:40 INFO  OrganisationTableFragment:189 - Sorting by: phoneNumber, Direction: asc
+2024-09-20 17:04:41 INFO  OrganisationTableFragment:189 - Sorting by: phoneNumber, Direction: desc
+2024-09-20 17:06:30 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 17:06:31 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 17:06:32 INFO  PersonTableFragment:151 - Current page: 1

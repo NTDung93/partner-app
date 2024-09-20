@@ -6,6 +6,7 @@ import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationFormFragment;
+import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationTableFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonTableFragment;
 import javafx.event.Event;
@@ -32,9 +33,10 @@ public class ViewPartnerComponent implements FXComponent {
     @Resource
     private Context context;
     private Node root;
-    private PersonTableFragment tableController;
     private PersonFormFragment personFormController;
+    private PersonTableFragment personTableController;
     private OrganisationFormFragment organisationFormController;
+    private OrganisationTableFragment organisationTableController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -45,11 +47,11 @@ public class ViewPartnerComponent implements FXComponent {
     public Node handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(SearchPeoplePaginationResponseProto.class)) {
             SearchPeoplePaginationResponseProto response = (SearchPeoplePaginationResponseProto) message.getMessageBody();
-            tableController.updateTable(response);
+            personTableController.updateTable(response);
         }
         if (message.isMessageBodyTypeOf(SearchOrganisationPaginationResponseProto.class)) {
             SearchOrganisationPaginationResponseProto response = (SearchOrganisationPaginationResponseProto) message.getMessageBody();
-//            tableController.updateTable(response);
+            organisationTableController.updateTable(response);
             logger.info("response: " + response);
         }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
@@ -57,7 +59,10 @@ public class ViewPartnerComponent implements FXComponent {
             personFormController.handlePagination(paginationModel);
         }
         if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy for person")) {
-            tableController.resetSortPolicy();
+            personTableController.resetSortPolicy();
+        }
+        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy for organisation")) {
+            organisationTableController.resetSortPolicy();
         }
         return null;
     }
@@ -72,17 +77,21 @@ public class ViewPartnerComponent implements FXComponent {
         VBox.setVgrow(container, Priority.ALWAYS);
 
         final ManagedFragmentHandler<PersonFormFragment> personFormHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        final ManagedFragmentHandler<PersonTableFragment> personTableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
         final ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler = context.getManagedFragmentHandler(OrganisationFormFragment.class);
-        final ManagedFragmentHandler<PersonTableFragment> tableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
+        final ManagedFragmentHandler<OrganisationTableFragment> organisationTableHandler = context.getManagedFragmentHandler(OrganisationTableFragment.class);
         personFormController = personFormHandler.getController();
-        organisationFormController = organisationFormHandler.getController();
-        tableController = tableHandler.getController();
+        personTableController = personTableHandler.getController();
         personFormController.init();
-        organisationFormController.init();
-        tableController.init();
+        personTableController.init();
 
-//        container.getChildren().addAll(personFormHandler.getFragmentNode(), tableHandler.getFragmentNode());
-        container.getChildren().addAll(organisationFormHandler.getFragmentNode(), tableHandler.getFragmentNode());
+        organisationFormController = organisationFormHandler.getController();
+        organisationTableController = organisationTableHandler.getController();
+        organisationFormController.init();
+        organisationTableController.init();
+
+//        container.getChildren().addAll(personFormHandler.getFragmentNode(), personTableHandler.getFragmentNode());
+        container.getChildren().addAll(organisationFormHandler.getFragmentNode(), organisationTableHandler.getFragmentNode());
         return container;
     }
 }

@@ -21,14 +21,14 @@ public class LocalizedTableCell<S> extends TableCell<S, String> {
         if (empty || item == null || item.isEmpty()) {
             setText(null);
         } else {
-            String value = item.substring(item.indexOf("_") + 1);
-            String key = resourcePrefix + value.toLowerCase();
-            textProperty().bind(observableResourceFactory.getStringBinding(key));
+            int subStringIndex = 0;
+            if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.")) {
+//                String value = item.substring(item.indexOf("_") + 1);
+                subStringIndex = item.indexOf("_") + 1;
+            }
+//            String key = resourcePrefix + value.toLowerCase();
+            String value = item.substring(subStringIndex).toLowerCase();
+            textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
         }
     }
-//
-//    public static <S> Callback<TableColumn<S, String>, TableCell<S, String>> forTableColumn(
-//            ObservableResourceFactory observableResourceFactory, String resourcePrefix) {
-//        return column -> new LocalizedTableCell<>(observableResourceFactory, resourcePrefix);
-//    }
 }

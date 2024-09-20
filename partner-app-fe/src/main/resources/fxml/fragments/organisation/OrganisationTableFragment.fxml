@@ -24,21 +24,19 @@
         <columns>
             <TableColumn fx:id="baseNumberColumn" styleClass="center-align">
             </TableColumn>
-            <TableColumn fx:id="lastNameColumn">
+            <TableColumn fx:id="nameColumn">
             </TableColumn>
-            <TableColumn fx:id="firstNameColumn">
+            <TableColumn fx:id="additionalNameColumn">
             </TableColumn>
             <TableColumn fx:id="languageColumn">
             </TableColumn>
-            <TableColumn fx:id="genderColumn">
+            <TableColumn fx:id="legalStatusColumn">
             </TableColumn>
-            <TableColumn fx:id="nationalityColumn">
+            <TableColumn fx:id="ideNumberColumn">
             </TableColumn>
-            <TableColumn fx:id="avsNumberColumn">
+            <TableColumn fx:id="creationDateColumn" styleClass="right-align">
             </TableColumn>
-            <TableColumn fx:id="birthDateColumn" styleClass="right-align">
-            </TableColumn>
-            <TableColumn fx:id="civilStatusColumn">
+            <TableColumn fx:id="codeNOGAColumn">
             </TableColumn>
             <TableColumn fx:id="phoneNumberColumn">
             </TableColumn>

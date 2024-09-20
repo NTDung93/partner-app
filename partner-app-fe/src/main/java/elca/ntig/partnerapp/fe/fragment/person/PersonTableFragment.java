@@ -8,6 +8,7 @@ import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.fragment.BaseTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
@@ -34,8 +35,8 @@ import java.time.format.DateTimeFormatter;
 @Fragment(id = PersonTableFragment.ID,
         viewLocation = ResourceConstant.PERSON_TABLE_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonTableFragment {
-    public static final String ID = "TableFragment";
+public class PersonTableFragment implements BaseTableFragment {
+    public static final String ID = "PersonTableFragment";
     private static Logger logger = Logger.getLogger(PersonTableFragment.class);
     private BindingHelper bindingHelper;
     private ObservableList<PersonTableModel> data;
@@ -60,9 +61,6 @@ public class PersonTableFragment {
 
     @FXML
     private TableView<PersonTableModel> partnersTable;
-
-    @FXML
-    private Pagination pagination;
 
     @FXML
     private TableColumn<PersonTableModel, Integer> baseNumberColumn;
@@ -117,12 +115,54 @@ public class PersonTableFragment {
         setupSortListener();
     }
 
-    public void resetSortPolicy(){
-        sortBy = PaginationConstant.DEFAULT_SORT_BY;
-        sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
+    @Override
+    public void bindTextProperties() {
+        bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
+        bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
+        bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
+        bindingHelper.bindColumnTextProperty(firstNameColumn, "TableFragment.col.firstName");
+        bindingHelper.bindColumnTextProperty(languageColumn, "TableFragment.col.language");
+        bindingHelper.bindColumnTextProperty(genderColumn, "TableFragment.col.gender");
+        bindingHelper.bindColumnTextProperty(nationalityColumn, "TableFragment.col.nationality");
+        bindingHelper.bindColumnTextProperty(avsNumberColumn, "TableFragment.col.avsNumber");
+        bindingHelper.bindColumnTextProperty(birthDateColumn, "TableFragment.col.birthDate");
+        bindingHelper.bindColumnTextProperty(civilStatusColumn, "TableFragment.col.civilStatus");
+        bindingHelper.bindColumnTextProperty(phoneNumberColumn, "TableFragment.col.phoneNumber");
+        bindingHelper.bindColumnTextProperty(statusColumn, "TableFragment.col.status");
     }
 
-    private void setupSortListener() {
+    @Override
+    public void initializeTable() {
+        setTableDefaultMessage();
+        setCellValueFactories();
+        setCellFactories();
+    }
+
+    @Override
+    public void initializePagination() {
+        previousButton.setText("<");
+        nextButton.setText(">");
+        pageNumber.setText(String.valueOf(pageNo + 1));
+        previousButton.setDisable(true);
+        nextButton.setDisable(true);
+
+        nextButton.setOnAction(event -> {
+            pageNo++;
+            logger.info("Current page: " + pageNo);
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+        });
+
+        previousButton.setOnAction(event -> {
+            if (pageNo > 0) {
+                pageNo--;
+                logger.info("Current page: " + pageNo);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
+            }
+        });
+    }
+
+    @Override
+    public void setupSortListener() {
         partnersTable.setOnSort(event -> {
             if (isUpdatingSort) {
                 return;
@@ -263,27 +303,6 @@ public class PersonTableFragment {
         });
     }
 
-    private void bindTextProperties() {
-        bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
-        bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
-        bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
-        bindingHelper.bindColumnTextProperty(firstNameColumn, "TableFragment.col.firstName");
-        bindingHelper.bindColumnTextProperty(languageColumn, "TableFragment.col.language");
-        bindingHelper.bindColumnTextProperty(genderColumn, "TableFragment.col.gender");
-        bindingHelper.bindColumnTextProperty(nationalityColumn, "TableFragment.col.nationality");
-        bindingHelper.bindColumnTextProperty(avsNumberColumn, "TableFragment.col.avsNumber");
-        bindingHelper.bindColumnTextProperty(birthDateColumn, "TableFragment.col.birthDate");
-        bindingHelper.bindColumnTextProperty(civilStatusColumn, "TableFragment.col.civilStatus");
-        bindingHelper.bindColumnTextProperty(phoneNumberColumn, "TableFragment.col.phoneNumber");
-        bindingHelper.bindColumnTextProperty(statusColumn, "TableFragment.col.status");
-    }
-
-    private void initializeTable() {
-        setTableDefaultMessage();
-        setCellValueFactories();
-        setCellFactories();
-    }
-
     private void setTableDefaultMessage() {
         Label empty = new Label();
         bindingHelper.bindLabelTextProperty(empty, "TableFragment.defaultMessage");
@@ -366,25 +385,8 @@ public class PersonTableFragment {
         });
     }
 
-    private void initializePagination() {
-        previousButton.setText("<");
-        nextButton.setText(">");
-        pageNumber.setText(String.valueOf(pageNo + 1));
-        previousButton.setDisable(true);
-        nextButton.setDisable(true);
-
-        nextButton.setOnAction(event -> {
-            pageNo++;
-            logger.info("Current page: " + pageNo);
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
-        });
-
-        previousButton.setOnAction(event -> {
-            if (pageNo > 0) {
-                pageNo--;
-                logger.info("Current page: " + pageNo);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir));
-            }
-        });
+    public void resetSortPolicy(){
+        sortBy = PaginationConstant.DEFAULT_SORT_BY;
+        sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
     }
 }
