@@ -71,7 +71,9 @@ public abstract class SetupInputFieldHelper {
 
         if (len >= 3) {
             formatted.append(digits.substring(0, 3));
-            formatted.append('-');
+            if (len > 3) {
+                formatted.append('-');
+            }
         } else {
             formatted.append(digits);
             return formatted.toString();

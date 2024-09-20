@@ -238,7 +238,7 @@ public class PersonFormFragment extends SetupInputFieldHelper implements BaseFor
         avsNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         birthDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
         setupVisibility();
-        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy");
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy for person");
     }
 
     private void handleSearchButtonOnClick() {

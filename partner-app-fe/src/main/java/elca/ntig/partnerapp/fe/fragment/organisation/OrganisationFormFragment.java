@@ -2,15 +2,24 @@ package elca.ntig.partnerapp.fe.fragment.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
+import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
+import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.SetupDatePickerHelper;
 import elca.ntig.partnerapp.fe.utils.SetupInputFieldHelper;
@@ -24,6 +33,10 @@ import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Fragment(id = OrganisationFormFragment.ID,
@@ -185,6 +198,110 @@ public class OrganisationFormFragment extends SetupInputFieldHelper implements B
 
     @Override
     public void handleEvents() {
+        clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
+        searchButton.setOnAction(event -> handleSearchButtonOnClick());
+    }
 
+    private void handleClearCriteriaButtonOnClick() {
+        nameValue.clear();
+        additionalNameValue.clear();
+        ideNumberValue.clear();
+        activeCheckBox.setSelected(true);
+        inactiveCheckBox.setSelected(true);
+        languageComboBox.setValue(null);
+        legalStatusComboBox.setValue(null);
+        creationDateValue.setValue(null);
+        nameValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
+        ideNumberValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
+        creationDateValue.getStyleClass().remove(ClassNameConstant.ERROR_INPUT);
+        setupVisibility();
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), "reset sort policy for organisation");
+    }
+
+    private void handleSearchButtonOnClick() {
+        validateValues();
+        if (!nameErrorLabel.isVisible() && !ideNumberErrorLabel.isVisible() && !creationDateErrorLabel.isVisible()) {
+            searchOrganisationCriteriaProto = SearchOrganisationCriteriasProto.newBuilder();
+            searchOrganisationCriteriaProto
+                    .setName(nameValue.getText())
+                    .setAdditionalName(additionalNameValue.getText())
+                    .setIdeNumber(ideNumberValue.getText().replaceAll("[-.]", ""))
+                    .addAllStatus(getStatuses());
+
+            if (languageComboBox.getValue() != null) {
+                searchOrganisationCriteriaProto.setLanguage(languageComboBox.getValue());
+            }
+            if (legalStatusComboBox.getValue() != null) {
+                searchOrganisationCriteriaProto.setLegalStatus(legalStatusComboBox.getValue());
+            }
+            if (creationDateValue.getValue() != null) {
+                searchOrganisationCriteriaProto.setCreationDate(creationDateValue.getValue().toString());
+            } else {
+                searchOrganisationCriteriaProto.clearCreationDate();
+            }
+            SearchOrganisationPaginationRequestProto searchOrganisationPaginationRequestProto = SearchOrganisationPaginationRequestProto.newBuilder()
+                    .setPageNo(PaginationConstant.DEFAULT_PAGE_NO)
+                    .setPageSize(PaginationConstant.DEFAULT_PAGE_SIZE)
+                    .setSortBy(PaginationConstant.DEFAULT_SORT_BY)
+                    .setSortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                    .setCriterias(searchOrganisationCriteriaProto.build())
+                    .build();
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchOrganisationCallback.ID), searchOrganisationPaginationRequestProto);
+        }
+    }
+
+    private List<StatusProto> getStatuses() {
+        List<StatusProto> statuses = new ArrayList<>();
+        if (activeCheckBox.isSelected()) {
+            statuses.add(StatusProto.ACTIVE);
+        }
+        if (inactiveCheckBox.isSelected()) {
+            statuses.add(StatusProto.INACTIVE);
+        }
+        return statuses;
+    }
+
+    private void validateValues() {
+        validateName();
+        validateIdeNumber();
+        validateDate();
+    }
+
+    private void validateName() {
+        if (nameValue.getText().isEmpty()) {
+            nameErrorLabel.setVisible(true);
+            if (!nameValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                nameValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            }
+        } else {
+            nameErrorLabel.setVisible(false);
+            nameValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        }
+    }
+
+    private void validateIdeNumber() {
+        String ideNumber = ideNumberValue.getText().trim().replaceAll("[-.]", "");
+        String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
+        if ((!ideNumberValue.getText().isEmpty()) && (!ideNumber.matches(ideNumberRegex))) {
+            ideNumberErrorLabel.setVisible(true);
+            if (!ideNumberValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                ideNumberValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            }
+        } else {
+            ideNumberErrorLabel.setVisible(false);
+            ideNumberValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        }
+    }
+
+    private void validateDate() {
+        if ((creationDateValue.getValue() != null) && (!creationDateValue.getValue().isBefore(LocalDate.now()))) {
+            creationDateErrorLabel.setVisible(true);
+            if (!creationDateValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                creationDateValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            }
+        } else {
+            creationDateErrorLabel.setVisible(false);
+            creationDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        }
     }
 }

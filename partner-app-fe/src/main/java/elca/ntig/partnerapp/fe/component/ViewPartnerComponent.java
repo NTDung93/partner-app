@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
@@ -11,6 +12,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.View;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
@@ -25,12 +27,11 @@ import org.jacpfx.rcp.context.Context;
         initialTargetLayoutId = TargetConstant.TARGET_VIEW_PARTNER_CONTAINER)
 public class ViewPartnerComponent implements FXComponent {
     public static final String ID = "ViewPartnerComponent";
+    private static Logger logger = Logger.getLogger(ViewPartnerComponent.class);
 
     @Resource
     private Context context;
-
     private Node root;
-
     private PersonTableFragment tableController;
     private PersonFormFragment personFormController;
     private OrganisationFormFragment organisationFormController;
@@ -46,11 +47,16 @@ public class ViewPartnerComponent implements FXComponent {
             SearchPeoplePaginationResponseProto response = (SearchPeoplePaginationResponseProto) message.getMessageBody();
             tableController.updateTable(response);
         }
+        if (message.isMessageBodyTypeOf(SearchOrganisationPaginationResponseProto.class)) {
+            SearchOrganisationPaginationResponseProto response = (SearchOrganisationPaginationResponseProto) message.getMessageBody();
+//            tableController.updateTable(response);
+            logger.info("response: " + response);
+        }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
             personFormController.handlePagination(paginationModel);
         }
-        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy")) {
+        if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy for person")) {
             tableController.resetSortPolicy();
         }
         return null;
