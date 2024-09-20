@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonTableFragment;
 import javafx.event.Event;
@@ -31,7 +32,8 @@ public class ViewPartnerComponent implements FXComponent {
     private Node root;
 
     private PersonTableFragment tableController;
-    private PersonFormFragment formController;
+    private PersonFormFragment personFormController;
+    private OrganisationFormFragment organisationFormController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -46,7 +48,7 @@ public class ViewPartnerComponent implements FXComponent {
         }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
             PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
-            formController.handlePagination(paginationModel);
+            personFormController.handlePagination(paginationModel);
         }
         if (message.isMessageBodyTypeOf(String.class) && message.getMessageBody().equals("reset sort policy")) {
             tableController.resetSortPolicy();
@@ -63,14 +65,18 @@ public class ViewPartnerComponent implements FXComponent {
         final VBox container = new VBox();
         VBox.setVgrow(container, Priority.ALWAYS);
 
-        final ManagedFragmentHandler<PersonFormFragment> formHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        final ManagedFragmentHandler<PersonFormFragment> personFormHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        final ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler = context.getManagedFragmentHandler(OrganisationFormFragment.class);
         final ManagedFragmentHandler<PersonTableFragment> tableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
-        formController = formHandler.getController();
+        personFormController = personFormHandler.getController();
+        organisationFormController = organisationFormHandler.getController();
         tableController = tableHandler.getController();
-        formController.init();
+        personFormController.init();
+        organisationFormController.init();
         tableController.init();
 
-        container.getChildren().addAll(formHandler.getFragmentNode(), tableHandler.getFragmentNode());
+//        container.getChildren().addAll(personFormHandler.getFragmentNode(), tableHandler.getFragmentNode());
+        container.getChildren().addAll(organisationFormHandler.getFragmentNode(), tableHandler.getFragmentNode());
         return container;
     }
 }

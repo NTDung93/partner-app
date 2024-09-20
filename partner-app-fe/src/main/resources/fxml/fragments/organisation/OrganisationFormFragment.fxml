@@ -16,7 +16,6 @@
         styleClass="root"
         stylesheets="@../../../styles/fragments/FormFragment.css">
 
-    <!-- Header Section-->
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
         <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
     </HBox>
@@ -31,9 +30,8 @@
             <ColumnConstraints percentWidth="15.0"/>
         </columnConstraints>
 
-        <!-- Create Partner Button -->
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="5" alignment="CENTER_LEFT">
-            <Button styleClass="create-person-button" fx:id="createPersonButton" maxWidth="Infinity"/>
+            <Button styleClass="create-person-button" fx:id="createOrganisationButton" maxWidth="Infinity"/>
         </HBox>
 
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
@@ -51,24 +49,21 @@
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
             <VBox alignment="BASELINE_CENTER">
                 <TextFlow>
-                    <Text fx:id="lastNameLabel" styleClass="require-field"/>
+                    <Text fx:id="nameLabel" styleClass="require-field"/>
                     <Text text="*" styleClass="red-asterisk"/>
                 </TextFlow>
             </VBox>
         </HBox>
-        <TextField fx:id="lastNameValue" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-        <Label fx:id="lastNameErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
+        <TextField fx:id="nameValue" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label fx:id="nameErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
                GridPane.columnIndex="2"/>
 
-        <Label fx:id="firstNameLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField fx:id="firstNameValue" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label fx:id="additionalNameLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="additionalNameValue" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <!--        <Label fx:id="additionalNameLabel" text="Hehe" GridPane.rowIndex="3" GridPane.columnIndex="0"/>-->
-        <!--        <TextField fx:id="additionalNameValue" GridPane.rowIndex="3" GridPane.columnIndex="1"/>-->
-
-        <Label fx:id="avsNumberLabel" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextField fx:id="avsNumberValue" promptText="756.xxxx.xxxx.xx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-        <Label fx:id="avsNumberErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
+        <Label fx:id="ideNumberLabel" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="ideNumberValue" promptText="YYY-xxx.xxx.xxx" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label fx:id="ideNumberErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
                GridPane.columnIndex="2"/>
 
         <Label fx:id="statusLabel" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
@@ -84,21 +79,16 @@
             <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <Label fx:id="sexLabel" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-        <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
-            <ComboBox fx:id="sexComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-        </HBox>
-
-        <Label fx:id="nationalityLabel" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        <Label fx:id="legalStatusLabel" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">
-            <ComboBox fx:id="nationalityComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="legalStatusComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <Label fx:id="birthDateLabel" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+        <Label fx:id="creationDateLabel" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
-            <DatePicker fx:id="birthDateValue" promptText="dd.MM.yyyy" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <DatePicker fx:id="creationDateValue" promptText="dd.MM.yyyy" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
-        <Label fx:id="birthDateErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
+        <Label fx:id="creationDateErrorLabel" styleClass="error-label" GridPane.rowIndex="4"
                GridPane.columnIndex="5"/>
 
         <!-- Buttons Section -->

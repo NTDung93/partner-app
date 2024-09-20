@@ -15,8 +15,11 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
+import elca.ntig.partnerapp.fe.utils.SetupDatePickerHelper;
+import elca.ntig.partnerapp.fe.utils.SetupInputFieldHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -39,7 +42,7 @@ import java.util.List;
 @Fragment(id = PersonFormFragment.ID,
         viewLocation = ResourceConstant.PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonFormFragment {
+public class PersonFormFragment extends SetupInputFieldHelper implements BaseFormFragment {
     public static final String ID = "FormFragment";
     private static Logger logger = Logger.getLogger(PersonFormFragment.class);
     SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
@@ -130,7 +133,6 @@ public class PersonFormFragment {
     @FXML
     private CheckBox inactiveCheckBox;
 
-
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -141,7 +143,73 @@ public class PersonFormFragment {
         handleEvents();
     }
 
-    private void handleEvents() {
+    @Override
+    public void bindTextProperties() {
+        bindingHelper.bindLabelTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
+        bindingHelper.bindLabelTextProperty(createPersonButton, "FormFragment.btn.createPerson");
+        bindingHelper.bindTextProperty(typeLabel, "FormFragment.lbl.type");
+        bindingHelper.bindTextProperty(lastNameLabel, "FormFragment.lbl.lastName");
+        bindingHelper.bindLabelTextProperty(firstNameLabel, "FormFragment.lbl.firstName");
+        bindingHelper.bindLabelTextProperty(avsNumberLabel, "FormFragment.lbl.avsNumber");
+        bindingHelper.bindLabelTextProperty(statusLabel, "FormFragment.lbl.status");
+        bindingHelper.bindLabelTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguage");
+        bindingHelper.bindLabelTextProperty(sexLabel, "FormFragment.lbl.sex");
+        bindingHelper.bindLabelTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
+        bindingHelper.bindLabelTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
+        bindingHelper.bindLabelTextProperty(clearCriteriaButton, "FormFragment.btn.clearCriteria");
+        bindingHelper.bindLabelTextProperty(searchButton, "FormFragment.btn.search");
+        bindingHelper.bindLabelTextProperty(lastNameErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
+        bindingHelper.bindLabelTextProperty(birthDateErrorLabel, "Error.invalidDate");
+        bindingHelper.bindLabelTextProperty(activeCheckBox, "FormFragment.checkBox.active");
+        bindingHelper.bindLabelTextProperty(inactiveCheckBox, "FormFragment.checkBox.inactive");
+        bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
+    }
+
+    @Override
+    public void setupComboBoxes() {
+        typeComboBox.getItems().addAll(PartnerTypeProto.values());
+        typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
+        typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
+        typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
+
+        languageComboBox.getItems().addAll(LanguageProto.values());
+        languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
+        languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
+        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
+
+        sexComboBox.getItems().addAll(SexEnumProto.values());
+        sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
+        sexComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.sex."));
+        sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
+
+        nationalityComboBox.getItems().addAll(NationalityProto.values());
+        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
+        nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
+        nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
+    }
+
+    @Override
+    public void setupVisibility() {
+        lastNameErrorLabel.setVisible(false);
+        avsNumberErrorLabel.setVisible(false);
+        birthDateErrorLabel.setVisible(false);
+    }
+
+    private void setupAvsNumberField() {
+        setupAvsNumberFieldImpl(avsNumberValue);
+    }
+
+    @Override
+    public void setupDatePicker() {
+        setupDatePickerImpl(birthDateValue);
+    }
+
+    @Override
+    public void handleEvents() {
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
     }
@@ -154,81 +222,6 @@ public class PersonFormFragment {
                 .setSortDir(paginationModel.getSortDir())
                 .setCriterias(searchPeopleCriteriaProto.build());
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto.build());
-    }
-
-    private void setupVisibility() {
-        lastNameErrorLabel.setVisible(false);
-        avsNumberErrorLabel.setVisible(false);
-        birthDateErrorLabel.setVisible(false);
-    }
-
-    private void setupAvsNumberField() {
-        TextFormatter<String> avsFormatter = new TextFormatter<>(change -> {
-            String digits = change.getControlNewText().replaceAll("\\D", "");
-
-            if (digits.length() > 13) {
-                digits = digits.substring(0, 13);
-            }
-
-            String formattedText = formatAvsNumber(digits);
-
-            change.setText(formattedText);
-            change.setRange(0, change.getControlText().length());
-
-            int caretPos = formattedText.length();
-            change.setCaretPosition(caretPos);
-            change.setAnchor(caretPos);
-
-            return change;
-        });
-
-        avsNumberValue.setTextFormatter(avsFormatter);
-    }
-
-    private void setupDatePicker() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        birthDateValue.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate date) {
-                return (date != null) ? formatter.format(date) : null;
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                try {
-                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
-                } catch (DateTimeParseException e) {
-                    return null;
-                }
-            }
-        });
-
-        birthDateValue.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                // Disable today's date and any date after today
-                if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
-                    setDisable(true);
-                    setStyle("-fx-background-color: #7abb81;");
-                }
-            }
-        });
-    }
-
-    private String formatAvsNumber(String digits) {
-        StringBuilder formatted = new StringBuilder();
-        int length = digits.length();
-
-        for (int i = 0; i < length; i++) {
-            if (i == 3 || i == 7 || i == 11) {
-                formatted.append('.');
-            }
-            formatted.append(digits.charAt(i));
-        }
-
-        return formatted.toString();
     }
 
     private void handleClearCriteriaButtonOnClick() {
@@ -338,51 +331,4 @@ public class PersonFormFragment {
         }
     }
 
-    private void bindTextProperties() {
-        // Bind labels and buttons
-        bindingHelper.bindLabelTextProperty(fragmentTitle, "FormFragment.lbl.fragmentTitle");
-        bindingHelper.bindLabelTextProperty(createPersonButton, "FormFragment.btn.createPerson");
-        bindingHelper.bindTextProperty(typeLabel, "FormFragment.lbl.type");
-        bindingHelper.bindTextProperty(lastNameLabel, "FormFragment.lbl.lastName");
-        bindingHelper.bindLabelTextProperty(firstNameLabel, "FormFragment.lbl.firstName");
-        bindingHelper.bindLabelTextProperty(avsNumberLabel, "FormFragment.lbl.avsNumber");
-        bindingHelper.bindLabelTextProperty(statusLabel, "FormFragment.lbl.status");
-        bindingHelper.bindLabelTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguage");
-        bindingHelper.bindLabelTextProperty(sexLabel, "FormFragment.lbl.sex");
-        bindingHelper.bindLabelTextProperty(nationalityLabel, "FormFragment.lbl.nationality");
-        bindingHelper.bindLabelTextProperty(birthDateLabel, "FormFragment.lbl.birthDate");
-        bindingHelper.bindLabelTextProperty(clearCriteriaButton, "FormFragment.btn.clearCriteria");
-        bindingHelper.bindLabelTextProperty(searchButton, "FormFragment.btn.search");
-        bindingHelper.bindLabelTextProperty(lastNameErrorLabel, "Error.requiredField");
-        bindingHelper.bindLabelTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
-        bindingHelper.bindLabelTextProperty(birthDateErrorLabel, "Error.invalidDate");
-        bindingHelper.bindLabelTextProperty(activeCheckBox, "FormFragment.checkBox.active");
-        bindingHelper.bindLabelTextProperty(inactiveCheckBox, "FormFragment.checkBox.inactive");
-        bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
-        bindingHelper.bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
-        bindingHelper.bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
-    }
-
-    private void setupComboBoxes() {
-        typeComboBox.getItems().addAll(PartnerTypeProto.values());
-        typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
-        typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
-        typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
-        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
-
-        languageComboBox.getItems().addAll(LanguageProto.values());
-        languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
-        languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
-        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
-
-        sexComboBox.getItems().addAll(SexEnumProto.values());
-        sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
-        sexComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.sex."));
-        sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
-
-        nationalityComboBox.getItems().addAll(NationalityProto.values());
-        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
-        nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
-        nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
-    }
 }
