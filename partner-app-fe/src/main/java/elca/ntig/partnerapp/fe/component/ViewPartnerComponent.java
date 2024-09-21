@@ -5,8 +5,8 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
-import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationTableFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;

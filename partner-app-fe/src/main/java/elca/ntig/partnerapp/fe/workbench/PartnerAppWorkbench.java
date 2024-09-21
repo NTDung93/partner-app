@@ -4,7 +4,7 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.LanguageConstant;
 import elca.ntig.partnerapp.fe.common.enums.Language;
 import elca.ntig.partnerapp.fe.common.enums.Resolution;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import javafx.event.Event;
 import javafx.scene.Node;

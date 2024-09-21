@@ -25,7 +25,6 @@ public class Address extends BaseEntity{
     @JoinColumn(name = "PARTNER_ID")
     private Partner partner;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "CATEGORY", nullable = false, length = 20)
     private AddressType category;
 
@@ -41,11 +40,9 @@ public class Address extends BaseEntity{
     @Column(name = "HOUSE_NUMBER", length = 12)
     private String houseNumber;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "CANTON", length = 2)
     private CantonAbbr canton;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "COUNTRY", length = 2)
     private Country country;
 

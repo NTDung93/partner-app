@@ -1,7 +1,7 @@
 package elca.ntig.partnerapp.fe.fragment;
 
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
-import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
+import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package elca.ntig.partnerapp.be.model.entity;
 
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
-import elca.ntig.partnerapp.be.utils.converter.LanguageConverter;
 import lombok.*;
 
 import javax.persistence.*;

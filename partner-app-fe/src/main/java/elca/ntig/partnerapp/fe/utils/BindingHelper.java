@@ -1,14 +1,9 @@
 package elca.ntig.partnerapp.fe.utils;
 
-import javafx.beans.binding.StringBinding;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import org.springframework.stereotype.Component;
 
 @Component

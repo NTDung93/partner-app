@@ -6,11 +6,10 @@ import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
-import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
+import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseTableFragment;
-import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -29,9 +28,6 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 @Fragment(id = PersonTableFragment.ID,

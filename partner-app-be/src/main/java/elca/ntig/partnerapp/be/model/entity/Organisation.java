@@ -2,9 +2,6 @@ package elca.ntig.partnerapp.be.model.entity;
 
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;
-import elca.ntig.partnerapp.be.utils.converter.CodeNOGAConverter;
-import elca.ntig.partnerapp.be.utils.converter.LanguageConverter;
-import elca.ntig.partnerapp.be.utils.converter.LegalStatusConverter;
 import lombok.*;
 
 import javax.persistence.*;

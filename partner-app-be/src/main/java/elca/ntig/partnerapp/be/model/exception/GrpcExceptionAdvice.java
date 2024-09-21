@@ -38,4 +38,13 @@ public class GrpcExceptionAdvice {
         metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);
     }
+
+    @GrpcExceptionHandler(Exception.class)
+    public StatusRuntimeException handleException(Exception e) {
+
+        Status status = Status.UNKNOWN.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
 }

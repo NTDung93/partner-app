@@ -2,7 +2,7 @@ package elca.ntig.partnerapp.fe.config;
 
 import elca.ntig.partnerapp.fe.common.constant.ServerContant;
 import elca.ntig.partnerapp.fe.common.enums.Language;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.service.OrganisationClientService;
 import elca.ntig.partnerapp.fe.service.PersonClientService;
 import io.grpc.ManagedChannel;

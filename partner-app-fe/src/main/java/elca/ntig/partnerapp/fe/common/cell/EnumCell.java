@@ -1,8 +1,7 @@
 package elca.ntig.partnerapp.fe.common.cell;
 
 import com.google.protobuf.ProtocolMessageEnum;
-import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.scene.control.ListCell;
 import org.springframework.stereotype.Component;
 

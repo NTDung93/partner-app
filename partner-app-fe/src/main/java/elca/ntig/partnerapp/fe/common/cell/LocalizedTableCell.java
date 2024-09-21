@@ -1,6 +1,6 @@
 package elca.ntig.partnerapp.fe.common.cell;
 
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.scene.control.TableCell;
 import org.springframework.stereotype.Component;
 
