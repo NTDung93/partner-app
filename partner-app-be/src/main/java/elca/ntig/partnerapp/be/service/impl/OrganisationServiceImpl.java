@@ -36,11 +36,8 @@ public class OrganisationServiceImpl implements OrganisationService {
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<Organisation> organisation = organisationRepository.searchOrganisationPagination(criterias, pageable);
-
-        //get content of page
         List<Organisation> organisationList = organisation.getContent();
 
-        //format the response
         List<OrganisationResponseDto> content = organisationList.stream().map(org -> organisationMapper.toOrganisationResponseDto(org)).collect(Collectors.toList());
         return SearchOrganisationPaginationResponseDto.builder()
                 .pageNo(organisation.getNumber())

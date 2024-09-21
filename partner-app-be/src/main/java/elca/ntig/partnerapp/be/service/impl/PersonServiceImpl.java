@@ -36,11 +36,8 @@ public class PersonServiceImpl implements PersonService {
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<Person> people = personRepository.searchPeoplePagination(criterias, pageable);
-
-        //get content of page
         List<Person> peopleList = people.getContent();
 
-        //format the response
         List<PersonResponseDto> content = peopleList.stream().map(person -> personMapper.toPersonResponseDto(person)).collect(Collectors.toList());
         return SearchPeoplePaginationResponseDto.builder()
                 .pageNo(people.getNumber())

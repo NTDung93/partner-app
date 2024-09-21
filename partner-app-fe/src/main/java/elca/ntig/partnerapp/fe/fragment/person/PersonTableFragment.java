@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -341,7 +342,7 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
                     PersonTableModel person = getTableView().getItems().get(getIndex());
-                    logger.info("Delete person with id: " + person.getId());
+                    handleDeleteButtonOnClick(person.getId());
                 });
             }
 
@@ -362,7 +363,17 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
         });
     }
 
-    public void resetSortPolicy(){
+    public void handleDeleteButtonOnClick(Integer id) {
+        DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+        Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
+                "Dialog.confirmation.header.deletePartner", "Dialog.confirmation.message.deletePartner");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            logger.info("Delete person with id: " + id);
+        }
+    }
+
+    public void resetSortPolicy() {
         sortBy = PaginationConstant.DEFAULT_SORT_BY;
         sortDir = PaginationConstant.DEFAULT_SORT_DIRECTION;
     }

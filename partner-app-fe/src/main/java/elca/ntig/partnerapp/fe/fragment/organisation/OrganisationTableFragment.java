@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -329,7 +330,7 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
                     OrganisationTableModel organisation = getTableView().getItems().get(getIndex());
-                    logger.info("Delete organisation with id: " + organisation.getId());
+                    handleDeleteButtonOnClick(organisation.getId());
                 });
             }
 
@@ -348,6 +349,16 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
                 }
             }
         });
+    }
+
+    public void handleDeleteButtonOnClick(Integer id) {
+        DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+        Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
+                "Dialog.confirmation.header.deletePartner", "Dialog.confirmation.message.deletePartner");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            logger.info("Delete organisation with id: " + id);
+        }
     }
 
     public void resetSortPolicy() {
