@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +56,7 @@ public class OrganisationServiceImpl implements OrganisationService {
     }
 
     @Override
+    @Transactional
     public OrganisationResponseDto createOrganisation(CreateOrganisationRequestDto createOrganisationRequestDto) {
         validateInputs(createOrganisationRequestDto);
 
@@ -82,7 +84,13 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     @Override
     public OrganisationResponseDto updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto) {
-        return null;
+        Organisation organisation = organisationRepository.findById(updateOrganisationRequestDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", updateOrganisationRequestDto.getId()));
+
+        organisationMapper.updateOrganisation(updateOrganisationRequestDto, organisation);
+        organisation = organisationRepository.save(organisation);
+
+        return organisationMapper.toOrganisationResponseDto(organisation);
     }
 
     private void validateInputs(CreateOrganisationRequestDto createOrganisationRequestDto) {

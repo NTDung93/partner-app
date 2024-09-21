@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +55,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto) {
         validateInputs(createPersonRequestDto);
 
@@ -82,7 +84,13 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
-        return null;
+        Person person = personRepository.findById(updatePersonRequestDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Person", "id", updatePersonRequestDto.getId()));
+
+        personMapper.updatePerson(updatePersonRequestDto, person);
+        person = personRepository.save(person);
+
+        return personMapper.toPersonResponseDto(person);
     }
 
     private void validateInputs(CreatePersonRequestDto createPersonRequestDto) {

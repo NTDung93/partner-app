@@ -1,8 +1,6 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
-import elca.ntig.partnerapp.be.model.dto.organisation.OrganisationResponseDto;
-import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationPaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.organisation.*;
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.utils.mapper.enums.*;
@@ -10,10 +8,7 @@ import elca.ntig.partnerapp.common.proto.entity.organisation.DeleteOrganisationR
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
-import org.mapstruct.CollectionMappingStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -27,6 +22,12 @@ import org.mapstruct.MappingConstants;
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
 )
 public interface OrganisationMapper {
+    @Mapping(target = "partner.language", source = "language")
+    @Mapping(target = "partner.phoneNumber", source = "phoneNumber")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "partner", ignore = true)
+    void updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto, @MappingTarget Organisation organisation);
+
     @Mapping(source = "partner.language", target = "language")
     @Mapping(source = "partner.phoneNumber", target = "phoneNumber")
     @Mapping(source = "partner.status", target = "status")
