@@ -6,4 +6,6 @@ public class MessageConstant {
 
     public static final String SWITCH_TYPE_TO_PERSON = "SWITCH_TO_PERSON";
     public static final String SWITCH_TYPE_TO_ORGANISATION = "SWITCH_TO_ORGANISATION";
+
+    public static final String DELETE_PARTNER_SUCCESSFULLY = "Partner is deleted successfully";
 }

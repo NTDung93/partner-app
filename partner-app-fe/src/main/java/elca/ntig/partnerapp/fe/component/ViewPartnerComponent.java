@@ -1,9 +1,12 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.DeleteOrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.DeletePersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
+import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
@@ -39,6 +42,8 @@ public class ViewPartnerComponent implements FXComponent {
 
     private VBox container = new VBox();
 
+    PaginationModel paginationModel;
+
     private ManagedFragmentHandler<PersonFormFragment> personFormHandler;
     private ManagedFragmentHandler<PersonTableFragment> personTableHandler;
     private ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler;
@@ -65,7 +70,7 @@ public class ViewPartnerComponent implements FXComponent {
             organisationTableController.updateTable(response);
         }
         if (message.isMessageBodyTypeOf(PaginationModel.class)) {
-            PaginationModel paginationModel = (PaginationModel) message.getMessageBody();
+            paginationModel = (PaginationModel) message.getMessageBody();
             if (paginationModel.getPartnerType().equals(PartnerTypeProto.TYPE_PERSON)) {
                 personFormController.handlePagination(paginationModel);
             } else {
@@ -79,10 +84,24 @@ public class ViewPartnerComponent implements FXComponent {
             organisationTableController.resetSortPolicy();
         }
         if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
+            paginationModel.setPartnerType(PartnerTypeProto.TYPE_ORGANISATION);
             switchTypeToOrganisation();
         }
         if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
+            paginationModel.setPartnerType(PartnerTypeProto.TYPE_PERSON);
             switchTypeToPerson();
+        }
+        if (message.isMessageBodyTypeOf(DeletePersonResponseProto.class)) {
+            DeletePersonResponseProto response = (DeletePersonResponseProto) message.getMessageBody();
+            if (response.getMessage().equals(MessageConstant.DELETE_PARTNER_SUCCESSFULLY)) {
+                personFormController.handlePagination(paginationModel);
+            }
+        }
+        if (message.isMessageBodyTypeOf(DeleteOrganisationResponseProto.class)) {
+            DeleteOrganisationResponseProto response = (DeleteOrganisationResponseProto) message.getMessageBody();
+            if (response.getMessage().equals(MessageConstant.DELETE_PARTNER_SUCCESSFULLY)) {
+                organisationFormController.handlePagination(paginationModel);
+            }
         }
         return null;
     }
@@ -90,6 +109,13 @@ public class ViewPartnerComponent implements FXComponent {
     @PostConstruct
     public void onPostConstructComponent() {
         container.setVgrow(container, Priority.ALWAYS);
+        paginationModel = PaginationModel.builder()
+                .pageNo(PaginationConstant.DEFAULT_PAGE_NO)
+                .pageSize(PaginationConstant.DEFAULT_PAGE_SIZE)
+                .sortBy(PaginationConstant.DEFAULT_SORT_BY)
+                .sortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
+                .partnerType(PartnerTypeProto.TYPE_PERSON)
+                .build();
         this.root = initFragment();
     }
 

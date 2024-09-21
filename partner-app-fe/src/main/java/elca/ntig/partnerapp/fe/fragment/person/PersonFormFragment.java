@@ -341,5 +341,4 @@ public class PersonFormFragment extends CommonSetupFormFragment implements BaseF
             birthDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
         }
     }
-
 }
