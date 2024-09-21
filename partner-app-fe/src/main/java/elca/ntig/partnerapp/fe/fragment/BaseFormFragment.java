@@ -6,6 +6,8 @@ import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import java.util.List;
 
 public interface BaseFormFragment {
+    void init();
+
     void bindTextProperties();
 
     void setupUIControls();

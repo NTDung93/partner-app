@@ -10,6 +10,7 @@ import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseTableFragment;
+import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
@@ -20,7 +21,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter;
 @Fragment(id = OrganisationTableFragment.ID,
         viewLocation = ResourceConstant.ORGANISATION_TABLE_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class OrganisationTableFragment implements BaseTableFragment {
+public class OrganisationTableFragment extends CommonSetupTableFragment<OrganisationTableModel> implements BaseTableFragment {
     public static final String ID = "OrganisationTableFragment";
     private static Logger logger = Logger.getLogger(OrganisationTableFragment.class);
     private BindingHelper bindingHelper;
@@ -105,6 +105,7 @@ public class OrganisationTableFragment implements BaseTableFragment {
     @FXML
     private Label pageNumber;
 
+    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -296,9 +297,7 @@ public class OrganisationTableFragment implements BaseTableFragment {
     }
 
     private void setTableDefaultMessage() {
-        Label empty = new Label();
-        bindingHelper.bindLabelTextProperty(empty, "TableFragment.defaultMessage");
-        partnersTable.setPlaceholder(empty);
+        setTableDefaultMessage(bindingHelper, partnersTable);
     }
 
     private void setCellValueFactories() {
@@ -318,37 +317,22 @@ public class OrganisationTableFragment implements BaseTableFragment {
         languageColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.language."));
         legalStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.legalStatus."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        creationDateColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    LocalDate date = LocalDate.parse(item);
-                    setText(date.format(dateFormatter));
-                }
-            }
-        });
-
+        setCellFactoryDateColumn(creationDateColumn);
+        setCellFactoryCodeNOGANumberColumn(codeNOGAColumn);
         deleteIconColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, Void>() {
             private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
-
             {
                 deleteIcon.setFitHeight(20);
                 deleteIcon.setFitWidth(20);
             }
 
             Button deleteButton = new Button();
-
             {
                 deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
-                    OrganisationTableModel person = getTableView().getItems().get(getIndex());
-                    logger.info("Delete person with id: " + person.getId());
+                    OrganisationTableModel organisation = getTableView().getItems().get(getIndex());
+                    logger.info("Delete organisation with id: " + organisation.getId());
                 });
             }
 
@@ -364,18 +348,6 @@ public class OrganisationTableFragment implements BaseTableFragment {
                     } else {
                         setGraphic(null);
                     }
-                }
-            }
-        });
-
-        codeNOGAColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.substring(5));
                 }
             }
         });

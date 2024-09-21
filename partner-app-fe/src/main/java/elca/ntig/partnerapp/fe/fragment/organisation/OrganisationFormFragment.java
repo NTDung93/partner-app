@@ -18,7 +18,7 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
-import elca.ntig.partnerapp.fe.utils.BasicSetupFormFragment;
+import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -31,14 +31,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Fragment(id = OrganisationFormFragment.ID,
         viewLocation = ResourceConstant.ORGANISATION_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class OrganisationFormFragment extends BasicSetupFormFragment implements BaseFormFragment {
+public class OrganisationFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
 
     public static final String ID = "OrganisationFormFragment";
     private static Logger logger = Logger.getLogger(OrganisationFormFragment.class);
@@ -124,6 +123,7 @@ public class OrganisationFormFragment extends BasicSetupFormFragment implements 
     @FXML
     private CheckBox inactiveCheckBox;
 
+    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();

@@ -19,7 +19,7 @@ import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
-import elca.ntig.partnerapp.fe.utils.BasicSetupFormFragment;
+import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -32,14 +32,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Fragment(id = PersonFormFragment.ID,
         viewLocation = ResourceConstant.PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonFormFragment extends BasicSetupFormFragment implements BaseFormFragment {
+public class PersonFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
     public static final String ID = "FormFragment";
     private static Logger logger = Logger.getLogger(PersonFormFragment.class);
     SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
@@ -130,6 +129,7 @@ public class PersonFormFragment extends BasicSetupFormFragment implements BaseFo
     @FXML
     private CheckBox inactiveCheckBox;
 
+    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();

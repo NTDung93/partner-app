@@ -5,12 +5,13 @@ import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.common.pagination.PaginationModel;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseTableFragment;
+import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
@@ -20,7 +21,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
@@ -37,7 +37,7 @@ import java.time.format.DateTimeFormatter;
 @Fragment(id = PersonTableFragment.ID,
         viewLocation = ResourceConstant.PERSON_TABLE_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonTableFragment implements BaseTableFragment {
+public class PersonTableFragment extends CommonSetupTableFragment<PersonTableModel> implements BaseTableFragment {
     public static final String ID = "PersonTableFragment";
     private static Logger logger = Logger.getLogger(PersonTableFragment.class);
     private BindingHelper bindingHelper;
@@ -109,6 +109,7 @@ public class PersonTableFragment implements BaseTableFragment {
     @FXML
     private Label pageNumber;
 
+    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -306,9 +307,7 @@ public class PersonTableFragment implements BaseTableFragment {
     }
 
     private void setTableDefaultMessage() {
-        Label empty = new Label();
-        bindingHelper.bindLabelTextProperty(empty, "TableFragment.defaultMessage");
-        partnersTable.setPlaceholder(empty);
+        setTableDefaultMessage(bindingHelper, partnersTable);
     }
 
     private void setCellValueFactories() {
@@ -331,31 +330,16 @@ public class PersonTableFragment implements BaseTableFragment {
         nationalityColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.nationality."));
         civilStatusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.marital."));
         statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        birthDateColumn.setCellFactory(cell -> new TableCell<PersonTableModel, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    LocalDate date = LocalDate.parse(item);
-                    setText(date.format(dateFormatter));
-                }
-            }
-        });
-
+        setCellFactoryDateColumn(birthDateColumn);
+        setCellFactoryAvsNumberColumn(avsNumberColumn);
         deleteIconColumn.setCellFactory(cell -> new TableCell<PersonTableModel, Void>() {
             private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
-
             {
                 deleteIcon.setFitHeight(20);
                 deleteIcon.setFitWidth(20);
             }
 
             Button deleteButton = new Button();
-
             {
                 deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
                 deleteButton.setGraphic(deleteIcon);
@@ -377,25 +361,6 @@ public class PersonTableFragment implements BaseTableFragment {
                     } else {
                         setGraphic(null);
                     }
-                }
-            }
-        });
-
-        avsNumberColumn.setCellFactory(cell -> new TableCell<PersonTableModel, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    StringBuilder formatted = new StringBuilder();
-                    for (int i = 0; i < item.length(); i++) {
-                        if (i == 3 || i == 7 || i == 11) {
-                            formatted.append(".");
-                        }
-                        formatted.append(item.charAt(i));
-                    }
-                    setText(formatted.toString());
                 }
             }
         });
