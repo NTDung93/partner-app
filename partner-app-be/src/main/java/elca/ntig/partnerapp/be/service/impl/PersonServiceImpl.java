@@ -1,11 +1,13 @@
 package elca.ntig.partnerapp.be.service.impl;
 
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
+import com.sun.javaws.exceptions.InvalidArgumentException;
+import elca.ntig.partnerapp.be.model.dto.person.*;
+import elca.ntig.partnerapp.be.model.entity.Partner;
+import elca.ntig.partnerapp.be.model.enums.common.Status;
+import elca.ntig.partnerapp.be.model.exception.*;
+import elca.ntig.partnerapp.be.repository.PartnerRepository;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Person;
-import elca.ntig.partnerapp.be.model.exception.ResourceNotFoundException;
 import elca.ntig.partnerapp.be.repository.PersonRepository;
 import elca.ntig.partnerapp.be.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +17,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
+    private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
@@ -47,5 +51,72 @@ public class PersonServiceImpl implements PersonService {
                 .last(people.isLast())
                 .content(content)
                 .build();
+    }
+
+    @Override
+    public PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto) {
+        validateInputs(createPersonRequestDto);
+
+        Partner partner = Partner.builder()
+                .language(createPersonRequestDto.getLanguage())
+                .phoneNumber(createPersonRequestDto.getPhoneNumber())
+                .status(Status.ACTIVE)
+                .build();
+        partnerRepository.save(partner);
+
+        Person person = Person.builder()
+                .id(partner.getId())
+                .lastName(createPersonRequestDto.getLastName())
+                .firstName(createPersonRequestDto.getFirstName())
+                .sex(createPersonRequestDto.getSex())
+                .nationality(createPersonRequestDto.getNationality())
+                .avsNumber(createPersonRequestDto.getAvsNumber())
+                .birthDate(createPersonRequestDto.getBirthDate())
+                .maritalStatus(createPersonRequestDto.getMaritalStatus())
+                .partner(partner)
+                .build();
+        personRepository.save(person);
+
+        return personMapper.toPersonResponseDto(person);
+    }
+
+    @Override
+    public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
+        return null;
+    }
+
+    private void validateInputs(CreatePersonRequestDto createPersonRequestDto) {
+        validateAVSNumber(createPersonRequestDto.getAvsNumber());
+        validateBirthDate(createPersonRequestDto.getBirthDate());
+        validatePhoneNumber(createPersonRequestDto.getPhoneNumber());
+    }
+
+    private void validateAVSNumber(String avsNumber) {
+        if (avsNumber != null) {
+            String regex = "^756\\d{10}$";
+            if (!avsNumber.matches(regex)) {
+                throw new InvalidAVSNumberFormatException("Invalid AVS number format");
+            }
+
+            Person checkAvsPerson = personRepository.findPersonByAvsNumberAndPartnerStatus(avsNumber, Status.ACTIVE);
+            if (checkAvsPerson != null) {
+                throw new ExistingActiveAVSNumberException("Person with AVS number " + avsNumber + " already exists");
+            }
+        }
+    }
+
+    private void validateBirthDate(LocalDate birthDate) {
+        if ((birthDate != null) && (!birthDate.isBefore(LocalDate.now()))) {
+            throw new DateNotInThePastException("Date must be in the past");
+        }
+    }
+
+    private void validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber != null) {
+            String regex = "^\\d{10}$";
+            if (!phoneNumber.matches(regex)) {
+                throw new InvalidPhoneNumberFormatException("Invalid phone number format");
+            }
+        }
     }
 }

@@ -1,11 +1,14 @@
 package elca.ntig.partnerapp.be.service.impl;
 
-import elca.ntig.partnerapp.be.model.dto.organisation.OrganisationResponseDto;
-import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationPaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.organisation.*;
+import elca.ntig.partnerapp.be.model.dto.person.CreatePersonRequestDto;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
-import elca.ntig.partnerapp.be.model.exception.ResourceNotFoundException;
+import elca.ntig.partnerapp.be.model.entity.Partner;
+import elca.ntig.partnerapp.be.model.entity.Person;
+import elca.ntig.partnerapp.be.model.enums.common.Status;
+import elca.ntig.partnerapp.be.model.exception.*;
 import elca.ntig.partnerapp.be.repository.OrganisationRepository;
+import elca.ntig.partnerapp.be.repository.PartnerRepository;
 import elca.ntig.partnerapp.be.service.OrganisationService;
 import elca.ntig.partnerapp.be.utils.mapper.OrganisationMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +18,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class OrganisationServiceImpl implements OrganisationService {
+    private final PartnerRepository partnerRepository;
     private final OrganisationRepository organisationRepository;
     private final OrganisationMapper organisationMapper;
 
@@ -47,5 +52,72 @@ public class OrganisationServiceImpl implements OrganisationService {
                 .last(organisation.isLast())
                 .content(content)
                 .build();
+    }
+
+    @Override
+    public OrganisationResponseDto createOrganisation(CreateOrganisationRequestDto createOrganisationRequestDto) {
+        validateInputs(createOrganisationRequestDto);
+
+        Partner partner = Partner.builder()
+                .language(createOrganisationRequestDto.getLanguage())
+                .phoneNumber(createOrganisationRequestDto.getPhoneNumber())
+                .status(Status.ACTIVE)
+                .build();
+        partnerRepository.save(partner);
+
+        Organisation organisation = Organisation.builder()
+                .id(partner.getId())
+                .name(createOrganisationRequestDto.getName())
+                .additionalName(createOrganisationRequestDto.getAdditionalName())
+                .ideNumber(createOrganisationRequestDto.getIdeNumber())
+                .codeNoga(createOrganisationRequestDto.getCodeNoga())
+                .legalStatus(createOrganisationRequestDto.getLegalStatus())
+                .creationDate(createOrganisationRequestDto.getCreationDate())
+                .partner(partner)
+                .build();
+        organisation = organisationRepository.save(organisation);
+
+        return organisationMapper.toOrganisationResponseDto(organisation);
+    }
+
+    @Override
+    public OrganisationResponseDto updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto) {
+        return null;
+    }
+
+    private void validateInputs(CreateOrganisationRequestDto createOrganisationRequestDto) {
+        validateIDENumber(createOrganisationRequestDto.getIdeNumber());
+        validateCreationDate(createOrganisationRequestDto.getCreationDate());
+        validatePhoneNumber(createOrganisationRequestDto.getPhoneNumber());
+    }
+
+    private void validateIDENumber(String ideNumber) {
+        if (ideNumber != null) {
+            String plainIde = ideNumber.trim().replaceAll("[-]", "");
+            String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
+            if (!plainIde.matches(ideNumberRegex)) {
+                throw new InvalidIDENumberFormatException("Invalid AVS number format");
+            }
+
+            Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);
+            if (checkIdePerson != null) {
+                throw new ExistingActiveIDENumberException("Person with AVS number " + ideNumber + " already exists");
+            }
+        }
+    }
+
+    private void validateCreationDate(LocalDate creationDate) {
+        if ((creationDate != null) && (!creationDate.isBefore(LocalDate.now()))) {
+            throw new DateNotInThePastException("Date must be in the past");
+        }
+    }
+
+    private void validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber != null) {
+            String regex = "^\\d{10}$";
+            if (!phoneNumber.matches(regex)) {
+                throw new InvalidPhoneNumberFormatException("Invalid phone number format");
+            }
+        }
     }
 }

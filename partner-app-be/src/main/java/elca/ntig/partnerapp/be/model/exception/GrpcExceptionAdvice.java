@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.model.exception;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import io.grpc.Metadata;
 import io.grpc.StatusRuntimeException;
 import io.grpc.Status;
@@ -11,6 +12,14 @@ import javax.validation.ConstraintViolationException;
 @GrpcAdvice
 public class GrpcExceptionAdvice {
     private static final Metadata.Key<String> KEY_NAME = Metadata.Key.of("key", Metadata.ASCII_STRING_MARSHALLER);
+    @GrpcExceptionHandler(RuntimeException.class)
+    public StatusRuntimeException handleException(RuntimeException e) {
+
+        Status status = Status.UNKNOWN.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
 
     @GrpcExceptionHandler(ResourceNotFoundException.class)
     public StatusRuntimeException handleResourceNotFoundException(ResourceNotFoundException e) {
@@ -39,10 +48,64 @@ public class GrpcExceptionAdvice {
         return status.asRuntimeException(metadata);
     }
 
-    @GrpcExceptionHandler(Exception.class)
-    public StatusRuntimeException handleException(Exception e) {
+    @GrpcExceptionHandler(ExistingActiveAVSNumberException.class)
+    public StatusRuntimeException handleExistingActiveAVSNumberException(ExistingActiveAVSNumberException e) {
 
-        Status status = Status.UNKNOWN.withDescription(e.getMessage()).withCause(e);
+        Status status = Status.FAILED_PRECONDITION.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(ExistingActiveIDENumberException.class)
+    public StatusRuntimeException handleExistingActiveIDENumberException(ExistingActiveIDENumberException e) {
+
+        Status status = Status.FAILED_PRECONDITION.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(InvalidAVSNumberFormatException.class)
+    public StatusRuntimeException handleInvalidAVSNumberFormatException(InvalidAVSNumberFormatException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(InvalidIDENumberFormatException.class)
+    public StatusRuntimeException handleInvalidIDENumberFormatException(InvalidIDENumberFormatException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(DateNotInThePastException.class)
+    public StatusRuntimeException handleDateNotInThePastException(DateNotInThePastException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(NullRequiredFieldException.class)
+    public StatusRuntimeException handleNullRequiredFieldException(NullRequiredFieldException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(InvalidPhoneNumberFormatException.class)
+    public StatusRuntimeException handleInvalidPhoneNumberFormatException(InvalidPhoneNumberFormatException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();
         metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);

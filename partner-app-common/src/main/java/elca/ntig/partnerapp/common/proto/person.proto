@@ -21,6 +21,12 @@ service PersonService{
 
   rpc deletePersonById(GetPersonRequestProto) returns (DeletePersonResponseProto){
   }
+
+  rpc createPerson(createPersonRequestProto) returns (PersonResponseProto){
+  }
+
+  rpc updatePerson(updatePersonRequestProto) returns (PersonResponseProto){
+  }
 }
 
 message GetPersonRequestProto {
@@ -77,4 +83,29 @@ message CustomErrorPerson {
 
 message DeletePersonResponseProto {
   string message = 1;
+}
+
+message createPersonRequestProto {
+  string lastName = 1;
+  string firstName = 2;
+  string avsNumber = 3;
+  MaritalStatusProto maritalStatus = 4;
+  LanguageProto language = 5;
+  SexEnumProto sex = 6;
+  NationalityProto nationality = 7;
+  string birthDate = 8;
+  string phoneNumber = 9;
+}
+
+message updatePersonRequestProto {
+  uint32 id = 1;
+  string lastName = 2;
+  string firstName = 3;
+  string avsNumber = 4;
+  MaritalStatusProto maritalStatus = 5;
+  LanguageProto language = 6;
+  SexEnumProto sex = 7;
+  NationalityProto nationality = 8;
+  string birthDate = 9;
+  string phoneNumber = 10;
 }

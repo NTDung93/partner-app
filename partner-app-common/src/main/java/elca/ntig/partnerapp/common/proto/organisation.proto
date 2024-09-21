@@ -19,6 +19,12 @@ service OrganisationService{
 
   rpc deleteOrganisationById(GetOrganisationRequestProto) returns (DeleteOrganisationResponseProto){
   }
+
+  rpc createOrganisation(createOrganisationRequestProto) returns (OrganisationResponseProto){
+  }
+
+  rpc updateOrganisation(updateOrganisationRequestProto) returns (OrganisationResponseProto){
+  }
 }
 
 message GetOrganisationRequestProto {
@@ -67,4 +73,27 @@ message SearchOrganisationPaginationResponseProto {
 
 message DeleteOrganisationResponseProto {
   string message = 1;
+}
+
+message createOrganisationRequestProto {
+  string name = 1;
+  string additionalName = 2;
+  string ideNumber = 3;
+  CodeNOGAProto codeNoga = 4;
+  LanguageProto language = 5;
+  LegalStatusProto legalStatus = 6;
+  string creationDate = 7;
+  string phoneNumber = 8;
+}
+
+message updateOrganisationRequestProto {
+  uint32 id = 1;
+  string name = 2;
+  string additionalName = 3;
+  string ideNumber = 4;
+  CodeNOGAProto codeNoga = 5;
+  LanguageProto language = 6;
+  LegalStatusProto legalStatus = 7;
+  string creationDate = 8;
+  string phoneNumber = 9;
 }
