@@ -1,8 +1,9 @@
 package elca.ntig.partnerapp.fe.service;
 
-import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationServiceGrpc;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.*;
+import elca.ntig.partnerapp.common.proto.entity.person.DeletePersonResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
+import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
 import io.grpc.ManagedChannel;
 
 public class OrganisationClientService {
@@ -16,5 +17,9 @@ public class OrganisationClientService {
 
     public SearchOrganisationPaginationResponseProto searchOrganisationPagination(SearchOrganisationPaginationRequestProto request) {
         return organisationServiceStub.searchOrganisationPagination(request);
+    }
+
+    public DeleteOrganisationResponseProto deleteOrganisationById(GetOrganisationRequestProto request) {
+        return organisationServiceStub.deleteOrganisationById(request);
     }
 }

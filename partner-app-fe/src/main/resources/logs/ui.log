@@ -1210,3 +1210,5 @@ content {
 2024-09-21 00:07:00 INFO  PersonFormFragment:289 - Switch to organisation
 2024-09-21 00:07:46 INFO  PersonFormFragment:289 - Switch to organisation
 2024-09-21 00:07:47 INFO  OrganisationFormFragment:275 - Switch to person
+2024-09-21 16:32:14 INFO  PersonTableFragment:374 - Delete person with id: 29
+2024-09-21 16:37:39 INFO  OrganisationTableFragment:364 - Delete organisation with id: 45

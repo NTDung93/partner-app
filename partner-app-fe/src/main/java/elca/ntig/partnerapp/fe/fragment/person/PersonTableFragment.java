@@ -1,7 +1,9 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
@@ -370,6 +372,8 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             logger.info("Delete person with id: " + id);
+            GetPersonRequestProto request = GetPersonRequestProto.newBuilder().setId(id).build();
+            context.send(ViewPartnerPerspective.ID.concat(".").concat(DeletePersonCallback.ID), request);
         }
     }
 
