@@ -16,6 +16,9 @@ service OrganisationService{
 
   rpc searchOrganisationPagination(SearchOrganisationPaginationRequestProto) returns (SearchOrganisationPaginationResponseProto){
   }
+
+  rpc deleteOrganisationById(GetOrganisationRequestProto) returns (DeleteOrganisationResponseProto){
+  }
 }
 
 message GetOrganisationRequestProto {
@@ -60,4 +63,8 @@ message SearchOrganisationPaginationResponseProto {
   uint64 totalRecords = 4;
   bool last = 5;
   repeated OrganisationResponseProto content = 6;
+}
+
+message DeleteOrganisationResponseProto {
+  string message = 1;
 }

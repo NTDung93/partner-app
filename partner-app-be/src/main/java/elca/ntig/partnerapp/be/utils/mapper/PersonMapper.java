@@ -1,6 +1,7 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
 
+import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
 import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
 import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
@@ -9,6 +10,7 @@ import elca.ntig.partnerapp.be.utils.mapper.enums.LanguageMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.NationalityMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.SexEnumMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.StatusMapper;
+import elca.ntig.partnerapp.common.proto.entity.person.DeletePersonResponseProto;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -43,4 +45,6 @@ public interface PersonMapper {
 
     @Mapping(source = "content", target = "contentList")
     SearchPeoplePaginationResponseProto toSearchPeoplePaginationResponse(SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto);
+
+    DeletePersonResponseProto toDeletePersonResponseProto(DeletePartnerResponseDto deletePersonResponseDto);
 }

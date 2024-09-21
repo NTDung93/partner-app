@@ -2,13 +2,9 @@ package elca.ntig.partnerapp.fe.callback.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
-import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.service.OrganisationClientService;
-import elca.ntig.partnerapp.fe.service.PersonClientService;
 import javafx.event.Event;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.Component;

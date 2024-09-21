@@ -18,6 +18,9 @@ service PersonService{
 
   rpc searchPeoplePagination(SearchPeoplePaginationRequestProto) returns (SearchPeoplePaginationResponseProto){
   }
+
+  rpc deletePersonById(GetPersonRequestProto) returns (DeletePersonResponseProto){
+  }
 }
 
 message GetPersonRequestProto {
@@ -70,4 +73,8 @@ message CustomErrorPerson {
   string code = 1;
   string message = 2;
   string timestamp = 3;
+}
+
+message DeletePersonResponseProto {
+  string message = 1;
 }

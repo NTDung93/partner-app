@@ -3,13 +3,12 @@ package elca.ntig.partnerapp.be.mappingservice.impl;
 import elca.ntig.partnerapp.be.mappingservice.OrganisationMappingService;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationCriteriasDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationPaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.service.OrganisationService;
+import elca.ntig.partnerapp.be.service.PartnerService;
 import elca.ntig.partnerapp.be.utils.mapper.OrganisationMapper;
 import elca.ntig.partnerapp.be.utils.validator.ArgumentValidator;
-import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +18,7 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
     private final OrganisationMapper organisationMapper;
     private final ArgumentValidator argumentValidator;
     private final OrganisationService organisationService;
+    private final PartnerService partnerService;
 
 
     @Override
@@ -32,5 +32,11 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
         argumentValidator.validate(searchOrganisationCriterias);
         SearchOrganisationPaginationResponseDto searchOrganisationPaginationResponseDto = organisationService.searchOrganisationPagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchOrganisationCriterias);
         return organisationMapper.toSearchOrganisationPaginationResponse(searchOrganisationPaginationResponseDto);
+    }
+
+    @Override
+    public DeleteOrganisationResponseProto deleteOrganisationById(Integer id) {
+        DeletePartnerResponseDto deletePartnerResponseDto = partnerService.deletePartnerById(id);
+        return organisationMapper.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
     }
 }

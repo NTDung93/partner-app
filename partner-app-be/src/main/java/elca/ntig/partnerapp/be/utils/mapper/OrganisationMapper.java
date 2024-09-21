@@ -3,8 +3,10 @@ package elca.ntig.partnerapp.be.utils.mapper;
 import elca.ntig.partnerapp.be.model.dto.organisation.OrganisationResponseDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationCriteriasDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationPaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.utils.mapper.enums.*;
+import elca.ntig.partnerapp.common.proto.entity.organisation.DeleteOrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
@@ -39,4 +41,6 @@ public interface OrganisationMapper {
 
     @Mapping(source = "content", target = "contentList")
     SearchOrganisationPaginationResponseProto toSearchOrganisationPaginationResponse(SearchOrganisationPaginationResponseDto searchOrganisationPaginationResponseDto);
+
+    DeleteOrganisationResponseProto toDeleteOrganisationResponseProto(DeletePartnerResponseDto deleteOrganisationResponseDto);
 }

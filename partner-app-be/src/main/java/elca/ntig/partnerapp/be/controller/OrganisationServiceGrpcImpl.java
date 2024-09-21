@@ -22,4 +22,10 @@ public class OrganisationServiceGrpcImpl extends OrganisationServiceGrpc.Organis
         responseObserver.onNext(organisationServiceGrpcHelper.searchOrganisationPaginationHelper(request));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void deleteOrganisationById(GetOrganisationRequestProto request, StreamObserver<DeleteOrganisationResponseProto> responseObserver) {
+        responseObserver.onNext(organisationServiceGrpcHelper.deleteOrganisationById(request.getId()));
+        responseObserver.onCompleted();
+    }
 }
