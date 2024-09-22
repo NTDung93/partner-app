@@ -10,9 +10,9 @@ import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
-import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationFormFragment;
+import elca.ntig.partnerapp.fe.fragment.organisation.SearchOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.organisation.OrganisationTableFragment;
-import elca.ntig.partnerapp.fe.fragment.person.PersonFormFragment;
+import elca.ntig.partnerapp.fe.fragment.person.SearchPersonFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.PersonTableFragment;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -44,14 +44,14 @@ public class ViewPartnerComponent implements FXComponent {
 
     PaginationModel paginationModel;
 
-    private ManagedFragmentHandler<PersonFormFragment> personFormHandler;
+    private ManagedFragmentHandler<SearchPersonFormFragment> personFormHandler;
     private ManagedFragmentHandler<PersonTableFragment> personTableHandler;
-    private ManagedFragmentHandler<OrganisationFormFragment> organisationFormHandler;
+    private ManagedFragmentHandler<SearchOrganisationFormFragment> organisationFormHandler;
     private ManagedFragmentHandler<OrganisationTableFragment> organisationTableHandler;
 
-    private PersonFormFragment personFormController;
+    private SearchPersonFormFragment personFormController;
     private PersonTableFragment personTableController;
-    private OrganisationFormFragment organisationFormController;
+    private SearchOrganisationFormFragment organisationFormController;
     private OrganisationTableFragment organisationTableController;
 
     @Override
@@ -125,7 +125,7 @@ public class ViewPartnerComponent implements FXComponent {
     }
 
     private void switchTypeToOrganisation() {
-        organisationFormHandler = context.getManagedFragmentHandler(OrganisationFormFragment.class);
+        organisationFormHandler = context.getManagedFragmentHandler(SearchOrganisationFormFragment.class);
         organisationTableHandler = context.getManagedFragmentHandler(OrganisationTableFragment.class);
         organisationFormController = organisationFormHandler.getController();
         organisationTableController = organisationTableHandler.getController();
@@ -137,7 +137,7 @@ public class ViewPartnerComponent implements FXComponent {
     }
 
     private void switchTypeToPerson() {
-        personFormHandler = context.getManagedFragmentHandler(PersonFormFragment.class);
+        personFormHandler = context.getManagedFragmentHandler(SearchPersonFormFragment.class);
         personTableHandler = context.getManagedFragmentHandler(PersonTableFragment.class);
         personFormController = personFormHandler.getController();
         personTableController = personTableHandler.getController();

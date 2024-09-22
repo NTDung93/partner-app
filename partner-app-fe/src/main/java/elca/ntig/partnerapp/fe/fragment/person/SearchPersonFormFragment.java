@@ -35,12 +35,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-@Fragment(id = PersonFormFragment.ID,
-        viewLocation = ResourceConstant.PERSON_FORM_FRAGMENT_FXML,
+@Fragment(id = SearchPersonFormFragment.ID,
+        viewLocation = ResourceConstant.SEARCH_PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class PersonFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
-    public static final String ID = "FormFragment";
-    private static Logger logger = Logger.getLogger(PersonFormFragment.class);
+public class SearchPersonFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
+    public static final String ID = "SearchPersonFormFragment";
+    private static Logger logger = Logger.getLogger(SearchPersonFormFragment.class);
     SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
     SearchPeoplePaginationRequestProto.Builder searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder();
     private BindingHelper bindingHelper;

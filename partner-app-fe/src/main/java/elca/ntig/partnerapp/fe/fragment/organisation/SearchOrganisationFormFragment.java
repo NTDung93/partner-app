@@ -34,13 +34,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-@Fragment(id = OrganisationFormFragment.ID,
-        viewLocation = ResourceConstant.ORGANISATION_FORM_FRAGMENT_FXML,
+@Fragment(id = SearchOrganisationFormFragment.ID,
+        viewLocation = ResourceConstant.SEARCH_ORGANISATION_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class OrganisationFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
+public class SearchOrganisationFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
 
     public static final String ID = "OrganisationFormFragment";
-    private static Logger logger = Logger.getLogger(OrganisationFormFragment.class);
+    private static Logger logger = Logger.getLogger(SearchOrganisationFormFragment.class);
     SearchOrganisationCriteriasProto.Builder searchOrganisationCriteriaProto = SearchOrganisationCriteriasProto.newBuilder();
     SearchOrganisationPaginationRequestProto.Builder searchOrganisationPaginationRequestProto = SearchOrganisationPaginationRequestProto.newBuilder();
     private BindingHelper bindingHelper;
