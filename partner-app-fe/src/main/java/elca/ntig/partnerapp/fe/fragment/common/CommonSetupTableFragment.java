@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.scene.control.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
@@ -27,6 +28,10 @@ public abstract class CommonSetupTableFragment<T> {
                 if (empty || item == null) {
                     setText(null);
                 } else {
+                    if (StringUtils.isBlank(item)) {
+                        setText(null);
+                        return;
+                    }
                     LocalDate date = LocalDate.parse(item);
                     setText(date.format(dateFormatter));
                 }
@@ -63,6 +68,10 @@ public abstract class CommonSetupTableFragment<T> {
                 if (empty || item == null) {
                     setText(null);
                 } else {
+                    if (item.equals("NULL_CODE_NOGA")) {
+                        setText(null);
+                        return;
+                    }
                     setText(item.substring(5));
                 }
             }

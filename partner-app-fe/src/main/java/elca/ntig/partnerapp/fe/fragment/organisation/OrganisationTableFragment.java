@@ -2,10 +2,8 @@ package elca.ntig.partnerapp.fe.fragment.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
-import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;

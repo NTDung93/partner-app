@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.common.cell;
 
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.scene.control.TableCell;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,12 +22,14 @@ public class LocalizedTableCell<S> extends TableCell<S, String> {
         if (empty || item == null || item.isEmpty()) {
             setText(null);
         } else {
+            if (item.contains("NULL_")) {
+                setText(null);
+                return;
+            }
             int subStringIndex = 0;
             if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.")) {
-//                String value = item.substring(item.indexOf("_") + 1);
                 subStringIndex = item.indexOf("_") + 1;
             }
-//            String key = resourcePrefix + value.toLowerCase();
             String value = item.substring(subStringIndex).toLowerCase();
             textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
         }

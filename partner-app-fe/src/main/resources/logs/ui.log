@@ -1233,3 +1233,57 @@ content {
 2024-09-21 17:34:01 INFO  OrganisationTableFragment:364 - Delete organisation with id: 61
 2024-09-21 17:34:03 INFO  OrganisationTableFragment:158 - Current page: 1
 2024-09-21 17:34:03 INFO  OrganisationTableFragment:158 - Current page: 0
+2024-09-22 10:25:38 INFO  OrganisationTableFragment:151 - Current page: 1
+2024-09-22 10:25:38 INFO  OrganisationTableFragment:151 - Current page: 2
+2024-09-22 10:25:40 INFO  OrganisationTableFragment:158 - Current page: 1
+2024-09-22 11:21:42 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:21:44 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:21:45 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: asc
+2024-09-22 11:21:46 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: desc
+2024-09-22 11:21:46 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: asc
+2024-09-22 11:21:47 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: desc
+2024-09-22 11:21:48 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: asc
+2024-09-22 11:21:48 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: desc
+2024-09-22 11:21:49 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: asc
+2024-09-22 11:21:49 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: desc
+2024-09-22 11:21:50 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:21:52 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: asc
+2024-09-22 11:21:52 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: asc
+2024-09-22 11:21:53 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: asc
+2024-09-22 11:21:55 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:21:56 INFO  PersonTableFragment:192 - Sorting by: lastName, Direction: asc
+2024-09-22 11:21:57 INFO  PersonTableFragment:192 - Sorting by: lastName, Direction: desc
+2024-09-22 11:21:57 INFO  PersonTableFragment:192 - Sorting by: id, Direction: asc
+2024-09-22 11:21:58 INFO  PersonTableFragment:192 - Sorting by: id, Direction: desc
+2024-09-22 11:24:01 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:24:03 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:28:27 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:28:28 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:28:30 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:28:30 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:28:46 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:28:47 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:28:54 INFO  OrganisationTableFragment:149 - Current page: 3
+2024-09-22 11:28:56 INFO  OrganisationTableFragment:149 - Current page: 4
+2024-09-22 11:28:58 INFO  OrganisationTableFragment:156 - Current page: 3
+2024-09-22 11:28:58 INFO  OrganisationTableFragment:156 - Current page: 2
+2024-09-22 11:28:59 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:28:59 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:07 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:30:07 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-22 11:30:09 INFO  PersonTableFragment:153 - Current page: 3
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 2
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:30:17 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:17 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:18 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:30:22 INFO  OrganisationTableFragment:362 - Delete organisation with id: 49
+2024-09-22 11:30:23 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:24 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:24 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:25 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:30:25 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:28 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 3
