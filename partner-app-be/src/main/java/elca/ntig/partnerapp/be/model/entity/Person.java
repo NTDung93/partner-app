@@ -3,8 +3,6 @@ package elca.ntig.partnerapp.be.model.entity;
 import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;
-import elca.ntig.partnerapp.be.utils.converter.NationalityConverter;
-import elca.ntig.partnerapp.be.utils.converter.SexEnumConverter;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,9 +1,16 @@
+.menu-bar{
+    -fx-background-color: white;
+    -fx-spacing: 0;
+    -fx-padding: 0 1em;
+}
+
 .language-button {
     -fx-background-color: transparent;
     -fx-font-weight: bolder;
     -fx-padding: 3;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
+    -fx-cursor: hand;
 }
 
 .language-button:hover {

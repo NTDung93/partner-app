@@ -11,19 +11,11 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class DateMapper {
-    @Named("mapLocalDateToTimestamp")
-    public static Timestamp localDateToTimestamp(LocalDate localDate) {
-        if (localDate == null) {
-            return null;
-        }
-        Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        return Timestamp.newBuilder().setSeconds(instant.getEpochSecond()).setNanos(instant.getNano()).build();
-    }
 
     @Named("mapLocalDateToString")
     public static String mapLocalDateToString(LocalDate localDate) {
         if (localDate == null) {
-            return null;
+            return "";
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return localDate.format(formatter);

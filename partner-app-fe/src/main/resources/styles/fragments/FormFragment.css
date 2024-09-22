@@ -1,5 +1,73 @@
-.fragment-title{
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
+.root {
+    -fx-padding: 40;
+    -fx-background-color: white;
+    -fx-font-size: 16;
+}
+
+.header-section {
+    -fx-padding: 0 0 20 0;
+}
+
+.header-section-title{
+    -fx-font-size: 20;
+    -fx-font-weight: 600;
+    -fx-text-fill: black;
+}
+
+Label {
+    -fx-text-fill: grey;
+}
+
+.require-field{
+    -fx-fill: grey;
+}
+
+.red-asterisk {
+    -fx-fill: red;
+}
+
+.error-label {
     -fx-text-fill: red;
+}
+
+TextField,
+ComboBox,
+DatePicker {
+    -fx-background-color: transparent;
+    -fx-border-color: grey;
+    -fx-font-size: 15px;
+}
+
+.error-input {
+    -fx-border-color: red;
+    -fx-border-width: 2;
+}
+
+Button{
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+}
+
+.create-person-button{
+    -fx-background-color: #74b251;
+    -fx-opacity: 0.7;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-pref-width: 170;
+}
+
+.clear-criteria-button {
+    -fx-background-color: grey;
+    -fx-font-size: 15;
+    -fx-text-fill: black;
+    -fx-pref-width: 170;
+}
+
+.search-button {
+    -fx-background-color: #0e6969;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-pref-width: 170;
 }

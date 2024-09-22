@@ -12,14 +12,13 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchPeopleCriteriasDto {
-    @NotEmpty(message = "Person's last name cannot be blank")
-    @Size(min = 2, message = "Person's last name must have at least 2 characters")
     private String lastName;
     private String firstName;
     private Language language;
@@ -27,5 +26,5 @@ public class SearchPeopleCriteriasDto {
     private Nationality nationality;
     private String avsNumber;
     private LocalDate birthDate;
-    private Status status;
+    private List<Status> status;
 }

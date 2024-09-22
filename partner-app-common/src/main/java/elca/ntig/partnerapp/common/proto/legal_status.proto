@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enums.organisation";
+
+enum LegalStatusProto {
+  NULL_LEGAL_STATUS = 0;
+  SIMPLE_COMPANY = 1;
+  GENERAL_PARTNERSHIP = 2;
+  LIMITED_PARTNERSHIP = 3;
+  HEREDITARY_COMMUNITY = 4;
+  LIMITED_COMPANY = 5;
+  LIMITED_LIABILITY_COMPANY = 6;
+  COOPERATIVE_SOCIETY = 7;
+  PARTNERSHIP_BY_SHARES = 8;
+  ASSOCIATION = 9;
+  FOUNDATION = 10;
+  PUBLIC_LAW_CORPORATION = 11;
+}

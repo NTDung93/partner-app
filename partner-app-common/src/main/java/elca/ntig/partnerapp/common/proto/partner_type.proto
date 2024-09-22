@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enums.common";
+
+enum PartnerTypeProto {
+  TYPE_PERSON = 0;
+  TYPE_ORGANISATION = 1;
+}

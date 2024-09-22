@@ -1,11 +1,13 @@
 package elca.ntig.partnerapp.fe.perspective;
 
+import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
+import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import javafx.event.Event;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import org.jacpfx.api.annotations.lifecycle.OnShow;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
 import org.jacpfx.api.annotations.perspective.Perspective;
 import org.jacpfx.api.message.Message;
@@ -17,7 +19,13 @@ import java.util.ResourceBundle;
 
 @Perspective(id = ViewPartnerPerspective.ID,
         name = ViewPartnerPerspective.ID,
-        components = {ViewPartnerComponent.ID}
+        components = {
+                ViewPartnerComponent.ID,
+                SearchPeopleCallback.ID,
+                SearchOrganisationCallback.ID,
+                DeletePersonCallback.ID,
+                DeleteOrganisationCallback.ID
+        }
 )
 public class ViewPartnerPerspective implements FXPerspective {
     public static final String ID = "ViewPartnerPerspective";

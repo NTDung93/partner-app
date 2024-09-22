@@ -10,12 +10,12 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public enum Nationality {
-    SWITZERLAND("CH"),
-    GERMAN("DE"),
-    SPANISH("ES"),
-    FRENCH("FR"),
-    BRITISH("GB"),
-    ITALIAN("IT");
+    NATIONALITY_SWITZERLAND("CH"),
+    NATIONALITY_GERMAN("DE"),
+    NATIONALITY_SPANISH("ES"),
+    NATIONALITY_FRENCH("FR"),
+    NATIONALITY_BRITISH("GB"),
+    NATIONALITY_ITALIAN("IT");
 
     private final String code;
 

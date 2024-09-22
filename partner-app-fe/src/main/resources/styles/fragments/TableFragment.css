@@ -1,0 +1,95 @@
+.root {
+    -fx-padding: 0 40 20;
+    -fx-background-color: white;
+    -fx-font-size: 16;
+}
+
+.header-section {
+    -fx-padding: 0 0 10 0;
+}
+
+.header-section-title {
+    -fx-font-size: 20;
+    -fx-font-weight: 600;
+    -fx-text-fill: black;
+}
+
+.export-label {
+    -fx-text-fill: blue;
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.column-header-background {
+    -fx-background-color: white;
+}
+
+.column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgrey transparent lightgrey transparent;
+}
+
+.column-header .label {
+    -fx-text-fill: grey;
+    -fx-font-weight: normal;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: lightgrey;
+}
+
+.center-align .label, .center-align{
+    -fx-alignment: center;
+}
+
+.right-align .label, .right-align {
+    -fx-alignment: center-right;
+    -fx-padding: 0 10 0 0;
+}
+
+.table-cell{
+    -fx-border-color: white;
+}
+
+.delete-icon{
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    /*-fx-pref-width: 80;*/
+}
+
+.pagination-section{
+    -fx-padding: 0 0 30 0;
+}
+
+.pagination-button{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-font-size: 20;
+}
+
+.pagination-label{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-pref-width: 30;
+    -fx-alignment: center;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.small-col{
+    -fx-pref-width: 80;
+}
+
+.big-col, .big-col .label{
+    -fx-pref-width: 150;
+}

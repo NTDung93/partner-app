@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enums.organisation";
+
+enum CodeNOGAProto {
+  NULL_CODE_NOGA = 0;
+  NOGA_011100 = 1;
+  NOGA_011200 = 2;
+  NOGA_011400 = 3;
+  NOGA_011500 = 4;
+  NOGA_011900 = 5;
+  NOGA_012101 = 6;
+  NOGA_013000 = 7;
+  NOGA_014200 = 8;
+  NOGA_014700 = 9;
+  NOGA_016300 = 10;
+  NOGA_021000 = 11;
+  NOGA_024000 = 12;
+  NOGA_031200 = 13;
+  NOGA_032100 = 14;
+  NOGA_032200 = 15;
+  NOGA_051000 = 16;
+  NOGA_052000 = 17;
+  NOGA_061000 = 18;
+  NOGA_062000 = 19;
+  NOGA_071000 = 20;
+}

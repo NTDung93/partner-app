@@ -1,52 +1,43 @@
 package elca.ntig.partnerapp.be.controller;
 
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
-import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
-import elca.ntig.partnerapp.be.service.PersonService;
-import elca.ntig.partnerapp.be.utils.validator.ArgumentValidator;
+import elca.ntig.partnerapp.be.mappingservice.PersonMappingService;
+import elca.ntig.partnerapp.common.proto.entity.person.*;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonServiceGrpc;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
-import javax.validation.Validator;
-import java.util.Set;
 
 @GrpcService
 @RequiredArgsConstructor
 public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBase {
-    private final PersonService personService;
-    private final PersonMapper personMapper;
-    private final ArgumentValidator argumentValidator;
+    private final PersonMappingService personServiceGrpcHelper;
 
     @Override
     public void getPersonById(GetPersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
-        PersonResponseDto personResponseDto = personService.getPersonById(request.getId());
-        PersonResponseProto personResponseProto = personMapper.toPersonResponseProto(personResponseDto);
-        responseObserver.onNext(personResponseProto);
+        responseObserver.onNext(personServiceGrpcHelper.getPersonByIdHelper(request));
         responseObserver.onCompleted();
     }
 
     @Override
     public void searchPeoplePagination(SearchPeoplePaginationRequestProto request, StreamObserver<SearchPeoplePaginationResponseProto> responseObserver) {
-        SearchPeopleCriteriasDto searchPeopleCriterias = personMapper.toSearchPeopleCriteriasDto(request.getCriterias());
+        responseObserver.onNext(personServiceGrpcHelper.searchPeoplePaginationHelper(request));
+        responseObserver.onCompleted();
+    }
 
-        argumentValidator.validate(searchPeopleCriterias);
+    @Override
+    public void deletePersonById(GetPersonRequestProto request, StreamObserver<DeletePersonResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.deletePersonByIdHelper(request.getId()));
+        responseObserver.onCompleted();
+    }
 
-        SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto = personService.searchPeoplePagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchPeopleCriterias);
-        SearchPeoplePaginationResponseProto searchPeoplePaginationResponse = personMapper.toSearchPeoplePaginationResponse(searchPeoplePaginationResponseDto);
-        responseObserver.onNext(searchPeoplePaginationResponse);
+    @Override
+    public void createPerson(CreatePersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.createPersonHelper(request));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updatePerson(UpdatePersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.updatePersonHelper(request));
         responseObserver.onCompleted();
     }
 }

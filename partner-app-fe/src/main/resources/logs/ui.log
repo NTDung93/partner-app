@@ -1,0 +1,1289 @@
+2024-09-18 17:46:46 INFO  TableFragment:271 - Current page: 1
+2024-09-18 17:46:49 INFO  TableFragment:279 - Current page: 0
+2024-09-18 17:47:07 INFO  TableFragment:271 - Current page: 1
+2024-09-18 17:47:09 INFO  TableFragment:279 - Current page: 0
+2024-09-18 20:31:49 INFO  TableFragment:271 - Current page: 1
+2024-09-18 20:31:50 INFO  TableFragment:279 - Current page: 0
+2024-09-18 20:31:51 INFO  TableFragment:271 - Current page: 1
+2024-09-18 20:31:51 INFO  TableFragment:279 - Current page: 0
+2024-09-18 20:31:52 INFO  TableFragment:271 - Current page: 1
+2024-09-18 20:31:53 INFO  TableFragment:279 - Current page: 0
+2024-09-18 20:31:53 INFO  TableFragment:271 - Current page: 1
+2024-09-18 20:31:54 INFO  TableFragment:279 - Current page: 0
+2024-09-18 20:33:32 INFO  TableFragment:240 - Delete person with id: 1
+2024-09-18 21:12:11 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:12 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:13 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:14 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:12:15 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:15 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:17 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:17 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:12:18 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:18 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:19 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:19 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:12:20 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:20 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:21 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:22 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:12:23 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:23 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:24 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:24 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:12:25 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:12:25 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:12:26 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:12:26 INFO  TableFragment:279 - Current page: 0
+2024-09-18 21:49:32 INFO  TableFragment:271 - Current page: 1
+2024-09-18 21:49:33 INFO  TableFragment:271 - Current page: 2
+2024-09-18 21:49:34 INFO  TableFragment:279 - Current page: 1
+2024-09-18 21:49:34 INFO  TableFragment:279 - Current page: 0
+2024-09-19 06:08:15 INFO  TableFragment:270 - Current page: 1
+2024-09-19 06:08:16 INFO  TableFragment:270 - Current page: 2
+2024-09-19 06:08:17 INFO  TableFragment:278 - Current page: 1
+2024-09-19 06:08:18 INFO  TableFragment:278 - Current page: 0
+2024-09-19 08:34:46 INFO  TableFragment:239 - Delete person with id: 1
+2024-09-19 09:28:40 INFO  TableFragment:270 - Current page: 1
+2024-09-19 09:28:41 INFO  TableFragment:270 - Current page: 2
+2024-09-19 09:29:22 INFO  TableFragment:270 - Current page: 1
+2024-09-19 09:29:23 INFO  TableFragment:278 - Current page: 0
+2024-09-19 09:56:52 INFO  TableFragment:272 - Current page: 1
+2024-09-19 09:56:53 INFO  TableFragment:272 - Current page: 2
+2024-09-19 09:56:54 INFO  TableFragment:280 - Current page: 1
+2024-09-19 09:56:54 INFO  TableFragment:280 - Current page: 0
+2024-09-19 23:38:50 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:38:50 INFO  TableFragment:378 - Current page: 2
+2024-09-19 23:38:51 INFO  TableFragment:378 - Current page: 3
+2024-09-19 23:39:24 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:39:26 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:39:29 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:39:29 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-19 23:39:31 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:39:32 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-19 23:39:33 INFO  TableFragment:150 - Sorting by: language, Direction: asc
+2024-09-19 23:39:35 INFO  TableFragment:150 - Sorting by: language, Direction: desc
+2024-09-19 23:39:38 INFO  TableFragment:150 - Sorting by: birthDate, Direction: asc
+2024-09-19 23:39:44 INFO  TableFragment:150 - Sorting by: birthDate, Direction: desc
+2024-09-19 23:39:46 INFO  TableFragment:150 - Sorting by: civilStatus, Direction: asc
+2024-09-19 23:39:47 INFO  TableFragment:150 - Sorting by: civilStatus, Direction: desc
+2024-09-19 23:39:48 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: asc
+2024-09-19 23:39:49 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: desc
+2024-09-19 23:39:50 INFO  TableFragment:150 - Sorting by: status, Direction: asc
+2024-09-19 23:39:51 INFO  TableFragment:150 - Sorting by: status, Direction: desc
+2024-09-19 23:39:53 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: asc
+2024-09-19 23:39:53 INFO  TableFragment:150 - Sorting by: phoneNumber, Direction: desc
+2024-09-19 23:40:14 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:40:15 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:40:56 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:40:56 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:40:58 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:40:58 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:40:59 INFO  TableFragment:150 - Sorting by: id, Direction: asc
+2024-09-19 23:41:00 INFO  TableFragment:150 - Sorting by: id, Direction: desc
+2024-09-19 23:41:02 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:03 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:04 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:04 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:07 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:08 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:09 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:10 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:10 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:11 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:12 INFO  TableFragment:378 - Current page: 1
+2024-09-19 23:41:13 INFO  TableFragment:385 - Current page: 0
+2024-09-19 23:41:15 INFO  TableFragment:150 - Sorting by: lastName, Direction: asc
+2024-09-19 23:41:15 INFO  TableFragment:150 - Sorting by: lastName, Direction: desc
+2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: asc
+2024-09-19 23:41:16 INFO  TableFragment:150 - Sorting by: firstName, Direction: desc
+2024-09-20 17:03:40 INFO  ViewPartnerComponent:55 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 17:03:40 INFO  ViewPartnerComponent:55 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 17:03:50 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: desc
+2024-09-20 17:03:51 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: asc
+2024-09-20 17:03:52 INFO  OrganisationTableFragment:189 - Sorting by: id, Direction: desc
+2024-09-20 17:03:55 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: asc
+2024-09-20 17:03:56 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: desc
+2024-09-20 17:04:02 INFO  OrganisationTableFragment:189 - Sorting by: ideNumber, Direction: asc
+2024-09-20 17:04:08 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: asc
+2024-09-20 17:04:09 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: desc
+2024-09-20 17:04:15 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: asc
+2024-09-20 17:04:33 INFO  OrganisationTableFragment:189 - Sorting by: creationDate, Direction: desc
+2024-09-20 17:04:37 INFO  OrganisationTableFragment:189 - Sorting by: codeNoga, Direction: asc
+2024-09-20 17:04:38 INFO  OrganisationTableFragment:189 - Sorting by: codeNoga, Direction: desc
+2024-09-20 17:04:40 INFO  OrganisationTableFragment:189 - Sorting by: phoneNumber, Direction: asc
+2024-09-20 17:04:41 INFO  OrganisationTableFragment:189 - Sorting by: phoneNumber, Direction: desc
+2024-09-20 17:06:30 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 17:06:31 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 17:06:32 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 21:05:08 INFO  PersonFormFragment:283 - Switch to organisation
+2024-09-20 21:05:11 INFO  PersonFormFragment:286 - Switch to person
+2024-09-20 21:05:12 INFO  PersonFormFragment:283 - Switch to organisation
+2024-09-20 21:05:14 INFO  PersonFormFragment:286 - Switch to person
+2024-09-20 21:05:16 INFO  PersonFormFragment:283 - Switch to organisation
+2024-09-20 21:51:59 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 21:54:24 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 21:55:14 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 21:55:41 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 21:56:30 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:08:42 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:08:45 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:08:47 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:08:48 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:08:50 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:08:57 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:09:41 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:09:48 INFO  OrganisationFormFragment:258 - Switch to organisation
+2024-09-20 22:10:28 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:10:30 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:11:06 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:11:07 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:11:09 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:11:10 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:11:12 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:11:19 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:16:03 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:16:10 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:10 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:15 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:16:36 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:16:38 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:16:38 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 24
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0723456789"
+  status: INACTIVE
+}
+content {
+  id: 25
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0734567890"
+  status: ACTIVE
+}
+content {
+  id: 26
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0745678901"
+  status: INACTIVE
+}
+content {
+  id: 27
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0756789012"
+  status: ACTIVE
+}
+content {
+  id: 28
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0767890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:21:58 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 2
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:21:58 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 2
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:06 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:06 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:07 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:07 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:09 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:09 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:11 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:11 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:14 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:14 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:15 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:15 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:17 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:17 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+last: true
+
+2024-09-20 22:22:20 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:20 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 1
+totalRecords: 1
+last: true
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+
+2024-09-20 22:22:32 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:32 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:34 INFO  OrganisationTableFragment:147 - Current page: 1
+2024-09-20 22:22:34 INFO  OrganisationTableFragment:147 - Current page: 2
+2024-09-20 22:22:35 INFO  OrganisationTableFragment:147 - Current page: 3
+2024-09-20 22:22:36 INFO  OrganisationTableFragment:147 - Current page: 4
+2024-09-20 22:22:37 INFO  OrganisationTableFragment:147 - Current page: 5
+2024-09-20 22:22:39 INFO  OrganisationTableFragment:147 - Current page: 6
+2024-09-20 22:22:44 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:22:48 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 22:22:49 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 22:22:51 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:22:54 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:54 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 39
+  name: "Rho Services"
+  additionalName: "Rho Services"
+  language: LANG_ENGLISH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "CHE-789012345"
+  creationDate: "2013-09-09"
+  codeNoga: NOGA_011500
+  phoneNumber: "0878901234"
+  status: ACTIVE
+}
+content {
+  id: 41
+  name: "Tau Technologies"
+  additionalName: "Tau Tech"
+  language: LANG_ITALIAN
+  legalStatus: HEREDITARY_COMMUNITY
+  ideNumber: "CHE-901234567"
+  creationDate: "1997-12-12"
+  codeNoga: NOGA_011200
+  phoneNumber: "0890123456"
+  status: ACTIVE
+}
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+
+2024-09-20 22:22:56 INFO  OrganisationTableFragment:147 - Current page: 1
+2024-09-20 22:22:56 INFO  OrganisationTableFragment:147 - Current page: 2
+2024-09-20 22:22:57 INFO  OrganisationTableFragment:147 - Current page: 3
+2024-09-20 22:22:57 INFO  OrganisationTableFragment:147 - Current page: 4
+2024-09-20 22:22:59 INFO  OrganisationTableFragment:186 - Sorting by: id, Direction: desc
+2024-09-20 22:28:53 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+content {
+  id: 48
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0967890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:28:53 INFO  ViewPartnerComponent:65 - response: pageSize: 5
+totalPages: 3
+totalRecords: 12
+content {
+  id: 44
+  name: "Beta Foundation"
+  additionalName: "Beta Enterprises"
+  language: LANG_FRENCH
+  legalStatus: FOUNDATION
+  ideNumber: "ADM-234567890"
+  creationDate: "2010-08-20"
+  codeNoga: NOGA_062000
+  phoneNumber: "0923456789"
+  status: INACTIVE
+}
+content {
+  id: 45
+  name: "Gamma Associates"
+  additionalName: "Gamma LLC"
+  language: LANG_ITALIAN
+  legalStatus: ASSOCIATION
+  ideNumber: "CHE-345678901"
+  creationDate: "2015-03-10"
+  codeNoga: NOGA_061000
+  phoneNumber: "0934567890"
+  status: ACTIVE
+}
+content {
+  id: 46
+  name: "Delta Holdings"
+  additionalName: "Delta Holdings"
+  language: LANG_DEUTSCH
+  legalStatus: PARTNERSHIP_BY_SHARES
+  ideNumber: "ADM-456789012"
+  creationDate: "2000-12-25"
+  codeNoga: NOGA_052000
+  phoneNumber: "0945678901"
+  status: INACTIVE
+}
+content {
+  id: 47
+  name: "Epsilon Group"
+  additionalName: "Epsilon Group"
+  language: LANG_ENGLISH
+  legalStatus: COOPERATIVE_SOCIETY
+  ideNumber: "CHE-567890123"
+  creationDate: "1998-07-07"
+  codeNoga: NOGA_051000
+  phoneNumber: "0956789012"
+  status: ACTIVE
+}
+content {
+  id: 48
+  name: "Zeta Services"
+  additionalName: "Zeta Services"
+  language: LANG_FRENCH
+  legalStatus: LIMITED_LIABILITY_COMPANY
+  ideNumber: "ADM-678901234"
+  creationDate: "2003-09-09"
+  codeNoga: NOGA_032200
+  phoneNumber: "0967890123"
+  status: INACTIVE
+}
+
+2024-09-20 22:28:55 INFO  OrganisationFormFragment:261 - Switch to person
+2024-09-20 22:29:00 INFO  PersonTableFragment:151 - Current page: 1
+2024-09-20 22:29:01 INFO  PersonTableFragment:158 - Current page: 0
+2024-09-20 22:37:51 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:37:52 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:37:54 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:37:55 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:37:58 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:38:01 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:38:03 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:42:03 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:04 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:05 INFO  PersonTableFragment:191 - Sorting by: id, Direction: desc
+2024-09-20 22:42:06 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:08 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:09 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:11 INFO  PersonTableFragment:191 - Sorting by: id, Direction: asc
+2024-09-20 22:42:13 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:18 INFO  PersonTableFragment:191 - Sorting by: birthDate, Direction: asc
+2024-09-20 22:42:22 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:25 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:26 INFO  PersonTableFragment:191 - Sorting by: birthDate, Direction: desc
+2024-09-20 22:42:29 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:31 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:32 INFO  PersonTableFragment:191 - Sorting by: civilStatus, Direction: asc
+2024-09-20 22:42:37 INFO  PersonTableFragment:191 - Sorting by: civilStatus, Direction: desc
+2024-09-20 22:42:41 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: asc
+2024-09-20 22:42:42 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: desc
+2024-09-20 22:42:45 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:47 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:42:53 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:42:58 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:00 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: asc
+2024-09-20 22:43:02 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:03 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:05 INFO  PersonTableFragment:191 - Sorting by: nationality, Direction: desc
+2024-09-20 22:43:08 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:09 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:13 INFO  PersonTableFragment:191 - Sorting by: id, Direction: asc
+2024-09-20 22:43:15 INFO  PersonTableFragment:191 - Sorting by: id, Direction: desc
+2024-09-20 22:43:16 INFO  PersonTableFragment:191 - Sorting by: lastName, Direction: asc
+2024-09-20 22:43:18 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:19 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:20 INFO  PersonTableFragment:191 - Sorting by: lastName, Direction: desc
+2024-09-20 22:43:22 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:43:23 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:43:27 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:43:32 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:43:34 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 22:43:36 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:43:38 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 22:47:54 INFO  PersonTableFragment:152 - Current page: 1
+2024-09-20 22:47:54 INFO  PersonTableFragment:159 - Current page: 0
+2024-09-20 22:47:56 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:47:59 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:48:00 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:48:02 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 22:48:02 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 22:48:27 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 22:48:28 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 22:48:29 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 22:48:30 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 22:48:31 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 22:48:32 INFO  OrganisationTableFragment:187 - Sorting by: name, Direction: asc
+2024-09-20 22:48:37 INFO  OrganisationTableFragment:187 - Sorting by: name, Direction: desc
+2024-09-20 22:48:38 INFO  OrganisationTableFragment:187 - Sorting by: additionalName, Direction: asc
+2024-09-20 22:48:39 INFO  OrganisationTableFragment:187 - Sorting by: additionalName, Direction: desc
+2024-09-20 22:48:40 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:48:41 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: desc
+2024-09-20 22:48:45 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:48:47 INFO  OrganisationTableFragment:187 - Sorting by: legalStatus, Direction: asc
+2024-09-20 22:49:26 INFO  OrganisationFormFragment:272 - Switch to person
+2024-09-20 22:55:42 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 22:57:06 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: asc
+2024-09-20 22:57:07 INFO  OrganisationTableFragment:187 - Sorting by: language, Direction: desc
+2024-09-20 23:15:51 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:18:07 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: asc
+2024-09-20 23:18:09 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: desc
+2024-09-20 23:21:17 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:21:30 INFO  OrganisationTableFragment:187 - Sorting by: codeNoga, Direction: asc
+2024-09-20 23:21:33 INFO  OrganisationTableFragment:187 - Sorting by: codeNoga, Direction: desc
+2024-09-20 23:21:39 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 23:21:39 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: desc
+2024-09-20 23:21:41 INFO  OrganisationTableFragment:187 - Sorting by: id, Direction: asc
+2024-09-20 23:21:42 INFO  OrganisationTableFragment:148 - Current page: 1
+2024-09-20 23:21:43 INFO  OrganisationTableFragment:148 - Current page: 2
+2024-09-20 23:21:43 INFO  OrganisationTableFragment:155 - Current page: 1
+2024-09-20 23:21:44 INFO  OrganisationTableFragment:155 - Current page: 0
+2024-09-20 23:29:15 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-20 23:29:16 INFO  OrganisationFormFragment:272 - Switch to person
+2024-09-20 23:29:18 INFO  PersonFormFragment:284 - Switch to organisation
+2024-09-21 00:07:00 INFO  PersonFormFragment:289 - Switch to organisation
+2024-09-21 00:07:46 INFO  PersonFormFragment:289 - Switch to organisation
+2024-09-21 00:07:47 INFO  OrganisationFormFragment:275 - Switch to person
+2024-09-21 16:32:14 INFO  PersonTableFragment:374 - Delete person with id: 29
+2024-09-21 16:37:39 INFO  OrganisationTableFragment:364 - Delete organisation with id: 45
+2024-09-21 17:29:46 INFO  PersonTableFragment:374 - Delete person with id: 33
+2024-09-21 17:29:49 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-21 17:29:52 INFO  PersonTableFragment:374 - Delete person with id: 37
+2024-09-21 17:29:58 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-21 17:29:59 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-21 17:33:27 INFO  PersonTableFragment:374 - Delete person with id: 26
+2024-09-21 17:33:29 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-21 17:33:32 INFO  PersonTableFragment:374 - Delete person with id: 41
+2024-09-21 17:33:33 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-21 17:33:36 INFO  PersonTableFragment:374 - Delete person with id: 29
+2024-09-21 17:33:38 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-21 17:33:39 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-21 17:33:49 INFO  OrganisationTableFragment:364 - Delete organisation with id: 44
+2024-09-21 17:33:51 INFO  OrganisationTableFragment:151 - Current page: 1
+2024-09-21 17:33:55 INFO  OrganisationTableFragment:364 - Delete organisation with id: 52
+2024-09-21 17:33:57 INFO  OrganisationTableFragment:158 - Current page: 0
+2024-09-21 17:33:57 INFO  OrganisationTableFragment:151 - Current page: 1
+2024-09-21 17:33:58 INFO  OrganisationTableFragment:151 - Current page: 2
+2024-09-21 17:34:01 INFO  OrganisationTableFragment:364 - Delete organisation with id: 61
+2024-09-21 17:34:03 INFO  OrganisationTableFragment:158 - Current page: 1
+2024-09-21 17:34:03 INFO  OrganisationTableFragment:158 - Current page: 0
+2024-09-22 10:25:38 INFO  OrganisationTableFragment:151 - Current page: 1
+2024-09-22 10:25:38 INFO  OrganisationTableFragment:151 - Current page: 2
+2024-09-22 10:25:40 INFO  OrganisationTableFragment:158 - Current page: 1
+2024-09-22 11:21:42 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:21:44 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:21:45 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: asc
+2024-09-22 11:21:46 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: desc
+2024-09-22 11:21:46 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: asc
+2024-09-22 11:21:47 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: desc
+2024-09-22 11:21:48 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: asc
+2024-09-22 11:21:48 INFO  PersonTableFragment:192 - Sorting by: birthDate, Direction: desc
+2024-09-22 11:21:49 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: asc
+2024-09-22 11:21:49 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: desc
+2024-09-22 11:21:50 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:21:52 INFO  PersonTableFragment:192 - Sorting by: nationality, Direction: asc
+2024-09-22 11:21:52 INFO  PersonTableFragment:192 - Sorting by: avsNumber, Direction: asc
+2024-09-22 11:21:53 INFO  PersonTableFragment:192 - Sorting by: civilStatus, Direction: asc
+2024-09-22 11:21:55 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:21:56 INFO  PersonTableFragment:192 - Sorting by: lastName, Direction: asc
+2024-09-22 11:21:57 INFO  PersonTableFragment:192 - Sorting by: lastName, Direction: desc
+2024-09-22 11:21:57 INFO  PersonTableFragment:192 - Sorting by: id, Direction: asc
+2024-09-22 11:21:58 INFO  PersonTableFragment:192 - Sorting by: id, Direction: desc
+2024-09-22 11:24:01 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:24:03 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:28:27 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:28:28 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:28:30 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:28:30 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:28:46 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:28:47 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:28:54 INFO  OrganisationTableFragment:149 - Current page: 3
+2024-09-22 11:28:56 INFO  OrganisationTableFragment:149 - Current page: 4
+2024-09-22 11:28:58 INFO  OrganisationTableFragment:156 - Current page: 3
+2024-09-22 11:28:58 INFO  OrganisationTableFragment:156 - Current page: 2
+2024-09-22 11:28:59 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:28:59 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:07 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 11:30:07 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-22 11:30:09 INFO  PersonTableFragment:153 - Current page: 3
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 2
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-22 11:30:10 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-22 11:30:17 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:17 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:18 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:30:22 INFO  OrganisationTableFragment:362 - Delete organisation with id: 49
+2024-09-22 11:30:23 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:24 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:24 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:25 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-22 11:30:25 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-22 11:30:28 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 3

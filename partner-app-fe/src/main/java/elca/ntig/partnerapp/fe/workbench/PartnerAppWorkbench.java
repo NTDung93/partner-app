@@ -4,23 +4,20 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.LanguageConstant;
 import elca.ntig.partnerapp.fe.common.enums.Language;
 import elca.ntig.partnerapp.fe.common.enums.Resolution;
-import elca.ntig.partnerapp.fe.factory.ObservableResourceFactory;
-import elca.ntig.partnerapp.fe.perspective.SamplePerspective;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import javafx.event.Event;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jacpfx.api.annotations.workbench.Workbench;
 import org.jacpfx.api.componentLayout.WorkbenchLayout;
 import org.jacpfx.api.message.Message;
-import org.jacpfx.api.util.ToolbarPosition;
 import org.jacpfx.rcp.componentLayout.FXComponentLayout;
 import org.jacpfx.rcp.components.menuBar.JACPMenuBar;
 import org.jacpfx.rcp.workbench.FXWorkbench;
@@ -33,8 +30,8 @@ import org.springframework.stereotype.Component;
 @Workbench(id = PartnerAppWorkbench.ID,
         name = PartnerAppWorkbench.ID,
         perspectives = {
-                SamplePerspective.ID,
                 ViewPartnerPerspective.ID,
+                CreatePartnerPerspective.ID
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 
@@ -85,12 +82,9 @@ public class PartnerAppWorkbench implements FXWorkbench {
             Language language = LanguageConstant.FR.equals(text)
                     ? Language.FR
                     : Language.EN;
-            observableResourceFactory.switchResourceByLanguage(language);
+            observableResourceFactory.setResource(language);
         });
 
         return button;
     }
-
-
-
 }

@@ -16,8 +16,9 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <slf4j.version>1.7.30</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <common-lang.version>3.14.0</common-lang.version>
+        <spring-boot-starter-parent.version>2.7.18</spring-boot-starter-parent.version>
     </properties>
 
     <dependencyManagement>
@@ -25,7 +26,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.7.18</version>
+                <version>${spring-boot-starter-parent.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -33,22 +34,16 @@
     </dependencyManagement>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--            <version>${slf4j.version}</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-simple</artifactId>-->
-<!--            <version>${slf4j.version}</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${common-lang.version}</version>
         </dependency>
     </dependencies>
 </project>

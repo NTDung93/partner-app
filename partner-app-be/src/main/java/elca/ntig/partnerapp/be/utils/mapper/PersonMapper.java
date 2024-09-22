@@ -1,20 +1,12 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
 
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
+import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Person;
-import elca.ntig.partnerapp.be.utils.mapper.enums.LanguageMapper;
-import elca.ntig.partnerapp.be.utils.mapper.enums.NationalityMapper;
-import elca.ntig.partnerapp.be.utils.mapper.enums.SexEnumMapper;
-import org.mapstruct.CollectionMappingStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.be.utils.mapper.enums.*;
+import elca.ntig.partnerapp.common.proto.entity.person.*;
+import org.mapstruct.*;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -22,11 +14,20 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
                 DateMapper.class,
                 LanguageMapper.class,
                 SexEnumMapper.class,
-                NationalityMapper.class
+                NationalityMapper.class,
+                MaritalStatusMapper.class,
+                StatusMapper.class
         },
-        collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
+        collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED,
+        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
 )
 public interface PersonMapper {
+    @Mapping(target = "partner.language", source = "language")
+    @Mapping(target = "partner.phoneNumber", source = "phoneNumber")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "partner", ignore = true)
+    void updatePerson(UpdatePersonRequestDto updatePersonRequestDto, @MappingTarget Person person);
+
     @Mapping(source = "partner.language", target = "language")
     @Mapping(source = "partner.phoneNumber", target = "phoneNumber")
     @Mapping(source = "partner.status", target = "status")
@@ -35,9 +36,18 @@ public interface PersonMapper {
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapLocalDateToString")
     PersonResponseProto toPersonResponseProto(PersonResponseDto personResponseDto);
 
+    @Mapping(source = "statusList", target = "status")
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
-    SearchPeopleCriteriasDto toSearchPeopleCriteriasDto(SearchPeopleCriteriasProto searchPeopleCriteriasDto);
+    SearchPeopleCriteriasDto toSearchPeopleCriteriasDto(SearchPeopleCriteriasProto searchPeopleCriteriasProto);
 
     @Mapping(source = "content", target = "contentList")
     SearchPeoplePaginationResponseProto toSearchPeoplePaginationResponse(SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto);
+
+    DeletePersonResponseProto toDeletePersonResponseProto(DeletePartnerResponseDto deletePersonResponseDto);
+
+    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    CreatePersonRequestDto toCreatePersonRequestDto(CreatePersonRequestProto createPersonRequestProto);
+
+    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    UpdatePersonRequestDto toUpdatePersonRequestDto(UpdatePersonRequestProto request);
 }

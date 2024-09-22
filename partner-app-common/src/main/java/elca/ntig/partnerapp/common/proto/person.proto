@@ -10,12 +10,22 @@ import "nationality.proto";
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
+option java_outer_classname = "PersonProto";
 
 service PersonService{
   rpc getPersonById(GetPersonRequestProto) returns (PersonResponseProto){
   }
 
   rpc searchPeoplePagination(SearchPeoplePaginationRequestProto) returns (SearchPeoplePaginationResponseProto){
+  }
+
+  rpc deletePersonById(GetPersonRequestProto) returns (DeletePersonResponseProto){
+  }
+
+  rpc createPerson(CreatePersonRequestProto) returns (PersonResponseProto){
+  }
+
+  rpc updatePerson(UpdatePersonRequestProto) returns (PersonResponseProto){
   }
 }
 
@@ -38,14 +48,14 @@ message PersonResponseProto {
 }
 
 message SearchPeopleCriteriasProto {
-  string lastName = 2;
-  string firstName = 3;
-  LanguageProto language = 4;
-  SexEnumProto sex = 5;
-  NationalityProto nationality = 6;
-  string avsNumber = 7;
-  string birthDate = 8;
-  repeated StatusProto status = 11;
+  string lastName = 1;
+  string firstName = 2;
+  LanguageProto language = 3;
+  SexEnumProto sex = 4;
+  NationalityProto nationality = 5;
+  string avsNumber = 6;
+  string birthDate = 7;
+  repeated StatusProto status = 8;
 }
 
 message SearchPeoplePaginationRequestProto {
@@ -69,4 +79,33 @@ message CustomErrorPerson {
   string code = 1;
   string message = 2;
   string timestamp = 3;
+}
+
+message DeletePersonResponseProto {
+  string message = 1;
+}
+
+message CreatePersonRequestProto {
+  string lastName = 1;
+  string firstName = 2;
+  string avsNumber = 3;
+  MaritalStatusProto maritalStatus = 4;
+  LanguageProto language = 5;
+  SexEnumProto sex = 6;
+  NationalityProto nationality = 7;
+  string birthDate = 8;
+  string phoneNumber = 9;
+}
+
+message UpdatePersonRequestProto {
+  uint32 id = 1;
+  string lastName = 2;
+  string firstName = 3;
+  string avsNumber = 4;
+  MaritalStatusProto maritalStatus = 5;
+  LanguageProto language = 6;
+  SexEnumProto sex = 7;
+  NationalityProto nationality = 8;
+  string birthDate = 9;
+  string phoneNumber = 10;
 }

@@ -20,8 +20,9 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <lombok.version>1.18.30</lombok.version>
-        <common-lang.version>3.14.0</common-lang.version>
+<!--        <common-lang.version>3.14.0</common-lang.version>-->
         <spring-boot-starter-validation.version>3.2.0</spring-boot-starter-validation.version>
+        <protobuf-java-util.version>3.21.12</protobuf-java-util.version>
     </properties>
 
     <dependencies>
@@ -90,11 +91,11 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${common-lang.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-lang3</artifactId>-->
+<!--            <version>${common-lang.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -105,7 +106,7 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
-            <version>3.21.12</version> <!-- Or the latest stable version -->
+            <version>${protobuf-java-util.version}</version>
         </dependency>
     </dependencies>
 
