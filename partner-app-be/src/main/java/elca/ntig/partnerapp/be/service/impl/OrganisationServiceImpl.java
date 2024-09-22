@@ -112,7 +112,7 @@ public class OrganisationServiceImpl implements OrganisationService {
             String plainIde = ideNumber.trim().replaceAll("[-]", "");
             String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
             if (!plainIde.matches(ideNumberRegex)) {
-                throw new InvalidIDENumberFormatException("Invalid AVS number format");
+                throw new InvalidIDENumberFormatException("Invalid IDE number format");
             }
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);
@@ -127,7 +127,7 @@ public class OrganisationServiceImpl implements OrganisationService {
             String plainIde = ideNumber.trim().replaceAll("[-]", "");
             String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
             if (!plainIde.matches(ideNumberRegex)) {
-                throw new InvalidIDENumberFormatException("Invalid AVS number format");
+                throw new InvalidIDENumberFormatException("Invalid IDE number format");
             }
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);

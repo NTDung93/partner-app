@@ -1,15 +1,25 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
+import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.fragment.organisation.CreateOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.apache.log4j.Logger;
@@ -20,7 +30,10 @@ import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 @View(id = CreatePartnerComponent.ID,
         name = CreatePartnerComponent.ID,
         resourceBundleLocation = ObservableResourceFactory.RESOURCE_BUNDLE_NAME,
@@ -28,6 +41,9 @@ import org.jacpfx.rcp.context.Context;
 public class CreatePartnerComponent implements FXComponent {
     public static final String ID = "CreatePartnerComponent";
     private static Logger logger = Logger.getLogger(CreatePartnerComponent.class);
+
+    @Autowired
+    private ObservableResourceFactory observableResourceFactory;
 
     @Resource
     private Context context;
@@ -42,6 +58,7 @@ public class CreatePartnerComponent implements FXComponent {
 
     private CreatePersonFormFragment createPersonFormController;
     private CreateOrganisationFormFragment createOrganisationFormController;
+
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
         return this.root;
@@ -49,6 +66,42 @@ public class CreatePartnerComponent implements FXComponent {
 
     @Override
     public Node handle(Message<Event, Object> message) throws Exception {
+        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
+            paginationModel.setPartnerType(PartnerTypeProto.TYPE_ORGANISATION);
+            switchTypeToOrganisation();
+        }
+        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
+            paginationModel.setPartnerType(PartnerTypeProto.TYPE_PERSON);
+            switchTypeToPerson();
+        }
+        if (message.isMessageBodyTypeOf(PersonResponseProto.class)) {
+            PersonResponseProto response = (PersonResponseProto) message.getMessageBody();
+            if (response != null) {
+                Platform.runLater(() -> {
+                    DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+                    Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title",
+                            "Dialog.information.header.createPartner.success", "");
+                    alert.showAndWait();
+                    if (alert.getResult() == ButtonType.OK) {
+                        context.send(ViewPartnerPerspective.ID, MessageConstant.REFRESH_PERSON_TABLE);
+                    }
+                });
+            }
+        }
+        if (message.isMessageBodyTypeOf(OrganisationResponseProto.class)) {
+            OrganisationResponseProto response = (OrganisationResponseProto) message.getMessageBody();
+            if (response != null) {
+                DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+                Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title",
+                        "Dialog.information.header.createPartner.success", "");
+                Platform.runLater(() -> {
+                    alert.showAndWait();
+                });
+                if (alert.getResult() == ButtonType.OK) {
+                    context.send(ViewPartnerPerspective.ID, MessageConstant.REFRESH_ORGANISATION_TABLE);
+                }
+            }
+        }
         return null;
     }
 
@@ -77,6 +130,15 @@ public class CreatePartnerComponent implements FXComponent {
         createPersonFormController.init();
         Platform.runLater(() -> {
             container.getChildren().setAll(createPersonFormHandler.getFragmentNode());
+        });
+    }
+
+    private void switchTypeToOrganisation() {
+        createOrganisationFormHandler = context.getManagedFragmentHandler(CreateOrganisationFormFragment.class);
+        createOrganisationFormController = createOrganisationFormHandler.getController();
+        createOrganisationFormController.init();
+        Platform.runLater(() -> {
+            container.getChildren().setAll(createOrganisationFormHandler.getFragmentNode());
         });
     }
 }

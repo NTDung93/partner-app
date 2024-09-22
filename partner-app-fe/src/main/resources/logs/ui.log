@@ -1287,3 +1287,7 @@ content {
 2024-09-22 11:30:28 INFO  OrganisationTableFragment:149 - Current page: 1
 2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 2
 2024-09-22 11:30:29 INFO  OrganisationTableFragment:149 - Current page: 3
+2024-09-22 22:18:33 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-22 22:18:34 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-22 22:18:35 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-22 22:18:35 INFO  PersonTableFragment:160 - Current page: 0

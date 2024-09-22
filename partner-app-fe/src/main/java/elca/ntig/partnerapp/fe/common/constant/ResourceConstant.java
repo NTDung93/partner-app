@@ -18,4 +18,6 @@ public class ResourceConstant {
     // image location
     public static final String BIN_ICON = "/images/bin.png";
     public static final String QUESTION_ICON = "/images/question.png";
+    public static final String INFO_ICON = "/images/info.png";
+    public static final String SUCCESS_ICON = "/images/success.png";
 }

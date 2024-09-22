@@ -20,15 +20,7 @@ public interface BaseFormFragment {
 
     void handleEvents();
 
-    void handlePagination(PaginationModel paginationModel);
-
-    void handleClearCriteriaButtonOnClick();
-
-    void handleSearchButtonOnClick();
-
     void handleTypeChange();
-
-    List<StatusProto> getStatuses();
 
     void validateValues();
 }

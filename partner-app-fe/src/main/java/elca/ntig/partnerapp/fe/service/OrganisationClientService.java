@@ -22,4 +22,12 @@ public class OrganisationClientService {
     public DeleteOrganisationResponseProto deleteOrganisationById(GetOrganisationRequestProto request) {
         return organisationServiceStub.deleteOrganisationById(request);
     }
+
+    public OrganisationResponseProto createOrganisation(CreateOrganisationRequestProto request) {
+        return organisationServiceStub.createOrganisation(request);
+    }
+
+    public OrganisationResponseProto updateOrganisation(UpdateOrganisationRequestProto request) {
+        return organisationServiceStub.updateOrganisation(request);
+    }
 }

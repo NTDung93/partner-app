@@ -19,23 +19,38 @@ public class DialogBuilder {
         Alert alertDialog = new Alert(alertType);
         alertDialog.setTitle(observableResourceFactory.getStringBinding(title).get());
         alertDialog.setHeaderText(StringUtils.isNotBlank(header) ? observableResourceFactory.getStringBinding(header).get() : null);
-        alertDialog.setContentText(observableResourceFactory.getStringBinding(message).get());
-        final ImageView questionIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.QUESTION_ICON)));
-        {
-            questionIcon.setFitHeight(80);
-            questionIcon.setFitWidth(80);
+        alertDialog.setContentText(StringUtils.isNotBlank(message) ? observableResourceFactory.getStringBinding(message).get() : null);
+        if (header.contains("delete")){
+            final ImageView questionIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.QUESTION_ICON)));
+            {
+                questionIcon.setFitHeight(80);
+                questionIcon.setFitWidth(80);
+            }
+            alertDialog.setGraphic(questionIcon);
+
+            Stage dialogStage = (Stage) alertDialog.getDialogPane().getScene().getWindow();
+            final ImageView alertIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+            {
+                alertIcon.setFitHeight(20);
+                alertIcon.setFitWidth(20);
+            }
+            dialogStage.getIcons().add(alertIcon.getImage());
+        } else if (header.contains("success")) {
+            final ImageView questionIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.SUCCESS_ICON)));
+            {
+                questionIcon.setFitHeight(80);
+                questionIcon.setFitWidth(80);
+            }
+            alertDialog.setGraphic(questionIcon);
+
+            Stage dialogStage = (Stage) alertDialog.getDialogPane().getScene().getWindow();
+            final ImageView alertIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.INFO_ICON)));
+            {
+                alertIcon.setFitHeight(20);
+                alertIcon.setFitWidth(20);
+            }
+            dialogStage.getIcons().add(alertIcon.getImage());
         }
-        alertDialog.setGraphic(questionIcon);
-
-        Stage dialogStage = (Stage) alertDialog.getDialogPane().getScene().getWindow();
-
-        final ImageView alertIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
-        {
-            alertIcon.setFitHeight(20);
-            alertIcon.setFitWidth(20);
-        }
-        dialogStage.getIcons().add(alertIcon.getImage());
-
         return alertDialog;
     }
 }

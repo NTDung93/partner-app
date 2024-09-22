@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
         name = PartnerAppWorkbench.ID,
         perspectives = {
                 ViewPartnerPerspective.ID,
-                CreatePartnerPerspective.ID
+                CreatePartnerPerspective.ID,
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 

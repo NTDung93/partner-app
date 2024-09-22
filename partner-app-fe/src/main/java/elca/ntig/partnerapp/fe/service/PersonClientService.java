@@ -19,4 +19,12 @@ public class PersonClientService {
     public DeletePersonResponseProto deletePersonById(GetPersonRequestProto request) {
         return personServiceStub.deletePersonById(request);
     }
+
+    public PersonResponseProto createPerson(CreatePersonRequestProto request) {
+        return personServiceStub.createPerson(request);
+    }
+
+    public PersonResponseProto updatePerson(UpdatePersonRequestProto request) {
+        return personServiceStub.updatePerson(request);
+    }
 }

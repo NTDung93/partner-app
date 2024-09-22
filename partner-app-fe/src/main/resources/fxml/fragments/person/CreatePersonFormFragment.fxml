@@ -92,6 +92,8 @@
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="4">
             <ComboBox fx:id="languageComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
+        <Label fx:id="languageErrorLabel" styleClass="error-label" GridPane.rowIndex="1"
+               GridPane.columnIndex="5"/>
 
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="3" alignment="CENTER_RIGHT">
             <VBox alignment="BASELINE_CENTER">
@@ -104,6 +106,8 @@
         <HBox GridPane.rowIndex="2" GridPane.columnIndex="4">
             <ComboBox fx:id="sexComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         </HBox>
+        <Label fx:id="sexErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
+               GridPane.columnIndex="5"/>
 
         <Label fx:id="nationalityLabel" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
         <HBox GridPane.rowIndex="3" GridPane.columnIndex="4">

@@ -73,28 +73,8 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
     }
 
     @Override
-    public void handlePagination(PaginationModel paginationModel) {
-
-    }
-
-    @Override
-    public void handleClearCriteriaButtonOnClick() {
-
-    }
-
-    @Override
-    public void handleSearchButtonOnClick() {
-
-    }
-
-    @Override
     public void handleTypeChange() {
 
-    }
-
-    @Override
-    public List<StatusProto> getStatuses() {
-        return Collections.emptyList();
     }
 
     @Override
