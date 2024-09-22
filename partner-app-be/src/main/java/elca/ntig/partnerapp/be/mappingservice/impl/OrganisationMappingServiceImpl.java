@@ -1,8 +1,10 @@
 package elca.ntig.partnerapp.be.mappingservice.impl;
 
 import elca.ntig.partnerapp.be.mappingservice.OrganisationMappingService;
+import elca.ntig.partnerapp.be.model.dto.organisation.CreateOrganisationRequestDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationCriteriasDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.SearchOrganisationPaginationResponseDto;
+import elca.ntig.partnerapp.be.model.dto.organisation.UpdateOrganisationRequestDto;
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.service.OrganisationService;
 import elca.ntig.partnerapp.be.service.PartnerService;
@@ -35,8 +37,22 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
     }
 
     @Override
-    public DeleteOrganisationResponseProto deleteOrganisationById(Integer id) {
+    public DeleteOrganisationResponseProto deleteOrganisationByIdHelper(Integer id) {
         DeletePartnerResponseDto deletePartnerResponseDto = partnerService.deletePartnerById(id);
         return organisationMapper.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
+    }
+
+    @Override
+    public OrganisationResponseProto createOrganisationHelper(CreateOrganisationRequestProto request) {
+        CreateOrganisationRequestDto createOrganisationRequestDto = organisationMapper.toCreateOrganisationRequestDto(request);
+        argumentValidator.validate(createOrganisationRequestDto);
+        return organisationMapper.toOrganisationResponseProto(organisationService.createOrganisation(createOrganisationRequestDto));
+    }
+
+    @Override
+    public OrganisationResponseProto updateOrganisationHelper(UpdateOrganisationRequestProto request) {
+        UpdateOrganisationRequestDto updateOrganisationRequestDto = organisationMapper.toUpdateOrganisationRequestDto(request);
+        argumentValidator.validate(updateOrganisationRequestDto);
+        return organisationMapper.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
     }
 }

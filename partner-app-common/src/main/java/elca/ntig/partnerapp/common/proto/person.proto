@@ -22,10 +22,10 @@ service PersonService{
   rpc deletePersonById(GetPersonRequestProto) returns (DeletePersonResponseProto){
   }
 
-  rpc createPerson(createPersonRequestProto) returns (PersonResponseProto){
+  rpc createPerson(CreatePersonRequestProto) returns (PersonResponseProto){
   }
 
-  rpc updatePerson(updatePersonRequestProto) returns (PersonResponseProto){
+  rpc updatePerson(UpdatePersonRequestProto) returns (PersonResponseProto){
   }
 }
 
@@ -85,7 +85,7 @@ message DeletePersonResponseProto {
   string message = 1;
 }
 
-message createPersonRequestProto {
+message CreatePersonRequestProto {
   string lastName = 1;
   string firstName = 2;
   string avsNumber = 3;
@@ -97,7 +97,7 @@ message createPersonRequestProto {
   string phoneNumber = 9;
 }
 
-message updatePersonRequestProto {
+message UpdatePersonRequestProto {
   uint32 id = 1;
   string lastName = 2;
   string firstName = 3;

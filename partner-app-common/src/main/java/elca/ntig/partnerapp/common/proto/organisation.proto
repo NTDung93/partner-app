@@ -20,10 +20,10 @@ service OrganisationService{
   rpc deleteOrganisationById(GetOrganisationRequestProto) returns (DeleteOrganisationResponseProto){
   }
 
-  rpc createOrganisation(createOrganisationRequestProto) returns (OrganisationResponseProto){
+  rpc createOrganisation(CreateOrganisationRequestProto) returns (OrganisationResponseProto){
   }
 
-  rpc updateOrganisation(updateOrganisationRequestProto) returns (OrganisationResponseProto){
+  rpc updateOrganisation(UpdateOrganisationRequestProto) returns (OrganisationResponseProto){
   }
 }
 
@@ -75,7 +75,7 @@ message DeleteOrganisationResponseProto {
   string message = 1;
 }
 
-message createOrganisationRequestProto {
+message CreateOrganisationRequestProto {
   string name = 1;
   string additionalName = 2;
   string ideNumber = 3;
@@ -86,7 +86,7 @@ message createOrganisationRequestProto {
   string phoneNumber = 8;
 }
 
-message updateOrganisationRequestProto {
+message UpdateOrganisationRequestProto {
   uint32 id = 1;
   string name = 2;
   string additionalName = 3;

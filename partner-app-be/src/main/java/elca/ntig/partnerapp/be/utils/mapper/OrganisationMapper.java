@@ -4,10 +4,7 @@ import elca.ntig.partnerapp.be.model.dto.organisation.*;
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.utils.mapper.enums.*;
-import elca.ntig.partnerapp.common.proto.entity.organisation.DeleteOrganisationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.*;
 import org.mapstruct.*;
 
 @Mapper(
@@ -44,4 +41,10 @@ public interface OrganisationMapper {
     SearchOrganisationPaginationResponseProto toSearchOrganisationPaginationResponse(SearchOrganisationPaginationResponseDto searchOrganisationPaginationResponseDto);
 
     DeleteOrganisationResponseProto toDeleteOrganisationResponseProto(DeletePartnerResponseDto deleteOrganisationResponseDto);
+
+    @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    CreateOrganisationRequestDto toCreateOrganisationRequestDto(CreateOrganisationRequestProto request);
+
+    @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    UpdateOrganisationRequestDto toUpdateOrganisationRequestDto(UpdateOrganisationRequestProto request);
 }

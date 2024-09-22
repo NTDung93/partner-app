@@ -25,7 +25,19 @@ public class OrganisationServiceGrpcImpl extends OrganisationServiceGrpc.Organis
 
     @Override
     public void deleteOrganisationById(GetOrganisationRequestProto request, StreamObserver<DeleteOrganisationResponseProto> responseObserver) {
-        responseObserver.onNext(organisationServiceGrpcHelper.deleteOrganisationById(request.getId()));
+        responseObserver.onNext(organisationServiceGrpcHelper.deleteOrganisationByIdHelper(request.getId()));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void createOrganisation(CreateOrganisationRequestProto request, StreamObserver<OrganisationResponseProto> responseObserver) {
+        responseObserver.onNext(organisationServiceGrpcHelper.createOrganisationHelper(request));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateOrganisation(UpdateOrganisationRequestProto request, StreamObserver<OrganisationResponseProto> responseObserver) {
+        responseObserver.onNext(organisationServiceGrpcHelper.updateOrganisationHelper(request));
         responseObserver.onCompleted();
     }
 }

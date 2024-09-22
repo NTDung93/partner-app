@@ -31,7 +31,7 @@ public class UpdatePersonRequestDto {
     @NotNull(message = "Language is mandatory")
     private Language language;
 
-    @NotBlank(message = "Sex is mandatory")
+    @NotNull(message = "Sex is mandatory")
     private SexEnum sex;
     private Nationality nationality;
     private LocalDate birthDate;

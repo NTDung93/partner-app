@@ -25,7 +25,19 @@ public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBa
 
     @Override
     public void deletePersonById(GetPersonRequestProto request, StreamObserver<DeletePersonResponseProto> responseObserver) {
-        responseObserver.onNext(personServiceGrpcHelper.deletePersonById(request.getId()));
+        responseObserver.onNext(personServiceGrpcHelper.deletePersonByIdHelper(request.getId()));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void createPerson(CreatePersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.createPersonHelper(request));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updatePerson(UpdatePersonRequestProto request, StreamObserver<PersonResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.updatePersonHelper(request));
         responseObserver.onCompleted();
     }
 }

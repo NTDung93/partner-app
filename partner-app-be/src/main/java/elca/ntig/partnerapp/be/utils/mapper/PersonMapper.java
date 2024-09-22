@@ -2,20 +2,11 @@ package elca.ntig.partnerapp.be.utils.mapper;
 
 
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
-import elca.ntig.partnerapp.be.model.dto.person.PersonResponseDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeopleCriteriasDto;
-import elca.ntig.partnerapp.be.model.dto.person.SearchPeoplePaginationResponseDto;
-import elca.ntig.partnerapp.be.model.dto.person.UpdatePersonRequestDto;
+import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Person;
-import elca.ntig.partnerapp.be.utils.mapper.enums.LanguageMapper;
-import elca.ntig.partnerapp.be.utils.mapper.enums.NationalityMapper;
-import elca.ntig.partnerapp.be.utils.mapper.enums.SexEnumMapper;
-import elca.ntig.partnerapp.be.utils.mapper.enums.StatusMapper;
-import elca.ntig.partnerapp.common.proto.entity.person.DeletePersonResponseProto;
+import elca.ntig.partnerapp.be.utils.mapper.enums.*;
+import elca.ntig.partnerapp.common.proto.entity.person.*;
 import org.mapstruct.*;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -24,9 +15,11 @@ import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRes
                 LanguageMapper.class,
                 SexEnumMapper.class,
                 NationalityMapper.class,
+                MaritalStatusMapper.class,
                 StatusMapper.class
         },
-        collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
+        collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED,
+        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
 )
 public interface PersonMapper {
     @Mapping(target = "partner.language", source = "language")
@@ -51,4 +44,10 @@ public interface PersonMapper {
     SearchPeoplePaginationResponseProto toSearchPeoplePaginationResponse(SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto);
 
     DeletePersonResponseProto toDeletePersonResponseProto(DeletePartnerResponseDto deletePersonResponseDto);
+
+    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    CreatePersonRequestDto toCreatePersonRequestDto(CreatePersonRequestProto createPersonRequestProto);
+
+    @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    UpdatePersonRequestDto toUpdatePersonRequestDto(UpdatePersonRequestProto request);
 }

@@ -1,6 +1,5 @@
 package elca.ntig.partnerapp.be.model.exception;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import io.grpc.Metadata;
 import io.grpc.StatusRuntimeException;
 import io.grpc.Status;

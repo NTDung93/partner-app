@@ -1,6 +1,5 @@
 package elca.ntig.partnerapp.be.service.impl;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Partner;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
@@ -11,6 +10,7 @@ import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.repository.PersonRepository;
 import elca.ntig.partnerapp.be.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +57,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto) {
-        validateInputs(createPersonRequestDto);
+        validateCreateRequest(createPersonRequestDto);
 
         Partner partner = Partner.builder()
                 .language(createPersonRequestDto.getLanguage())
@@ -83,9 +83,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
         Person person = personRepository.findById(updatePersonRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Person", "id", updatePersonRequestDto.getId()));
+
+        validateUpdateRequest(updatePersonRequestDto);
 
         personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
@@ -93,14 +96,35 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toPersonResponseDto(person);
     }
 
-    private void validateInputs(CreatePersonRequestDto createPersonRequestDto) {
+    private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {
         validateAVSNumber(createPersonRequestDto.getAvsNumber());
         validateBirthDate(createPersonRequestDto.getBirthDate());
         validatePhoneNumber(createPersonRequestDto.getPhoneNumber());
     }
 
+    private void validateUpdateRequest(UpdatePersonRequestDto updatePersonRequestDto) {
+        validateUpdateAVSNumber(updatePersonRequestDto.getAvsNumber(), updatePersonRequestDto.getId());
+        validateBirthDate(updatePersonRequestDto.getBirthDate());
+        validatePhoneNumber(updatePersonRequestDto.getPhoneNumber());
+    }
+
+    private void validateUpdateAVSNumber(String avsNumber, Integer id) {
+        if (StringUtils.isNotBlank(avsNumber)) {
+            String regex = "^756\\d{10}$";
+            if (!avsNumber.matches(regex)) {
+                throw new InvalidAVSNumberFormatException("Invalid AVS number format");
+            }
+
+            Person checkAvsPerson = personRepository.findPersonByAvsNumberAndPartnerStatus(avsNumber, Status.ACTIVE);
+            // avoid checking against the person being updated
+            if (checkAvsPerson != null && !checkAvsPerson.getId().equals(id)) {
+                throw new ExistingActiveAVSNumberException("Person with AVS number " + avsNumber + " already exists");
+            }
+        }
+    }
+
     private void validateAVSNumber(String avsNumber) {
-        if (avsNumber != null) {
+        if (StringUtils.isNotBlank(avsNumber)) {
             String regex = "^756\\d{10}$";
             if (!avsNumber.matches(regex)) {
                 throw new InvalidAVSNumberFormatException("Invalid AVS number format");
@@ -120,7 +144,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private void validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber != null) {
+        if (StringUtils.isNotBlank(phoneNumber)) {
             String regex = "^\\d{10}$";
             if (!phoneNumber.matches(regex)) {
                 throw new InvalidPhoneNumberFormatException("Invalid phone number format");

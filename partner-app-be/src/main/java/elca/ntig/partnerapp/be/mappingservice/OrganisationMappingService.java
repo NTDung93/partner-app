@@ -5,5 +5,7 @@ import elca.ntig.partnerapp.common.proto.entity.organisation.*;
 public interface OrganisationMappingService {
     OrganisationResponseProto getOrganisationByIdHelper(GetOrganisationRequestProto request);
     SearchOrganisationPaginationResponseProto searchOrganisationPaginationHelper(SearchOrganisationPaginationRequestProto request);
-    DeleteOrganisationResponseProto deleteOrganisationById(Integer id);
+    DeleteOrganisationResponseProto deleteOrganisationByIdHelper(Integer id);
+    OrganisationResponseProto createOrganisationHelper(CreateOrganisationRequestProto request);
+    OrganisationResponseProto updateOrganisationHelper(UpdateOrganisationRequestProto request);
 }

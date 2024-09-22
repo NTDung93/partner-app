@@ -9,4 +9,5 @@ public class MapperConstant {
     public static final String NULL_STATUS = "NULL_STATUS";
     public static final String NULL_LEGAL_STATUS = "NULL_LEGAL_STATUS";
     public static final String NULL_CODE_NOGA = "NULL_CODE_NOGA";
+    public static final String NULL_MARITAL_STATUS = "NULL_MARITAL_STATUS";
 }
