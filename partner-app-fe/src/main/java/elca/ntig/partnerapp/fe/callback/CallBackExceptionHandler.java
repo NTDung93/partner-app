@@ -33,13 +33,13 @@ public abstract class CallBackExceptionHandler {
         });
     }
 
-    public void handleStatusRuntimeException(Exception e) {
+    public void handleStatusRuntimeException(Exception e, String suffix) {
+        String prefix = "Dialog.err.header.error.";
         int index = e.getMessage().indexOf(":") + 2;
         String errMessage = e.getMessage().substring(index);
         Platform.runLater(() -> {
             DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title",
-                    "Dialog.err.header.createPartner.error", errMessage);
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title", prefix.concat(suffix), errMessage);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();
@@ -47,11 +47,11 @@ public abstract class CallBackExceptionHandler {
         });
     }
 
-    public void handleSuccessfulResponse() {
+    public void handleSuccessfulResponse(String suffix) {
+        String prefix = "Dialog.information.header.success.";
         Platform.runLater(() -> {
             DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title",
-                    "Dialog.information.header.createPartner.success", "");
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title", prefix.concat(suffix), "");
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();

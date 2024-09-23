@@ -222,7 +222,7 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
 
     private void handleCreatePersonButtonOnClick() {
 //        context.send(CreatePartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
-        context.send(CreatePartnerPerspective.ID, "Initzzzz");
+        context.send(CreatePartnerPerspective.ID, MessageConstant.INIT);
         context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
     }
 

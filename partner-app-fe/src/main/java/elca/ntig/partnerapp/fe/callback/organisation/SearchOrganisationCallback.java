@@ -39,7 +39,7 @@ public class SearchOrganisationCallback extends CallBackExceptionHandler impleme
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e);
+                    handleStatusRuntimeException(e, "searchPartner");
                 }else{
                     handleUnexpectedException(e);
                 }

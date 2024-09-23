@@ -11,3 +11,4 @@
 2024-09-23 14:18:59 INFO  PersonTableFragment:192 - Sorting by: id, Direction: desc
 2024-09-23 14:23:49 ERROR CreatePersonCallback:49 - FAILED_PRECONDITION: Person with AVS number 7561289347897 already exists
 2024-09-23 14:24:06 INFO  PersonTableFragment:374 - Delete person with id: 122
+2024-09-23 15:16:42 ERROR CreateOrganisationCallback:45 - FAILED_PRECONDITION: Organisation with IDE number CHE-987123678 already exists

@@ -39,7 +39,7 @@ public class DeletePersonCallback extends CallBackExceptionHandler implements Ca
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e);
+                    handleStatusRuntimeException(e, "deletePartner");
                 }else{
                     handleUnexpectedException(e);
                 }

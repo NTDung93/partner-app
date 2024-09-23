@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationRespons
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.service.OrganisationClientService;
@@ -36,13 +37,14 @@ public class CreateOrganisationCallback extends CallBackExceptionHandler impleme
         if (message.isMessageBodyTypeOf(CreateOrganisationRequestProto.class)) {
             try {
                 OrganisationResponseProto response = organisationClientService.createOrganisation((CreateOrganisationRequestProto) message.getMessageBody());
-                handleSuccessfulResponse();
-                context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+                handleSuccessfulResponse("createPartner");
+                context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e);
+                    handleStatusRuntimeException(e, "createPartner");
                 }else{
                     handleUnexpectedException(e);
                 }

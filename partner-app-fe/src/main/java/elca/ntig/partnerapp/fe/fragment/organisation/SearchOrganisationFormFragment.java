@@ -209,7 +209,7 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
 
     private void handleCreateOrganisationButtonOnClick() {
 //        context.send(CreatePartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
-        context.send(CreatePartnerPerspective.ID, "Initaaaaa");
+        context.send(CreatePartnerPerspective.ID, MessageConstant.INIT);
         context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
     }
 

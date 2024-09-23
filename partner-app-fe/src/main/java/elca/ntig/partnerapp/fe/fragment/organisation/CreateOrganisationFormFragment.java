@@ -223,7 +223,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment impl
 
     private void handleCancelButtonOnClick() {
 //        context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
-        context.send(ViewPartnerPerspective.ID, "Init");
+        context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
     }
 

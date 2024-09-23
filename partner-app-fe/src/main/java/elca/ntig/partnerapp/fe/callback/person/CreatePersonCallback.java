@@ -7,6 +7,7 @@ import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
@@ -42,13 +43,14 @@ public class CreatePersonCallback extends CallBackExceptionHandler implements Ca
         if (message.isMessageBodyTypeOf(CreatePersonRequestProto.class)) {
             try {
                 PersonResponseProto response = personClientService.createPerson((CreatePersonRequestProto) message.getMessageBody());
-                handleSuccessfulResponse();
-                context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
+                handleSuccessfulResponse("createPartner");
+                context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e);
+                    handleStatusRuntimeException(e, "createPartner");
                 }else{
                     handleUnexpectedException(e);
                 }
