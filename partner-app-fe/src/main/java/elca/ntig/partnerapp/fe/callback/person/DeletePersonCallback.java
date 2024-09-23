@@ -40,6 +40,8 @@ public class DeletePersonCallback extends CallBackExceptionHandler implements Ca
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
                     handleStatusRuntimeException(e);
+                }else{
+                    handleUnexpectedException(e);
                 }
             }
         }

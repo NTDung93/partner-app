@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
+import io.grpc.StatusRuntimeException;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -19,6 +20,18 @@ public abstract class CallBackExceptionHandler {
 
     @Resource
     private Context context;
+
+    public void handleUnexpectedException(Exception e) {
+        Platform.runLater(() -> {
+            DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title",
+                    "Dialog.err.message.unexpected.error", e.getMessage());
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                alert.close();
+            }
+        });
+    }
 
     public void handleStatusRuntimeException(Exception e) {
         int index = e.getMessage().indexOf(":") + 2;

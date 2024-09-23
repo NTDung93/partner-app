@@ -49,6 +49,8 @@ public class CreatePersonCallback extends CallBackExceptionHandler implements Ca
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
                     handleStatusRuntimeException(e);
+                }else{
+                    handleUnexpectedException(e);
                 }
             }
         }

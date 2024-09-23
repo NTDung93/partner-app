@@ -40,6 +40,8 @@ public class DeleteOrganisationCallback extends CallBackExceptionHandler impleme
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
                     handleStatusRuntimeException(e);
+                }else{
+                    handleUnexpectedException(e);
                 }
             }
         }
