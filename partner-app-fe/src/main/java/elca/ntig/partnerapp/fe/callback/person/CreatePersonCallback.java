@@ -43,7 +43,7 @@ public class CreatePersonCallback extends CallBackExceptionHandler implements Ca
             try {
                 PersonResponseProto response = personClientService.createPerson((CreatePersonRequestProto) message.getMessageBody());
                 handleSuccessfulResponse();
-                context.send(ViewPartnerPerspective.ID, MessageConstant.BACK_TO_SEARCH_PERSON);
+                context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());

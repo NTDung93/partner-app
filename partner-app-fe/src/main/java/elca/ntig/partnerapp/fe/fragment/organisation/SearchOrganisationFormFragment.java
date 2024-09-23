@@ -13,7 +13,9 @@ import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
@@ -202,6 +204,13 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
         typeComboBox.setOnAction(event -> handleTypeChange());
+        createOrganisationButton.setOnAction(event -> handleCreateOrganisationButtonOnClick());
+    }
+
+    private void handleCreateOrganisationButtonOnClick() {
+//        context.send(CreatePartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        context.send(CreatePartnerPerspective.ID, "Initaaaaa");
+        context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
     }
 
     public void handlePagination(PaginationModel paginationModel) {

@@ -12,9 +12,11 @@ import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.fxml.FXML;
@@ -243,6 +245,13 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     public void handleEvents() {
         typeComboBox.setOnAction(event -> handleTypeChange());
         saveButton.setOnAction(event -> handleSaveButtonOnClick());
+        cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+    }
+
+    private void handleCancelButtonOnClick() {
+//        context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
+        context.send(ViewPartnerPerspective.ID, "Init");
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
     }
 
     private void handleSaveButtonOnClick() {

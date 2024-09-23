@@ -37,7 +37,7 @@ public class CreateOrganisationCallback extends CallBackExceptionHandler impleme
             try {
                 OrganisationResponseProto response = organisationClientService.createOrganisation((CreateOrganisationRequestProto) message.getMessageBody());
                 handleSuccessfulResponse();
-                context.send(ViewPartnerPerspective.ID, MessageConstant.BACK_TO_SEARCH_PERSON);
+                context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());

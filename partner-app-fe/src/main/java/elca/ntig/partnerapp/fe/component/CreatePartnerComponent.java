@@ -52,8 +52,6 @@ public class CreatePartnerComponent implements FXComponent {
 
     private VBox container = new VBox();
 
-    PaginationModel paginationModel;
-
     private ManagedFragmentHandler<CreatePersonFormFragment> createPersonFormHandler;
     private ManagedFragmentHandler<CreateOrganisationFormFragment> createOrganisationFormHandler;
 
@@ -68,10 +66,8 @@ public class CreatePartnerComponent implements FXComponent {
     @Override
     public Node handle(Message<Event, Object> message) throws Exception {
         if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
-            paginationModel.setPartnerType(PartnerTypeProto.TYPE_ORGANISATION);
             switchTypeToOrganisation();
         } else if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
-            paginationModel.setPartnerType(PartnerTypeProto.TYPE_PERSON);
             switchTypeToPerson();
         }
         return null;
@@ -81,13 +77,6 @@ public class CreatePartnerComponent implements FXComponent {
     public void onPostConstructComponent() {
         container.setVgrow(container, Priority.ALWAYS);
         container.setStyle("-fx-background-color: white;");
-        paginationModel = PaginationModel.builder()
-                .pageNo(PaginationConstant.DEFAULT_PAGE_NO)
-                .pageSize(PaginationConstant.DEFAULT_PAGE_SIZE)
-                .sortBy(PaginationConstant.DEFAULT_SORT_BY)
-                .sortDir(PaginationConstant.DEFAULT_SORT_DIRECTION)
-                .partnerType(PartnerTypeProto.TYPE_PERSON)
-                .build();
         this.root = initFragment();
     }
 
