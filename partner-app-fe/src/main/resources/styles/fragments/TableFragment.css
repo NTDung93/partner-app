@@ -86,10 +86,10 @@
     -fx-background-radius: 20;
 }
 
-.small-col{
-    -fx-pref-width: 80;
-}
+/*.small-col{*/
+/*    -fx-pref-width: 80;*/
+/*}*/
 
-.big-col, .big-col .label{
-    -fx-pref-width: 150;
-}
+/*.big-col, .big-col .label{*/
+/*    -fx-pref-width: 150;*/
+/*}*/

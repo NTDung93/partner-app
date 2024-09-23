@@ -6,6 +6,7 @@ import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.utils.mapper.enums.*;
 import elca.ntig.partnerapp.common.proto.entity.organisation.*;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -19,6 +20,8 @@ import org.mapstruct.*;
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
 )
 public interface OrganisationMapper {
+    OrganisationMapper INSTANCE = Mappers.getMapper(OrganisationMapper.class);
+
     @Mapping(target = "partner.language", source = "language")
     @Mapping(target = "partner.phoneNumber", source = "phoneNumber")
     @Mapping(target = "id", ignore = true)

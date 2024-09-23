@@ -1,28 +1,15 @@
 package elca.ntig.partnerapp.fe.component;
 
-import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
-import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
-import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
-import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
-import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import elca.ntig.partnerapp.fe.fragment.organisation.CreateOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
-import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.View;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
@@ -30,7 +17,6 @@ import org.jacpfx.api.message.Message;
 import org.jacpfx.rcp.component.FXComponent;
 import org.jacpfx.rcp.components.managedFragment.ManagedFragmentHandler;
 import org.jacpfx.rcp.context.Context;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,16 +26,10 @@ import org.springframework.stereotype.Component;
         initialTargetLayoutId = TargetConstant.TARGET_CREATE_PARTNER_CONTAINER)
 public class CreatePartnerComponent implements FXComponent {
     public static final String ID = "CreatePartnerComponent";
-    private static Logger logger = Logger.getLogger(CreatePartnerComponent.class);
-
-    @Autowired
-    private ObservableResourceFactory observableResourceFactory;
-    private DialogBuilder dialogBuilder;
 
     @Resource
     private Context context;
     private Node root;
-
     private VBox container = new VBox();
 
     private ManagedFragmentHandler<CreatePersonFormFragment> createPersonFormHandler;

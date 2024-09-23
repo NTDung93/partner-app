@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OrganisationMappingServiceImpl implements OrganisationMappingService {
-    private final OrganisationMapper organisationMapper;
     private final ArgumentValidator argumentValidator;
     private final OrganisationService organisationService;
     private final PartnerService partnerService;
@@ -25,34 +24,34 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
 
     @Override
     public OrganisationResponseProto getOrganisationByIdHelper(GetOrganisationRequestProto request) {
-        return organisationMapper.toOrganisationResponseProto(organisationService.getOrganisationById(request.getId()));
+        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.getOrganisationById(request.getId()));
     }
 
     @Override
     public SearchOrganisationPaginationResponseProto searchOrganisationPaginationHelper(SearchOrganisationPaginationRequestProto request) {
-        SearchOrganisationCriteriasDto searchOrganisationCriterias = organisationMapper.toSearchOrganisationCriteriasDto(request.getCriterias());
+        SearchOrganisationCriteriasDto searchOrganisationCriterias = OrganisationMapper.INSTANCE.toSearchOrganisationCriteriasDto(request.getCriterias());
         argumentValidator.validate(searchOrganisationCriterias);
         SearchOrganisationPaginationResponseDto searchOrganisationPaginationResponseDto = organisationService.searchOrganisationPagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchOrganisationCriterias);
-        return organisationMapper.toSearchOrganisationPaginationResponse(searchOrganisationPaginationResponseDto);
+        return OrganisationMapper.INSTANCE.toSearchOrganisationPaginationResponse(searchOrganisationPaginationResponseDto);
     }
 
     @Override
     public DeleteOrganisationResponseProto deleteOrganisationByIdHelper(Integer id) {
         DeletePartnerResponseDto deletePartnerResponseDto = partnerService.deletePartnerById(id);
-        return organisationMapper.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
+        return OrganisationMapper.INSTANCE.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
     }
 
     @Override
     public OrganisationResponseProto createOrganisationHelper(CreateOrganisationRequestProto request) {
-        CreateOrganisationRequestDto createOrganisationRequestDto = organisationMapper.toCreateOrganisationRequestDto(request);
+        CreateOrganisationRequestDto createOrganisationRequestDto = OrganisationMapper.INSTANCE.toCreateOrganisationRequestDto(request);
         argumentValidator.validate(createOrganisationRequestDto);
-        return organisationMapper.toOrganisationResponseProto(organisationService.createOrganisation(createOrganisationRequestDto));
+        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.createOrganisation(createOrganisationRequestDto));
     }
 
     @Override
     public OrganisationResponseProto updateOrganisationHelper(UpdateOrganisationRequestProto request) {
-        UpdateOrganisationRequestDto updateOrganisationRequestDto = organisationMapper.toUpdateOrganisationRequestDto(request);
+        UpdateOrganisationRequestDto updateOrganisationRequestDto = OrganisationMapper.INSTANCE.toUpdateOrganisationRequestDto(request);
         argumentValidator.validate(updateOrganisationRequestDto);
-        return organisationMapper.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
+        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
     }
 }

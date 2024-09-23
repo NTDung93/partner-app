@@ -12,3 +12,73 @@
 2024-09-23 14:23:49 ERROR CreatePersonCallback:49 - FAILED_PRECONDITION: Person with AVS number 7561289347897 already exists
 2024-09-23 14:24:06 INFO  PersonTableFragment:374 - Delete person with id: 122
 2024-09-23 15:16:42 ERROR CreateOrganisationCallback:45 - FAILED_PRECONDITION: Organisation with IDE number CHE-987123678 already exists
+2024-09-23 16:09:12 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:09:13 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:09:16 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:09:17 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:09:20 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:09:20 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:09:22 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:09:22 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:09:24 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:09:24 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:09:26 INFO  PersonTableFragment:192 - Sorting by: firstName, Direction: asc
+2024-09-23 16:09:27 INFO  PersonTableFragment:192 - Sorting by: firstName, Direction: desc
+2024-09-23 16:09:30 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:09:32 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:09:36 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:09:37 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:09:43 INFO  PersonTableFragment:192 - Sorting by: firstName, Direction: asc
+2024-09-23 16:09:43 INFO  PersonTableFragment:192 - Sorting by: firstName, Direction: desc
+2024-09-23 16:09:59 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:10:03 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:11:55 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:11:56 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:11:57 INFO  PersonTableFragment:153 - Current page: 3
+2024-09-23 16:13:20 INFO  PersonTableFragment:160 - Current page: 2
+2024-09-23 16:13:22 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:13:23 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:13:25 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:13:25 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:13:25 INFO  PersonTableFragment:153 - Current page: 3
+2024-09-23 16:13:27 INFO  PersonTableFragment:160 - Current page: 2
+2024-09-23 16:13:27 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:13:28 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:13:30 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:13:30 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:13:31 INFO  PersonTableFragment:153 - Current page: 3
+2024-09-23 16:13:34 INFO  PersonTableFragment:160 - Current page: 2
+2024-09-23 16:13:34 INFO  PersonTableFragment:160 - Current page: 1
+2024-09-23 16:13:34 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:14:03 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:16:27 INFO  PersonTableFragment:374 - Delete person with id: 33
+2024-09-23 16:16:37 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:16:49 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:20:14 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:20:14 INFO  PersonTableFragment:153 - Current page: 2
+2024-09-23 16:20:19 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:20:59 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:21:05 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:21:18 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:25:53 INFO  PersonTableFragment:153 - Current page: 1
+2024-09-23 16:25:56 INFO  PersonTableFragment:160 - Current page: 0
+2024-09-23 16:30:39 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-23 16:30:40 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-23 16:30:40 INFO  OrganisationTableFragment:149 - Current page: 3
+2024-09-23 16:30:41 INFO  OrganisationTableFragment:149 - Current page: 4
+2024-09-23 16:30:43 INFO  OrganisationTableFragment:156 - Current page: 3
+2024-09-23 16:30:43 INFO  OrganisationTableFragment:156 - Current page: 2
+2024-09-23 16:30:43 INFO  OrganisationTableFragment:156 - Current page: 1
+2024-09-23 16:30:43 INFO  OrganisationTableFragment:156 - Current page: 0
+2024-09-23 16:35:26 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: asc
+2024-09-23 16:35:28 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: desc
+2024-09-23 16:35:31 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: asc
+2024-09-23 16:35:32 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: desc
+2024-09-23 16:35:32 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: asc
+2024-09-23 16:35:32 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: desc
+2024-09-23 16:35:33 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: asc
+2024-09-23 16:35:33 INFO  OrganisationTableFragment:188 - Sorting by: name, Direction: desc
+2024-09-23 16:44:07 ERROR CreateOrganisationCallback:45 - FAILED_PRECONDITION: Organisation with IDE number ADM-678901234 already exists
+2024-09-23 22:52:53 INFO  OrganisationTableFragment:149 - Current page: 1
+2024-09-23 22:52:53 INFO  OrganisationTableFragment:149 - Current page: 2
+2024-09-23 22:52:54 INFO  OrganisationTableFragment:149 - Current page: 3

@@ -7,6 +7,7 @@ import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.utils.mapper.enums.*;
 import elca.ntig.partnerapp.common.proto.entity.person.*;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -22,6 +23,8 @@ import org.mapstruct.*;
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
 )
 public interface PersonMapper {
+    PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
+
     @Mapping(target = "partner.language", source = "language")
     @Mapping(target = "partner.phoneNumber", source = "phoneNumber")
     @Mapping(target = "id", ignore = true)

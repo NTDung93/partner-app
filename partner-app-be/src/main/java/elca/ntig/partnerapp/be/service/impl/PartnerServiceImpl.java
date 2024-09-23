@@ -35,7 +35,7 @@ public class PartnerServiceImpl implements PartnerService {
 
             List<Address> addresses = addressRepository.findByPartnerIdAndStatus(id, Status.ACTIVE);
             if (!addresses.isEmpty()) {
-                addresses.stream()
+                addresses
                         .forEach(address -> {
                             address.setStatus(Status.INACTIVE);
                             addressRepository.save(address);
