@@ -103,11 +103,11 @@ public class ViewPartnerComponent implements FXComponent {
                 organisationFormController.handlePagination(paginationModel);
             }
         }
-        if (message.getMessageBody().equals(MessageConstant.REFRESH_PERSON_TABLE)) {
+        if (message.getMessageBody().equals(MessageConstant.BACK_TO_SEARCH_PERSON)) {
             paginationModel.setPartnerType(PartnerTypeProto.TYPE_PERSON);
             switchTypeToPerson();
         }
-        if (message.getMessageBody().equals(MessageConstant.REFRESH_ORGANISATION_TABLE)) {
+        if (message.getMessageBody().equals(MessageConstant.BACK_TO_SEARCH_ORGANISATION)) {
             paginationModel.setPartnerType(PartnerTypeProto.TYPE_ORGANISATION);
             switchTypeToOrganisation();
         }

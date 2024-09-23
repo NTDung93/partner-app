@@ -20,7 +20,7 @@ public class PersonClientService {
         return personServiceStub.deletePersonById(request);
     }
 
-    public PersonResponseProto createPerson(CreatePersonRequestProto request) {
+    public PersonResponseProto createPerson(CreatePersonRequestProto request) throws Exception {
         return personServiceStub.createPerson(request);
     }
 

@@ -8,6 +8,6 @@ public class MessageConstant {
     public static final String SWITCH_TYPE_TO_ORGANISATION = "SWITCH_TO_ORGANISATION";
 
     public static final String DELETE_PARTNER_SUCCESSFULLY = "Partner is deleted successfully";
-    public static final String REFRESH_PERSON_TABLE = "REFRESH_PERSON_TABLE";
-    public static final String REFRESH_ORGANISATION_TABLE = "REFRESH_ORGANISATION_TABLE";
+    public static final String BACK_TO_SEARCH_PERSON = "BACK_TO_SEARCH_PERSON";
+    public static final String BACK_TO_SEARCH_ORGANISATION = "BACK_TO_SEARCH_ORGANISATION";
 }

@@ -44,6 +44,7 @@ public class CreatePartnerComponent implements FXComponent {
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
+    private DialogBuilder dialogBuilder;
 
     @Resource
     private Context context;
@@ -69,38 +70,9 @@ public class CreatePartnerComponent implements FXComponent {
         if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
             paginationModel.setPartnerType(PartnerTypeProto.TYPE_ORGANISATION);
             switchTypeToOrganisation();
-        }
-        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
+        } else if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
             paginationModel.setPartnerType(PartnerTypeProto.TYPE_PERSON);
             switchTypeToPerson();
-        }
-        if (message.isMessageBodyTypeOf(PersonResponseProto.class)) {
-            PersonResponseProto response = (PersonResponseProto) message.getMessageBody();
-            if (response != null) {
-                Platform.runLater(() -> {
-                    DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-                    Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title",
-                            "Dialog.information.header.createPartner.success", "");
-                    alert.showAndWait();
-                    if (alert.getResult() == ButtonType.OK) {
-                        context.send(ViewPartnerPerspective.ID, MessageConstant.REFRESH_PERSON_TABLE);
-                    }
-                });
-            }
-        }
-        if (message.isMessageBodyTypeOf(OrganisationResponseProto.class)) {
-            OrganisationResponseProto response = (OrganisationResponseProto) message.getMessageBody();
-            if (response != null) {
-                DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-                Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title",
-                        "Dialog.information.header.createPartner.success", "");
-                Platform.runLater(() -> {
-                    alert.showAndWait();
-                });
-                if (alert.getResult() == ButtonType.OK) {
-                    context.send(ViewPartnerPerspective.ID, MessageConstant.REFRESH_ORGANISATION_TABLE);
-                }
-            }
         }
         return null;
     }

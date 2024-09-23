@@ -1,9 +1,6 @@
 package elca.ntig.partnerapp.fe.service;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.*;
-import elca.ntig.partnerapp.common.proto.entity.person.DeletePersonResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
-import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
 import io.grpc.ManagedChannel;
 
 public class OrganisationClientService {
@@ -23,7 +20,7 @@ public class OrganisationClientService {
         return organisationServiceStub.deleteOrganisationById(request);
     }
 
-    public OrganisationResponseProto createOrganisation(CreateOrganisationRequestProto request) {
+    public OrganisationResponseProto createOrganisation(CreateOrganisationRequestProto request) throws Exception {
         return organisationServiceStub.createOrganisation(request);
     }
 

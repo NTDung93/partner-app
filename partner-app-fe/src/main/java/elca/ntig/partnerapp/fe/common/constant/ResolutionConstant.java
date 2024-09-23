@@ -6,4 +6,7 @@ public class ResolutionConstant {
 
     public static final int DEGRADED_WIDTH = 1280;
     public static final int DEGRADED_HEIGHT = 720;
+
+    public static final int DIALOG_ICON_WIDTH = 20;
+    public static final int DIALOG_GRAPHIC_WIDTH = 80;
 }

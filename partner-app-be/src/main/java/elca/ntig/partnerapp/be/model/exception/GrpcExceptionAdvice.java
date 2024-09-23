@@ -10,7 +10,9 @@ import javax.validation.ConstraintViolationException;
 
 @GrpcAdvice
 public class GrpcExceptionAdvice {
-    private static final Metadata.Key<String> KEY_NAME = Metadata.Key.of("key", Metadata.ASCII_STRING_MARSHALLER);
+
+    private static final Metadata.Key<String> KEY_NAME = Metadata.Key.of("error", Metadata.ASCII_STRING_MARSHALLER);
+
     @GrpcExceptionHandler(RuntimeException.class)
     public StatusRuntimeException handleException(RuntimeException e) {
 
