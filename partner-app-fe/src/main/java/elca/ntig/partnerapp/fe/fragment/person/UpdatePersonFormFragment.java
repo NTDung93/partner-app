@@ -12,10 +12,12 @@ import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
@@ -179,11 +181,11 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void setupUIControls() {
+        setupErrorLabelVisibility();
         setupComboBoxes();
         setupAvsNumberField();
         setupDatePicker();
         setupPhoneNumberField();
-        setupErrorLabelVisibility();
     }
 
     @Override
@@ -255,9 +257,9 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
     public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
-            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
         } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
-            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
+            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
         }
     }
 

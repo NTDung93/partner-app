@@ -61,7 +61,8 @@ public class UpdatePartnerComponent implements FXComponent {
     }
 
     private Node initFragment() {
-        switchTypeToPerson();
+//        switchTypeToPerson();
+        switchTypeToOrganisation();
         return container;
     }
 

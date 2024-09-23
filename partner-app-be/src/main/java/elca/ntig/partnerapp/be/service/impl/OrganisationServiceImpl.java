@@ -81,7 +81,7 @@ public class OrganisationServiceImpl implements OrganisationService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public OrganisationResponseDto updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto) {
         Organisation organisation = organisationRepository.findById(updateOrganisationRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", updateOrganisationRequestDto.getId()));

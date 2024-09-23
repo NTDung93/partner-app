@@ -54,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto) {
         validateCreateRequest(createPersonRequestDto);
 
@@ -82,7 +82,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
         Person person = personRepository.findById(updatePersonRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Person", "id", updatePersonRequestDto.getId()));

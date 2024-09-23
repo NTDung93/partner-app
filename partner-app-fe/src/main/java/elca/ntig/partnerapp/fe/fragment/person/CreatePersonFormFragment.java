@@ -181,11 +181,11 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void setupUIControls() {
+        setupErrorLabelVisibility();
         setupComboBoxes();
         setupAvsNumberField();
         setupDatePicker();
         setupPhoneNumberField();
-        setupErrorLabelVisibility();
     }
 
     @Override
@@ -249,7 +249,6 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     }
 
     private void handleCancelButtonOnClick() {
-//        context.send(ViewPartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
         context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
     }
