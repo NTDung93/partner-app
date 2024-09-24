@@ -126,7 +126,6 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment impl
     @FXML
     private Button saveButton;
 
-    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -261,7 +260,6 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment impl
                 && !phoneNumberErrorLabel.isVisible();
     }
 
-    @Override
     public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {

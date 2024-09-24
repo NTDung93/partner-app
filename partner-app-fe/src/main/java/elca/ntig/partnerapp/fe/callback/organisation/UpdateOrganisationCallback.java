@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.callback.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -19,10 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component(id = CreateOrganisationCallback.ID, name = CreateOrganisationCallback.ID)
-public class CreateOrganisationCallback extends CallBackExceptionHandler implements CallbackComponent {
-    public static final String ID = "CreateOrganisationCallback";
-    private static Logger logger = Logger.getLogger(CreateOrganisationCallback.class);
+@Component(id = UpdateOrganisationCallback.ID, name = UpdateOrganisationCallback.ID)
+public class UpdateOrganisationCallback extends CallBackExceptionHandler implements CallbackComponent {
+    public static final String ID = "UpdateOrganisationCallback";
+    private static Logger logger = Logger.getLogger(UpdateOrganisationCallback.class);
 
     @Resource
     private Context context;
@@ -32,17 +33,17 @@ public class CreateOrganisationCallback extends CallBackExceptionHandler impleme
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        if (message.isMessageBodyTypeOf(CreateOrganisationRequestProto.class)) {
+        if (message.isMessageBodyTypeOf(UpdateOrganisationRequestProto.class)) {
             try {
-                OrganisationResponseProto response = organisationClientService.createOrganisation((CreateOrganisationRequestProto) message.getMessageBody());
-                handleSuccessfulResponse("createPartner");
+                OrganisationResponseProto response = organisationClientService.updateOrganisation((UpdateOrganisationRequestProto) message.getMessageBody());
+                handleSuccessfulResponse("updatePartner");
                 context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
                 context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "createPartner");
+                    handleStatusRuntimeException(e, "updatePartner");
                 }else{
                     handleUnexpectedException(e);
                 }

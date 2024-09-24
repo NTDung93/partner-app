@@ -12,6 +12,10 @@ public class OrganisationClientService {
         this.organisationServiceStub = OrganisationServiceGrpc.newBlockingStub(channel);
     }
 
+    public OrganisationResponseProto getOrganisationById(GetOrganisationRequestProto request) {
+        return organisationServiceStub.getOrganisationById(request);
+    }
+
     public SearchOrganisationPaginationResponseProto searchOrganisationPagination(SearchOrganisationPaginationRequestProto request) {
         return organisationServiceStub.searchOrganisationPagination(request);
     }

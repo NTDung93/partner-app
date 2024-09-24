@@ -125,7 +125,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
     @FXML
     private CheckBox inactiveCheckBox;
 
-    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -271,7 +270,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         }
     }
 
-    @Override
     public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {

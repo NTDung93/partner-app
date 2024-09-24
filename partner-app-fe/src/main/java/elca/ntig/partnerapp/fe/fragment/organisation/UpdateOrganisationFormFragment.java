@@ -1,5 +1,7 @@
 package elca.ntig.partnerapp.fe.fragment.organisation;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
@@ -7,10 +9,12 @@ import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
+import elca.ntig.partnerapp.fe.callback.organisation.CreateOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.organisation.UpdateOrganisationCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -23,6 +27,7 @@ import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -30,6 +35,9 @@ import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Fragment(id = UpdateOrganisationFormFragment.ID,
@@ -40,6 +48,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
     private static Logger logger = Logger.getLogger(UpdateOrganisationFormFragment.class);
     UpdateOrganisationRequestProto.Builder updateOrganisationRequestProto = UpdateOrganisationRequestProto.newBuilder();
     private BindingHelper bindingHelper;
+    OrganisationResponseProto orginalOrganisationResponseProto;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -129,12 +138,30 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
     @FXML
     private Button saveButton;
 
-    @Override
-    public void init() {
+    public void init(OrganisationResponseProto responseProto) {
+        orginalOrganisationResponseProto = responseProto;
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         setupUIControls();
+        fillDataIntoForm(responseProto);
         handleEvents();
+    }
+
+    private void fillDataIntoForm(OrganisationResponseProto responseProto) {
+        nameValue.setText(responseProto.getName());
+        additionalNameValue.setText(responseProto.getAdditionalName());
+        ideNumberValue.setText(responseProto.getIdeNumber());
+        if (responseProto.getCodeNoga() != CodeNOGAProto.NULL_CODE_NOGA) {
+            codeNOGAComboBox.setValue(responseProto.getCodeNoga());
+        }
+        languageComboBox.setValue(responseProto.getLanguage());
+        if (responseProto.getLegalStatus() != LegalStatusProto.NULL_LEGAL_STATUS) {
+            legalStatusComboBox.setValue(responseProto.getLegalStatus());
+        }
+        if (StringUtils.isNotBlank(responseProto.getCreationDate())) {
+            setupDatePickerValue(creationDateValue, responseProto.getCreationDate());
+        }
+        phoneNumberValue.setText(responseProto.getPhoneNumber());
     }
 
     @Override
@@ -176,8 +203,10 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_ORGANISATION);
+        typeComboBox.setDisable(true);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
 
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
@@ -219,9 +248,44 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
 
     @Override
     public void handleEvents() {
-        typeComboBox.setOnAction(event -> handleTypeChange());
-//        saveButton.setOnAction(event -> handleSaveButtonOnClick());
+        saveButton.setOnAction(event -> handleSaveButtonOnClick());
         cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+    }
+
+    private void handleSaveButtonOnClick() {
+        validateValues();
+        if (isFormValid()) {
+            updateOrganisationRequestProto = UpdateOrganisationRequestProto.newBuilder();
+            updateOrganisationRequestProto
+                    .setId(orginalOrganisationResponseProto.getId())
+                    .setName(nameValue.getText())
+                    .setAdditionalName(additionalNameValue.getText())
+                    .setIdeNumber(ideNumberValue.getText().replaceAll("[.]", ""))
+                    .setLanguage(languageComboBox.getValue())
+                    .setPhoneNumber(phoneNumberValue.getText());
+
+            if (codeNOGAComboBox.getValue() != null) {
+                updateOrganisationRequestProto.setCodeNoga(codeNOGAComboBox.getValue());
+            }
+            if (legalStatusComboBox.getValue() != null) {
+                updateOrganisationRequestProto.setLegalStatus(legalStatusComboBox.getValue());
+            }
+            if (creationDateValue.getValue() != null) {
+                updateOrganisationRequestProto.setCreationDate(creationDateValue.getValue().toString());
+            } else {
+                updateOrganisationRequestProto.clearCreationDate();
+            }
+
+            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdateOrganisationCallback.ID), updateOrganisationRequestProto.build());
+        }
+    }
+
+    private boolean isFormValid() {
+        return !nameErrorLabel.isVisible()
+                && !ideNumberErrorLabel.isVisible()
+                && !languageErrorLabel.isVisible()
+                && !creationDateErrorLabel.isVisible()
+                && !phoneNumberErrorLabel.isVisible();
     }
 
     private void handleCancelButtonOnClick() {
@@ -230,17 +294,11 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
     }
 
     @Override
-    public void handleTypeChange() {
-        PartnerTypeProto selectedType = typeComboBox.getValue();
-        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
-            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
-        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
-            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
-        }
-    }
-
-    @Override
     public void validateValues() {
-
+        validateName(nameValue, nameErrorLabel);
+        validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
+        validateRequiredComboBox(languageComboBox, languageErrorLabel);
+        validateDate(creationDateValue, creationDateErrorLabel);
+        validatePhoneNumber(phoneNumberValue, phoneNumberErrorLabel);
     }
 }

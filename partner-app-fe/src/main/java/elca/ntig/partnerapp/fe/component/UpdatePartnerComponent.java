@@ -1,5 +1,8 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.fragment.organisation.UpdateOrganisationFormFragment;
@@ -45,10 +48,10 @@ public class UpdatePartnerComponent implements FXComponent {
 
     @Override
     public Node handle(Message<Event, Object> message) throws Exception {
-        if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_ORGANISATION)) {
-            switchTypeToOrganisation();
-        } else if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
-            switchTypeToPerson();
+        if(message.isMessageBodyTypeOf(PersonResponseProto.class)){
+            switchTypeToPerson((PersonResponseProto) message.getMessageBody());
+        } else if (message.isMessageBodyTypeOf(OrganisationResponseProto.class)){
+            switchTypeToOrganisation((OrganisationResponseProto) message.getMessageBody());
         }
         return null;
     }
@@ -56,29 +59,27 @@ public class UpdatePartnerComponent implements FXComponent {
     @PostConstruct
     public void onPostConstructComponent() {
         container.setVgrow(container, Priority.ALWAYS);
-        container.setStyle("-fx-background-color: white;");
+        container.getStyleClass().add(ClassNameConstant.WHITE_BACKGROUND);
         this.root = initFragment();
     }
 
     private Node initFragment() {
-//        switchTypeToPerson();
-        switchTypeToOrganisation();
         return container;
     }
 
-    private void switchTypeToPerson() {
+    private void switchTypeToPerson(PersonResponseProto responseProto) {
         updatePersonFormHandler = context.getManagedFragmentHandler(UpdatePersonFormFragment.class);
         updatePersonFormController = updatePersonFormHandler.getController();
-        updatePersonFormController.init();
+        updatePersonFormController.init(responseProto);
         Platform.runLater(() -> {
             container.getChildren().setAll(updatePersonFormHandler.getFragmentNode());
         });
     }
 
-    private void switchTypeToOrganisation() {
+    private void switchTypeToOrganisation(OrganisationResponseProto responseProto) {
         updateOrganisationFormHandler = context.getManagedFragmentHandler(UpdateOrganisationFormFragment.class);
         updateOrganisationFormController = updateOrganisationFormHandler.getController();
-        updateOrganisationFormController.init();
+        updateOrganisationFormController.init(responseProto);
         Platform.runLater(() -> {
             container.getChildren().setAll(updateOrganisationFormHandler.getFragmentNode());
         });

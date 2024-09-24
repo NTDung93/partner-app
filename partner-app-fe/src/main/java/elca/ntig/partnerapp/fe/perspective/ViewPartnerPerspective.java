@@ -1,8 +1,10 @@
 package elca.ntig.partnerapp.fe.perspective;
 
 import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.organisation.GetOrganisationCallBack;
 import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
+import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.callback.person.SearchPeopleCallback;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
@@ -24,7 +26,9 @@ import java.util.ResourceBundle;
                 SearchPeopleCallback.ID,
                 SearchOrganisationCallback.ID,
                 DeletePersonCallback.ID,
-                DeleteOrganisationCallback.ID
+                DeleteOrganisationCallback.ID,
+                GetPersonCallBack.ID,
+                GetOrganisationCallBack.ID
         }
 )
 public class ViewPartnerPerspective implements FXPerspective {

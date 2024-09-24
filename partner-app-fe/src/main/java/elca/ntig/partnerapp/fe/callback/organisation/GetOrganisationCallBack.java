@@ -1,11 +1,11 @@
 package elca.ntig.partnerapp.fe.callback.organisation;
 
-import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
-import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
-import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
+import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.service.OrganisationClientService;
 import io.grpc.StatusRuntimeException;
 import javafx.event.Event;
@@ -19,10 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component(id = CreateOrganisationCallback.ID, name = CreateOrganisationCallback.ID)
-public class CreateOrganisationCallback extends CallBackExceptionHandler implements CallbackComponent {
-    public static final String ID = "CreateOrganisationCallback";
-    private static Logger logger = Logger.getLogger(CreateOrganisationCallback.class);
+@Component(id = GetOrganisationCallBack.ID, name = GetOrganisationCallBack.ID)
+public class GetOrganisationCallBack  extends CallBackExceptionHandler implements CallbackComponent {
+    public static final String ID = "GetOrganisationCallBack";
+    private static Logger logger = Logger.getLogger(GetOrganisationCallBack.class);
 
     @Resource
     private Context context;
@@ -32,17 +32,16 @@ public class CreateOrganisationCallback extends CallBackExceptionHandler impleme
 
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        if (message.isMessageBodyTypeOf(CreateOrganisationRequestProto.class)) {
+        if (message.isMessageBodyTypeOf(GetOrganisationRequestProto.class)) {
             try {
-                OrganisationResponseProto response = organisationClientService.createOrganisation((CreateOrganisationRequestProto) message.getMessageBody());
-                handleSuccessfulResponse("createPartner");
-                context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+                OrganisationResponseProto response = organisationClientService.getOrganisationById((GetOrganisationRequestProto) message.getMessageBody());
+                context.send(UpdatePartnerPerspective.ID, MessageConstant.INIT);
+                context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), response);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "createPartner");
+                    handleStatusRuntimeException(e, "getPartner");
                 }else{
                     handleUnexpectedException(e);
                 }

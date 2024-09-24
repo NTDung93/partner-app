@@ -4,7 +4,9 @@ import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequ
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.organisation.GetOrganisationCallBack;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
@@ -110,8 +112,25 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         initializeTable();
+        setupDoubleClickEventHandler();
         initializePagination();
         setupSortListener();
+    }
+
+    @Override
+    public void setupDoubleClickEventHandler() {
+        partnersTable.setRowFactory(tr -> {
+            TableRow<OrganisationTableModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    OrganisationTableModel rowData = row.getItem();
+                    logger.info("Double click on organisation with id: " + rowData.getId());
+                    GetOrganisationRequestProto request = GetOrganisationRequestProto.newBuilder().setId(rowData.getId()).build();
+                    context.send(ViewPartnerPerspective.ID.concat(".").concat(GetOrganisationCallBack.ID), request);
+                }
+            });
+            return row;
+        });
     }
 
     @Override
@@ -328,7 +347,7 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
 
             Button deleteButton = new Button();
             {
-                deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
+                deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
                     OrganisationTableModel organisation = getTableView().getItems().get(getIndex());

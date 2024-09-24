@@ -1,6 +1,8 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
+import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.fragment.organisation.CreateOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
@@ -56,7 +58,7 @@ public class CreatePartnerComponent implements FXComponent {
     @PostConstruct
     public void onPostConstructComponent() {
         container.setVgrow(container, Priority.ALWAYS);
-        container.setStyle("-fx-background-color: white;");
+        container.getStyleClass().add(ClassNameConstant.WHITE_BACKGROUND);
         this.root = initFragment();
     }
 

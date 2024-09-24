@@ -20,38 +20,38 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
     private final ArgumentValidator argumentValidator;
     private final OrganisationService organisationService;
     private final PartnerService partnerService;
-
+    private final OrganisationMapper organisationMapper;
 
     @Override
     public OrganisationResponseProto getOrganisationByIdHelper(GetOrganisationRequestProto request) {
-        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.getOrganisationById(request.getId()));
+        return organisationMapper.toOrganisationResponseProto(organisationService.getOrganisationById(request.getId()));
     }
 
     @Override
     public SearchOrganisationPaginationResponseProto searchOrganisationPaginationHelper(SearchOrganisationPaginationRequestProto request) {
-        SearchOrganisationCriteriasDto searchOrganisationCriterias = OrganisationMapper.INSTANCE.toSearchOrganisationCriteriasDto(request.getCriterias());
+        SearchOrganisationCriteriasDto searchOrganisationCriterias = organisationMapper.toSearchOrganisationCriteriasDto(request.getCriterias());
         argumentValidator.validate(searchOrganisationCriterias);
         SearchOrganisationPaginationResponseDto searchOrganisationPaginationResponseDto = organisationService.searchOrganisationPagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchOrganisationCriterias);
-        return OrganisationMapper.INSTANCE.toSearchOrganisationPaginationResponse(searchOrganisationPaginationResponseDto);
+        return organisationMapper.toSearchOrganisationPaginationResponse(searchOrganisationPaginationResponseDto);
     }
 
     @Override
     public DeleteOrganisationResponseProto deleteOrganisationByIdHelper(Integer id) {
         DeletePartnerResponseDto deletePartnerResponseDto = partnerService.deletePartnerById(id);
-        return OrganisationMapper.INSTANCE.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
+        return organisationMapper.toDeleteOrganisationResponseProto(deletePartnerResponseDto);
     }
 
     @Override
     public OrganisationResponseProto createOrganisationHelper(CreateOrganisationRequestProto request) {
-        CreateOrganisationRequestDto createOrganisationRequestDto = OrganisationMapper.INSTANCE.toCreateOrganisationRequestDto(request);
+        CreateOrganisationRequestDto createOrganisationRequestDto = organisationMapper.toCreateOrganisationRequestDto(request);
         argumentValidator.validate(createOrganisationRequestDto);
-        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.createOrganisation(createOrganisationRequestDto));
+        return organisationMapper.toOrganisationResponseProto(organisationService.createOrganisation(createOrganisationRequestDto));
     }
 
     @Override
     public OrganisationResponseProto updateOrganisationHelper(UpdateOrganisationRequestProto request) {
-        UpdateOrganisationRequestDto updateOrganisationRequestDto = OrganisationMapper.INSTANCE.toUpdateOrganisationRequestDto(request);
+        UpdateOrganisationRequestDto updateOrganisationRequestDto = organisationMapper.toUpdateOrganisationRequestDto(request);
         argumentValidator.validate(updateOrganisationRequestDto);
-        return OrganisationMapper.INSTANCE.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
+        return organisationMapper.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
     }
 }

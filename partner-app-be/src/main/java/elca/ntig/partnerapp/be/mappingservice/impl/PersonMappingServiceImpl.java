@@ -20,37 +20,38 @@ public class PersonMappingServiceImpl implements PersonMappingService {
     private final ArgumentValidator argumentValidator;
     private final PersonService personService;
     private final PartnerService partnerService;
+    private final PersonMapper personMapper;
 
     @Override
     public PersonResponseProto getPersonByIdHelper(GetPersonRequestProto request){
-        return PersonMapper.INSTANCE.toPersonResponseProto(personService.getPersonById(request.getId()));
+        return personMapper.toPersonResponseProto(personService.getPersonById(request.getId()));
     }
 
     @Override
     public SearchPeoplePaginationResponseProto searchPeoplePaginationHelper(SearchPeoplePaginationRequestProto request){
-        SearchPeopleCriteriasDto searchPeopleCriterias = PersonMapper.INSTANCE.toSearchPeopleCriteriasDto(request.getCriterias());
+        SearchPeopleCriteriasDto searchPeopleCriterias = personMapper.toSearchPeopleCriteriasDto(request.getCriterias());
         argumentValidator.validate(searchPeopleCriterias);
         SearchPeoplePaginationResponseDto searchPeoplePaginationResponseDto = personService.searchPeoplePagination(request.getPageNo(), request.getPageSize(), request.getSortBy(), request.getSortDir(), searchPeopleCriterias);
-        return PersonMapper.INSTANCE.toSearchPeoplePaginationResponse(searchPeoplePaginationResponseDto);
+        return personMapper.toSearchPeoplePaginationResponse(searchPeoplePaginationResponseDto);
     }
 
     @Override
     public DeletePersonResponseProto deletePersonByIdHelper(Integer id) {
         DeletePartnerResponseDto deletePartnerResponseDto = partnerService.deletePartnerById(id);
-        return PersonMapper.INSTANCE.toDeletePersonResponseProto(deletePartnerResponseDto);
+        return personMapper.toDeletePersonResponseProto(deletePartnerResponseDto);
     }
 
     @Override
     public PersonResponseProto createPersonHelper(CreatePersonRequestProto request) {
-        CreatePersonRequestDto createPersonRequestDto = PersonMapper.INSTANCE.toCreatePersonRequestDto(request);
+        CreatePersonRequestDto createPersonRequestDto = personMapper.toCreatePersonRequestDto(request);
         argumentValidator.validate(createPersonRequestDto);
-        return PersonMapper.INSTANCE.toPersonResponseProto(personService.createPerson(createPersonRequestDto));
+        return personMapper.toPersonResponseProto(personService.createPerson(createPersonRequestDto));
     }
 
     @Override
     public PersonResponseProto updatePersonHelper(UpdatePersonRequestProto request) {
-        UpdatePersonRequestDto updatePersonRequestDto = PersonMapper.INSTANCE.toUpdatePersonRequestDto(request);
+        UpdatePersonRequestDto updatePersonRequestDto = personMapper.toUpdatePersonRequestDto(request);
         argumentValidator.validate(updatePersonRequestDto);
-        return PersonMapper.INSTANCE.toPersonResponseProto(personService.updatePerson(updatePersonRequestDto));
+        return personMapper.toPersonResponseProto(personService.updatePerson(updatePersonRequestDto));
     }
 }

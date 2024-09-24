@@ -64,7 +64,12 @@
 .delete-icon{
     -fx-cursor: hand;
     -fx-alignment: center;
-    /*-fx-pref-width: 80;*/
+}
+
+.delete-button{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
 }
 
 .pagination-section{

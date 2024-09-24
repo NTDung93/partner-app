@@ -23,7 +23,7 @@ import org.mapstruct.factory.Mappers;
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
 )
 public interface PersonMapper {
-    PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
+    public static PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
     @Mapping(target = "partner.language", source = "language")
     @Mapping(target = "partner.phoneNumber", source = "phoneNumber")

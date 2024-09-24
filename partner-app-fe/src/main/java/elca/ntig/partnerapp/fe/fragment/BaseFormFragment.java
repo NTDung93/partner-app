@@ -6,7 +6,7 @@ import elca.ntig.partnerapp.fe.common.model.PaginationModel;
 import java.util.List;
 
 public interface BaseFormFragment {
-    void init();
+//    void init();
 
     void bindTextProperties();
 
@@ -19,8 +19,6 @@ public interface BaseFormFragment {
     void setupDatePicker();
 
     void handleEvents();
-
-    void handleTypeChange();
 
     void validateValues();
 }

@@ -71,3 +71,15 @@ Button{
     -fx-font-size: 15;
     -fx-pref-width: 170;
 }
+
+.disabled-combo-box {
+    -fx-background-color: lightgrey;
+}
+
+.white-background {
+    -fx-background-color: white;
+}
+
+.disabled-date-picker-value {
+    -fx-background-color: #7abb81;
+}

@@ -1,18 +1,19 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.UpdatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.MaritalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
+import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
+import elca.ntig.partnerapp.fe.callback.person.UpdatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
-import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
@@ -24,6 +25,7 @@ import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -41,6 +43,7 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
     private static Logger logger = Logger.getLogger(UpdatePersonFormFragment.class);
     UpdatePersonRequestProto.Builder updatePersonRequestProto = UpdatePersonRequestProto.newBuilder();
     private BindingHelper bindingHelper;
+    PersonResponseProto orginalPersonResponseProto;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -142,12 +145,31 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
     @FXML
     private Button saveButton;
 
-    @Override
-    public void init() {
+    public void init(PersonResponseProto responseProto) {
+        orginalPersonResponseProto = responseProto;
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         setupUIControls();
+        fillDataIntoForm(responseProto);
         handleEvents();
+    }
+
+    private void fillDataIntoForm(PersonResponseProto responseProto) {
+        lastNameValue.setText(responseProto.getLastName());
+        firstNameValue.setText(responseProto.getFirstName());
+        avsNumberValue.setText(responseProto.getAvsNumber());
+        if (responseProto.getMaritalStatus() != MaritalStatusProto.NULL_MARITAL_STATUS) {
+            maritalStatusComboBox.setValue(responseProto.getMaritalStatus());
+        }
+        languageComboBox.setValue(responseProto.getLanguage());
+        sexComboBox.setValue(responseProto.getSex());
+        if (responseProto.getNationality() != NationalityProto.NULL_NATIONALITY) {
+            nationalityComboBox.setValue(responseProto.getNationality());
+        }
+        if (StringUtils.isNotBlank(responseProto.getBirthDate())) {
+            setupDatePickerValue(birthDateValue, responseProto.getBirthDate());
+        }
+        phoneNumberValue.setText(responseProto.getPhoneNumber());
     }
 
     @Override
@@ -193,8 +215,10 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
+        typeComboBox.setDisable(true);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
 
         languageComboBox.getItems().addAll(LanguageProto.values());
         languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
@@ -243,28 +267,62 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void handleEvents() {
-        typeComboBox.setOnAction(event -> handleTypeChange());
-//        saveButton.setOnAction(event -> handleSaveButtonOnClick());
+        saveButton.setOnAction(event -> handleSaveButtonOnClick());
         cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+    }
+
+    private void handleSaveButtonOnClick() {
+        validateValues();
+        if (isFormValid()) {
+            updatePersonRequestProto = UpdatePersonRequestProto.newBuilder();
+            updatePersonRequestProto
+                    .setId(orginalPersonResponseProto.getId())
+                    .setLastName(lastNameValue.getText())
+                    .setFirstName(firstNameValue.getText())
+                    .setAvsNumber(avsNumberValue.getText().replaceAll("\\.", ""))
+                    .setLanguage(languageComboBox.getValue())
+                    .setSex(sexComboBox.getValue())
+                    .setPhoneNumber(phoneNumberValue.getText());
+
+            if(maritalStatusComboBox.getValue() != null) {
+                updatePersonRequestProto.setMaritalStatus(maritalStatusComboBox.getValue());
+            }
+            if(nationalityComboBox.getValue() != null) {
+                updatePersonRequestProto.setNationality(nationalityComboBox.getValue());
+            }
+            if(birthDateValue.getValue() != null) {
+                updatePersonRequestProto.setBirthDate(birthDateValue.getValue().toString());
+            } else {
+                updatePersonRequestProto.clearBirthDate();
+            }
+
+            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePersonCallback.ID), updatePersonRequestProto.build());
+        }
+    }
+
+    private boolean isFormValid() {
+        return !lastNameErrorLabel.isVisible()
+                && !firstNameErrorLabel.isVisible()
+                && !avsNumberErrorLabel.isVisible()
+                && !languageErrorLabel.isVisible()
+                && !sexErrorLabel.isVisible()
+                && !birthDateErrorLabel.isVisible()
+                && !phoneNumberErrorLabel.isVisible();
+    }
+
+    @Override
+    public void validateValues() {
+        validateName(lastNameValue, lastNameErrorLabel);
+        validateName(firstNameValue, firstNameErrorLabel);
+        validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
+        validateRequiredComboBox(languageComboBox, languageErrorLabel);
+        validateRequiredComboBox(sexComboBox, sexErrorLabel);
+        validateDate(birthDateValue, birthDateErrorLabel);
+        validatePhoneNumber(phoneNumberValue, phoneNumberErrorLabel);
     }
 
     private void handleCancelButtonOnClick() {
         context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
-    }
-
-    @Override
-    public void handleTypeChange() {
-        PartnerTypeProto selectedType = typeComboBox.getValue();
-        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
-            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
-        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
-            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
-        }
-    }
-
-    @Override
-    public void validateValues() {
-
     }
 }

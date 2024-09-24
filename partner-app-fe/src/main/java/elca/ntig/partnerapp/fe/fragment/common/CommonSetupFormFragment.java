@@ -39,7 +39,7 @@ public abstract class CommonSetupFormFragment<T> {
                 super.updateItem(date, empty);
                 if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #7abb81;");
+                    getStyleClass().add(ClassNameConstant.DISABLED_DATE_PICKER_VALUE);
                 }
             }
         });
@@ -47,21 +47,22 @@ public abstract class CommonSetupFormFragment<T> {
 
     public void setupIdeNumberFieldImpl(TextField ideNumberValue) {
         TextFormatter<String> ideFormatter = new TextFormatter<>(change -> {
-            String ideNumber = change.getControlNewText().toUpperCase().replaceAll("[^A-Z0-9]", "");
+            if (change.isContentChange()) {
+                String ideNumber = change.getControlNewText().toUpperCase().replaceAll("[^A-Z0-9]", "");
 
-            if (ideNumber.length() > 12) {
-                ideNumber = ideNumber.substring(0, 12);
+                if (ideNumber.length() > 12) {
+                    ideNumber = ideNumber.substring(0, 12);
+                }
+
+                String formattedText = formatIdeNumber(ideNumber);
+
+                change.setText(formattedText);
+                change.setRange(0, change.getControlText().length());
+
+                int caretPos = formattedText.length();
+                change.setCaretPosition(caretPos);
+                change.setAnchor(caretPos);
             }
-
-            String formattedText = formatIdeNumber(ideNumber);
-
-            change.setText(formattedText);
-            change.setRange(0, change.getControlText().length());
-
-            int caretPos = formattedText.length();
-            change.setCaretPosition(caretPos);
-            change.setAnchor(caretPos);
-
             return change;
         });
 
@@ -98,21 +99,22 @@ public abstract class CommonSetupFormFragment<T> {
 
     public void setupAvsNumberFieldImpl(TextField avsNumberValue) {
         TextFormatter<String> avsFormatter = new TextFormatter<>(change -> {
-            String digits = change.getControlNewText().replaceAll("\\D", "");
+            if (change.isContentChange()) {
+                String digits = change.getControlNewText().replaceAll("\\D", "");
 
-            if (digits.length() > 13) {
-                digits = digits.substring(0, 13);
+                if (digits.length() > 13) {
+                    digits = digits.substring(0, 13);
+                }
+
+                String formattedText = formatAvsNumber(digits);
+
+                change.setText(formattedText);
+                change.setRange(0, change.getControlText().length());
+
+                int caretPos = formattedText.length();
+                change.setCaretPosition(caretPos);
+                change.setAnchor(caretPos);
             }
-
-            String formattedText = formatAvsNumber(digits);
-
-            change.setText(formattedText);
-            change.setRange(0, change.getControlText().length());
-
-            int caretPos = formattedText.length();
-            change.setCaretPosition(caretPos);
-            change.setAnchor(caretPos);
-
             return change;
         });
 
@@ -240,5 +242,13 @@ public abstract class CommonSetupFormFragment<T> {
             phoneNumberErrorLabel.setVisible(false);
             phoneNumberValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
         }
+    }
+
+    public void setupDatePickerValue(DatePicker datePickerValue, String dateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate birthDate = LocalDate.parse(dateString, inputFormatter);
+        String formattedBirthDate = birthDate.format(outputFormatter);
+        datePickerValue.setValue(LocalDate.parse(formattedBirthDate, outputFormatter));
     }
 }
