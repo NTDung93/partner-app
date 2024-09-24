@@ -1,8 +1,9 @@
 package elca.ntig.partnerapp.fe.callback.person;
 
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.person.UpdatePersonRequestProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.service.PersonClientService;
@@ -18,28 +19,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component(id = SearchPeopleCallback.ID, name = SearchPeopleCallback.ID)
-public class SearchPeopleCallback extends CallBackExceptionHandler implements CallbackComponent {
-    public static final String ID = "SearchPeopleCallback";
-    private static Logger logger = Logger.getLogger(SearchPeopleCallback.class);
-
-    @Resource
-    private Context context;
+@Component(id = UpdatePersonCallback.ID, name = UpdatePersonCallback.ID)
+public class UpdatePersonCallback extends CallBackExceptionHandler implements CallbackComponent {
+    public static final String ID = "UpdatePersonCallback";
+    private static Logger logger = Logger.getLogger(UpdatePersonCallback.class);
 
     @Autowired
     private PersonClientService personClientService;
 
+    @Resource
+    private Context context;
+
     @Override
     public Object handle(Message<Event, Object> message) throws Exception {
-        if (message.isMessageBodyTypeOf(SearchPeoplePaginationRequestProto.class)) {
-            try{
-            SearchPeoplePaginationResponseProto response = personClientService.searchPeoplePagination((SearchPeoplePaginationRequestProto) message.getMessageBody());
-            context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), response);
-            return response;
+        if (message.isMessageBodyTypeOf(UpdatePersonRequestProto.class)) {
+            try {
+                PersonResponseProto response = personClientService.updatePerson((UpdatePersonRequestProto) message.getMessageBody());
+                handleSuccessfulResponse("updatePartner");
+                context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
+                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
+                return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "searchPartner");
+                    handleStatusRuntimeException(e, "updatePartner");
                 }else{
                     handleUnexpectedException(e);
                 }

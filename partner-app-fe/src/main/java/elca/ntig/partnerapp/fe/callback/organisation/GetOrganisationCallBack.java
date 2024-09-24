@@ -1,10 +1,11 @@
 package elca.ntig.partnerapp.fe.callback.organisation;
 
-import elca.ntig.partnerapp.common.proto.entity.organisation.DeleteOrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
-import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
-import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
+import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.service.OrganisationClientService;
 import io.grpc.StatusRuntimeException;
 import javafx.event.Event;
@@ -18,10 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Component(id = DeleteOrganisationCallback.ID, name = DeleteOrganisationCallback.ID)
-public class DeleteOrganisationCallback extends CallBackExceptionHandler implements CallbackComponent {
-    public static final String ID = "DeleteOrganisationCallback";
-    private static Logger logger = Logger.getLogger(DeleteOrganisationCallback.class);
+@Component(id = GetOrganisationCallBack.ID, name = GetOrganisationCallBack.ID)
+public class GetOrganisationCallBack  extends CallBackExceptionHandler implements CallbackComponent {
+    public static final String ID = "GetOrganisationCallBack";
+    private static Logger logger = Logger.getLogger(GetOrganisationCallBack.class);
 
     @Resource
     private Context context;
@@ -33,13 +34,14 @@ public class DeleteOrganisationCallback extends CallBackExceptionHandler impleme
     public Object handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(GetOrganisationRequestProto.class)) {
             try {
-                DeleteOrganisationResponseProto response = organisationClientService.deleteOrganisationById((GetOrganisationRequestProto) message.getMessageBody());
-                context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), response);
+                OrganisationResponseProto response = organisationClientService.getOrganisationById((GetOrganisationRequestProto) message.getMessageBody());
+                context.send(UpdatePartnerPerspective.ID, MessageConstant.INIT);
+                context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), response);
                 return response;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "deletePartner");
+                    handleStatusRuntimeException(e, "getPartner");
                 }else{
                     handleUnexpectedException(e);
                 }

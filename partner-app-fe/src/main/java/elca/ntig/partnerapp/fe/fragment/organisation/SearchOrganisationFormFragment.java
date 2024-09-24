@@ -13,7 +13,9 @@ import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
@@ -123,7 +125,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
     @FXML
     private CheckBox inactiveCheckBox;
 
-    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -202,9 +203,15 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
         typeComboBox.setOnAction(event -> handleTypeChange());
+        createOrganisationButton.setOnAction(event -> handleCreateOrganisationButtonOnClick());
     }
 
-    @Override
+    private void handleCreateOrganisationButtonOnClick() {
+//        context.send(CreatePartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        context.send(CreatePartnerPerspective.ID, MessageConstant.INIT);
+        context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+    }
+
     public void handlePagination(PaginationModel paginationModel) {
         searchOrganisationPaginationRequestProto
                 .setPageNo(paginationModel.getPageNo())
@@ -215,7 +222,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchOrganisationCallback.ID), searchOrganisationPaginationRequestProto.build());
     }
 
-    @Override
     public void handleClearCriteriaButtonOnClick() {
         nameValue.clear();
         additionalNameValue.clear();
@@ -232,7 +238,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_ORGANISATION);
     }
 
-    @Override
     public void handleSearchButtonOnClick() {
         validateValues();
         if (!nameErrorLabel.isVisible() && !ideNumberErrorLabel.isVisible() && !creationDateErrorLabel.isVisible()) {
@@ -241,7 +246,7 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
                     .setName(nameValue.getText())
                     .setAdditionalName(additionalNameValue.getText())
                     .setIdeNumber(ideNumberValue.getText().replaceAll("[.]", ""))
-                    .addAllStatus(getStatuses());
+                    .addAllStatus(getStatusesImpl(activeCheckBox, inactiveCheckBox));
 
             if (languageComboBox.getValue() != null) {
                 searchOrganisationCriteriaProto.setLanguage(languageComboBox.getValue());
@@ -265,7 +270,6 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         }
     }
 
-    @Override
     public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
@@ -276,52 +280,9 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
     }
 
     @Override
-    public List<StatusProto> getStatuses() {
-        return getStatusesImpl(activeCheckBox, inactiveCheckBox);
-    }
-
-    @Override
     public void validateValues() {
-        validateName();
-        validateIdeNumber();
-        validateDate();
-    }
-
-    private void validateName() {
-        if (nameValue.getText().isEmpty()) {
-            nameErrorLabel.setVisible(true);
-            if (!nameValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                nameValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            nameErrorLabel.setVisible(false);
-            nameValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
-    }
-
-    private void validateIdeNumber() {
-        String ideNumber = ideNumberValue.getText().trim().replaceAll("[-.]", "");
-        String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
-        if ((!ideNumberValue.getText().isEmpty()) && (!ideNumber.matches(ideNumberRegex))) {
-            ideNumberErrorLabel.setVisible(true);
-            if (!ideNumberValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                ideNumberValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            ideNumberErrorLabel.setVisible(false);
-            ideNumberValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
-    }
-
-    private void validateDate() {
-        if ((creationDateValue.getValue() != null) && (!creationDateValue.getValue().isBefore(LocalDate.now()))) {
-            creationDateErrorLabel.setVisible(true);
-            if (!creationDateValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                creationDateValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            creationDateErrorLabel.setVisible(false);
-            creationDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
+        validateName(nameValue, nameErrorLabel);
+        validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
+        validateDate(creationDateValue, creationDateErrorLabel);
     }
 }

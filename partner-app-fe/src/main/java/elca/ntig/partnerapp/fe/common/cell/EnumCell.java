@@ -23,7 +23,7 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
             setText(null);
         } else {
             int subStringIndex = 0;
-            if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.")) {
+            if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.") && !resourcePrefix.equals("Enum.marital.")) {
                 subStringIndex = item.getValueDescriptor().toString().indexOf("_") + 1;
             }
             String value = item.getValueDescriptor().toString().substring(subStringIndex).toLowerCase();

@@ -2,16 +2,20 @@ package elca.ntig.partnerapp.fe.fragment.person;
 
 import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.MaritalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
+import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.fxml.FXML;
@@ -25,8 +29,7 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
 
 @Component
 @Fragment(id = CreatePersonFormFragment.ID,
@@ -97,10 +100,16 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     private ComboBox<LanguageProto> languageComboBox;
 
     @FXML
+    private Label languageErrorLabel;
+
+    @FXML
     private Text sexLabel;
 
     @FXML
     private ComboBox<SexEnumProto> sexComboBox;
+
+    @FXML
+    private Label sexErrorLabel;
 
     @FXML
     private Label nationalityLabel;
@@ -132,7 +141,6 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     @FXML
     private Button saveButton;
 
-    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -157,20 +165,25 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         bindingHelper.bindLabelTextProperty(cancelButton, "FormFragment.btn.cancel");
         bindingHelper.bindLabelTextProperty(saveButton, "FormFragment.btn.save");
         bindingHelper.bindLabelTextProperty(lastNameErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(firstNameErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(languageErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(sexErrorLabel, "Error.requiredField");
         bindingHelper.bindLabelTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
         bindingHelper.bindLabelTextProperty(birthDateErrorLabel, "Error.invalidDate");
         bindingHelper.bindLabelTextProperty(phoneNumberErrorLabel, "Error.invalidPhoneNumber");
         bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
         bindingHelper.bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
         bindingHelper.bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(maritalStatusComboBox, "FormFragment.comboBox.placeholder");
     }
 
     @Override
     public void setupUIControls() {
+        setupErrorLabelVisibility();
         setupComboBoxes();
         setupAvsNumberField();
         setupDatePicker();
-        setupErrorLabelVisibility();
+        setupPhoneNumberField();
     }
 
     @Override
@@ -195,12 +208,20 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
         nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
         nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
+
+        maritalStatusComboBox.getItems().addAll(MaritalStatusProto.values());
+        maritalStatusComboBox.getItems().removeAll(MaritalStatusProto.NULL_MARITAL_STATUS, MaritalStatusProto.UNRECOGNIZED);
+        maritalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.marital."));
+        maritalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.marital."));
     }
 
     @Override
     public void setupErrorLabelVisibility() {
         lastNameErrorLabel.setVisible(false);
+        firstNameErrorLabel.setVisible(false);
         avsNumberErrorLabel.setVisible(false);
+        languageErrorLabel.setVisible(false);
+        sexErrorLabel.setVisible(false);
         birthDateErrorLabel.setVisible(false);
         phoneNumberErrorLabel.setVisible(false);
     }
@@ -214,38 +235,77 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         setupDatePickerImpl(birthDateValue);
     }
 
+    private void setupPhoneNumberField() {
+        setupPhoneNumberFieldImpl(phoneNumberValue);
+    }
+
     @Override
     public void handleEvents() {
-
+        typeComboBox.setOnAction(event -> handleTypeChange());
+        saveButton.setOnAction(event -> handleSaveButtonOnClick());
+        cancelButton.setOnAction(event -> handleCancelButtonOnClick());
     }
 
-    @Override
-    public void handlePagination(PaginationModel paginationModel) {
-
+    private void handleCancelButtonOnClick() {
+        context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
     }
 
-    @Override
-    public void handleClearCriteriaButtonOnClick() {
+    private void handleSaveButtonOnClick() {
+        validateValues();
+        if (isFormValid()) {
+            createPersonRequestProto = CreatePersonRequestProto.newBuilder();
+            createPersonRequestProto
+                    .setLastName(lastNameValue.getText())
+                    .setFirstName(firstNameValue.getText())
+                    .setAvsNumber(avsNumberValue.getText().replaceAll("\\.", ""))
+                    .setLanguage(languageComboBox.getValue())
+                    .setSex(sexComboBox.getValue())
+                    .setPhoneNumber(phoneNumberValue.getText());
 
+            if(maritalStatusComboBox.getValue() != null) {
+                createPersonRequestProto.setMaritalStatus(maritalStatusComboBox.getValue());
+            }
+            if(nationalityComboBox.getValue() != null) {
+                createPersonRequestProto.setNationality(nationalityComboBox.getValue());
+            }
+            if(birthDateValue.getValue() != null) {
+                createPersonRequestProto.setBirthDate(birthDateValue.getValue().toString());
+            } else {
+                createPersonRequestProto.clearBirthDate();
+            }
+
+            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePersonCallback.ID), createPersonRequestProto.build());
+        }
     }
 
-    @Override
-    public void handleSearchButtonOnClick() {
-
+    private boolean isFormValid() {
+        return !lastNameErrorLabel.isVisible()
+                && !firstNameErrorLabel.isVisible()
+                && !avsNumberErrorLabel.isVisible()
+                && !languageErrorLabel.isVisible()
+                && !sexErrorLabel.isVisible()
+                && !birthDateErrorLabel.isVisible()
+                && !phoneNumberErrorLabel.isVisible();
     }
 
-    @Override
     public void handleTypeChange() {
-
-    }
-
-    @Override
-    public List<StatusProto> getStatuses() {
-        return Collections.emptyList();
+        PartnerTypeProto selectedType = typeComboBox.getValue();
+        if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
+            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
+        } else if (selectedType == PartnerTypeProto.TYPE_PERSON) {
+            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
+        }
     }
 
     @Override
     public void validateValues() {
-
+        validateName(lastNameValue, lastNameErrorLabel);
+        validateName(firstNameValue, firstNameErrorLabel);
+        validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
+        validateRequiredComboBox(languageComboBox, languageErrorLabel);
+        validateRequiredComboBox(sexComboBox, sexErrorLabel);
+        validateDate(birthDateValue, birthDateErrorLabel);
+        validatePhoneNumber(phoneNumberValue, phoneNumberErrorLabel);
     }
 }

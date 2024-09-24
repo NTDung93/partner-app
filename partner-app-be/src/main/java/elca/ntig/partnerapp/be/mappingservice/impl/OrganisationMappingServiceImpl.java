@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OrganisationMappingServiceImpl implements OrganisationMappingService {
-    private final OrganisationMapper organisationMapper;
     private final ArgumentValidator argumentValidator;
     private final OrganisationService organisationService;
     private final PartnerService partnerService;
-
+    private final OrganisationMapper organisationMapper;
 
     @Override
     public OrganisationResponseProto getOrganisationByIdHelper(GetOrganisationRequestProto request) {

@@ -27,12 +27,11 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
     private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
-    private final PersonMapper personMapper;
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
-        return personMapper.toPersonResponseDto(person);
+        return PersonMapper.INSTANCE.toPersonResponseDto(person);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class PersonServiceImpl implements PersonService {
         Page<Person> people = personRepository.searchPeoplePagination(criterias, pageable);
         List<Person> peopleList = people.getContent();
 
-        List<PersonResponseDto> content = peopleList.stream().map(person -> personMapper.toPersonResponseDto(person)).collect(Collectors.toList());
+        List<PersonResponseDto> content = peopleList.stream().map(person -> PersonMapper.INSTANCE.toPersonResponseDto(person)).collect(Collectors.toList());
         return SearchPeoplePaginationResponseDto.builder()
                 .pageNo(people.getNumber())
                 .pageSize(people.getSize())
@@ -55,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto) {
         validateCreateRequest(createPersonRequestDto);
 
@@ -79,21 +78,21 @@ public class PersonServiceImpl implements PersonService {
                 .build();
         personRepository.save(person);
 
-        return personMapper.toPersonResponseDto(person);
+        return PersonMapper.INSTANCE.toPersonResponseDto(person);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
         Person person = personRepository.findById(updatePersonRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Person", "id", updatePersonRequestDto.getId()));
 
         validateUpdateRequest(updatePersonRequestDto);
 
-        personMapper.updatePerson(updatePersonRequestDto, person);
+        PersonMapper.INSTANCE.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
 
-        return personMapper.toPersonResponseDto(person);
+        return PersonMapper.INSTANCE.toPersonResponseDto(person);
     }
 
     private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {

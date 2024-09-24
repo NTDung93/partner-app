@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.fe.common.constant.LanguageConstant;
 import elca.ntig.partnerapp.fe.common.enums.Language;
 import elca.ntig.partnerapp.fe.common.enums.Resolution;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import javafx.event.Event;
@@ -30,8 +31,9 @@ import org.springframework.stereotype.Component;
 @Workbench(id = PartnerAppWorkbench.ID,
         name = PartnerAppWorkbench.ID,
         perspectives = {
+                CreatePartnerPerspective.ID,
+                UpdatePartnerPerspective.ID,
                 ViewPartnerPerspective.ID,
-                CreatePartnerPerspective.ID
         })
 public class PartnerAppWorkbench implements FXWorkbench {
 

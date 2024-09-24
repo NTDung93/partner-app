@@ -25,3 +25,7 @@
 .language-button-inactive {
     -fx-text-fill: grey;
 }
+
+.white-background{
+    -fx-background-color: white;
+}

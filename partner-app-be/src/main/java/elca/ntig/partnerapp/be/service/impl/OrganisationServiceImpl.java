@@ -27,12 +27,11 @@ import java.util.stream.Collectors;
 public class OrganisationServiceImpl implements OrganisationService {
     private final PartnerRepository partnerRepository;
     private final OrganisationRepository organisationRepository;
-    private final OrganisationMapper organisationMapper;
 
     @Override
     public OrganisationResponseDto getOrganisationById(Integer id) {
         Organisation organisation = organisationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", id));
-        return organisationMapper.toOrganisationResponseDto(organisation);
+        return OrganisationMapper.INSTANCE.toOrganisationResponseDto(organisation);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class OrganisationServiceImpl implements OrganisationService {
         Page<Organisation> organisation = organisationRepository.searchOrganisationPagination(criterias, pageable);
         List<Organisation> organisationList = organisation.getContent();
 
-        List<OrganisationResponseDto> content = organisationList.stream().map(org -> organisationMapper.toOrganisationResponseDto(org)).collect(Collectors.toList());
+        List<OrganisationResponseDto> content = organisationList.stream().map(org -> OrganisationMapper.INSTANCE.toOrganisationResponseDto(org)).collect(Collectors.toList());
         return SearchOrganisationPaginationResponseDto.builder()
                 .pageNo(organisation.getNumber())
                 .pageSize(organisation.getSize())
@@ -55,7 +54,7 @@ public class OrganisationServiceImpl implements OrganisationService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public OrganisationResponseDto createOrganisation(CreateOrganisationRequestDto createOrganisationRequestDto) {
         validateCreateRequest(createOrganisationRequestDto);
 
@@ -78,21 +77,21 @@ public class OrganisationServiceImpl implements OrganisationService {
                 .build();
         organisation = organisationRepository.save(organisation);
 
-        return organisationMapper.toOrganisationResponseDto(organisation);
+        return OrganisationMapper.INSTANCE.toOrganisationResponseDto(organisation);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public OrganisationResponseDto updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto) {
         Organisation organisation = organisationRepository.findById(updateOrganisationRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", updateOrganisationRequestDto.getId()));
 
         validateUpdateRequest(updateOrganisationRequestDto);
 
-        organisationMapper.updateOrganisation(updateOrganisationRequestDto, organisation);
+        OrganisationMapper.INSTANCE.updateOrganisation(updateOrganisationRequestDto, organisation);
         organisation = organisationRepository.save(organisation);
 
-        return organisationMapper.toOrganisationResponseDto(organisation);
+        return OrganisationMapper.INSTANCE.toOrganisationResponseDto(organisation);
     }
 
     private void validateCreateRequest(CreateOrganisationRequestDto createOrganisationRequestDto) {
@@ -112,7 +111,7 @@ public class OrganisationServiceImpl implements OrganisationService {
             String plainIde = ideNumber.trim().replaceAll("[-]", "");
             String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
             if (!plainIde.matches(ideNumberRegex)) {
-                throw new InvalidIDENumberFormatException("Invalid AVS number format");
+                throw new InvalidIDENumberFormatException("Invalid IDE number format");
             }
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);
@@ -127,7 +126,7 @@ public class OrganisationServiceImpl implements OrganisationService {
             String plainIde = ideNumber.trim().replaceAll("[-]", "");
             String ideNumberRegex = "^(ADM|CHE)\\d{9}$";
             if (!plainIde.matches(ideNumberRegex)) {
-                throw new InvalidIDENumberFormatException("Invalid AVS number format");
+                throw new InvalidIDENumberFormatException("Invalid IDE number format");
             }
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);

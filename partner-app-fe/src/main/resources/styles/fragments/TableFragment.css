@@ -64,7 +64,12 @@
 .delete-icon{
     -fx-cursor: hand;
     -fx-alignment: center;
-    /*-fx-pref-width: 80;*/
+}
+
+.delete-button{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
 }
 
 .pagination-section{
@@ -86,10 +91,10 @@
     -fx-background-radius: 20;
 }
 
-.small-col{
-    -fx-pref-width: 80;
-}
+/*.small-col{*/
+/*    -fx-pref-width: 80;*/
+/*}*/
 
-.big-col, .big-col .label{
-    -fx-pref-width: 150;
-}
+/*.big-col, .big-col .label{*/
+/*    -fx-pref-width: 150;*/
+/*}*/

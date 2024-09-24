@@ -3,8 +3,11 @@ package elca.ntig.partnerapp.fe.fragment.person;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
+import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
@@ -113,8 +116,25 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         initializeTable();
+        setupDoubleClickEventHandler();
         initializePagination();
         setupSortListener();
+    }
+
+    @Override
+    public void setupDoubleClickEventHandler() {
+        partnersTable.setRowFactory(tr -> {
+            TableRow<PersonTableModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    PersonTableModel rowData = row.getItem();
+                    logger.info("Double click on person with id: " + rowData.getId());
+                    GetPersonRequestProto request = GetPersonRequestProto.newBuilder().setId(rowData.getId()).build();
+                    context.send(ViewPartnerPerspective.ID.concat(".").concat(GetPersonCallBack.ID), request);
+                }
+            });
+            return row;
+        });
     }
 
     @Override
@@ -340,7 +360,7 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
             Button deleteButton = new Button();
             {
-                deleteButton.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;");
+                deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
                     PersonTableModel person = getTableView().getItems().get(getIndex());

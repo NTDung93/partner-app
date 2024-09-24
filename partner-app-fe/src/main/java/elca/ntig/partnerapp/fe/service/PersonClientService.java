@@ -12,11 +12,23 @@ public class PersonClientService {
         this.personServiceStub = PersonServiceGrpc.newBlockingStub(channel);
     }
 
+    public PersonResponseProto getPersonById(GetPersonRequestProto request) {
+        return personServiceStub.getPersonById(request);
+    }
+
     public SearchPeoplePaginationResponseProto searchPeoplePagination(SearchPeoplePaginationRequestProto request) {
         return personServiceStub.searchPeoplePagination(request);
     }
 
     public DeletePersonResponseProto deletePersonById(GetPersonRequestProto request) {
         return personServiceStub.deletePersonById(request);
+    }
+
+    public PersonResponseProto createPerson(CreatePersonRequestProto request) throws Exception {
+        return personServiceStub.createPerson(request);
+    }
+
+        public PersonResponseProto updatePerson(UpdatePersonRequestProto request) {
+        return personServiceStub.updatePerson(request);
     }
 }

@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PersonMappingServiceImpl implements PersonMappingService {
-    private final PersonMapper personMapper;
     private final ArgumentValidator argumentValidator;
     private final PersonService personService;
     private final PartnerService partnerService;
+    private final PersonMapper personMapper;
 
     @Override
     public PersonResponseProto getPersonByIdHelper(GetPersonRequestProto request){

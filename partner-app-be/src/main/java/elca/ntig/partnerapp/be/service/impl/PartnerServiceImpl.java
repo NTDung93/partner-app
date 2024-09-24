@@ -11,8 +11,8 @@ import elca.ntig.partnerapp.be.repository.PartnerRepository;
 import elca.ntig.partnerapp.be.service.PartnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,7 +22,7 @@ public class PartnerServiceImpl implements PartnerService {
     private final AddressRepository addressRepository;
 
     @Override
-    @Transactional
+    @Transactional(rollbackOn = Throwable.class)
     public DeletePartnerResponseDto deletePartnerById(Integer id) {
         Partner partner = partnerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Partner", "id", id));
         if (partner != null && partner.getStatus().equals(Status.INACTIVE)) {
@@ -35,7 +35,7 @@ public class PartnerServiceImpl implements PartnerService {
 
             List<Address> addresses = addressRepository.findByPartnerIdAndStatus(id, Status.ACTIVE);
             if (!addresses.isEmpty()) {
-                addresses.stream()
+                addresses
                         .forEach(address -> {
                             address.setStatus(Status.INACTIVE);
                             addressRepository.save(address);

@@ -14,7 +14,9 @@ import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.PaginationConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
@@ -129,7 +131,6 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
     @FXML
     private CheckBox inactiveCheckBox;
 
-    @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
@@ -215,9 +216,15 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         clearCriteriaButton.setOnAction(event -> handleClearCriteriaButtonOnClick());
         searchButton.setOnAction(event -> handleSearchButtonOnClick());
         typeComboBox.setOnAction(event -> handleTypeChange());
+        createPersonButton.setOnAction(event -> handleCreatePersonButtonOnClick());
     }
 
-    @Override
+    private void handleCreatePersonButtonOnClick() {
+//        context.send(CreatePartnerPerspective.ID, MessageConstant.SWITCH_TYPE_TO_PERSON);
+        context.send(CreatePartnerPerspective.ID, MessageConstant.INIT);
+        context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_PERSON);
+    }
+
     public void handlePagination(PaginationModel paginationModel) {
         searchPeoplePaginationRequestProto
                 .setPageNo(paginationModel.getPageNo())
@@ -228,7 +235,6 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         context.send(ViewPartnerPerspective.ID.concat(".").concat(SearchPeopleCallback.ID), searchPeoplePaginationRequestProto.build());
     }
 
-    @Override
     public void handleClearCriteriaButtonOnClick() {
         lastNameValue.clear();
         firstNameValue.clear();
@@ -246,7 +252,6 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.RESET_SORT_POLICY_FOR_PERSON);
     }
 
-    @Override
     public void handleSearchButtonOnClick() {
         validateValues();
         if (!lastNameErrorLabel.isVisible() && !avsNumberErrorLabel.isVisible() && !birthDateErrorLabel.isVisible()) {
@@ -255,7 +260,7 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
                     .setLastName(lastNameValue.getText())
                     .setFirstName(firstNameValue.getText())
                     .setAvsNumber(avsNumberValue.getText().replaceAll("\\.", ""))
-                    .addAllStatus(getStatuses());
+                    .addAllStatus(getStatusesImpl(activeCheckBox, inactiveCheckBox));
 
             if (languageComboBox.getValue() != null) {
                 searchPeopleCriteriaProto.setLanguage(languageComboBox.getValue());
@@ -282,7 +287,6 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         }
     }
 
-    @Override
     public void handleTypeChange() {
         PartnerTypeProto selectedType = typeComboBox.getValue();
         if (selectedType == PartnerTypeProto.TYPE_ORGANISATION) {
@@ -293,52 +297,9 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
     }
 
     @Override
-    public List<StatusProto> getStatuses() {
-        return getStatusesImpl(activeCheckBox, inactiveCheckBox);
-    }
-
-    @Override
     public void validateValues() {
-        validateName();
-        validateAvsNumber();
-        validateDate();
-    }
-
-    private void validateName() {
-        if (lastNameValue.getText().isEmpty()) {
-            lastNameErrorLabel.setVisible(true);
-            if (!lastNameValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                lastNameValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            lastNameErrorLabel.setVisible(false);
-            lastNameValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
-    }
-
-    private void validateAvsNumber() {
-        String avsNumber = avsNumberValue.getText().trim().replaceAll("\\.", "");
-        String avsNumberRegex = "^756\\d{10}$"; // 756.xxxx.xxxx.xx
-        if ((!avsNumberValue.getText().isEmpty()) && (!avsNumber.matches(avsNumberRegex))) {
-            avsNumberErrorLabel.setVisible(true);
-            if (!avsNumberValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                avsNumberValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            avsNumberErrorLabel.setVisible(false);
-            avsNumberValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
-    }
-
-    private void validateDate() {
-        if ((birthDateValue.getValue() != null) && (!birthDateValue.getValue().isBefore(LocalDate.now()))) {
-            birthDateErrorLabel.setVisible(true);
-            if (!birthDateValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
-                birthDateValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
-            }
-        } else {
-            birthDateErrorLabel.setVisible(false);
-            birthDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
-        }
+        validateName(lastNameValue, lastNameErrorLabel);
+        validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
+        validateDate(birthDateValue, birthDateErrorLabel);
     }
 }

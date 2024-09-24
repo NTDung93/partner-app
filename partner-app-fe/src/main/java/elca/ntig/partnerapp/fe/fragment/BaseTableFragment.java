@@ -10,4 +10,6 @@ public interface BaseTableFragment {
     void initializePagination();
 
     void setupSortListener();
+
+    void setupDoubleClickEventHandler();
 }

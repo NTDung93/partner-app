@@ -1,14 +1,33 @@
 package elca.ntig.partnerapp.fe.fragment.organisation;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
+import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
-import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
+import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
+import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
+import elca.ntig.partnerapp.fe.callback.organisation.CreateOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.organisation.UpdateOrganisationCallback;
+import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
+import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.common.model.PaginationModel;
+import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -17,8 +36,8 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Fragment(id = UpdateOrganisationFormFragment.ID,
@@ -27,9 +46,9 @@ import java.util.List;
 public class UpdateOrganisationFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
     public static final String ID = "UpdateOrganisationFormFragment";
     private static Logger logger = Logger.getLogger(UpdateOrganisationFormFragment.class);
-    SearchPeopleCriteriasProto.Builder searchPeopleCriteriaProto = SearchPeopleCriteriasProto.newBuilder();
-    SearchPeoplePaginationRequestProto.Builder searchPeoplePaginationRequestProto = SearchPeoplePaginationRequestProto.newBuilder();
+    UpdateOrganisationRequestProto.Builder updateOrganisationRequestProto = UpdateOrganisationRequestProto.newBuilder();
     private BindingHelper bindingHelper;
+    OrganisationResponseProto orginalOrganisationResponseProto;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -37,68 +56,249 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
     @Resource
     private Context context;
 
-    @Override
-    public void init() {
+    @FXML
+    private Label fragmentTitle;
 
+    @FXML
+    private Button createAddressButton;
+
+    @FXML
+    private Text typeLabel;
+
+    @FXML
+    private ComboBox<PartnerTypeProto> typeComboBox;
+
+    @FXML
+    private Text nameLabel;
+
+    @FXML
+    private TextField nameValue;
+
+    @FXML
+    private Label nameErrorLabel;
+
+    @FXML
+    private Label additionalNameLabel;
+
+    @FXML
+    private TextField additionalNameValue;
+
+    @FXML
+    private Label ideNumberLabel;
+
+    @FXML
+    private TextField ideNumberValue;
+
+    @FXML
+    private Label ideNumberErrorLabel;
+
+    @FXML
+    private Label codeNOGALabel;
+
+    @FXML
+    private ComboBox<CodeNOGAProto> codeNOGAComboBox;
+
+    // right column
+    @FXML
+    private Text correspondenceLanguageLabel;
+
+    @FXML
+    private ComboBox<LanguageProto> languageComboBox;
+
+    @FXML
+    private Label languageErrorLabel;
+
+    @FXML
+    private Label legalStatusLabel;
+
+    @FXML
+    private ComboBox<LegalStatusProto> legalStatusComboBox;
+
+    @FXML
+    private Label creationDateLabel;
+
+    @FXML
+    private DatePicker creationDateValue;
+
+    @FXML
+    private Label creationDateErrorLabel;
+
+    @FXML
+    private Label phoneNumberLabel;
+
+    @FXML
+    private TextField phoneNumberValue;
+
+    @FXML
+    private Label phoneNumberErrorLabel;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private Button saveButton;
+
+    public void init(OrganisationResponseProto responseProto) {
+        orginalOrganisationResponseProto = responseProto;
+        bindingHelper = new BindingHelper(observableResourceFactory);
+        bindTextProperties();
+        setupUIControls();
+        fillDataIntoForm(responseProto);
+        handleEvents();
+    }
+
+    private void fillDataIntoForm(OrganisationResponseProto responseProto) {
+        nameValue.setText(responseProto.getName());
+        additionalNameValue.setText(responseProto.getAdditionalName());
+        ideNumberValue.setText(responseProto.getIdeNumber());
+        if (responseProto.getCodeNoga() != CodeNOGAProto.NULL_CODE_NOGA) {
+            codeNOGAComboBox.setValue(responseProto.getCodeNoga());
+        }
+        languageComboBox.setValue(responseProto.getLanguage());
+        if (responseProto.getLegalStatus() != LegalStatusProto.NULL_LEGAL_STATUS) {
+            legalStatusComboBox.setValue(responseProto.getLegalStatus());
+        }
+        if (StringUtils.isNotBlank(responseProto.getCreationDate())) {
+            setupDatePickerValue(creationDateValue, responseProto.getCreationDate());
+        }
+        phoneNumberValue.setText(responseProto.getPhoneNumber());
     }
 
     @Override
     public void bindTextProperties() {
-
+        bindingHelper.bindLabelTextProperty(fragmentTitle, "FormFragment.lbl.updateFragmentTitle");
+        bindingHelper.bindLabelTextProperty(createAddressButton, "FormFragment.btn.createAddress");
+        bindingHelper.bindTextProperty(typeLabel, "FormFragment.lbl.type");
+        bindingHelper.bindTextProperty(nameLabel, "FormFragment.lbl.lastName");
+        bindingHelper.bindLabelTextProperty(additionalNameLabel, "FormFragment.lbl.additionalName");
+        bindingHelper.bindLabelTextProperty(ideNumberLabel, "FormFragment.lbl.ideNumber");
+        bindingHelper.bindLabelTextProperty(codeNOGALabel, "FormFragment.lbl.codeNOGA");
+        bindingHelper.bindTextProperty(correspondenceLanguageLabel, "FormFragment.lbl.correspondenceLanguageRequired");
+        bindingHelper.bindLabelTextProperty(legalStatusLabel, "FormFragment.lbl.legalStatus");
+        bindingHelper.bindLabelTextProperty(creationDateLabel, "FormFragment.lbl.creationDate");
+        bindingHelper.bindLabelTextProperty(phoneNumberLabel, "FormFragment.lbl.phoneNumber");
+        bindingHelper.bindLabelTextProperty(cancelButton, "FormFragment.btn.cancel");
+        bindingHelper.bindLabelTextProperty(saveButton, "FormFragment.btn.save");
+        bindingHelper.bindLabelTextProperty(nameErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(languageErrorLabel, "Error.requiredField");
+        bindingHelper.bindLabelTextProperty(ideNumberErrorLabel, "Error.invalidIdeNumber");
+        bindingHelper.bindLabelTextProperty(creationDateErrorLabel, "Error.invalidDate");
+        bindingHelper.bindLabelTextProperty(phoneNumberErrorLabel, "Error.invalidPhoneNumber");
+        bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(legalStatusComboBox, "FormFragment.comboBox.placeholder");
+        bindingHelper.bindPromptTextProperty(codeNOGAComboBox, "FormFragment.comboBox.placeholder");
     }
 
     @Override
     public void setupUIControls() {
-
+        setupErrorLabelVisibility();
+        setupComboBoxes();
+        setupIdeNumberField();
+        setupDatePicker();
+        setupPhoneNumberField();
     }
 
     @Override
     public void setupComboBoxes() {
+        typeComboBox.getItems().addAll(PartnerTypeProto.values());
+        typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
+        typeComboBox.setValue(PartnerTypeProto.TYPE_ORGANISATION);
+        typeComboBox.setDisable(true);
+        typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
+        typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
 
+        languageComboBox.getItems().addAll(LanguageProto.values());
+        languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
+        languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
+        languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
+
+        legalStatusComboBox.getItems().addAll(LegalStatusProto.values());
+        legalStatusComboBox.getItems().removeAll(LegalStatusProto.NULL_LEGAL_STATUS, LegalStatusProto.UNRECOGNIZED);
+        legalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
+        legalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
+
+        codeNOGAComboBox.getItems().addAll(CodeNOGAProto.values());
+        codeNOGAComboBox.getItems().removeAll(CodeNOGAProto.NULL_CODE_NOGA, CodeNOGAProto.UNRECOGNIZED);
+        codeNOGAComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
+        codeNOGAComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
+    }
+
+    private void setupIdeNumberField() {
+        setupIdeNumberFieldImpl(ideNumberValue);
     }
 
     @Override
     public void setupErrorLabelVisibility() {
-
+        nameErrorLabel.setVisible(false);
+        ideNumberErrorLabel.setVisible(false);
+        languageErrorLabel.setVisible(false);
+        creationDateErrorLabel.setVisible(false);
+        phoneNumberErrorLabel.setVisible(false);
     }
 
     @Override
     public void setupDatePicker() {
+        setupDatePickerImpl(creationDateValue);
+    }
 
+    private void setupPhoneNumberField() {
+        setupPhoneNumberFieldImpl(phoneNumberValue);
     }
 
     @Override
     public void handleEvents() {
-
+        saveButton.setOnAction(event -> handleSaveButtonOnClick());
+        cancelButton.setOnAction(event -> handleCancelButtonOnClick());
     }
 
-    @Override
-    public void handlePagination(PaginationModel paginationModel) {
+    private void handleSaveButtonOnClick() {
+        validateValues();
+        if (isFormValid()) {
+            updateOrganisationRequestProto = UpdateOrganisationRequestProto.newBuilder();
+            updateOrganisationRequestProto
+                    .setId(orginalOrganisationResponseProto.getId())
+                    .setName(nameValue.getText())
+                    .setAdditionalName(additionalNameValue.getText())
+                    .setIdeNumber(ideNumberValue.getText().replaceAll("[.]", ""))
+                    .setLanguage(languageComboBox.getValue())
+                    .setPhoneNumber(phoneNumberValue.getText());
 
+            if (codeNOGAComboBox.getValue() != null) {
+                updateOrganisationRequestProto.setCodeNoga(codeNOGAComboBox.getValue());
+            }
+            if (legalStatusComboBox.getValue() != null) {
+                updateOrganisationRequestProto.setLegalStatus(legalStatusComboBox.getValue());
+            }
+            if (creationDateValue.getValue() != null) {
+                updateOrganisationRequestProto.setCreationDate(creationDateValue.getValue().toString());
+            } else {
+                updateOrganisationRequestProto.clearCreationDate();
+            }
+
+            context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdateOrganisationCallback.ID), updateOrganisationRequestProto.build());
+        }
     }
 
-    @Override
-    public void handleClearCriteriaButtonOnClick() {
-
+    private boolean isFormValid() {
+        return !nameErrorLabel.isVisible()
+                && !ideNumberErrorLabel.isVisible()
+                && !languageErrorLabel.isVisible()
+                && !creationDateErrorLabel.isVisible()
+                && !phoneNumberErrorLabel.isVisible();
     }
 
-    @Override
-    public void handleSearchButtonOnClick() {
-
-    }
-
-    @Override
-    public void handleTypeChange() {
-
-    }
-
-    @Override
-    public List<StatusProto> getStatuses() {
-        return Collections.emptyList();
+    private void handleCancelButtonOnClick() {
+        context.send(ViewPartnerPerspective.ID, MessageConstant.INIT);
+        context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), MessageConstant.SWITCH_TYPE_TO_ORGANISATION);
     }
 
     @Override
     public void validateValues() {
-
+        validateName(nameValue, nameErrorLabel);
+        validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
+        validateRequiredComboBox(languageComboBox, languageErrorLabel);
+        validateDate(creationDateValue, creationDateErrorLabel);
+        validatePhoneNumber(phoneNumberValue, phoneNumberErrorLabel);
     }
 }
