@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.utils.mapper.enums;
+package elca.ntig.partnerapp.be.utils.mapper.enums.person;
 
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.utils.mapper.constant.MapperConstant;

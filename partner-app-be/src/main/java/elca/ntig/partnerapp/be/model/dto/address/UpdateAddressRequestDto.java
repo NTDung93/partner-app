@@ -1,9 +1,7 @@
 package elca.ntig.partnerapp.be.model.dto.address;
-
 import elca.ntig.partnerapp.be.model.enums.addess.AddressType;
 import elca.ntig.partnerapp.be.model.enums.addess.CantonAbbr;
 import elca.ntig.partnerapp.be.model.enums.addess.Country;
-import elca.ntig.partnerapp.be.model.enums.common.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,17 +13,16 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDto {
+public class UpdateAddressRequestDto {
     private Integer id;
     private AddressType category;
-    private String zipCode;
     private String locality;
     private String street;
-    private String houseNumber;
-    private CantonAbbr canton;
     private Country country;
     private LocalDate validityStart;
+    private String zipCode;
+    private String houseNumber;
+    private CantonAbbr canton;
     private LocalDate validityEnd;
-    private Status status;
-    private int version;
+    private Integer partnerId;
 }

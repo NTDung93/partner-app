@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.utils.mapper.enums;
+package elca.ntig.partnerapp.be.utils.mapper.enums.organisation;
 
 import elca.ntig.partnerapp.be.utils.mapper.constant.MapperConstant;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;

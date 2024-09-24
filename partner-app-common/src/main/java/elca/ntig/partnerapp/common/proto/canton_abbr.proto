@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enums.address";
+
+enum CantonAbbrProto {
+  AARGAU = 0;
+  APPENZELL_INNER_RHODES = 1;
+  APPENZELL_OUTER_RHODES = 2;
+  BERN = 3;
+  BASEL_COUNTRY = 4;
+  BASEL_CITY = 5;
+  FRIBOURG = 6;
+  GENEVA = 7;
+  GLARUS = 8;
+  GRISONS = 9;
+  HJURA = 10;
+  LUCERNE = 11;
+  NEUCHATEL = 12;
+  NIDWALD = 13;
+  OBWALD = 14;
+  ST_GALL = 15;
+  SCHAFFHOUSE = 16;
+  SOLOTHURN = 17;
+  SCHWYZ = 18;
+  THURGAU = 19;
+  TESSIN = 20;
+  URI = 21;
+  VAUD = 22;
+  VALAIS = 23;
+  ZUG = 24;
+  ZURICH = 25;
+}
