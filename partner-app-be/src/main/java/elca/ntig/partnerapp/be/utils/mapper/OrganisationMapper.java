@@ -19,6 +19,7 @@ import org.mapstruct.factory.Mappers;
                 StatusMapper.class,
                 LegalStatusMapper.class,
                 CodeNOGAMapper.class,
+                AddressMapper.class
         },
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
 )
@@ -49,6 +50,7 @@ public interface OrganisationMapper {
     DeleteOrganisationResponseProto toDeleteOrganisationResponseProto(DeletePartnerResponseDto deleteOrganisationResponseDto);
 
     @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     CreateOrganisationRequestDto toCreateOrganisationRequestDto(CreateOrganisationRequestProto request);
 
     @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")

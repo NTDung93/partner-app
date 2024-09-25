@@ -11,6 +11,7 @@ import org.mapstruct.ValueMapping;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface AddressTypeMapper {
+
     AddressTypeProto toAddressTypeProto(AddressType addressType);
 
     @ValueMapping(target = MappingConstants.THROW_EXCEPTION, source = MapperConstant.UNRECOGNIZED)

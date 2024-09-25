@@ -3,6 +3,7 @@ import "language.proto";
 import "legal_status.proto";
 import "code_noga.proto";
 import "status.proto";
+import "address.proto";
 
 package elca.ntig.partnerapp.common.proto;
 
@@ -84,6 +85,7 @@ message CreateOrganisationRequestProto {
   LegalStatusProto legalStatus = 6;
   string creationDate = 7;
   string phoneNumber = 8;
+  repeated CreateAddressRequestProto addresses = 9;
 }
 
 message UpdateOrganisationRequestProto {
@@ -96,4 +98,5 @@ message UpdateOrganisationRequestProto {
   LegalStatusProto legalStatus = 7;
   string creationDate = 8;
   string phoneNumber = 9;
+  repeated UpdateAddressRequestProto addresses = 10;
 }

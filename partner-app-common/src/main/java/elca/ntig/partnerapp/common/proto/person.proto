@@ -7,6 +7,7 @@ import "sex_enum.proto";
 import "marital_status.proto";
 import "status.proto";
 import "nationality.proto";
+import "address.proto";
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
@@ -95,6 +96,7 @@ message CreatePersonRequestProto {
   NationalityProto nationality = 7;
   string birthDate = 8;
   string phoneNumber = 9;
+  repeated CreateAddressRequestProto addresses = 10;
 }
 
 message UpdatePersonRequestProto {
@@ -108,4 +110,5 @@ message UpdatePersonRequestProto {
   NationalityProto nationality = 8;
   string birthDate = 9;
   string phoneNumber = 10;
+  repeated UpdateAddressRequestProto addresses = 11;
 }

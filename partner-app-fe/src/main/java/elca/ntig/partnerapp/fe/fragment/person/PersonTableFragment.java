@@ -170,14 +170,14 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
         nextButton.setOnAction(event -> {
             pageNo++;
-            logger.info("Current page: " + pageNo);
+//            logger.info("Current page: " + pageNo);
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
         });
 
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
-                logger.info("Current page: " + pageNo);
+//                logger.info("Current page: " + pageNo);
                 context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
             }
         });

@@ -21,7 +21,8 @@ import org.mapstruct.factory.Mappers;
                 SexEnumMapper.class,
                 NationalityMapper.class,
                 MaritalStatusMapper.class,
-                StatusMapper.class
+                StatusMapper.class,
+                AddressMapper.class
         },
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED,
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
@@ -53,6 +54,7 @@ public interface PersonMapper {
     DeletePersonResponseProto toDeletePersonResponseProto(DeletePartnerResponseDto deletePersonResponseDto);
 
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     CreatePersonRequestDto toCreatePersonRequestDto(CreatePersonRequestProto createPersonRequestProto);
 
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")

@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.model.dto.person;
 
+import elca.ntig.partnerapp.be.model.dto.address.CreateAddressRequestDto;
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
 import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,4 +36,6 @@ public class CreatePersonRequestDto {
     private Nationality nationality;
     private LocalDate birthDate;
     private String phoneNumber;
+
+    private List<CreateAddressRequestDto> addresses;
 }

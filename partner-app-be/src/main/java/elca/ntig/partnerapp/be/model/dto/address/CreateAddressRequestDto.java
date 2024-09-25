@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -15,11 +17,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAddressRequestDto {
+    @NotNull(message = "Address type is mandatory")
     private AddressType category;
+
+    @NotBlank(message = "Locality is mandatory")
     private String locality;
     private String street;
     private Country country;
+
+    @NotNull(message = "Validity start is mandatory")
     private LocalDate validityStart;
+
+    @NotBlank(message = "Zip code is mandatory")
     private String zipCode;
     private String houseNumber;
     private CantonAbbr canton;
