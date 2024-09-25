@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
     private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
-    private final AddressRepository addressRepository;
     private final PersonMapper personMapper;
     private final AddressService addressService;
 
