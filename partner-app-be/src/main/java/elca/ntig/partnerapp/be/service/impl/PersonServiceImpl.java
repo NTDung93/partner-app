@@ -27,11 +27,12 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
     private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class PersonServiceImpl implements PersonService {
         Page<Person> people = personRepository.searchPeoplePagination(criterias, pageable);
         List<Person> peopleList = people.getContent();
 
-        List<PersonResponseDto> content = peopleList.stream().map(person -> PersonMapper.INSTANCE.toPersonResponseDto(person)).collect(Collectors.toList());
+        List<PersonResponseDto> content = peopleList.stream().map(person -> personMapper.toPersonResponseDto(person)).collect(Collectors.toList());
         return SearchPeoplePaginationResponseDto.builder()
                 .pageNo(people.getNumber())
                 .pageSize(people.getSize())
@@ -78,7 +79,7 @@ public class PersonServiceImpl implements PersonService {
                 .build();
         personRepository.save(person);
 
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     @Override
@@ -89,10 +90,10 @@ public class PersonServiceImpl implements PersonService {
 
         validateUpdateRequest(updatePersonRequestDto);
 
-        PersonMapper.INSTANCE.updatePerson(updatePersonRequestDto, person);
+        personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
 
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {
