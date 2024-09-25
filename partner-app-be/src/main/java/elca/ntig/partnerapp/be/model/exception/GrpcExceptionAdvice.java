@@ -52,7 +52,7 @@ public class GrpcExceptionAdvice {
     @GrpcExceptionHandler(ExistingActiveAVSNumberException.class)
     public StatusRuntimeException handleExistingActiveAVSNumberException(ExistingActiveAVSNumberException e) {
 
-        Status status = Status.FAILED_PRECONDITION.withDescription(e.getMessage()).withCause(e);
+        Status status = Status.ALREADY_EXISTS.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();
         metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);
@@ -61,7 +61,7 @@ public class GrpcExceptionAdvice {
     @GrpcExceptionHandler(ExistingActiveIDENumberException.class)
     public StatusRuntimeException handleExistingActiveIDENumberException(ExistingActiveIDENumberException e) {
 
-        Status status = Status.FAILED_PRECONDITION.withDescription(e.getMessage()).withCause(e);
+        Status status = Status.ALREADY_EXISTS.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();
         metadata.put(KEY_NAME, e.getMessage());
         return status.asRuntimeException(metadata);
@@ -105,6 +105,24 @@ public class GrpcExceptionAdvice {
 
     @GrpcExceptionHandler(InvalidPhoneNumberFormatException.class)
     public StatusRuntimeException handleInvalidPhoneNumberFormatException(InvalidPhoneNumberFormatException e) {
+
+        Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(OverlapPeriodException.class)
+    public StatusRuntimeException handleOverlapPeriodException(OverlapPeriodException e) {
+
+        Status status = Status.FAILED_PRECONDITION.withDescription(e.getMessage()).withCause(e);
+        Metadata metadata = new Metadata();
+        metadata.put(KEY_NAME, e.getMessage());
+        return status.asRuntimeException(metadata);
+    }
+
+    @GrpcExceptionHandler(EndDateBeforeStartDateException.class)
+    public StatusRuntimeException handleEndDateBeforeStartDateException(EndDateBeforeStartDateException e) {
 
         Status status = Status.INVALID_ARGUMENT.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();

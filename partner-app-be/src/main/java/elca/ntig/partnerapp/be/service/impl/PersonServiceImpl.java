@@ -6,6 +6,7 @@ import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.*;
 import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.repository.PartnerRepository;
+import elca.ntig.partnerapp.be.service.AddressService;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
 import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.repository.PersonRepository;
@@ -30,6 +31,7 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final AddressRepository addressRepository;
     private final PersonMapper personMapper;
+    private final AddressService addressService;
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
@@ -80,6 +82,8 @@ public class PersonServiceImpl implements PersonService {
                 .partner(partner)
                 .build();
         personRepository.save(person);
+
+        addressService.createAddressForPartner(partner, createPersonRequestDto.getAddresses());
 
         return personMapper.toPersonResponseDto(person);
     }
