@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Partner;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.*;
+import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.repository.PartnerRepository;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
 import elca.ntig.partnerapp.be.model.entity.Person;
@@ -27,11 +28,13 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
     private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
+    private final AddressRepository addressRepository;
+    private final PersonMapper personMapper;
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
         Page<Person> people = personRepository.searchPeoplePagination(criterias, pageable);
         List<Person> peopleList = people.getContent();
 
-        List<PersonResponseDto> content = peopleList.stream().map(person -> PersonMapper.INSTANCE.toPersonResponseDto(person)).collect(Collectors.toList());
+        List<PersonResponseDto> content = peopleList.stream().map(person -> personMapper.toPersonResponseDto(person)).collect(Collectors.toList());
         return SearchPeoplePaginationResponseDto.builder()
                 .pageNo(people.getNumber())
                 .pageSize(people.getSize())
@@ -78,7 +81,7 @@ public class PersonServiceImpl implements PersonService {
                 .build();
         personRepository.save(person);
 
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     @Override
@@ -89,10 +92,10 @@ public class PersonServiceImpl implements PersonService {
 
         validateUpdateRequest(updatePersonRequestDto);
 
-        PersonMapper.INSTANCE.updatePerson(updatePersonRequestDto, person);
+        personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
 
-        return PersonMapper.INSTANCE.toPersonResponseDto(person);
+        return personMapper.toPersonResponseDto(person);
     }
 
     private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {
