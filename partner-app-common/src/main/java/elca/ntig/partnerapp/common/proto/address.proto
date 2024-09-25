@@ -4,4 +4,3 @@ package elca.ntig.partnerapp.common.proto;
 
 option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
-option java_outer_classname = "PersonProto";
