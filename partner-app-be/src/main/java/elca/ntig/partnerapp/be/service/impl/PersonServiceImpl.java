@@ -87,11 +87,26 @@ public class PersonServiceImpl implements PersonService {
     public PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto) {
         Person person = personRepository.findById(updatePersonRequestDto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Person", "id", updatePersonRequestDto.getId()));
+//        Partner partner = person.getPartner();
 
         validateUpdateRequest(updatePersonRequestDto);
 
         personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
+
+//        partner.setLanguage(updatePersonRequestDto.getLanguage());
+//        partner.setPhoneNumber(updatePersonRequestDto.getPhoneNumber());
+//        partnerRepository.save(partner);
+//
+//        person.setLastName(updatePersonRequestDto.getLastName());
+//        person.setFirstName(updatePersonRequestDto.getFirstName());
+//        person.setSex(updatePersonRequestDto.getSex());
+//        person.setNationality(updatePersonRequestDto.getNationality());
+//        person.setAvsNumber(updatePersonRequestDto.getAvsNumber());
+//        person.setBirthDate(updatePersonRequestDto.getBirthDate());
+//        person.setMaritalStatus(updatePersonRequestDto.getMaritalStatus());
+//        person.setPartner(partner);
+//        person = personRepository.save(person);
 
         return personMapper.toPersonResponseDto(person);
     }
