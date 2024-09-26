@@ -244,6 +244,11 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         typeComboBox.setOnAction(event -> handleTypeChange());
         saveButton.setOnAction(event -> handleSaveButtonOnClick());
         cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+        createAddressButton.setOnAction(event -> handleCreateAddressButtonOnClick());
+    }
+
+    private void handleCreateAddressButtonOnClick() {
+        context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SHOW_CREATE_ADDRESS_FORM);
     }
 
     private void handleCancelButtonOnClick() {

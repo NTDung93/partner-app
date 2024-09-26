@@ -65,11 +65,23 @@ Button{
     -fx-pref-width: 170;
 }
 
+.back-from-address{
+    -fx-background-color: grey;
+    -fx-font-size: 15;
+    -fx-text-fill: black;
+}
+
 .search-button {
     -fx-background-color: #0e6969;
     -fx-text-fill: white;
     -fx-font-size: 15;
     -fx-pref-width: 170;
+}
+
+.save-from-address{
+    -fx-background-color: #0e6969;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
 }
 
 .disabled-combo-box {

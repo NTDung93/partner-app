@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.fragments.address.CreateAddressFormFragment"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      styleClass="root"
+      stylesheets="@../../../styles/fragments/FormFragment.css"
+>
+    <HBox styleClass="header-section" alignment="CENTER_LEFT">
+        <Label styleClass="header-section-title" fx:id="fragmentTitle"/>
+    </HBox>
+
+    <GridPane hgap="15" vgap="20" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="22.0"/>
+            <ColumnConstraints halignment="RIGHT" percentWidth="13.0"/>
+            <ColumnConstraints percentWidth="15.0"/>
+            <ColumnConstraints percentWidth="10.0"/>
+        </columnConstraints>
+
+        <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
+            <VBox alignment="BASELINE_CENTER">
+                <TextFlow>
+                    <Text fx:id="typeLabel" styleClass="require-field"/>
+                    <Text text="*" styleClass="red-asterisk"/>
+                </TextFlow>
+            </VBox>
+        </HBox>
+        <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <ComboBox fx:id="typeComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <Label fx:id="typeErrorLabel" styleClass="error-label" GridPane.rowIndex="1"
+               GridPane.columnIndex="2"/>
+
+        <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
+            <VBox alignment="BASELINE_CENTER">
+                <TextFlow>
+                    <Text fx:id="localityLabel" styleClass="require-field"/>
+                    <Text text="*" styleClass="red-asterisk"/>
+                </TextFlow>
+            </VBox>
+        </HBox>
+        <TextField fx:id="localityValue" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label fx:id="localityErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
+               GridPane.columnIndex="2"/>
+
+        <Label fx:id="streetLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="streetValue" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label fx:id="countryLabel" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <HBox GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <ComboBox fx:id="countryComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox GridPane.rowIndex="5" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
+            <VBox alignment="BASELINE_CENTER">
+                <TextFlow>
+                    <Text fx:id="validityStartLabel" styleClass="require-field"/>
+                    <Text text="*" styleClass="red-asterisk"/>
+                </TextFlow>
+            </VBox>
+        </HBox>
+        <HBox GridPane.rowIndex="5" GridPane.columnIndex="1">
+            <DatePicker fx:id="validityStartValue" promptText="MM/dd/yyyy" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <Label fx:id="validityStartErrorLabel" styleClass="error-label" GridPane.rowIndex="5"
+               GridPane.columnIndex="2"/>
+
+        <!-- Right Section -->
+
+        <HBox GridPane.rowIndex="2" GridPane.columnIndex="3" alignment="CENTER_RIGHT">
+            <VBox alignment="BASELINE_CENTER">
+                <TextFlow>
+                    <Text fx:id="zipCodeLabel" styleClass="require-field"/>
+                    <Text text="*" styleClass="red-asterisk"/>
+                </TextFlow>
+            </VBox>
+        </HBox>
+        <TextField fx:id="zipCodeValue" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+        <Label fx:id="zipCodeErrorLabel" styleClass="error-label" GridPane.rowIndex="2"
+               GridPane.columnIndex="5"/>
+
+        <Label fx:id="houseNumberLabel" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+        <TextField fx:id="houseNumberValue" GridPane.rowIndex="3" GridPane.columnIndex="4"/>
+
+        <Label fx:id="cantonLabel" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+        <HBox GridPane.rowIndex="4" GridPane.columnIndex="4">
+            <ComboBox fx:id="cantonComboBox" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <Label fx:id="validityEndLabel" GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+        <HBox GridPane.rowIndex="5" GridPane.columnIndex="4">
+            <DatePicker fx:id="validityEndValue" promptText="MM/dd/yyyy" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <Label fx:id="validityEndErrorLabel" styleClass="error-label" GridPane.rowIndex="5"
+               GridPane.columnIndex="5"/>
+
+        <!-- Buttons Section -->
+        <HBox alignment="CENTER_RIGHT" GridPane.rowIndex="9" GridPane.columnIndex="3">
+            <Button fx:id="cancelButton" styleClass="back-from-address" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="9" GridPane.columnIndex="4">
+            <Button fx:id="saveButton" styleClass="save-from-address" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        </HBox>
+    </GridPane>
+</VBox>

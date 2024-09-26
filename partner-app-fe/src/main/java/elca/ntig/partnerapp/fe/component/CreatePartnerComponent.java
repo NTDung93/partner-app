@@ -2,16 +2,21 @@ package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
-import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
+import elca.ntig.partnerapp.fe.common.enums.Resolution;
+import elca.ntig.partnerapp.fe.fragment.address.CreateAddressFormFragment;
 import elca.ntig.partnerapp.fe.fragment.organisation.CreateOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.component.View;
 import org.jacpfx.api.annotations.lifecycle.PostConstruct;
@@ -36,9 +41,11 @@ public class CreatePartnerComponent implements FXComponent {
 
     private ManagedFragmentHandler<CreatePersonFormFragment> createPersonFormHandler;
     private ManagedFragmentHandler<CreateOrganisationFormFragment> createOrganisationFormHandler;
+    private ManagedFragmentHandler<CreateAddressFormFragment> createAddressFormHandler;
 
     private CreatePersonFormFragment createPersonFormController;
     private CreateOrganisationFormFragment createOrganisationFormController;
+    private CreateAddressFormFragment createAddressFormController;
 
     @Override
     public Node postHandle(Node node, Message<Event, Object> message) throws Exception {
@@ -51,6 +58,8 @@ public class CreatePartnerComponent implements FXComponent {
             switchTypeToOrganisation();
         } else if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
             switchTypeToPerson();
+        } else if (message.getMessageBody().equals(MessageConstant.SHOW_CREATE_ADDRESS_FORM)) {
+            showCreateAddressForm();
         }
         return null;
     }
@@ -82,6 +91,27 @@ public class CreatePartnerComponent implements FXComponent {
         createOrganisationFormController.init();
         Platform.runLater(() -> {
             container.getChildren().setAll(createOrganisationFormHandler.getFragmentNode());
+        });
+    }
+
+    private void showCreateAddressForm() {
+        createAddressFormHandler = context.getManagedFragmentHandler(CreateAddressFormFragment.class);
+        createAddressFormController = createAddressFormHandler.getController();
+        createAddressFormController.init();
+        Platform.runLater(() -> {
+            Stage popupWindow = new Stage();
+            popupWindow.initModality(Modality.NONE);
+            popupWindow.setTitle("Create Address Form");
+
+            Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
+            int popupWidth = (int) (resolution.width() * 0.75);
+            int popupHeight = (int) (resolution.height() * 0.6);
+            popupWindow.setWidth(popupWidth);
+            popupWindow.setHeight(popupHeight);
+
+            Scene scene = new Scene((Parent) createAddressFormHandler.getFragmentNode(), popupWidth, popupHeight);
+            popupWindow.setScene(scene);
+            popupWindow.show();
         });
     }
 }

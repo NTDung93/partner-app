@@ -10,4 +10,6 @@ public class MessageConstant {
     public static final String SWITCH_TYPE_TO_ORGANISATION = "SWITCH_TO_ORGANISATION";
 
     public static final String DELETE_PARTNER_SUCCESSFULLY = "Partner is deleted successfully";
+
+    public static final String SHOW_CREATE_ADDRESS_FORM = "SHOW_CREATE_ADDRESS_FORM";
 }
