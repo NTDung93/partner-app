@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
@@ -320,7 +321,7 @@ public abstract class CommonSetupFormFragment<T> {
     }
 
     public void validateRequiredAddress(ObservableList<T> addressList, Button createAddressButoon, Label addressErrorLabel) {
-        if (addressList == null) {
+        if (addressList == null || addressList.isEmpty()) {
             addressErrorLabel.setVisible(true);
             if (!createAddressButoon.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
                 createAddressButoon.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
@@ -342,6 +343,26 @@ public abstract class CommonSetupFormFragment<T> {
                 endDateErrorLabel.setVisible(false);
                 endDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
             }
+        }
+    }
+
+    public void removeAddressFromListProto(AddressTableModel address, List<CreateAddressRequestProto> createAddressRequestProtoList) {
+        String zipCode = address.getNpaAndLocality().split(" ")[0];
+        // if npaAndLocality is 2000 ABC ZYX then zipCode is 2000 and the rest is locality
+        String locality = address.getNpaAndLocality().substring(zipCode.length() + 1);
+
+        CreateAddressRequestProto addressProto = createAddressRequestProtoList.stream()
+                .filter(proto -> proto.getStreet().equals(address.getStreet())
+                        && proto.getZipCode().equals(zipCode)
+                        && proto.getLocality().equals(locality)
+                        && proto.getCanton().name().equals(address.getCanton())
+                        && proto.getCountry().name().equals(address.getCountry())
+                        && proto.getCategory().name().equals(address.getAddressType())
+                        && proto.getValidityStart().equals(address.getValidityStart())
+                        && proto.getValidityEnd().equals(address.getValidityEnd()))
+                .findFirst().orElse(null);
+        if (addressProto != null) {
+            createAddressRequestProtoList.remove(addressProto);
         }
     }
 }

@@ -40,6 +40,9 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Fragment(id = CreatePersonFormFragment.ID,
         viewLocation = ResourceConstant.CREATE_PERSON_FORM_FRAGMENT_FXML,
@@ -50,6 +53,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
     private BindingHelper bindingHelper;
     CreatePersonRequestProto.Builder createPersonRequestProto = CreatePersonRequestProto.newBuilder();
     private ObservableList<AddressTableModel> addressData = FXCollections.observableArrayList();
+    private List<CreateAddressRequestProto> createAddressRequestProtoList = new ArrayList<>();
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -343,6 +347,8 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
                 createPersonRequestProto.clearBirthDate();
             }
 
+            createPersonRequestProto.addAllAddresses(createAddressRequestProtoList);
+
             context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePersonCallback.ID), createPersonRequestProto.build());
         }
     }
@@ -421,10 +427,14 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
             {
                 deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
-//                deleteButton.setOnAction(event -> {
-//                    AddressTableModel person = getTableView().getItems().get(getIndex());
-//                    handleDeleteButtonOnClick(person.getId());
-//                });
+                deleteButton.setOnAction(event -> {
+                    AddressTableModel address = getTableView().getItems().get(getIndex());
+
+                    removeAddressFromListProto(address, createAddressRequestProtoList);
+
+                    addressData.remove(address);
+                    addressesTable.setItems(addressData);
+                });
             }
 
             @Override
@@ -446,7 +456,6 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
 
     public void updateAddressTable(CreateAddressRequestProto createAddressRequestProto) {
 
-
         AddressTableModel model = AddressTableModel.builder()
                 .street(createAddressRequestProto.getStreet())
                 .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
@@ -458,6 +467,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
                 .build();
 
         addressData.add(model);
+        createAddressRequestProtoList.add(createAddressRequestProto);
 
         Platform.runLater(() -> {
             addressesTable.setItems(addressData);

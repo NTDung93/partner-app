@@ -6,7 +6,8 @@ option java_multiple_files = true;
 option java_package = "elca.ntig.partnerapp.common.proto.enums.address";
 
 enum AddressTypeProto {
-  MAIN = 0;
-  SECONDARY = 1;
-  CORRESPONDENCE = 2;
+  NULL_ADDRESS_TYPE = 0;
+  MAIN = 1;
+  SECONDARY = 2;
+  CORRESPONDENCE = 3;
 }

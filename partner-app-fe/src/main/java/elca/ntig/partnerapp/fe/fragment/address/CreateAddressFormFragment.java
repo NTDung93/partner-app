@@ -172,17 +172,17 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
     @Override
     public void setupComboBoxes() {
         typeComboBox.getItems().addAll(AddressTypeProto.values());
-        typeComboBox.getItems().remove(AddressTypeProto.UNRECOGNIZED);
+        typeComboBox.getItems().removeAll(AddressTypeProto.UNRECOGNIZED, AddressTypeProto.NULL_ADDRESS_TYPE);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.addressType."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.addressType."));
 
         countryComboBox.getItems().addAll(CountryProto.values());
-        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED);
+        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED, CountryProto.NULL_COUNTRY);
         countryComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.country."));
         countryComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.country."));
 
         cantonComboBox.getItems().addAll(CantonAbbrProto.values());
-        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED);
+        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED, CantonAbbrProto.NULL_CANTON);
         cantonComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
         cantonComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
     }

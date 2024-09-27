@@ -12,8 +12,10 @@ import org.mapstruct.ValueMapping;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface CantonAbbrMapper {
+    @ValueMapping(target = MapperConstant.NULL_CANTON, source = MappingConstants.NULL)
     CantonAbbrProto toCantonAbbrProto(CantonAbbr cantonAbbr);
 
     @ValueMapping(target = MappingConstants.THROW_EXCEPTION, source = MapperConstant.UNRECOGNIZED)
+    @ValueMapping(target = MappingConstants.NULL, source = MapperConstant.NULL_CANTON)
     CantonAbbr toCantonAbbr(CantonAbbrProto cantonAbbrProto);
 }

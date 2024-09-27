@@ -39,6 +39,9 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Fragment(id = CreateOrganisationFormFragment.ID,
         viewLocation = ResourceConstant.CREATE_ORGANISATION_FORM_FRAGMENT_FXML,
@@ -49,6 +52,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     private BindingHelper bindingHelper;
     CreateOrganisationRequestProto.Builder createOrganisationRequestProto = CreateOrganisationRequestProto.newBuilder();
     private ObservableList<AddressTableModel> addressData = FXCollections.observableArrayList();
+    private List<CreateAddressRequestProto> createAddressRequestProtoList = new ArrayList<>();
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -318,6 +322,8 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                 createOrganisationRequestProto.clearCreationDate();
             }
 
+            createOrganisationRequestProto.addAllAddresses(createAddressRequestProtoList);
+
             context.send(CreatePartnerPerspective.ID.concat(".").concat(CreateOrganisationCallback.ID), createOrganisationRequestProto.build());
         }
     }
@@ -392,10 +398,14 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
             {
                 deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
-//                deleteButton.setOnAction(event -> {
-//                    AddressTableModel person = getTableView().getItems().get(getIndex());
-//                    handleDeleteButtonOnClick(person.getId());
-//                });
+                deleteButton.setOnAction(event -> {
+                    AddressTableModel address = getTableView().getItems().get(getIndex());
+
+                    removeAddressFromListProto(address, createAddressRequestProtoList);
+
+                    addressData.remove(address);
+                    addressesTable.setItems(addressData);
+                });
             }
 
             @Override
@@ -428,6 +438,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                 .build();
 
         addressData.add(model);
+        createAddressRequestProtoList.add(createAddressRequestProto);
 
         Platform.runLater(() -> {
             addressesTable.setItems(addressData);

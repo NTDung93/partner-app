@@ -11,8 +11,10 @@ import org.mapstruct.ValueMapping;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface CountryMapper {
+    @ValueMapping(target = MapperConstant.NULL_COUNTRY, source = MappingConstants.NULL)
     CountryProto toCountryProto(Country country);
 
     @ValueMapping(target = MappingConstants.THROW_EXCEPTION, source = MapperConstant.UNRECOGNIZED)
+    @ValueMapping(target = MappingConstants.NULL, source = MapperConstant.NULL_COUNTRY)
     Country toCountry(CountryProto countryProto);
 }
