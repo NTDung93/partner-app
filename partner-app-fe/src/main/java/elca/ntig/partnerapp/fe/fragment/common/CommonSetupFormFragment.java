@@ -49,6 +49,26 @@ public abstract class CommonSetupFormFragment<T> {
         });
     }
 
+    public void setupAddressDatePickerImpl(DatePicker datePickerValue) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        datePickerValue.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? formatter.format(date) : null;
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                try {
+                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
+                } catch (DateTimeParseException e) {
+                    return null;
+                }
+            }
+        });
+    }
+
     public void setupIdeNumberFieldImpl(TextField ideNumberValue) {
         TextFormatter<String> ideFormatter = new TextFormatter<>(change -> {
             if (change.isContentChange()) {
@@ -346,9 +366,9 @@ public abstract class CommonSetupFormFragment<T> {
         }
     }
 
-    public void removeAddressFromListProto(AddressTableModel address, List<CreateAddressRequestProto> createAddressRequestProtoList) {
-        String zipCode = address.getNpaAndLocality().split(" ")[0];
+    public CreateAddressRequestProto getAddressProtoByAddressTableModel(AddressTableModel address, List<CreateAddressRequestProto> createAddressRequestProtoList) {
         // if npaAndLocality is 2000 ABC ZYX then zipCode is 2000 and the rest is locality
+        String zipCode = address.getNpaAndLocality().split(" ")[0];
         String locality = address.getNpaAndLocality().substring(zipCode.length() + 1);
 
         CreateAddressRequestProto addressProto = createAddressRequestProtoList.stream()
@@ -361,8 +381,7 @@ public abstract class CommonSetupFormFragment<T> {
                         && proto.getValidityStart().equals(address.getValidityStart())
                         && proto.getValidityEnd().equals(address.getValidityEnd()))
                 .findFirst().orElse(null);
-        if (addressProto != null) {
-            createAddressRequestProtoList.remove(addressProto);
-        }
+
+        return addressProto;
     }
 }

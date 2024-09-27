@@ -35,12 +35,13 @@ message AddressResponseProto {
   uint32 id = 1;
   string street = 2;
   string locality = 3;
-  CantonAbbrProto canton = 4;
-  CountryProto country = 5;
-  AddressTypeProto category = 6;
-  string validityStart = 7;
-  string validityEnd = 8;
-  StatusProto status = 9;
+  string zipCode = 4;
+  CantonAbbrProto canton = 5;
+  CountryProto country = 6;
+  AddressTypeProto category = 7;
+  string validityStart = 8;
+  string validityEnd = 9;
+  StatusProto status = 10;
 }
 
 message GetListAddressesRequestProto{

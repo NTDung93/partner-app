@@ -19,6 +19,7 @@ public class AddressResponseDto {
     private Integer id;
     private String street;
     private String locality;
+    private String zipCode;
     private CantonAbbr canton;
     private Country country;
     private AddressType category;

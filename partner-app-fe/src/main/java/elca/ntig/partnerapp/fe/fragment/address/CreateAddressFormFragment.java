@@ -198,8 +198,8 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(validityStartValue);
-        setupDatePickerImpl(validityEndValue);
+        setupAddressDatePickerImpl(validityStartValue);
+        setupAddressDatePickerImpl(validityEndValue);
     }
 
     @Override

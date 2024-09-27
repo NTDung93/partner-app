@@ -2,17 +2,21 @@ package elca.ntig.partnerapp.fe.fragment.organisation;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.fe.callback.organisation.CreateOrganisationCallback;
+import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
+import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -53,6 +57,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     CreateOrganisationRequestProto.Builder createOrganisationRequestProto = CreateOrganisationRequestProto.newBuilder();
     private ObservableList<AddressTableModel> addressData = FXCollections.observableArrayList();
     private List<CreateAddressRequestProto> createAddressRequestProtoList = new ArrayList<>();
+    int indexUpdatingRow = -1;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -185,6 +190,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         //        if (addressData != null) {
 //            addressesTable.setVisible(true);
         initializeTable();
+        setupDoubleClickEventHandler();
 //        }
     }
 
@@ -401,7 +407,10 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                 deleteButton.setOnAction(event -> {
                     AddressTableModel address = getTableView().getItems().get(getIndex());
 
-                    removeAddressFromListProto(address, createAddressRequestProtoList);
+                    CreateAddressRequestProto addressProto = getAddressProtoByAddressTableModel(address, createAddressRequestProtoList);
+                    if (addressProto != null) {
+                        createAddressRequestProtoList.remove(addressProto);
+                    }
 
                     addressData.remove(address);
                     addressesTable.setItems(addressData);
@@ -442,6 +451,44 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
 
         Platform.runLater(() -> {
             addressesTable.setItems(addressData);
+        });
+    }
+
+    public void updateRowData(CreateAddressRequestProto createAddressRequestProto) {
+        AddressTableModel model = AddressTableModel.builder()
+                .street(createAddressRequestProto.getStreet())
+                .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
+                .canton(createAddressRequestProto.getCanton().name())
+                .country(createAddressRequestProto.getCountry().name())
+                .addressType(createAddressRequestProto.getCategory().name())
+                .validityStart(createAddressRequestProto.getValidityStart())
+                .validityEnd(createAddressRequestProto.getValidityEnd())
+                .build();
+
+        addressData.set(indexUpdatingRow, model);
+        createAddressRequestProtoList.set(indexUpdatingRow, createAddressRequestProto);
+
+        Platform.runLater(() -> {
+            addressesTable.setItems(addressData);
+        });
+    }
+
+    public void setupDoubleClickEventHandler() {
+        addressesTable.setRowFactory(tr -> {
+            TableRow<AddressTableModel> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AddressTableModel rowData = row.getItem();
+                    CreateAddressRequestProto addressProto = getAddressProtoByAddressTableModel(rowData, createAddressRequestProtoList);
+                    indexUpdatingRow = createAddressRequestProtoList.indexOf(addressProto);
+                    UpdateAddressMessage request = UpdateAddressMessage.builder()
+                            .partnerType(PartnerTypeProto.TYPE_ORGANISATION)
+                            .updateAddressRequestProto(addressProto)
+                            .build();
+                    context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), request);
+                }
+            });
+            return row;
         });
     }
 }
