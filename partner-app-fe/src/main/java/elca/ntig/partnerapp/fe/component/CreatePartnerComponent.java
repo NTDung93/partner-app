@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
+import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
@@ -60,6 +61,9 @@ public class CreatePartnerComponent implements FXComponent {
             switchTypeToPerson();
         } else if (message.getMessageBody().equals(MessageConstant.SHOW_CREATE_ADDRESS_FORM)) {
             showCreateAddressForm();
+        } else if (message.isMessageBodyTypeOf(CreateAddressRequestProto.class)) {
+            CreateAddressRequestProto createAddressRequestProto = (CreateAddressRequestProto) message.getMessageBody();
+            createPersonFormController.updateAddressTable(createAddressRequestProto);
         }
         return null;
     }

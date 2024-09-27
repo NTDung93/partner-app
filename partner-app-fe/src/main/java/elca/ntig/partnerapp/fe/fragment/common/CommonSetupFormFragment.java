@@ -2,6 +2,9 @@ package elca.ntig.partnerapp.fe.fragment.common;
 
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
+import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
+import elca.ntig.partnerapp.fe.utils.BindingHelper;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
@@ -137,19 +140,20 @@ public abstract class CommonSetupFormFragment<T> {
 
     public void setupPhoneNumberFieldImpl(TextField phoneNumberValue) {
         TextFormatter<String> phoneNumberFormatter = new TextFormatter<>(change -> {
-            String digits = change.getControlNewText().replaceAll("\\D", "");
+            if (change.isContentChange()) {
+                String digits = change.getControlNewText().replaceAll("\\D", "");
 
-            if (digits.length() > 10) {
-                digits = digits.substring(0, 10);
+                if (digits.length() > 10) {
+                    digits = digits.substring(0, 10);
+                }
+
+                change.setText(digits);
+                change.setRange(0, change.getControlText().length());
+
+                int caretPos = digits.length();
+                change.setCaretPosition(caretPos);
+                change.setAnchor(caretPos);
             }
-
-            change.setText(digits);
-            change.setRange(0, change.getControlText().length());
-
-            int caretPos = digits.length();
-            change.setCaretPosition(caretPos);
-            change.setAnchor(caretPos);
-
             return change;
         });
 
@@ -167,7 +171,7 @@ public abstract class CommonSetupFormFragment<T> {
         return statuses;
     }
 
-    public void validateName(TextField lastNameValue, Label lastNameErrorLabel) {
+    public void validateRequiredTextField(TextField lastNameValue, Label lastNameErrorLabel) {
         if (StringUtils.isBlank(lastNameValue.getText())) {
             lastNameErrorLabel.setVisible(true);
             if (!lastNameValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
@@ -179,7 +183,7 @@ public abstract class CommonSetupFormFragment<T> {
         }
     }
 
-    public void validateRequiredComboBox(ComboBox<T> comboBox, Label comboBoxErrorLabel) {
+    public void validateRequiredComboBox(ComboBox<?> comboBox, Label comboBoxErrorLabel) {
         if (comboBox.getValue() == null) {
             comboBoxErrorLabel.setVisible(true);
             if (!comboBox.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
@@ -250,5 +254,80 @@ public abstract class CommonSetupFormFragment<T> {
         LocalDate birthDate = LocalDate.parse(dateString, inputFormatter);
         String formattedBirthDate = birthDate.format(outputFormatter);
         datePickerValue.setValue(LocalDate.parse(formattedBirthDate, outputFormatter));
+    }
+
+    public void validateRequiredDatePicker(DatePicker datePickerValue, Label datePickerErrorLabel) {
+        if (datePickerValue.getValue() == null) {
+            datePickerErrorLabel.setVisible(true);
+            if (!datePickerValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                datePickerValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            }
+        } else {
+            datePickerErrorLabel.setVisible(false);
+            datePickerValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        }
+    }
+
+    public void validateMaxLengthTextField(TextField textField, int maxLength) {
+        TextFormatter<String> textFieldFormatter = new TextFormatter<>(change -> {
+            if (change.isContentChange()) {
+                String value = change.getControlNewText();
+
+                if (value.length() > maxLength) {
+                    value = value.substring(0, maxLength);
+                }
+
+                change.setText(value);
+                change.setRange(0, change.getControlText().length());
+
+                int caretPos = value.length();
+                change.setCaretPosition(caretPos);
+                change.setAnchor(caretPos);
+            }
+            return change;
+        });
+
+        textField.setTextFormatter(textFieldFormatter);
+    }
+
+    public void setCellFactoryDateColumn(TableColumn<T, String> column) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        column.setCellFactory(cell -> new TableCell<T, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    if (StringUtils.isBlank(item)) {
+                        setText(null);
+                        return;
+                    }
+                    LocalDate date = LocalDate.parse(item);
+                    setText(date.format(dateFormatter));
+                }
+            }
+        });
+    }
+
+    public void setTableDefaultMessage(BindingHelper bindingHelper, TableView<T> partnersTable) {
+        if (partnersTable == null) {
+            return;
+        }
+        Label empty = new Label();
+        bindingHelper.bindLabelTextProperty(empty, "TableFragment.defaultMessage");
+        partnersTable.setPlaceholder(empty);
+    }
+
+    public void validateRequiredAddress(ObservableList<T> addressList, Button createAddressButoon, Label addressErrorLabel) {
+        if (addressList == null) {
+            addressErrorLabel.setVisible(true);
+            if (!createAddressButoon.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                createAddressButoon.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            }
+        } else {
+            addressErrorLabel.setVisible(false);
+            createAddressButoon.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        }
     }
 }

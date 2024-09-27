@@ -1,6 +1,5 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
-import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.UpdatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
@@ -8,7 +7,6 @@ import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.MaritalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
-import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.callback.person.UpdatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
@@ -17,7 +15,6 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
-import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -312,8 +309,8 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void validateValues() {
-        validateName(lastNameValue, lastNameErrorLabel);
-        validateName(firstNameValue, firstNameErrorLabel);
+        validateRequiredTextField(lastNameValue, lastNameErrorLabel);
+        validateRequiredTextField(firstNameValue, firstNameErrorLabel);
         validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
         validateRequiredComboBox(languageComboBox, languageErrorLabel);
         validateRequiredComboBox(sexComboBox, sexErrorLabel);

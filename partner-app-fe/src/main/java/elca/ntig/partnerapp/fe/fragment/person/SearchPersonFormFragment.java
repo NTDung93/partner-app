@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.fe.fragment.person;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
@@ -32,9 +31,6 @@ import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Component
 @Fragment(id = SearchPersonFormFragment.ID,
@@ -298,7 +294,7 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void validateValues() {
-        validateName(lastNameValue, lastNameErrorLabel);
+        validateRequiredTextField(lastNameValue, lastNameErrorLabel);
         validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
         validateDate(birthDateValue, birthDateErrorLabel);
     }

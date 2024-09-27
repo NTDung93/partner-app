@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
+import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
@@ -8,8 +9,11 @@ import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
 import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
+import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
+import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -18,8 +22,14 @@ import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
@@ -29,17 +39,16 @@ import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 @Fragment(id = CreatePersonFormFragment.ID,
         viewLocation = ResourceConstant.CREATE_PERSON_FORM_FRAGMENT_FXML,
         scope = Scope.PROTOTYPE)
-public class CreatePersonFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
+public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTableModel> implements BaseFormFragment {
     public static final String ID = "CreatePersonFormFragment";
     private static Logger logger = Logger.getLogger(CreatePersonFormFragment.class);
-    CreatePersonRequestProto.Builder createPersonRequestProto = CreatePersonRequestProto.newBuilder();
     private BindingHelper bindingHelper;
+    CreatePersonRequestProto.Builder createPersonRequestProto = CreatePersonRequestProto.newBuilder();
+    private ObservableList<AddressTableModel> addressData;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -92,6 +101,9 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     @FXML
     private Button createAddressButton;
 
+    @FXML
+    private Label createAddressButtonErrorLabel;
+
     // right column
     @FXML
     private Text correspondenceLanguageLabel;
@@ -135,6 +147,38 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
     @FXML
     private Label phoneNumberErrorLabel;
 
+    // address table
+    @FXML
+    private TableView<AddressTableModel> addressesTable;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> streetColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> npaAndLocalityColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> cantonColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> countryColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> addressTypeColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> validityStartColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> validityEndColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, String> statusColumn;
+
+    @FXML
+    private TableColumn<AddressTableModel, Void> deleteIconColumn;
+
+    // buttons
     @FXML
     private Button cancelButton;
 
@@ -146,6 +190,10 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         bindTextProperties();
         setupUIControls();
         handleEvents();
+//        if (addressData != null) {
+//            addressesTable.setVisible(true);
+        initializeTable();
+//        }
     }
 
     @Override
@@ -164,6 +212,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         bindingHelper.bindLabelTextProperty(phoneNumberLabel, "FormFragment.lbl.phoneNumber");
         bindingHelper.bindLabelTextProperty(cancelButton, "FormFragment.btn.cancel");
         bindingHelper.bindLabelTextProperty(saveButton, "FormFragment.btn.save");
+
         bindingHelper.bindLabelTextProperty(lastNameErrorLabel, "Error.requiredField");
         bindingHelper.bindLabelTextProperty(firstNameErrorLabel, "Error.requiredField");
         bindingHelper.bindLabelTextProperty(languageErrorLabel, "Error.requiredField");
@@ -171,10 +220,22 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         bindingHelper.bindLabelTextProperty(avsNumberErrorLabel, "Error.invalidAvsNumber");
         bindingHelper.bindLabelTextProperty(birthDateErrorLabel, "Error.invalidDate");
         bindingHelper.bindLabelTextProperty(phoneNumberErrorLabel, "Error.invalidPhoneNumber");
+        bindingHelper.bindLabelTextProperty(createAddressButtonErrorLabel, "Error.requiredAddress");
+
         bindingHelper.bindPromptTextProperty(languageComboBox, "FormFragment.comboBox.placeholder");
         bindingHelper.bindPromptTextProperty(sexComboBox, "FormFragment.comboBox.placeholder");
         bindingHelper.bindPromptTextProperty(nationalityComboBox, "FormFragment.comboBox.placeholder");
         bindingHelper.bindPromptTextProperty(maritalStatusComboBox, "FormFragment.comboBox.placeholder");
+
+        // address table
+        bindingHelper.bindColumnTextProperty(streetColumn, "TableFragment.col.street");
+        bindingHelper.bindColumnTextProperty(npaAndLocalityColumn, "TableFragment.col.npaAndLocality");
+        bindingHelper.bindColumnTextProperty(cantonColumn, "TableFragment.col.canton");
+        bindingHelper.bindColumnTextProperty(countryColumn, "TableFragment.col.country");
+        bindingHelper.bindColumnTextProperty(addressTypeColumn, "TableFragment.col.addressType");
+        bindingHelper.bindColumnTextProperty(validityStartColumn, "TableFragment.col.validityStart");
+        bindingHelper.bindColumnTextProperty(validityEndColumn, "TableFragment.col.validityEnd");
+        bindingHelper.bindColumnTextProperty(statusColumn, "TableFragment.col.status");
     }
 
     @Override
@@ -224,6 +285,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
         sexErrorLabel.setVisible(false);
         birthDateErrorLabel.setVisible(false);
         phoneNumberErrorLabel.setVisible(false);
+        createAddressButtonErrorLabel.setVisible(false);
     }
 
     private void setupAvsNumberField() {
@@ -268,13 +330,13 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
                     .setSex(sexComboBox.getValue())
                     .setPhoneNumber(phoneNumberValue.getText());
 
-            if(maritalStatusComboBox.getValue() != null) {
+            if (maritalStatusComboBox.getValue() != null) {
                 createPersonRequestProto.setMaritalStatus(maritalStatusComboBox.getValue());
             }
-            if(nationalityComboBox.getValue() != null) {
+            if (nationalityComboBox.getValue() != null) {
                 createPersonRequestProto.setNationality(nationalityComboBox.getValue());
             }
-            if(birthDateValue.getValue() != null) {
+            if (birthDateValue.getValue() != null) {
                 createPersonRequestProto.setBirthDate(birthDateValue.getValue().toString());
             } else {
                 createPersonRequestProto.clearBirthDate();
@@ -291,7 +353,8 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
                 && !languageErrorLabel.isVisible()
                 && !sexErrorLabel.isVisible()
                 && !birthDateErrorLabel.isVisible()
-                && !phoneNumberErrorLabel.isVisible();
+                && !phoneNumberErrorLabel.isVisible()
+                && !createAddressButtonErrorLabel.isVisible();
     }
 
     public void handleTypeChange() {
@@ -305,12 +368,98 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void validateValues() {
-        validateName(lastNameValue, lastNameErrorLabel);
-        validateName(firstNameValue, firstNameErrorLabel);
+        validateRequiredTextField(lastNameValue, lastNameErrorLabel);
+        validateRequiredTextField(firstNameValue, firstNameErrorLabel);
         validateAvsNumber(avsNumberValue, avsNumberErrorLabel);
         validateRequiredComboBox(languageComboBox, languageErrorLabel);
         validateRequiredComboBox(sexComboBox, sexErrorLabel);
         validateDate(birthDateValue, birthDateErrorLabel);
         validatePhoneNumber(phoneNumberValue, phoneNumberErrorLabel);
+        validateRequiredAddress(addressData, createAddressButton, createAddressButtonErrorLabel);
+    }
+
+    // address table
+    public void initializeTable() {
+        setTableDefaultMessage();
+        setCellValueFactories();
+        setCellFactories();
+    }
+
+    private void setTableDefaultMessage() {
+        setTableDefaultMessage(bindingHelper, addressesTable);
+    }
+
+    private void setCellValueFactories() {
+        streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
+        npaAndLocalityColumn.setCellValueFactory(new PropertyValueFactory<>("npaAndLocality"));
+        cantonColumn.setCellValueFactory(new PropertyValueFactory<>("canton"));
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        addressTypeColumn.setCellValueFactory(new PropertyValueFactory<>("addressType"));
+        validityStartColumn.setCellValueFactory(new PropertyValueFactory<>("validityStart"));
+        validityEndColumn.setCellValueFactory(new PropertyValueFactory<>("validityEnd"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    private void setCellFactories() {
+        cantonColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.cantonAbbr."));
+        countryColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.country."));
+        addressTypeColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "Enum.addressType."));
+        statusColumn.setCellFactory(cell -> new LocalizedTableCell<>(observableResourceFactory, "FormFragment.checkBox."));
+        setCellFactoryDateColumn(validityStartColumn);
+        setCellFactoryDateColumn(validityEndColumn);
+        deleteIconColumn.setCellFactory(cell -> new TableCell<AddressTableModel, Void>() {
+            private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+
+            {
+                deleteIcon.setFitHeight(20);
+                deleteIcon.setFitWidth(20);
+            }
+
+            Button deleteButton = new Button();
+
+            {
+                deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
+                deleteButton.setGraphic(deleteIcon);
+//                deleteButton.setOnAction(event -> {
+//                    AddressTableModel person = getTableView().getItems().get(getIndex());
+//                    handleDeleteButtonOnClick(person.getId());
+//                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    AddressTableModel person = getTableView().getItems().get(getIndex());
+                    if (person.getStatus().equals("ACTIVE")) {
+                        setGraphic(deleteButton);
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
+    }
+
+    public void updateAddressTable(CreateAddressRequestProto createAddressRequestProto) {
+        addressData = FXCollections.observableArrayList();
+
+        AddressTableModel model = AddressTableModel.builder()
+                .street(createAddressRequestProto.getStreet())
+                .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
+                .canton(createAddressRequestProto.getCanton().name())
+                .country(createAddressRequestProto.getCountry().name())
+                .addressType(createAddressRequestProto.getCategory().name())
+                .validityStart(createAddressRequestProto.getValidityStart())
+                .validityEnd(createAddressRequestProto.getValidityEnd())
+                .build();
+
+        addressData.add(model);
+
+        Platform.runLater(() -> {
+            addressesTable.setItems(addressData);
+        });
     }
 }

@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.fe.fragment.person;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;

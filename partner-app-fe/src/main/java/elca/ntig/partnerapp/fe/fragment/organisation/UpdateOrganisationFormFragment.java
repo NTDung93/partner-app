@@ -1,25 +1,19 @@
 package elca.ntig.partnerapp.fe.fragment.organisation;
 
-import elca.ntig.partnerapp.common.proto.entity.organisation.CreateOrganisationRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeopleCriteriasProto;
-import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
-import elca.ntig.partnerapp.fe.callback.organisation.CreateOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.organisation.UpdateOrganisationCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
-import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
-import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -35,9 +29,6 @@ import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 @Fragment(id = UpdateOrganisationFormFragment.ID,
@@ -295,7 +286,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment impl
 
     @Override
     public void validateValues() {
-        validateName(nameValue, nameErrorLabel);
+        validateRequiredTextField(nameValue, nameErrorLabel);
         validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
         validateRequiredComboBox(languageComboBox, languageErrorLabel);
         validateDate(creationDateValue, creationDateErrorLabel);

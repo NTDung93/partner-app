@@ -271,7 +271,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment impl
 
     @Override
     public void validateValues() {
-        validateName(nameValue, nameErrorLabel);
+        validateRequiredTextField(nameValue, nameErrorLabel);
         validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
         validateRequiredComboBox(languageComboBox, languageErrorLabel);
         validateDate(creationDateValue, creationDateErrorLabel);

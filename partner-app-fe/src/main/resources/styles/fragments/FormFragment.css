@@ -95,3 +95,54 @@ Button{
 .disabled-date-picker-value {
     -fx-background-color: #7abb81;
 }
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.column-header-background {
+    -fx-background-color: white;
+}
+
+.column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgrey transparent lightgrey transparent;
+}
+
+.column-header .label {
+    -fx-text-fill: grey;
+    -fx-font-weight: normal;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: lightgrey;
+}
+
+.center-align .label, .center-align{
+    -fx-alignment: center;
+}
+
+.right-align .label, .right-align {
+    -fx-alignment: center-right;
+    -fx-padding: 0 10 0 0;
+}
+
+.table-cell{
+    -fx-border-color: white;
+}
+
+.delete-icon{
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.delete-button{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}

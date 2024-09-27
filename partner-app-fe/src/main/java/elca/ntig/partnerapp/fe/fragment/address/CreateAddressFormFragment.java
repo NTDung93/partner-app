@@ -1,14 +1,19 @@
 package elca.ntig.partnerapp.fe.fragment.address;
 
+import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
+import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CantonAbbrProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CountryProto;
+import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
@@ -31,7 +36,7 @@ import org.springframework.stereotype.Component;
 public class CreateAddressFormFragment extends CommonSetupFormFragment implements BaseFormFragment {
     public static final String ID = "CreateAddressFormFragment";
     private static Logger logger = Logger.getLogger(CreateAddressFormFragment.class);
-    //    CreatePersonRequestProto.Builder createPersonRequestProto = CreatePersonRequestProto.newBuilder();
+    CreateAddressRequestProto.Builder createAddressRequestProto = CreateAddressRequestProto.newBuilder();
     private BindingHelper bindingHelper;
 
     @Autowired
@@ -194,16 +199,63 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
 
     @Override
     public void handleEvents() {
-        cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+        cancelButton.setOnAction(event -> closePopupWindow());
+        saveButton.setOnAction(event -> handleSaveButtonOnClick());
     }
 
-    private void handleCancelButtonOnClick() {
+    private void handleSaveButtonOnClick() {
+        validateValues();
+        if (isFormValid()) {
+            createAddressRequestProto = CreateAddressRequestProto.newBuilder();
+            createAddressRequestProto
+                    .setCategory(typeComboBox.getValue())
+                    .setLocality(localityValue.getText())
+                    .setStreet(streetValue.getText())
+                    .setValidityStart(validityStartValue.getValue().toString())
+                    .setZipCode(zipCodeValue.getText())
+                    .setHouseNumber(houseNumberValue.getText());
+
+            if (countryComboBox.getValue() != null) {
+                createAddressRequestProto.setCountry(countryComboBox.getValue());
+            }
+
+            if (cantonComboBox.getValue() != null) {
+                createAddressRequestProto.setCanton(cantonComboBox.getValue());
+            }
+
+            if (validityEndValue.getValue() != null) {
+                createAddressRequestProto.setValidityEnd(validityEndValue.getValue().toString());
+            } else {
+                createAddressRequestProto.clearValidityEnd();
+            }
+
+            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), createAddressRequestProto.build());
+            closePopupWindow();
+        }
+    }
+
+    private boolean isFormValid() {
+        return !typeErrorLabel.isVisible()
+                && !localityErrorLabel.isVisible()
+                && !validityStartErrorLabel.isVisible()
+                && !zipCodeErrorLabel.isVisible()
+                && !validityEndErrorLabel.isVisible();
+    }
+
+    private void closePopupWindow() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @Override
     public void validateValues() {
-
+        validateRequiredTextField(localityValue, localityErrorLabel);
+        validateRequiredTextField(zipCodeValue, zipCodeErrorLabel);
+        validateRequiredComboBox(typeComboBox, typeErrorLabel);
+        validateRequiredDatePicker(validityStartValue, validityStartErrorLabel);
+        validateMaxLengthTextField(zipCodeValue, 15);
+        validateMaxLengthTextField(localityValue, 50);
+        validateMaxLengthTextField(streetValue, 60);
+        validateMaxLengthTextField(houseNumberValue, 12);
     }
 }
