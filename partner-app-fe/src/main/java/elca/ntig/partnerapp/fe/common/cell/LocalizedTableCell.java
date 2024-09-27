@@ -27,11 +27,18 @@ public class LocalizedTableCell<S> extends TableCell<S, String> {
                 return;
             }
             int subStringIndex = 0;
-            if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.")) {
+            if (needsSubStringIndex(resourcePrefix)) {
                 subStringIndex = item.indexOf("_") + 1;
             }
             String value = item.substring(subStringIndex).toLowerCase();
             textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
         }
+    }
+
+    private boolean needsSubStringIndex(String resourcePrefix) {
+        return !resourcePrefix.equals("Enum.legalStatus.")
+                && !resourcePrefix.equals("Enum.sex.")
+                && !resourcePrefix.equals("Enum.marital.")
+                && !resourcePrefix.equals("Enum.cantonAbbr.");
     }
 }

@@ -1,10 +1,13 @@
 package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerType;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
 import elca.ntig.partnerapp.fe.common.enums.Resolution;
+import elca.ntig.partnerapp.fe.common.message.CreateAddressMessage;
 import elca.ntig.partnerapp.fe.fragment.address.CreateAddressFormFragment;
 import elca.ntig.partnerapp.fe.fragment.organisation.CreateOrganisationFormFragment;
 import elca.ntig.partnerapp.fe.fragment.person.CreatePersonFormFragment;
@@ -59,11 +62,17 @@ public class CreatePartnerComponent implements FXComponent {
             switchTypeToOrganisation();
         } else if (message.getMessageBody().equals(MessageConstant.SWITCH_TYPE_TO_PERSON)) {
             switchTypeToPerson();
-        } else if (message.getMessageBody().equals(MessageConstant.SHOW_CREATE_ADDRESS_FORM)) {
-            showCreateAddressForm();
-        } else if (message.isMessageBodyTypeOf(CreateAddressRequestProto.class)) {
-            CreateAddressRequestProto createAddressRequestProto = (CreateAddressRequestProto) message.getMessageBody();
-            createPersonFormController.updateAddressTable(createAddressRequestProto);
+        } else if (message.getMessageBody().equals(MessageConstant.SHOW_CREATE_ADDRESS_FORM_FOR_PERSON)) {
+            showCreateAddressForm(PartnerTypeProto.TYPE_PERSON);
+        } else if (message.getMessageBody().equals(MessageConstant.SHOW_CREATE_ADDRESS_FORM_FOR_ORGANISATION)) {
+            showCreateAddressForm(PartnerTypeProto.TYPE_ORGANISATION);
+        } else if (message.isMessageBodyTypeOf(CreateAddressMessage.class)) {
+            CreateAddressMessage createAddressMessage = (CreateAddressMessage) message.getMessageBody();
+            if (createAddressMessage.getPartnerType().equals(PartnerTypeProto.TYPE_PERSON)) {
+                createPersonFormController.updateAddressTable(createAddressMessage.getCreateAddressRequestProto());
+            } else if (createAddressMessage.getPartnerType().equals(PartnerTypeProto.TYPE_ORGANISATION)) {
+                createOrganisationFormController.updateAddressTable(createAddressMessage.getCreateAddressRequestProto());
+            }
         }
         return null;
     }
@@ -98,10 +107,10 @@ public class CreatePartnerComponent implements FXComponent {
         });
     }
 
-    private void showCreateAddressForm() {
+    private void showCreateAddressForm(PartnerTypeProto partnerType) {
         createAddressFormHandler = context.getManagedFragmentHandler(CreateAddressFormFragment.class);
         createAddressFormController = createAddressFormHandler.getController();
-        createAddressFormController.init();
+        createAddressFormController.init(partnerType);
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.NONE);

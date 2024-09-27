@@ -5,10 +5,13 @@ import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CantonAbbrProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CountryProto;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerType;
+import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.message.CreateAddressMessage;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -38,6 +41,7 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
     private static Logger logger = Logger.getLogger(CreateAddressFormFragment.class);
     CreateAddressRequestProto.Builder createAddressRequestProto = CreateAddressRequestProto.newBuilder();
     private BindingHelper bindingHelper;
+    private PartnerTypeProto currentPartnerType;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -124,7 +128,8 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
     @FXML
     private Button saveButton;
 
-    public void init() {
+    public void init(PartnerTypeProto partnerType) {
+        currentPartnerType = partnerType;
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         setupUIControls();
@@ -229,7 +234,12 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
                 createAddressRequestProto.clearValidityEnd();
             }
 
-            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), createAddressRequestProto.build());
+            CreateAddressMessage createAddressMessage = CreateAddressMessage.builder()
+                    .partnerType(currentPartnerType)
+                    .createAddressRequestProto(createAddressRequestProto.build())
+                    .build();
+
+            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), createAddressMessage);
             closePopupWindow();
         }
     }
@@ -257,5 +267,6 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         validateMaxLengthTextField(localityValue, 50);
         validateMaxLengthTextField(streetValue, 60);
         validateMaxLengthTextField(houseNumberValue, 12);
+        validateEndDateAfterStartDate(validityStartValue, validityEndValue, validityEndErrorLabel);
     }
 }

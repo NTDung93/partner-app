@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -47,7 +48,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     private static Logger logger = Logger.getLogger(CreateOrganisationFormFragment.class);
     private BindingHelper bindingHelper;
     CreateOrganisationRequestProto.Builder createOrganisationRequestProto = CreateOrganisationRequestProto.newBuilder();
-    private ObservableList<AddressTableModel> addressData;
+    private ObservableList<AddressTableModel> addressData = FXCollections.observableArrayList();
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -282,6 +283,11 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         typeComboBox.setOnAction(event -> handleTypeChange());
         saveButton.setOnAction(event -> handleSaveButtonOnClick());
         cancelButton.setOnAction(event -> handleCancelButtonOnClick());
+        createAddressButton.setOnAction(event -> handleCreateAddressButtonOnClick());
+    }
+
+    private void handleCreateAddressButtonOnClick() {
+        context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), MessageConstant.SHOW_CREATE_ADDRESS_FORM_FOR_ORGANISATION);
     }
 
     private void handleCancelButtonOnClick() {
@@ -399,7 +405,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                     setGraphic(null);
                 } else {
                     AddressTableModel person = getTableView().getItems().get(getIndex());
-                    if (person.getStatus().equals("ACTIVE")) {
+                    if (StringUtils.isBlank(person.getStatus()) || person.getStatus().equals("ACTIVE")) {
                         setGraphic(deleteButton);
                     } else {
                         setGraphic(null);
@@ -410,7 +416,6 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     }
 
     public void updateAddressTable(CreateAddressRequestProto createAddressRequestProto) {
-        addressData = FXCollections.observableArrayList();
 
         AddressTableModel model = AddressTableModel.builder()
                 .street(createAddressRequestProto.getStreet())

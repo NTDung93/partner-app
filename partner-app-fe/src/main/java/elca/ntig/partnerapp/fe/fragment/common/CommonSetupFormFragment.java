@@ -330,4 +330,18 @@ public abstract class CommonSetupFormFragment<T> {
             createAddressButoon.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
         }
     }
+
+    public void validateEndDateAfterStartDate(DatePicker startDateValue, DatePicker endDateValue, Label endDateErrorLabel) {
+        if (endDateValue.getValue() != null) {
+            if (!endDateValue.getValue().isAfter(startDateValue.getValue())) {
+                endDateErrorLabel.setVisible(true);
+                if (!endDateValue.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                    endDateValue.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+                }
+            } else {
+                endDateErrorLabel.setVisible(false);
+                endDateValue.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+            }
+        }
+    }
 }
