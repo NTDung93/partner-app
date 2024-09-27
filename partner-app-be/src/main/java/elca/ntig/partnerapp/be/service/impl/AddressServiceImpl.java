@@ -40,13 +40,13 @@ public class AddressServiceImpl implements AddressService {
                                 : LocalDate.MAX;
 
                         if (currentAddress.getValidityEnd() != null) {
-                            if (currentEnd.isBefore(currentStart) || currentEnd.isEqual(currentStart)) {
+                            if (!currentEnd.isAfter(currentStart)) {
                                 throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
                             }
                         }
 
                         if (previousEnd != null) {
-                            if (currentStart.isBefore(previousEnd)) {
+                            if (!currentStart.isAfter(previousEnd)) {
                                 throw new OverlapPeriodException("The validity periods of addresses of the same type must not overlap");
                             }
                         }
