@@ -130,7 +130,8 @@
         <Label fx:id="phoneNumberErrorLabel" styleClass="error-label" GridPane.rowIndex="5"
                GridPane.columnIndex="5"/>
 
-        <TableView fx:id="partnersTable" VBox.vgrow="ALWAYS" GridPane.rowIndex="7" GridPane.columnIndex="1"
+        <!-- Address Section -->
+        <TableView fx:id="addressesTable" VBox.vgrow="ALWAYS" GridPane.rowIndex="7" GridPane.columnIndex="1"
                    GridPane.rowSpan="4" GridPane.columnSpan="5" visible="true">
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
