@@ -61,6 +61,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
     private ObservableList<AddressTableModel> addressData = FXCollections.observableArrayList();
     private List<CreateAddressRequestProto> createAddressRequestProtoList = new ArrayList<>();
     int indexUpdatingRow = -1;
+    AddressTableModel updatingRowData = null;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -496,8 +497,8 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
                 .validityEnd(createAddressRequestProto.getValidityEnd())
                 .build();
 
-        addressData.set(indexUpdatingRow, model);
         createAddressRequestProtoList.set(indexUpdatingRow, createAddressRequestProto);
+        addressData.set(addressData.indexOf(updatingRowData), model);
 
         Platform.runLater(() -> {
             addressesTable.setItems(addressData);
@@ -511,7 +512,10 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     AddressTableModel rowData = row.getItem();
                     CreateAddressRequestProto addressProto = getAddressProtoByAddressTableModel(rowData, createAddressRequestProtoList);
+
                     indexUpdatingRow = createAddressRequestProtoList.indexOf(addressProto);
+                    updatingRowData = rowData;
+
                     UpdateAddressMessage request = UpdateAddressMessage.builder()
                                     .partnerType(PartnerTypeProto.TYPE_PERSON)
                                     .updateAddressRequestProto(addressProto)
