@@ -1,6 +1,8 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
 import elca.ntig.partnerapp.be.model.dto.address.*;
+import elca.ntig.partnerapp.be.model.dto.person.UpdatePersonRequestDto;
+import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.AddressTypeMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.CantonAbbrMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.CountryMapper;
@@ -22,6 +24,18 @@ import elca.ntig.partnerapp.be.model.entity.Address;
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
 )
 public interface AddressMapper {
+        @Mapping(target = "id", ignore = true)
+        @Mapping(target = "partner", ignore = true)
+        void updateExistingAddress(AddressResponseDto addressResponseDto, @MappingTarget Address address);
+
+        @Mapping(target = "id", ignore = true)
+        @Mapping(target = "partner", ignore = true)
+        Address toAddressFromCreateAddressRequestDto(CreateAddressRequestDto createAddressRequestDto);
+
+        @Mapping(target = "id", ignore = true)
+        @Mapping(target = "partner", ignore = true)
+        Address toAddressFromAddressResponseDto(AddressResponseDto addressResponseDto);
+
         AddressResponseDto toAddressResponseDto(Address address);
 
         AddressResponseDto toAddressResponseDtoFromAddressResponseProto(AddressResponseProto addressResponseProto);

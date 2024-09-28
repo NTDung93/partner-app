@@ -99,6 +99,8 @@ public class PersonServiceImpl implements PersonService {
         personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
 
+        addressService.updateAddressForPartner(person.getPartner(), updatePersonRequestDto.getAddresses());
+
         return personMapper.toPersonResponseDto(person);
     }
 

@@ -9,4 +9,5 @@ import java.util.List;
 public interface AddressService {
     void createAddressForPartner(Partner partner, List<CreateAddressRequestDto> addresses);
     List<AddressResponseDto> getAddressesByPartnerId(Integer partnerId);
+    void updateAddressForPartner(Partner partner, List<AddressResponseDto> addresses);
 }

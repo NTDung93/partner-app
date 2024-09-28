@@ -8,6 +8,7 @@ import elca.ntig.partnerapp.be.model.enums.addess.AddressType;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.EndDateBeforeStartDateException;
 import elca.ntig.partnerapp.be.model.exception.OverlapPeriodException;
+import elca.ntig.partnerapp.be.model.exception.ResourceNotFoundException;
 import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.service.AddressService;
 import elca.ntig.partnerapp.be.utils.mapper.AddressMapper;
@@ -92,9 +93,13 @@ public class AddressServiceImpl implements AddressService {
 //            previousEnd = currentEnd;
 //        }
 
-        // if no exception is thrown, save the addresses
         List<Address> addressEntities = addresses.stream()
-                .map(address -> mapToAddress(partner, address))
+                .map(address -> {
+                    Address updateAddress = addressMapper.toAddressFromCreateAddressRequestDto(address);
+                    updateAddress.setPartner(partner);
+                    updateAddress.setStatus(Status.ACTIVE);
+                    return updateAddress;
+                })
                 .collect(Collectors.toList());
 
         addressRepository.saveAll(addressEntities);
@@ -105,15 +110,63 @@ public class AddressServiceImpl implements AddressService {
         List<Address> addresses = addressRepository.findByPartnerId(partnerId);
         if (addresses.isEmpty()) {
             return null;
-        }else {
+        } else {
             return addresses.stream()
                     .map(address -> addressMapper.toAddressResponseDto(address))
                     .collect(Collectors.toList());
         }
     }
 
-    private Address mapToAddress(Partner partner, CreateAddressRequestDto address) {
+    @Override
+    public void updateAddressForPartner(Partner partner, List<AddressResponseDto> addresses) {
+        addresses.stream()
+                .collect(Collectors.groupingBy(AddressResponseDto::getCategory))
+                .forEach((category, categoryAddresses) -> {
+                    categoryAddresses.sort(Comparator.comparing(AddressResponseDto::getValidityStart));
+
+                    LocalDate previousEnd = null;
+
+                    for (AddressResponseDto currentAddress : categoryAddresses) {
+                        LocalDate currentStart = currentAddress.getValidityStart();
+                        LocalDate currentEnd = currentAddress.getValidityEnd() != null
+                                ? currentAddress.getValidityEnd()
+                                : LocalDate.MAX;
+
+                        if (currentAddress.getValidityEnd() != null) {
+                            if (!currentEnd.isAfter(currentStart)) {
+                                throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
+                            }
+                        }
+
+                        if (previousEnd != null) {
+                            if (!currentStart.isAfter(previousEnd)) {
+                                throw new OverlapPeriodException("The validity periods of addresses of the same type must not overlap");
+                            }
+                        }
+
+                        previousEnd = currentEnd;
+                    }
+                });
+
+        addresses.stream()
+                .forEach(address -> {
+                    if (address.getId() == null || address.getId() == 0) {
+                        Address updateAddress = addressMapper.toAddressFromAddressResponseDto(address);
+                        updateAddress.setPartner(partner);
+                        updateAddress.setStatus(Status.ACTIVE);
+                        addressRepository.save(updateAddress);
+                    } else {
+                        Address updateAddress = addressRepository.findById(address.getId())
+                                .orElseThrow(() -> new ResourceNotFoundException("Address", "id", address.getId()));
+                        addressMapper.updateExistingAddress(address, updateAddress);
+                        addressRepository.save(updateAddress);
+                    }
+                });
+    }
+
+    private Address mapToAddressFromUpdateRequest(Partner partner, AddressResponseDto address) {
         return Address.builder()
+                .id(address.getId())
                 .category(address.getCategory())
                 .locality(address.getLocality())
                 .street(address.getStreet())

@@ -97,6 +97,8 @@ public class OrganisationServiceImpl implements OrganisationService {
         OrganisationMapper.updateOrganisation(updateOrganisationRequestDto, organisation);
         organisation = organisationRepository.save(organisation);
 
+        addressService.updateAddressForPartner(organisation.getPartner(), updateOrganisationRequestDto.getAddresses());
+
         return OrganisationMapper.toOrganisationResponseDto(organisation);
     }
 
