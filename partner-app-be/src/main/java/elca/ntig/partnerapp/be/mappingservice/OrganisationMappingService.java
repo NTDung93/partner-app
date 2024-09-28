@@ -8,4 +8,5 @@ public interface OrganisationMappingService {
     DeleteOrganisationResponseProto deleteOrganisationByIdHelper(Integer id);
     OrganisationResponseProto createOrganisationHelper(CreateOrganisationRequestProto request);
     OrganisationResponseProto updateOrganisationHelper(UpdateOrganisationRequestProto request);
+    GetOrganisationAlongWithAddressResponseProto getOrganisationAlongWithAddressHelper(Integer id);
 }

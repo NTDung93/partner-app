@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.service.impl;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Partner;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
@@ -99,6 +100,13 @@ public class PersonServiceImpl implements PersonService {
         person = personRepository.save(person);
 
         return personMapper.toPersonResponseDto(person);
+    }
+
+    @Override
+    public GetPersonAlongWithAddressResponseDto getPersonAlongWithAddress(Integer id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
+        List<AddressResponseDto> addresses = addressService.getAddressesByPartnerId(person.getPartner().getId());
+        return new GetPersonAlongWithAddressResponseDto(personMapper.toPersonResponseDto(person), addresses);
     }
 
     private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {

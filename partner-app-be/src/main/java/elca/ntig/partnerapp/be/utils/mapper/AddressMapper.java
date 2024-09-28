@@ -24,6 +24,8 @@ import elca.ntig.partnerapp.be.model.entity.Address;
 public interface AddressMapper {
         AddressResponseDto toAddressResponseDto(Address address);
 
+        AddressResponseDto toAddressResponseDtoFromAddressResponseProto(AddressResponseProto addressResponseProto);
+
         @Mapping(source = "validityStart", target = "validityStart", qualifiedByName = "mapLocalDateToString")
         @Mapping(source = "validityEnd", target = "validityEnd", qualifiedByName = "mapLocalDateToString")
         AddressResponseProto toAddressResponseProto(AddressResponseDto addressResponseDto);

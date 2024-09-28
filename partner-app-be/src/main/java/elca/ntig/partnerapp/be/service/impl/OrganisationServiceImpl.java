@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.service.impl;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.*;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.model.entity.Partner;
@@ -97,6 +98,13 @@ public class OrganisationServiceImpl implements OrganisationService {
         organisation = organisationRepository.save(organisation);
 
         return OrganisationMapper.toOrganisationResponseDto(organisation);
+    }
+
+    @Override
+    public GetOrganisationAlongWithAddressResponseDto getOrganisationAlongWithAddress(Integer id) {
+        Organisation organisation = organisationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", id));
+        List<AddressResponseDto> addresses = addressService.getAddressesByPartnerId(organisation.getPartner().getId());
+        return new GetOrganisationAlongWithAddressResponseDto(OrganisationMapper.toOrganisationResponseDto(organisation), addresses);
     }
 
     private void validateCreateRequest(CreateOrganisationRequestDto createOrganisationRequestDto) {

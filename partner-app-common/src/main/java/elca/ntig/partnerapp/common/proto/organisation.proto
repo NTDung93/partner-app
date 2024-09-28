@@ -26,6 +26,9 @@ service OrganisationService{
 
   rpc updateOrganisation(UpdateOrganisationRequestProto) returns (OrganisationResponseProto){
   }
+
+  rpc getOrganisationAlongWithAddress(GetOrganisationRequestProto) returns (GetOrganisationAlongWithAddressResponseProto){
+  }
 }
 
 message GetOrganisationRequestProto {
@@ -98,5 +101,10 @@ message UpdateOrganisationRequestProto {
   LegalStatusProto legalStatus = 7;
   string creationDate = 8;
   string phoneNumber = 9;
-  repeated UpdateAddressRequestProto addresses = 10;
+  repeated AddressResponseProto addresses = 10;
+}
+
+message GetOrganisationAlongWithAddressResponseProto {
+  OrganisationResponseProto organisation = 1;
+  repeated AddressResponseProto addresses = 2;
 }

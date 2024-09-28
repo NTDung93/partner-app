@@ -23,6 +23,7 @@ public class AddressResponseDto {
     private CantonAbbr canton;
     private Country country;
     private AddressType category;
+    private String houseNumber;
     private LocalDate validityStart;
     private LocalDate validityEnd;
     private Status status;

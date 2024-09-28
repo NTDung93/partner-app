@@ -58,5 +58,9 @@ public interface PersonMapper {
     CreatePersonRequestDto toCreatePersonRequestDto(CreatePersonRequestProto createPersonRequestProto);
 
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     UpdatePersonRequestDto toUpdatePersonRequestDto(UpdatePersonRequestProto request);
+
+    @Mapping(source = "addresses", target = "addressesList")
+    GetPersonAlongWithAddressResponseProto toGetPersonAlongWithAddressResponseProto(GetPersonAlongWithAddressResponseDto getPersonAlongWithAddressResponseDto);
 }

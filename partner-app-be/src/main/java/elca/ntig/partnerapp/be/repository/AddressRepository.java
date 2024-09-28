@@ -10,4 +10,5 @@ import java.util.List;
 public interface AddressRepository extends JpaRepository<Address, Integer> {
     List<Address> findByPartnerIdAndStatus(Integer partnerId, Status status);
     List<Address> findByPartnerIdAndStatusAndCategory(Integer partnerId, Status status, AddressType category);
+    List<Address> findByPartnerId(Integer partnerId);
 }

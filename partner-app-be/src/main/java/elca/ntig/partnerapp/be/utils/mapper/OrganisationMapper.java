@@ -54,5 +54,9 @@ public interface OrganisationMapper {
     CreateOrganisationRequestDto toCreateOrganisationRequestDto(CreateOrganisationRequestProto request);
 
     @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     UpdateOrganisationRequestDto toUpdateOrganisationRequestDto(UpdateOrganisationRequestProto request);
+
+    @Mapping(source = "addresses", target = "addressesList")
+    GetOrganisationAlongWithAddressResponseProto toGetOrganisationAlongWithAddressResponseProto(GetOrganisationAlongWithAddressResponseDto getOrganisationAlongWithAddressResponseDto);
 }

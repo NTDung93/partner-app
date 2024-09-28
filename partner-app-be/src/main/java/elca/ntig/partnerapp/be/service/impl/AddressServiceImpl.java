@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.service.impl;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.dto.address.CreateAddressRequestDto;
 import elca.ntig.partnerapp.be.model.entity.Address;
 import elca.ntig.partnerapp.be.model.entity.Partner;
@@ -9,10 +10,12 @@ import elca.ntig.partnerapp.be.model.exception.EndDateBeforeStartDateException;
 import elca.ntig.partnerapp.be.model.exception.OverlapPeriodException;
 import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.service.AddressService;
+import elca.ntig.partnerapp.be.utils.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+    private final AddressMapper addressMapper;
 
     @Override
     public void createAddressForPartner(Partner partner, List<CreateAddressRequestDto> addresses) {
@@ -94,6 +98,18 @@ public class AddressServiceImpl implements AddressService {
                 .collect(Collectors.toList());
 
         addressRepository.saveAll(addressEntities);
+    }
+
+    @Override
+    public List<AddressResponseDto> getAddressesByPartnerId(Integer partnerId) {
+        List<Address> addresses = addressRepository.findByPartnerId(partnerId);
+        if (addresses.isEmpty()) {
+            return null;
+        }else {
+            return addresses.stream()
+                    .map(address -> addressMapper.toAddressResponseDto(address))
+                    .collect(Collectors.toList());
+        }
     }
 
     private Address mapToAddress(Partner partner, CreateAddressRequestDto address) {

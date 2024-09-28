@@ -39,9 +39,10 @@ message AddressResponseProto {
   CantonAbbrProto canton = 5;
   CountryProto country = 6;
   AddressTypeProto category = 7;
-  string validityStart = 8;
-  string validityEnd = 9;
-  StatusProto status = 10;
+  string houseNumber = 8;
+  string validityStart = 9;
+  string validityEnd = 10;
+  StatusProto status = 11;
 }
 
 message GetListAddressesRequestProto{
