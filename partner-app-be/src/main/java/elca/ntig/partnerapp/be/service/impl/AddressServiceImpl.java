@@ -163,21 +163,4 @@ public class AddressServiceImpl implements AddressService {
                     }
                 });
     }
-
-    private Address mapToAddressFromUpdateRequest(Partner partner, AddressResponseDto address) {
-        return Address.builder()
-                .id(address.getId())
-                .category(address.getCategory())
-                .locality(address.getLocality())
-                .street(address.getStreet())
-                .country(address.getCountry())
-                .validityStart(address.getValidityStart())
-                .zipCode(address.getZipCode())
-                .houseNumber(address.getHouseNumber())
-                .canton(address.getCanton())
-                .validityEnd(address.getValidityEnd())
-                .partner(partner)
-                .status(Status.ACTIVE)
-                .build();
-    }
 }
