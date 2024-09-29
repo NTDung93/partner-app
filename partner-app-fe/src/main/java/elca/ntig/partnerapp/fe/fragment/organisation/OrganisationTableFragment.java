@@ -19,6 +19,8 @@ import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import org.apache.log4j.Logger;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
@@ -107,6 +110,15 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
     @FXML
     private Label pageNumber;
 
+    @FXML
+    private Text currentNumberOfRows;
+
+    @FXML
+    private Text totalRows;
+
+    private StringProperty currentNumberOfRowsProperty = new SimpleStringProperty("0");
+    private StringProperty totalRowsProperty = new SimpleStringProperty("0");
+
     @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
@@ -135,6 +147,9 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
 
     @Override
     public void bindTextProperties() {
+        currentNumberOfRows.textProperty().bind(currentNumberOfRowsProperty);
+        totalRows.textProperty().bind(totalRowsProperty);
+
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
         bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
         bindingHelper.bindColumnTextProperty(nameColumn, "TableFragment.col.name");
@@ -288,6 +303,8 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+            currentNumberOfRowsProperty.set(String.valueOf(data.size() + (pageNo * pageSize)));
+            totalRowsProperty.set(String.valueOf(response.getTotalRecords()));
 
             if (!sortBy.isEmpty()) {
                 TableColumn<OrganisationTableModel, ?> sortColumn = getSortByColumn(sortBy);

@@ -19,12 +19,15 @@ import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
@@ -110,6 +113,15 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     @FXML
     private Label pageNumber;
 
+    @FXML
+    private Text currentNumberOfRows;
+
+    @FXML
+    private Text totalRows;
+
+    private StringProperty currentNumberOfRowsProperty = new SimpleStringProperty("0");
+    private StringProperty totalRowsProperty = new SimpleStringProperty("0");
+
     @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
@@ -138,6 +150,9 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
     @Override
     public void bindTextProperties() {
+        currentNumberOfRows.textProperty().bind(currentNumberOfRowsProperty);
+        totalRows.textProperty().bind(totalRowsProperty);
+
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
         bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
         bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
@@ -297,6 +312,8 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+            currentNumberOfRowsProperty.set(String.valueOf(data.size() + (pageNo * pageSize)));
+            totalRowsProperty.set(String.valueOf(response.getTotalRecords()));
 
             if (!sortBy.isEmpty()) {
                 TableColumn<PersonTableModel, ?> sortColumn = getSortByColumn(sortBy);
