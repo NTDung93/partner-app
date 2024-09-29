@@ -185,8 +185,27 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
     @Override
     public void setupUIControls() {
         setupErrorLabelVisibility();
+        setupCantonComboBox();
         setupComboBoxes();
         setupDatePicker();
+    }
+
+    private void setupCantonComboBox() {
+        // hide canton combobox by default
+        cantonComboBox.setVisible(false);
+        cantonLabel.setVisible(false);
+
+        //display canton combobox only if country is Switzerland
+        countryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CountryProto.COUNTRY_SWITZERLAND) {
+                cantonComboBox.setVisible(true);
+                cantonLabel.setVisible(true);
+            } else {
+                cantonComboBox.setValue(null);
+                cantonComboBox.setVisible(false);
+                cantonLabel.setVisible(false);
+            }
+        });
     }
 
     @Override

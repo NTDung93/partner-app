@@ -33,7 +33,6 @@ public class PersonServiceImpl implements PersonService {
     private final PersonMapper personMapper;
     private final AddressService addressService;
 
-
     @Override
     public PersonResponseDto getPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
@@ -134,7 +133,7 @@ public class PersonServiceImpl implements PersonService {
             Person checkAvsPerson = personRepository.findPersonByAvsNumberAndPartnerStatus(avsNumber, Status.ACTIVE);
             // avoid checking against the person being updated
             if (checkAvsPerson != null && !checkAvsPerson.getId().equals(id)) {
-                throw new ExistingActiveAVSNumberException("Person with AVS number " + avsNumber + " already exists");
+                throw new ExistingActiveAVSNumberException("Dialog.err.message.ExistingActiveAVSNumberException");
             }
         }
     }
@@ -148,7 +147,7 @@ public class PersonServiceImpl implements PersonService {
 
             Person checkAvsPerson = personRepository.findPersonByAvsNumberAndPartnerStatus(avsNumber, Status.ACTIVE);
             if (checkAvsPerson != null) {
-                throw new ExistingActiveAVSNumberException("Person with AVS number " + avsNumber + " already exists");
+                throw new ExistingActiveAVSNumberException("Dialog.err.message.ExistingActiveAVSNumberException");
             }
         }
     }

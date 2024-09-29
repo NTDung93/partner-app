@@ -42,7 +42,7 @@ public class UpdatePersonCallback extends CallBackExceptionHandler implements Ca
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "updatePartner");
+                    handleStatusRuntimeException(e);
                 }else{
                     handleUnexpectedException(e);
                 }

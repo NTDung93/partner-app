@@ -14,6 +14,7 @@ import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
+import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
@@ -406,15 +407,21 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                 deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> {
-                    AddressTableModel address = getTableView().getItems().get(getIndex());
+                    DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+                    Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
+                            "Dialog.confirmation.message.deleteAddress");
+                    alert.showAndWait();
+                    if (alert.getResult() == ButtonType.OK) {
+                        AddressTableModel address = getTableView().getItems().get(getIndex());
 
-                    CreateAddressRequestProto addressProto = getAddressProtoByAddressTableModel(address, createAddressRequestProtoList);
-                    if (addressProto != null) {
-                        createAddressRequestProtoList.remove(addressProto);
+                        CreateAddressRequestProto addressProto = getAddressProtoByAddressTableModel(address, createAddressRequestProtoList);
+                        if (addressProto != null) {
+                            createAddressRequestProtoList.remove(addressProto);
+                        }
+
+                        addressData.remove(address);
+                        addressesTable.setItems(addressData);
                     }
-
-                    addressData.remove(address);
-                    addressesTable.setItems(addressData);
                 });
             }
 

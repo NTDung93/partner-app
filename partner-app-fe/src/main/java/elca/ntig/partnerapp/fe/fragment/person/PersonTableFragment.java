@@ -19,12 +19,15 @@ import elca.ntig.partnerapp.fe.fragment.common.CommonSetupTableFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.fragment.Scope;
 import javafx.fxml.FXML;
@@ -59,8 +62,11 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     @FXML
     private Label fragmentTitle;
 
-//    @FXML
-//    private Label exportLabel;
+    @FXML
+    private ImageView exportExcelIcon;
+
+    @FXML
+    private Label exportExcelLabel;
 
     @FXML
     private TableView<PersonTableModel> partnersTable;
@@ -110,14 +116,39 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     @FXML
     private Label pageNumber;
 
+    @FXML
+    private Text currentNumberOfRows;
+
+    @FXML
+    private Text totalRows;
+
+    private StringProperty currentNumberOfRowsProperty = new SimpleStringProperty("0");
+    private StringProperty totalRowsProperty = new SimpleStringProperty("0");
+
     @Override
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
+        initializeExportExcelIcon();
         initializeTable();
         setupDoubleClickEventHandler();
         initializePagination();
         setupSortListener();
+        handleExportExcelButtonOnClick();
+    }
+
+    private void handleExportExcelButtonOnClick() {
+        exportExcelIcon.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelIcon.getScene().getWindow(), observableResourceFactory));
+        exportExcelLabel.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelLabel.getScene().getWindow(), observableResourceFactory));
+    }
+
+    private void initializeExportExcelIcon() {
+        Image exportExcelImage = new Image(getClass().getResourceAsStream(ResourceConstant.EXPORT_EXCEL_ICON));
+        {
+            exportExcelIcon.setFitHeight(20);
+            exportExcelIcon.setFitWidth(20);
+        }
+        exportExcelIcon.setImage(exportExcelImage);
     }
 
     @Override
@@ -138,6 +169,10 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
     @Override
     public void bindTextProperties() {
+        currentNumberOfRows.textProperty().bind(currentNumberOfRowsProperty);
+        totalRows.textProperty().bind(totalRowsProperty);
+
+        bindingHelper.bindLabelTextProperty(exportExcelLabel, "TableFragment.lbl.exportLabel");
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
         bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
         bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");
@@ -297,6 +332,8 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
         Platform.runLater(() -> {
             partnersTable.setItems(data);
+            currentNumberOfRowsProperty.set(String.valueOf(data.size() + (pageNo * pageSize)));
+            totalRowsProperty.set(String.valueOf(response.getTotalRecords()));
 
             if (!sortBy.isEmpty()) {
                 TableColumn<PersonTableModel, ?> sortColumn = getSortByColumn(sortBy);
@@ -352,12 +389,14 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
         setCellFactoryAvsNumberColumn(avsNumberColumn);
         deleteIconColumn.setCellFactory(cell -> new TableCell<PersonTableModel, Void>() {
             private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+
             {
                 deleteIcon.setFitHeight(20);
                 deleteIcon.setFitWidth(20);
             }
 
             Button deleteButton = new Button();
+
             {
                 deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
@@ -387,7 +426,7 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     public void handleDeleteButtonOnClick(Integer id) {
         DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
         Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
-                "Dialog.confirmation.header.deletePartner", "Dialog.confirmation.message.deletePartner");
+                "Dialog.confirmation.message.deletePartner");
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             logger.info("Delete person with id: " + id);

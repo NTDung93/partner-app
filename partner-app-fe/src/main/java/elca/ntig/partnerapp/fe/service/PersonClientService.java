@@ -28,7 +28,7 @@ public class PersonClientService {
         return personServiceStub.createPerson(request);
     }
 
-    public PersonResponseProto updatePerson(UpdatePersonRequestProto request) {
+    public PersonResponseProto updatePerson(UpdatePersonRequestProto request) throws Exception{
         return personServiceStub.updatePerson(request);
     }
 

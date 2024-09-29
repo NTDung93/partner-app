@@ -42,7 +42,7 @@ public class CreateOrganisationCallback extends CallBackExceptionHandler impleme
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "createPartner");
+                    handleStatusRuntimeException(e);
                 }else{
                     handleUnexpectedException(e);
                 }

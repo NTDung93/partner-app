@@ -17,6 +17,7 @@
         <grpc-spring-boot.version>2.12.0.RELEASE</grpc-spring-boot.version>
         <partner-app-common.version>1.0-SNAPSHOT</partner-app-common.version>
         <lombok.version>1.18.30</lombok.version>
+        <poi.version>5.2.3</poi.version>
     </properties>
 
     <dependencies>
@@ -84,17 +85,23 @@
             <version>${grpc-spring-boot.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>net.devh</groupId>-->
-<!--            <artifactId>grpc-client-spring-boot-starter</artifactId>-->
-<!--            <version>2.9.0.RELEASE</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
     </dependencies>
 

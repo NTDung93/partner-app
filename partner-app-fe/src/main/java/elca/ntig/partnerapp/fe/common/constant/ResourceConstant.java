@@ -26,4 +26,5 @@ public class ResourceConstant {
     public static final String SUCCESS_ICON = "/images/success.png";
     public static final String ERROR_ICON = "/images/err.png";
     public static final String WARNING_ICON = "/images/warning.png";
+    public static final String EXPORT_EXCEL_ICON = "/images/excel.png";
 }
