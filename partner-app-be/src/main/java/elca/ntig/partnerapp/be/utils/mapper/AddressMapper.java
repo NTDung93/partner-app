@@ -38,6 +38,8 @@ public interface AddressMapper {
 
         AddressResponseDto toAddressResponseDto(Address address);
 
+        @Mapping(source = "validityStart", target = "validityStart", qualifiedByName = "mapStringToLocalDate")
+        @Mapping(source = "validityEnd", target = "validityEnd", qualifiedByName = "mapStringToLocalDate")
         AddressResponseDto toAddressResponseDtoFromAddressResponseProto(AddressResponseProto addressResponseProto);
 
         @Mapping(source = "validityStart", target = "validityStart", qualifiedByName = "mapLocalDateToString")

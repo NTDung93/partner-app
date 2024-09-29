@@ -32,7 +32,6 @@ public class OrganisationServiceImpl implements OrganisationService {
     private final OrganisationMapper OrganisationMapper;
     private final AddressService addressService;
 
-
     @Override
     public OrganisationResponseDto getOrganisationById(Integer id) {
         Organisation organisation = organisationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", id));
