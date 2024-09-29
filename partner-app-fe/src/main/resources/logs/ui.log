@@ -75,3 +75,14 @@
 2024-09-29 13:07:26 INFO  PersonTableFragment:130 - Double click on person with id: 211
 2024-09-29 13:08:05 INFO  PersonTableFragment:130 - Double click on person with id: 213
 2024-09-29 13:08:25 INFO  PersonTableFragment:130 - Double click on person with id: 213
+2024-09-29 15:48:17 INFO  PersonTableFragment:130 - Double click on person with id: 26
+2024-09-29 15:51:21 ERROR CreatePersonCallback:43 - FAILED_PRECONDITION: The validity periods of addresses of the same type must not overlap
+2024-09-29 15:52:13 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 15:53:37 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 16:01:56 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 16:02:31 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 16:06:30 ERROR CreateOrganisationCallback:43 - FAILED_PRECONDITION: The validity periods of addresses of the same type must not overlap
+2024-09-29 16:06:54 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 217
+2024-09-29 16:09:06 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 217
+2024-09-29 16:09:49 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 16:10:01 INFO  PersonTableFragment:130 - Double click on person with id: 215
