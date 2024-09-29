@@ -1,7 +1,7 @@
 package elca.ntig.partnerapp.fe.callback.person;
 
+import elca.ntig.partnerapp.common.proto.entity.person.GetPersonAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
@@ -34,7 +34,7 @@ public class GetPersonCallBack  extends CallBackExceptionHandler implements Call
     public Object handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(GetPersonRequestProto.class)) {
             try {
-                PersonResponseProto response = personClientService.getPersonById((GetPersonRequestProto) message.getMessageBody());
+                GetPersonAlongWithAddressResponseProto response = personClientService.getPersonAlongWithAddress((GetPersonRequestProto) message.getMessageBody());
                 context.send(UpdatePartnerPerspective.ID, MessageConstant.INIT);
                 context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), response);
                 return response;

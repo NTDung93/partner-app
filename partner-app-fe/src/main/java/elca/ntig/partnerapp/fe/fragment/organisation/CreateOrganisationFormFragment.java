@@ -437,15 +437,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
 
     public void updateAddressTable(CreateAddressRequestProto createAddressRequestProto) {
 
-        AddressTableModel model = AddressTableModel.builder()
-                .street(createAddressRequestProto.getStreet())
-                .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
-                .canton(createAddressRequestProto.getCanton().name())
-                .country(createAddressRequestProto.getCountry().name())
-                .addressType(createAddressRequestProto.getCategory().name())
-                .validityStart(createAddressRequestProto.getValidityStart())
-                .validityEnd(createAddressRequestProto.getValidityEnd())
-                .build();
+        AddressTableModel model = getAddressTableModelFromCreateAddressRequestProto(createAddressRequestProto);
 
         addressData.add(model);
         createAddressRequestProtoList.add(createAddressRequestProto);
@@ -456,15 +448,7 @@ public class CreateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     }
 
     public void updateRowData(CreateAddressRequestProto createAddressRequestProto) {
-        AddressTableModel model = AddressTableModel.builder()
-                .street(createAddressRequestProto.getStreet())
-                .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
-                .canton(createAddressRequestProto.getCanton().name())
-                .country(createAddressRequestProto.getCountry().name())
-                .addressType(createAddressRequestProto.getCategory().name())
-                .validityStart(createAddressRequestProto.getValidityStart())
-                .validityEnd(createAddressRequestProto.getValidityEnd())
-                .build();
+        AddressTableModel model = getAddressTableModelFromCreateAddressRequestProto(createAddressRequestProto);
 
         createAddressRequestProtoList.set(indexUpdatingRow, createAddressRequestProto);
         addressData.set(addressData.indexOf(updatingRowData), model);

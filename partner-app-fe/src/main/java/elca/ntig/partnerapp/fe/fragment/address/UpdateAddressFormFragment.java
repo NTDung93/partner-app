@@ -9,9 +9,11 @@ import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressResponseMessage;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
+import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
+import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.fxml.FXML;
@@ -37,6 +39,8 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
     CreateAddressRequestProto.Builder updateAddressRequestProto = CreateAddressRequestProto.newBuilder();
     private BindingHelper bindingHelper;
     private PartnerTypeProto currentPartnerType;
+    private boolean isUpdatePartner;
+    private CreateAddressRequestProto orginalAddressRequestProto;
 
     @Autowired
     private ObservableResourceFactory observableResourceFactory;
@@ -123,8 +127,10 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
     @FXML
     private Button saveButton;
 
-    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto) {
+    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto, boolean isUpdatePartner) {
         currentPartnerType = partnerType;
+        this.isUpdatePartner = isUpdatePartner;
+        orginalAddressRequestProto = responseProto;
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
         setupUIControls();
@@ -253,7 +259,11 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
                     .updateAddressRequestProto(updateAddressRequestProto.build())
                     .build();
 
-            context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), updateAddressMessage);
+            if (isUpdatePartner) {
+                context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), updateAddressMessage);
+            } else {
+                context.send(CreatePartnerPerspective.ID.concat(".").concat(CreatePartnerComponent.ID), updateAddressMessage);
+            }
             closePopupWindow();
         }
     }

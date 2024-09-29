@@ -1,7 +1,6 @@
 package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
-import elca.ntig.partnerapp.common.proto.enums.common.PartnerType;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
@@ -129,7 +128,7 @@ public class CreatePartnerComponent implements FXComponent {
     private void showCreateAddressForm(PartnerTypeProto partnerType) {
         createAddressFormHandler = context.getManagedFragmentHandler(CreateAddressFormFragment.class);
         createAddressFormController = createAddressFormHandler.getController();
-        createAddressFormController.init(partnerType);
+        createAddressFormController.init(partnerType, false);
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);
@@ -150,7 +149,7 @@ public class CreatePartnerComponent implements FXComponent {
     private void showUpdateAddressForm(PartnerTypeProto partnerType, CreateAddressRequestProto createAddressRequestProto) {
         updateAddressFormHandler = context.getManagedFragmentHandler(UpdateAddressFormFragment.class);
         updateAddressFormController = updateAddressFormHandler.getController();
-        updateAddressFormController.init(partnerType, createAddressRequestProto);
+        updateAddressFormController.init(partnerType, createAddressRequestProto, false);
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);

@@ -1,7 +1,7 @@
 package elca.ntig.partnerapp.fe.callback.organisation;
 
+import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.fe.callback.CallBackExceptionHandler;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
@@ -34,7 +34,7 @@ public class GetOrganisationCallBack  extends CallBackExceptionHandler implement
     public Object handle(Message<Event, Object> message) throws Exception {
         if (message.isMessageBodyTypeOf(GetOrganisationRequestProto.class)) {
             try {
-                OrganisationResponseProto response = organisationClientService.getOrganisationById((GetOrganisationRequestProto) message.getMessageBody());
+                GetOrganisationAlongWithAddressResponseProto response = organisationClientService.getOrganisationAlongWithAddress((GetOrganisationRequestProto) message.getMessageBody());
                 context.send(UpdatePartnerPerspective.ID, MessageConstant.INIT);
                 context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), response);
                 return response;

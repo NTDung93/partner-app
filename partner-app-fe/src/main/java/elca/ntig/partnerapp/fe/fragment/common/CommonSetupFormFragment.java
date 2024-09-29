@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.common.proto.entity.address.AddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
@@ -345,10 +346,32 @@ public abstract class CommonSetupFormFragment<T> {
             addressErrorLabel.setVisible(true);
             if (!createAddressButoon.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
                 createAddressButoon.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+            } else {
+                addressErrorLabel.setVisible(false);
+                createAddressButoon.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
             }
-        } else {
-            addressErrorLabel.setVisible(false);
-            createAddressButoon.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+        } else if (addressList.size() >= 1) {
+
+            boolean atLeastOneActiveAddress;
+
+            atLeastOneActiveAddress = addressList.stream()
+                    .anyMatch(address -> (StringUtils.isBlank(((AddressTableModel) address).getStatus())) ||
+                            ((AddressTableModel) address).getStatus().equals("NULL_STATUS"));
+
+            if (!atLeastOneActiveAddress) {
+                atLeastOneActiveAddress = addressList.stream()
+                        .anyMatch(address -> ((AddressTableModel) address).getStatus().equals(StatusProto.ACTIVE.name()));
+            }
+
+            if (!atLeastOneActiveAddress) {
+                addressErrorLabel.setVisible(true);
+                if (!createAddressButoon.getStyleClass().contains(ClassNameConstant.ERROR_INPUT)) {
+                    createAddressButoon.getStyleClass().add(ClassNameConstant.ERROR_INPUT);
+                }
+            } else {
+                addressErrorLabel.setVisible(false);
+                createAddressButoon.getStyleClass().removeAll(ClassNameConstant.ERROR_INPUT);
+            }
         }
     }
 
@@ -383,5 +406,64 @@ public abstract class CommonSetupFormFragment<T> {
                 .findFirst().orElse(null);
 
         return addressProto;
+    }
+
+    public AddressResponseProto getAddressResponseProtoByAddressTableModel(AddressTableModel address, List<AddressResponseProto> createAddressRequestProtoList) {
+        // if npaAndLocality is 2000 ABC ZYX then zipCode is 2000 and the rest is locality
+        String zipCode = address.getNpaAndLocality().split(" ")[0];
+        String locality = address.getNpaAndLocality().substring(zipCode.length() + 1);
+
+        AddressResponseProto addressProto = createAddressRequestProtoList.stream()
+                .filter(proto -> proto.getStreet().equals(address.getStreet())
+                        && proto.getZipCode().equals(zipCode)
+                        && proto.getLocality().equals(locality)
+                        && proto.getCanton().name().equals(address.getCanton())
+                        && proto.getCountry().name().equals(address.getCountry())
+                        && proto.getCategory().name().equals(address.getAddressType())
+                        && proto.getValidityStart().equals(address.getValidityStart())
+                        && proto.getValidityEnd().equals(address.getValidityEnd()))
+                .findFirst().orElse(null);
+
+        return addressProto;
+    }
+
+    public AddressTableModel getAddressTableModelFromCreateAddressRequestProto(CreateAddressRequestProto createAddressRequestProto) {
+        return AddressTableModel.builder()
+                .street(createAddressRequestProto.getStreet())
+                .npaAndLocality(createAddressRequestProto.getZipCode().concat(" ").concat(createAddressRequestProto.getLocality()))
+                .canton(createAddressRequestProto.getCanton().name())
+                .country(createAddressRequestProto.getCountry().name())
+                .addressType(createAddressRequestProto.getCategory().name())
+                .validityStart(createAddressRequestProto.getValidityStart())
+                .validityEnd(createAddressRequestProto.getValidityEnd())
+                .build();
+    }
+
+    public AddressResponseProto getAddressResponseProtoFromCreateAddressRequestProto(CreateAddressRequestProto createAddressRequestProto) {
+        return AddressResponseProto.newBuilder()
+                .setStreet(createAddressRequestProto.getStreet())
+                .setZipCode(createAddressRequestProto.getZipCode())
+                .setLocality(createAddressRequestProto.getLocality())
+                .setHouseNumber(createAddressRequestProto.getHouseNumber())
+                .setCanton(createAddressRequestProto.getCanton())
+                .setCountry(createAddressRequestProto.getCountry())
+                .setCategory(createAddressRequestProto.getCategory())
+                .setValidityStart(createAddressRequestProto.getValidityStart())
+                .setValidityEnd(createAddressRequestProto.getValidityEnd())
+                .build();
+    }
+
+    public CreateAddressRequestProto convertAddressResponseProtoToCreateAddressRequestProto(AddressResponseProto addressResponseProto) {
+        return CreateAddressRequestProto.newBuilder()
+                .setStreet(addressResponseProto.getStreet())
+                .setZipCode(addressResponseProto.getZipCode())
+                .setHouseNumber(addressResponseProto.getHouseNumber())
+                .setLocality(addressResponseProto.getLocality())
+                .setCanton(addressResponseProto.getCanton())
+                .setCountry(addressResponseProto.getCountry())
+                .setCategory(addressResponseProto.getCategory())
+                .setValidityStart(addressResponseProto.getValidityStart())
+                .setValidityEnd(addressResponseProto.getValidityEnd())
+                .build();
     }
 }
