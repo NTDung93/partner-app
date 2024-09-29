@@ -24,8 +24,7 @@ public abstract class CallBackExceptionHandler {
     public void handleUnexpectedException(Exception e) {
         Platform.runLater(() -> {
             DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title",
-                    "Dialog.err.message.unexpected.error", e.getMessage());
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title", e.getMessage());
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();
@@ -33,13 +32,12 @@ public abstract class CallBackExceptionHandler {
         });
     }
 
-    public void handleStatusRuntimeException(Exception e, String suffix) {
-        String prefix = "Dialog.err.header.error.";
+    public void handleStatusRuntimeException(Exception e) {
         int index = e.getMessage().indexOf(":") + 2;
         String errMessage = e.getMessage().substring(index);
         Platform.runLater(() -> {
             DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title", prefix.concat(suffix), errMessage);
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.ERROR, "Dialog.err.title", errMessage);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();
@@ -51,7 +49,7 @@ public abstract class CallBackExceptionHandler {
         String prefix = "Dialog.information.header.success.";
         Platform.runLater(() -> {
             DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
-            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title", prefix.concat(suffix), "");
+            Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title", prefix.concat(suffix));
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 alert.close();

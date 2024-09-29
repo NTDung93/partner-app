@@ -52,7 +52,7 @@ public class AddressServiceImpl implements AddressService {
 
                         if (previousEnd != null) {
                             if (!currentStart.isAfter(previousEnd)) {
-                                throw new OverlapPeriodException("The validity periods of addresses of the same type must not overlap");
+                                throw new OverlapPeriodException("Dialog.err.message.OverlapPeriodException");
                             }
                         }
 
@@ -84,7 +84,7 @@ public class AddressServiceImpl implements AddressService {
 //            // Only check overlap for addresses that have the same type
 //            if (currentType.equals(previousType)) {
 //                if (currentStart.isBefore(previousEnd)) {
-//                    throw new OverlapPeriodException("The validity periods of addresses of the same type must not overlap");
+//                    throw new OverlapPeriodException("Dialog.err.message.OverlapPeriodException);
 //                }
 //            }
 //
@@ -140,7 +140,7 @@ public class AddressServiceImpl implements AddressService {
 
                         if (previousEnd != null) {
                             if (!currentStart.isAfter(previousEnd)) {
-                                throw new OverlapPeriodException("The validity periods of addresses of the same type must not overlap");
+                                throw new OverlapPeriodException("Dialog.err.message.OverlapPeriodException");
                             }
                         }
 

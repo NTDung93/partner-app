@@ -41,7 +41,7 @@ public class GetOrganisationCallBack  extends CallBackExceptionHandler implement
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 if (e instanceof StatusRuntimeException) {
-                    handleStatusRuntimeException(e, "getPartner");
+                    handleStatusRuntimeException(e);
                 }else{
                     handleUnexpectedException(e);
                 }

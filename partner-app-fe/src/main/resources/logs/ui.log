@@ -86,3 +86,40 @@
 2024-09-29 16:09:06 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 217
 2024-09-29 16:09:49 INFO  PersonTableFragment:130 - Double click on person with id: 215
 2024-09-29 16:10:01 INFO  PersonTableFragment:130 - Double click on person with id: 215
+2024-09-29 16:41:59 INFO  PersonTableFragment:130 - Double click on person with id: 205
+2024-09-29 16:42:23 ERROR UpdatePersonCallback:43 - FAILED_PRECONDITION: The validity periods of addresses of the same type must not overlap
+2024-09-29 17:05:25 ERROR UpdatePersonCallback:43 - FAILED_PRECONDITION: The validity periods of addresses of the same type must not overlap
+2024-09-29 17:29:27 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 44
+2024-09-29 17:29:34 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 212
+2024-09-29 17:39:45 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 217
+2024-09-29 17:40:12 ERROR UpdateOrganisationCallback:44 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:40:20 ERROR UpdateOrganisationCallback:44 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:40:43 ERROR CreateOrganisationCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:40:46 ERROR CreateOrganisationCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:46:00 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:46:06 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:46:10 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:47:18 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:47:22 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:47:44 INFO  PersonTableFragment:130 - Double click on person with id: 26
+2024-09-29 17:48:00 ERROR UpdatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:48:05 ERROR UpdatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:48:28 INFO  PersonTableFragment:130 - Double click on person with id: 28
+2024-09-29 17:49:21 ERROR CreateOrganisationCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:49:36 ERROR CreateOrganisationCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:49:53 ERROR CreateOrganisationCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:49:57 ERROR CreateOrganisationCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:50:11 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 217
+2024-09-29 17:50:18 ERROR UpdateOrganisationCallback:44 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:50:22 ERROR UpdateOrganisationCallback:44 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:50:26 ERROR UpdateOrganisationCallback:44 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:50:29 ERROR UpdateOrganisationCallback:44 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveIDENumberException
+2024-09-29 17:50:49 INFO  PersonTableFragment:130 - Double click on person with id: 209
+2024-09-29 17:51:01 ERROR UpdatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:51:05 ERROR UpdatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:51:14 ERROR UpdatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:51:18 ERROR UpdatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:52:06 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:52:11 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
+2024-09-29 17:52:15 ERROR CreatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 17:52:18 ERROR CreatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException

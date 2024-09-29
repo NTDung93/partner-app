@@ -131,7 +131,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);
             if (checkIdePerson != null && !checkIdePerson.getId().equals(id)) {
-                throw new ExistingActiveIDENumberException("Organisation with IDE number " + ideNumber + " already exists");
+                throw new ExistingActiveIDENumberException("Dialog.err.message.ExistingActiveIDENumberException");
             }
         }
     }
@@ -146,7 +146,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
             Organisation checkIdePerson = organisationRepository.findOrganisationByIdeNumberAndPartnerStatus(ideNumber, Status.ACTIVE);
             if (checkIdePerson != null) {
-                throw new ExistingActiveIDENumberException("Organisation with IDE number " + ideNumber + " already exists");
+                throw new ExistingActiveIDENumberException("Dialog.err.message.ExistingActiveIDENumberException");
             }
         }
     }

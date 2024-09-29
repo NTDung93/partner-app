@@ -503,7 +503,7 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
     public void handleDeleteButtonOnClick(AddressTableModel address, List<AddressResponseProto> addressResponseProtoList, ObservableList<AddressTableModel> addressData) {
         DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
         Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
-                "Dialog.confirmation.header.deletePartner", "Dialog.confirmation.message.deletePartner");
+                "Dialog.confirmation.message.deleteAddress");
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             AddressResponseProto addressProto = getAddressResponseProtoByAddressTableModel(address, addressResponseProtoList);

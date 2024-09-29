@@ -340,12 +340,14 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
         setCellFactoryCodeNOGANumberColumn(codeNOGAColumn);
         deleteIconColumn.setCellFactory(cell -> new TableCell<OrganisationTableModel, Void>() {
             private final ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream(ResourceConstant.BIN_ICON)));
+
             {
                 deleteIcon.setFitHeight(20);
                 deleteIcon.setFitWidth(20);
             }
 
             Button deleteButton = new Button();
+
             {
                 deleteButton.getStyleClass().add(ClassNameConstant.DELETE_BUTTON);
                 deleteButton.setGraphic(deleteIcon);
@@ -375,7 +377,7 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
     public void handleDeleteButtonOnClick(Integer id) {
         DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
         Alert alert = dialogBuilder.buildAlert(Alert.AlertType.CONFIRMATION, "Dialog.confirmation.title",
-                "Dialog.confirmation.header.deletePartner", "Dialog.confirmation.message.deletePartner");
+                "Dialog.confirmation.message.deletePartner");
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             logger.info("Delete organisation with id: " + id);
