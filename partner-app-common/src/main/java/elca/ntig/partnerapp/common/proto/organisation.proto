@@ -3,6 +3,7 @@ import "language.proto";
 import "legal_status.proto";
 import "code_noga.proto";
 import "status.proto";
+import "address.proto";
 
 package elca.ntig.partnerapp.common.proto;
 
@@ -24,6 +25,9 @@ service OrganisationService{
   }
 
   rpc updateOrganisation(UpdateOrganisationRequestProto) returns (OrganisationResponseProto){
+  }
+
+  rpc getOrganisationAlongWithAddress(GetOrganisationRequestProto) returns (GetOrganisationAlongWithAddressResponseProto){
   }
 }
 
@@ -84,6 +88,7 @@ message CreateOrganisationRequestProto {
   LegalStatusProto legalStatus = 6;
   string creationDate = 7;
   string phoneNumber = 8;
+  repeated CreateAddressRequestProto addresses = 9;
 }
 
 message UpdateOrganisationRequestProto {
@@ -96,4 +101,10 @@ message UpdateOrganisationRequestProto {
   LegalStatusProto legalStatus = 7;
   string creationDate = 8;
   string phoneNumber = 9;
+  repeated AddressResponseProto addresses = 10;
+}
+
+message GetOrganisationAlongWithAddressResponseProto {
+  OrganisationResponseProto organisation = 1;
+  repeated AddressResponseProto addresses = 2;
 }

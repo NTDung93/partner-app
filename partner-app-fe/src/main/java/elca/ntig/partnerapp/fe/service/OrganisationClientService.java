@@ -31,4 +31,8 @@ public class OrganisationClientService {
     public OrganisationResponseProto updateOrganisation(UpdateOrganisationRequestProto request) {
         return organisationServiceStub.updateOrganisation(request);
     }
+
+    public GetOrganisationAlongWithAddressResponseProto getOrganisationAlongWithAddress(GetOrganisationRequestProto request) {
+        return organisationServiceStub.getOrganisationAlongWithAddress(request);
+    }
 }

@@ -7,7 +7,7 @@ public class PersonClientService {
     private final PersonServiceGrpc.PersonServiceBlockingStub personServiceStub;
     private final ManagedChannel channel;
 
-    public PersonClientService(ManagedChannel managedChannel){
+    public PersonClientService(ManagedChannel managedChannel) {
         this.channel = managedChannel;
         this.personServiceStub = PersonServiceGrpc.newBlockingStub(channel);
     }
@@ -28,7 +28,11 @@ public class PersonClientService {
         return personServiceStub.createPerson(request);
     }
 
-        public PersonResponseProto updatePerson(UpdatePersonRequestProto request) {
+    public PersonResponseProto updatePerson(UpdatePersonRequestProto request) {
         return personServiceStub.updatePerson(request);
+    }
+
+    public GetPersonAlongWithAddressResponseProto getPersonAlongWithAddress(GetPersonRequestProto request) {
+        return personServiceStub.getPersonAlongWithAddress(request);
     }
 }

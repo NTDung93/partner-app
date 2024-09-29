@@ -54,4 +54,9 @@ public class OrganisationMappingServiceImpl implements OrganisationMappingServic
         argumentValidator.validate(updateOrganisationRequestDto);
         return organisationMapper.toOrganisationResponseProto(organisationService.updateOrganisation(updateOrganisationRequestDto));
     }
+
+    @Override
+    public GetOrganisationAlongWithAddressResponseProto getOrganisationAlongWithAddressHelper(Integer id) {
+        return organisationMapper.toGetOrganisationAlongWithAddressResponseProto(organisationService.getOrganisationAlongWithAddress(id));
+    }
 }

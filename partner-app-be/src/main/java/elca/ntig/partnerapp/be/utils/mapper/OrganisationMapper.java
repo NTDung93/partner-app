@@ -3,7 +3,10 @@ package elca.ntig.partnerapp.be.utils.mapper;
 import elca.ntig.partnerapp.be.model.dto.organisation.*;
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
-import elca.ntig.partnerapp.be.utils.mapper.enums.*;
+import elca.ntig.partnerapp.be.utils.mapper.enums.organisation.CodeNOGAMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.organisation.LegalStatusMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.partner.LanguageMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.partner.StatusMapper;
 import elca.ntig.partnerapp.common.proto.entity.organisation.*;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -16,6 +19,7 @@ import org.mapstruct.factory.Mappers;
                 StatusMapper.class,
                 LegalStatusMapper.class,
                 CodeNOGAMapper.class,
+                AddressMapper.class
         },
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED
 )
@@ -46,8 +50,13 @@ public interface OrganisationMapper {
     DeleteOrganisationResponseProto toDeleteOrganisationResponseProto(DeletePartnerResponseDto deleteOrganisationResponseDto);
 
     @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     CreateOrganisationRequestDto toCreateOrganisationRequestDto(CreateOrganisationRequestProto request);
 
     @Mapping(source = "creationDate", target = "creationDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     UpdateOrganisationRequestDto toUpdateOrganisationRequestDto(UpdateOrganisationRequestProto request);
+
+    @Mapping(source = "addresses", target = "addressesList")
+    GetOrganisationAlongWithAddressResponseProto toGetOrganisationAlongWithAddressResponseProto(GetOrganisationAlongWithAddressResponseDto getOrganisationAlongWithAddressResponseDto);
 }

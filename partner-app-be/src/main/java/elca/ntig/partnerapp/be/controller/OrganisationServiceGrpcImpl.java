@@ -40,4 +40,10 @@ public class OrganisationServiceGrpcImpl extends OrganisationServiceGrpc.Organis
         responseObserver.onNext(organisationServiceGrpcHelper.updateOrganisationHelper(request));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getOrganisationAlongWithAddress(GetOrganisationRequestProto request, StreamObserver<GetOrganisationAlongWithAddressResponseProto> responseObserver) {
+        responseObserver.onNext(organisationServiceGrpcHelper.getOrganisationAlongWithAddressHelper(request.getId()));
+        responseObserver.onCompleted();
+    }
 }

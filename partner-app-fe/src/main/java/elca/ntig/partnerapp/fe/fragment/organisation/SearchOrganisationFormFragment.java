@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.fe.fragment.organisation;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationCriteriasProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.SearchOrganisationPaginationRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.fe.callback.organisation.SearchOrganisationCallback;
@@ -31,9 +30,6 @@ import org.jacpfx.api.fragment.Scope;
 import org.jacpfx.rcp.context.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Component
 @Fragment(id = SearchOrganisationFormFragment.ID,
@@ -281,7 +277,7 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
 
     @Override
     public void validateValues() {
-        validateName(nameValue, nameErrorLabel);
+        validateRequiredTextField(nameValue, nameErrorLabel);
         validateIdeNumber(ideNumberValue, ideNumberErrorLabel);
         validateDate(creationDateValue, creationDateErrorLabel);
     }

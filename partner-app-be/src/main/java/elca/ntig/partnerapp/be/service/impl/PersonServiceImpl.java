@@ -1,10 +1,13 @@
 package elca.ntig.partnerapp.be.service.impl;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Partner;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.*;
+import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.repository.PartnerRepository;
+import elca.ntig.partnerapp.be.service.AddressService;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
 import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.repository.PersonRepository;
@@ -28,6 +31,8 @@ public class PersonServiceImpl implements PersonService {
     private final PartnerRepository partnerRepository;
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
+    private final AddressService addressService;
+
 
     @Override
     public PersonResponseDto getPersonById(Integer id) {
@@ -79,6 +84,8 @@ public class PersonServiceImpl implements PersonService {
                 .build();
         personRepository.save(person);
 
+        addressService.createAddressForPartner(partner, createPersonRequestDto.getAddresses());
+
         return personMapper.toPersonResponseDto(person);
     }
 
@@ -93,7 +100,16 @@ public class PersonServiceImpl implements PersonService {
         personMapper.updatePerson(updatePersonRequestDto, person);
         person = personRepository.save(person);
 
+        addressService.updateAddressForPartner(person.getPartner(), updatePersonRequestDto.getAddresses());
+
         return personMapper.toPersonResponseDto(person);
+    }
+
+    @Override
+    public GetPersonAlongWithAddressResponseDto getPersonAlongWithAddress(Integer id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
+        List<AddressResponseDto> addresses = addressService.getAddressesByPartnerId(person.getPartner().getId());
+        return new GetPersonAlongWithAddressResponseDto(personMapper.toPersonResponseDto(person), addresses);
     }
 
     private void validateCreateRequest(CreatePersonRequestDto createPersonRequestDto) {

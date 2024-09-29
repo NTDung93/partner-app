@@ -23,11 +23,18 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
             setText(null);
         } else {
             int subStringIndex = 0;
-            if (!resourcePrefix.equals("Enum.legalStatus.") && !resourcePrefix.equals("Enum.sex.") && !resourcePrefix.equals("Enum.marital.")) {
+            if (needsSubStringIndex(resourcePrefix)) {
                 subStringIndex = item.getValueDescriptor().toString().indexOf("_") + 1;
             }
             String value = item.getValueDescriptor().toString().substring(subStringIndex).toLowerCase();
             textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
         }
+    }
+
+    private boolean needsSubStringIndex(String resourcePrefix) {
+        return !resourcePrefix.equals("Enum.legalStatus.")
+                && !resourcePrefix.equals("Enum.sex.")
+                && !resourcePrefix.equals("Enum.marital.")
+                && !resourcePrefix.equals("Enum.cantonAbbr.");
     }
 }

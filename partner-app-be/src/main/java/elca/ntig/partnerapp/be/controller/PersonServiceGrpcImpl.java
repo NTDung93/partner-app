@@ -40,4 +40,10 @@ public class PersonServiceGrpcImpl extends PersonServiceGrpc.PersonServiceImplBa
         responseObserver.onNext(personServiceGrpcHelper.updatePersonHelper(request));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getPersonAlongWithAddress(GetPersonRequestProto request, StreamObserver<GetPersonAlongWithAddressResponseProto> responseObserver) {
+        responseObserver.onNext(personServiceGrpcHelper.getPersonAlongWithAddressHelper(request.getId()));
+        responseObserver.onCompleted();
+    }
 }

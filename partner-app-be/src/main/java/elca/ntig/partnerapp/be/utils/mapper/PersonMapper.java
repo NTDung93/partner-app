@@ -4,7 +4,11 @@ package elca.ntig.partnerapp.be.utils.mapper;
 import elca.ntig.partnerapp.be.model.dto.partner.DeletePartnerResponseDto;
 import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Person;
-import elca.ntig.partnerapp.be.utils.mapper.enums.*;
+import elca.ntig.partnerapp.be.utils.mapper.enums.partner.LanguageMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.partner.StatusMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.person.MaritalStatusMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.person.NationalityMapper;
+import elca.ntig.partnerapp.be.utils.mapper.enums.person.SexEnumMapper;
 import elca.ntig.partnerapp.common.proto.entity.person.*;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -17,7 +21,8 @@ import org.mapstruct.factory.Mappers;
                 SexEnumMapper.class,
                 NationalityMapper.class,
                 MaritalStatusMapper.class,
-                StatusMapper.class
+                StatusMapper.class,
+                AddressMapper.class
         },
         collectionMappingStrategy = CollectionMappingStrategy.SETTER_PREFERRED,
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL
@@ -49,8 +54,13 @@ public interface PersonMapper {
     DeletePersonResponseProto toDeletePersonResponseProto(DeletePartnerResponseDto deletePersonResponseDto);
 
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     CreatePersonRequestDto toCreatePersonRequestDto(CreatePersonRequestProto createPersonRequestProto);
 
     @Mapping(source = "birthDate", target = "birthDate", qualifiedByName = "mapStringToLocalDate")
+    @Mapping(source = "addressesList", target = "addresses")
     UpdatePersonRequestDto toUpdatePersonRequestDto(UpdatePersonRequestProto request);
+
+    @Mapping(source = "addresses", target = "addressesList")
+    GetPersonAlongWithAddressResponseProto toGetPersonAlongWithAddressResponseProto(GetPersonAlongWithAddressResponseDto getPersonAlongWithAddressResponseDto);
 }

@@ -165,14 +165,14 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
 
         nextButton.setOnAction(event -> {
             pageNo++;
-            logger.info("Current page: " + pageNo);
+//            logger.info("Current page: " + pageNo);
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_ORGANISATION));
         });
 
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
-                logger.info("Current page: " + pageNo);
+//                logger.info("Current page: " + pageNo);
                 context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_ORGANISATION));
             }
         });

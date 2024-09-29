@@ -15,6 +15,10 @@ public class ResourceConstant {
     public static final String CREATE_ORGANISATION_FORM_FRAGMENT_FXML = "/fxml/fragments/organisation/CreateOrganisationFormFragment.fxml";
     public static final String UPDATE_ORGANISATION_FORM_FRAGMENT_FXML = "/fxml/fragments/organisation/UpdateOrganisationFormFragment.fxml";
 
+    // address
+    public static final String CREATE_ADDRESS_FORM_FRAGMENT_FXML = "/fxml/fragments/address/CreateAddressFormFragment.fxml";
+    public static final String UPDATE_ADDRESS_FORM_FRAGMENT_FXML = "/fxml/fragments/address/UpdateAddressFormFragment.fxml";
+
     // image location
     public static final String BIN_ICON = "/images/bin.png";
     public static final String QUESTION_ICON = "/images/question.png";

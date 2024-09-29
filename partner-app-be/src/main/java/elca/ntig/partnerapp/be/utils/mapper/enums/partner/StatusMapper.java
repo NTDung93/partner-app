@@ -1,4 +1,4 @@
-package elca.ntig.partnerapp.be.utils.mapper.enums;
+package elca.ntig.partnerapp.be.utils.mapper.enums.partner;
 
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.utils.mapper.constant.MapperConstant;

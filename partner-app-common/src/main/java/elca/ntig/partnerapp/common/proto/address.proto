@@ -1,6 +1,85 @@
 syntax = "proto3";
+import "status.proto";
+import "address_type.proto";
+import "country.proto";
+import "canton_abbr.proto";
 
 package elca.ntig.partnerapp.common.proto;
 
 option java_multiple_files = true;
-option java_package = "elca.ntig.partnerapp.common.proto.entity.person";
+option java_package = "elca.ntig.partnerapp.common.proto.entity.address";
+option java_outer_classname = "AddressProto";
+
+service AddressService{
+  rpc getAddressById(GetAddressRequestProto) returns (AddressResponseProto){
+  }
+
+  rpc getListAddressesOfPartner(GetListAddressesRequestProto) returns (GetListAddressesResponseProto){
+  }
+
+  rpc deleteAddressById(GetAddressRequestProto) returns (DeleteAddressResponseProto){
+  }
+
+  rpc createAddress(CreateAddressRequestProto) returns (AddressResponseProto){
+  }
+
+  rpc updateAddress(UpdateAddressRequestProto) returns (AddressResponseProto){
+  }
+}
+
+message GetAddressRequestProto {
+  uint32 id = 1;
+}
+
+message AddressResponseProto {
+  uint32 id = 1;
+  string street = 2;
+  string locality = 3;
+  string zipCode = 4;
+  CantonAbbrProto canton = 5;
+  CountryProto country = 6;
+  AddressTypeProto category = 7;
+  string houseNumber = 8;
+  string validityStart = 9;
+  string validityEnd = 10;
+  StatusProto status = 11;
+}
+
+message GetListAddressesRequestProto{
+  uint32 partnerId = 1;
+}
+
+message GetListAddressesResponseProto{
+  repeated AddressResponseProto addresses = 1;
+}
+
+message CreateAddressRequestProto {
+  AddressTypeProto category = 1;
+  string locality = 2;
+  string street = 3;
+  CountryProto country = 4;
+  string validityStart = 5;
+  string zipCode = 6;
+  string houseNumber = 7;
+  CantonAbbrProto canton = 8;
+  string validityEnd = 9;
+  uint32 partnerId = 10;
+}
+
+message UpdateAddressRequestProto {
+  uint32 id = 1;
+  AddressTypeProto category = 2;
+  string locality = 3;
+  string street = 4;
+  CountryProto country = 5;
+  string validityStart = 6;
+  string zipCode = 7;
+  string houseNumber = 8;
+  CantonAbbrProto canton = 9;
+  string validityEnd = 10;
+  uint32 partnerId = 11;
+}
+
+message DeleteAddressResponseProto {
+  bool isSuccess = 1;
+}

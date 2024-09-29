@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package elca.ntig.partnerapp.common.proto;
+
+option java_multiple_files = true;
+option java_package = "elca.ntig.partnerapp.common.proto.enums.address";
+
+enum CountryProto {
+  NULL_COUNTRY = 0;
+  COUNTRY_SWITZERLAND = 1;
+  COUNTRY_GERMANY = 2;
+  COUNTRY_SPAIN = 3;
+  COUNTRY_FRANCE = 4;
+  COUNTRY_UNITED_KINGDOM = 5;
+  COUNTRY_ITALY = 6;
+}

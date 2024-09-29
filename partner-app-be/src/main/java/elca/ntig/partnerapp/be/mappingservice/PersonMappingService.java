@@ -8,4 +8,5 @@ public interface PersonMappingService {
     DeletePersonResponseProto deletePersonByIdHelper(Integer id);
     PersonResponseProto createPersonHelper(CreatePersonRequestProto request);
     PersonResponseProto updatePersonHelper(UpdatePersonRequestProto request);
+    GetPersonAlongWithAddressResponseProto getPersonAlongWithAddressHelper(Integer id);
 }

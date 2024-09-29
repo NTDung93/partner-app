@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.model.dto.organisation;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +32,6 @@ public class UpdateOrganisationRequestDto {
     private LegalStatus legalStatus;
     private LocalDate creationDate;
     private String phoneNumber;
+
+    private List<AddressResponseDto> addresses;
 }

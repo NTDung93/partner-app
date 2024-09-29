@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.be.service.impl;
 
+import elca.ntig.partnerapp.be.model.dto.address.AddressResponseDto;
 import elca.ntig.partnerapp.be.model.dto.organisation.*;
 import elca.ntig.partnerapp.be.model.entity.Organisation;
 import elca.ntig.partnerapp.be.model.entity.Partner;
@@ -7,6 +8,7 @@ import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.*;
 import elca.ntig.partnerapp.be.repository.OrganisationRepository;
 import elca.ntig.partnerapp.be.repository.PartnerRepository;
+import elca.ntig.partnerapp.be.service.AddressService;
 import elca.ntig.partnerapp.be.service.OrganisationService;
 import elca.ntig.partnerapp.be.utils.mapper.OrganisationMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,8 @@ public class OrganisationServiceImpl implements OrganisationService {
     private final PartnerRepository partnerRepository;
     private final OrganisationRepository organisationRepository;
     private final OrganisationMapper OrganisationMapper;
+    private final AddressService addressService;
+
 
     @Override
     public OrganisationResponseDto getOrganisationById(Integer id) {
@@ -78,6 +82,8 @@ public class OrganisationServiceImpl implements OrganisationService {
                 .build();
         organisation = organisationRepository.save(organisation);
 
+        addressService.createAddressForPartner(partner, createOrganisationRequestDto.getAddresses());
+
         return OrganisationMapper.toOrganisationResponseDto(organisation);
     }
 
@@ -92,7 +98,16 @@ public class OrganisationServiceImpl implements OrganisationService {
         OrganisationMapper.updateOrganisation(updateOrganisationRequestDto, organisation);
         organisation = organisationRepository.save(organisation);
 
+        addressService.updateAddressForPartner(organisation.getPartner(), updateOrganisationRequestDto.getAddresses());
+
         return OrganisationMapper.toOrganisationResponseDto(organisation);
+    }
+
+    @Override
+    public GetOrganisationAlongWithAddressResponseDto getOrganisationAlongWithAddress(Integer id) {
+        Organisation organisation = organisationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Organisation", "id", id));
+        List<AddressResponseDto> addresses = addressService.getAddressesByPartnerId(organisation.getPartner().getId());
+        return new GetOrganisationAlongWithAddressResponseDto(OrganisationMapper.toOrganisationResponseDto(organisation), addresses);
     }
 
     private void validateCreateRequest(CreateOrganisationRequestDto createOrganisationRequestDto) {

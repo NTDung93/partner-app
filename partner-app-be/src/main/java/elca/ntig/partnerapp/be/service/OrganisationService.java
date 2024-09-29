@@ -7,4 +7,5 @@ public interface OrganisationService {
     SearchOrganisationPaginationResponseDto searchOrganisationPagination(int pageNo, int pageSize, String sortBy, String sortDir, SearchOrganisationCriteriasDto criterias);
     OrganisationResponseDto createOrganisation(CreateOrganisationRequestDto createOrganisationRequestDto);
     OrganisationResponseDto updateOrganisation(UpdateOrganisationRequestDto updateOrganisationRequestDto);
+    GetOrganisationAlongWithAddressResponseDto getOrganisationAlongWithAddress(Integer id);
 }

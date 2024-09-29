@@ -10,12 +10,12 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public enum Country {
-    SWITZERLAND("CH"),
-    GERMANY("DE"),
-    SPAIN("ES"),
-    FRANCE("FR"),
-    UNITED_KINGDOM("GB"),
-    ITALY("IT");
+    COUNTRY_SWITZERLAND("CH"),
+    COUNTRY_GERMANY("DE"),
+    COUNTRY_SPAIN("ES"),
+    COUNTRY_FRANCE("FR"),
+    COUNTRY_UNITED_KINGDOM("GB"),
+    COUNTRY_ITALY("IT");
 
     private final String code;
 

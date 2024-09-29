@@ -7,4 +7,5 @@ public interface PersonService {
     SearchPeoplePaginationResponseDto searchPeoplePagination(int pageNo, int pageSize, String sortBy, String sortDir, SearchPeopleCriteriasDto criterias);
     PersonResponseDto createPerson(CreatePersonRequestDto createPersonRequestDto);
     PersonResponseDto updatePerson(UpdatePersonRequestDto updatePersonRequestDto);
+    GetPersonAlongWithAddressResponseDto getPersonAlongWithAddress(Integer id);
 }

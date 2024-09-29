@@ -54,4 +54,9 @@ public class PersonMappingServiceImpl implements PersonMappingService {
         argumentValidator.validate(updatePersonRequestDto);
         return personMapper.toPersonResponseProto(personService.updatePerson(updatePersonRequestDto));
     }
+
+    @Override
+    public GetPersonAlongWithAddressResponseProto getPersonAlongWithAddressHelper(Integer id) {
+        return personMapper.toGetPersonAlongWithAddressResponseProto(personService.getPersonAlongWithAddress(id));
+    }
 }

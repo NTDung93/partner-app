@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.fe.fragment.person;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.SearchPeoplePaginationResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.fe.callback.organisation.DeleteOrganisationCallback;
 import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
@@ -170,14 +169,14 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
 
         nextButton.setOnAction(event -> {
             pageNo++;
-            logger.info("Current page: " + pageNo);
+//            logger.info("Current page: " + pageNo);
             context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
         });
 
         previousButton.setOnAction(event -> {
             if (pageNo > 0) {
                 pageNo--;
-                logger.info("Current page: " + pageNo);
+//                logger.info("Current page: " + pageNo);
                 context.send(ViewPartnerPerspective.ID.concat(".").concat(ViewPartnerComponent.ID), new PaginationModel(pageNo, pageSize, sortBy, sortDir, PartnerTypeProto.TYPE_PERSON));
             }
         });
