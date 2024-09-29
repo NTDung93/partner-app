@@ -83,13 +83,3 @@ message UpdateAddressRequestProto {
 message DeleteAddressResponseProto {
   bool isSuccess = 1;
 }
-
-
-
-
-
-
-
-
-
-

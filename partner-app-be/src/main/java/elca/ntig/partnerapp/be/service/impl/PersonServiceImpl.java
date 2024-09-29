@@ -33,6 +33,7 @@ public class PersonServiceImpl implements PersonService {
     private final PersonMapper personMapper;
     private final AddressService addressService;
 
+
     @Override
     public PersonResponseDto getPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person", "id", id));
