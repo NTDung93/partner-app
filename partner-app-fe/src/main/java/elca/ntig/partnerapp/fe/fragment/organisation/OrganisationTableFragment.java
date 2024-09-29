@@ -135,8 +135,8 @@ public class OrganisationTableFragment extends CommonSetupTableFragment<Organisa
     }
 
     private void handleExportExcelButtonOnClick() {
-        exportExcelIcon.setOnMouseClicked(event -> exportOrganizationDataToExcel(data, exportExcelIcon.getScene().getWindow()));
-        exportExcelLabel.setOnMouseClicked(event -> exportOrganizationDataToExcel(data, exportExcelLabel.getScene().getWindow()));
+        exportExcelIcon.setOnMouseClicked(event -> exportOrganizationDataToExcel(data, exportExcelIcon.getScene().getWindow(), observableResourceFactory));
+        exportExcelLabel.setOnMouseClicked(event -> exportOrganizationDataToExcel(data, exportExcelLabel.getScene().getWindow(), observableResourceFactory));
     }
 
     private void initializeExportExcelIcon() {

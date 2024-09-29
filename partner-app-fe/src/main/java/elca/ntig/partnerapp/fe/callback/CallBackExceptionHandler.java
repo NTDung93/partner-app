@@ -1,10 +1,7 @@
 package elca.ntig.partnerapp.fe.callback;
 
-import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
-import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
-import io.grpc.StatusRuntimeException;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

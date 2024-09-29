@@ -138,8 +138,8 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     }
 
     private void handleExportExcelButtonOnClick() {
-        exportExcelIcon.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelIcon.getScene().getWindow()));
-        exportExcelLabel.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelLabel.getScene().getWindow()));
+        exportExcelIcon.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelIcon.getScene().getWindow(), observableResourceFactory));
+        exportExcelLabel.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelLabel.getScene().getWindow(), observableResourceFactory));
     }
 
     private void initializeExportExcelIcon() {

@@ -1,8 +1,10 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
+import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -89,7 +91,7 @@ public abstract class CommonSetupTableFragment<T> {
         });
     }
 
-    public void exportPersonDataToExcel(ObservableList<PersonTableModel> data, Window window) {
+    public void exportPersonDataToExcel(ObservableList<PersonTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
             logger.info("No data to export to Excel.");
             return;
@@ -159,6 +161,7 @@ public abstract class CommonSetupTableFragment<T> {
             workbook.write(fileOut);
             workbook.close();
             logger.info("Excel file created successfully at: " + file.getAbsolutePath());
+            showMessageExportExcelSuccessFully(observableResourceFactory);
         } catch (IOException e) {
             logger.error("Error writing Excel file: " + e.getMessage());
         }
@@ -175,7 +178,7 @@ public abstract class CommonSetupTableFragment<T> {
         return formatted.toString();
     }
 
-    public void exportOrganizationDataToExcel(ObservableList<OrganisationTableModel> data, Window window) {
+    public void exportOrganizationDataToExcel(ObservableList<OrganisationTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
             logger.info("No data to export to Excel.");
             return;
@@ -245,8 +248,18 @@ public abstract class CommonSetupTableFragment<T> {
             workbook.write(fileOut);
             workbook.close();
             logger.info("Excel file created successfully at: " + file.getAbsolutePath());
+            showMessageExportExcelSuccessFully(observableResourceFactory);
         } catch (IOException e) {
             logger.error("Error writing Excel file: " + e.getMessage());
+        }
+    }
+
+    private static void showMessageExportExcelSuccessFully(ObservableResourceFactory observableResourceFactory) {
+        DialogBuilder dialogBuilder = new DialogBuilder(observableResourceFactory);
+        Alert alert = dialogBuilder.buildAlert(Alert.AlertType.INFORMATION, "Dialog.information.title", "Dialog.information.header.success.exportDataToExcel");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            alert.close();
         }
     }
 }
