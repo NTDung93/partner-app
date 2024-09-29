@@ -62,8 +62,11 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     @FXML
     private Label fragmentTitle;
 
-//    @FXML
-//    private Label exportLabel;
+    @FXML
+    private ImageView exportExcelIcon;
+
+    @FXML
+    private Label exportExcelLabel;
 
     @FXML
     private TableView<PersonTableModel> partnersTable;
@@ -126,10 +129,26 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
     public void init() {
         bindingHelper = new BindingHelper(observableResourceFactory);
         bindTextProperties();
+        initializeExportExcelIcon();
         initializeTable();
         setupDoubleClickEventHandler();
         initializePagination();
         setupSortListener();
+        handleExportExcelButtonOnClick();
+    }
+
+    private void handleExportExcelButtonOnClick() {
+        exportExcelIcon.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelIcon.getScene().getWindow()));
+        exportExcelLabel.setOnMouseClicked(event -> exportPersonDataToExcel(data, exportExcelLabel.getScene().getWindow()));
+    }
+
+    private void initializeExportExcelIcon() {
+        Image exportExcelImage = new Image(getClass().getResourceAsStream(ResourceConstant.EXPORT_EXCEL_ICON));
+        {
+            exportExcelIcon.setFitHeight(20);
+            exportExcelIcon.setFitWidth(20);
+        }
+        exportExcelIcon.setImage(exportExcelImage);
     }
 
     @Override
@@ -153,6 +172,7 @@ public class PersonTableFragment extends CommonSetupTableFragment<PersonTableMod
         currentNumberOfRows.textProperty().bind(currentNumberOfRowsProperty);
         totalRows.textProperty().bind(totalRowsProperty);
 
+        bindingHelper.bindLabelTextProperty(exportExcelLabel, "TableFragment.lbl.exportLabel");
         bindingHelper.bindLabelTextProperty(fragmentTitle, "TableFragment.lbl.fragmentTitle");
         bindingHelper.bindColumnTextProperty(baseNumberColumn, "TableFragment.col.baseNumber");
         bindingHelper.bindColumnTextProperty(lastNameColumn, "TableFragment.col.lastName");

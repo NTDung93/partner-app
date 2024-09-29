@@ -14,11 +14,16 @@
     -fx-text-fill: black;
 }
 
-.export-label {
-    -fx-text-fill: blue;
-    -fx-font-size: 14;
+.export-excel-label {
+    -fx-text-fill: #2ab5d5;
+    -fx-font-size: 18;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
-    -fx-underline: true;
+    -fx-label-padding: 0 140 0 0;
+}
+
+.export-excel-icon{
+    -fx-cursor: hand;
 }
 
 .table-view {
