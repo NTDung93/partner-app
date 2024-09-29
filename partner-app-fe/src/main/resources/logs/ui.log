@@ -123,3 +123,5 @@
 2024-09-29 17:52:11 ERROR CreatePersonCallback:43 - ALREADY_EXISTS: Dialog.err.message.ExistingActiveAVSNumberException
 2024-09-29 17:52:15 ERROR CreatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
 2024-09-29 17:52:18 ERROR CreatePersonCallback:43 - FAILED_PRECONDITION: Dialog.err.message.OverlapPeriodException
+2024-09-29 18:04:18 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 196
+2024-09-29 18:04:47 INFO  OrganisationTableFragment:127 - Double click on organisation with id: 196
