@@ -5,7 +5,6 @@ import elca.ntig.partnerapp.be.model.dto.person.*;
 import elca.ntig.partnerapp.be.model.entity.Partner;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.exception.*;
-import elca.ntig.partnerapp.be.repository.AddressRepository;
 import elca.ntig.partnerapp.be.repository.PartnerRepository;
 import elca.ntig.partnerapp.be.service.AddressService;
 import elca.ntig.partnerapp.be.utils.mapper.PersonMapper;
