@@ -8,3 +8,5 @@
 2024-09-20 17:04:33 WARN  PersonRepositoryCustomImpl:122 - Unknown sort property: creationDate
 2024-09-20 17:04:37 WARN  PersonRepositoryCustomImpl:122 - Unknown sort property: codeNoga
 2024-09-20 17:04:38 WARN  PersonRepositoryCustomImpl:122 - Unknown sort property: codeNoga
+2024-09-30 17:39:54 ERROR GrpcExceptionAdvice:22 - query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+2024-09-30 17:40:33 ERROR GrpcExceptionAdvice:22 - org.springframework.dao.IncorrectResultSizeDataAccessException: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2

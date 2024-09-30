@@ -44,10 +44,8 @@ public class AddressServiceImpl implements AddressService {
                                 ? currentAddress.getValidityEnd()
                                 : LocalDate.MAX;
 
-                        if (currentAddress.getValidityEnd() != null) {
-                            if (!currentEnd.isAfter(currentStart)) {
-                                throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
-                            }
+                        if (currentAddress.getValidityEnd() != null && !currentEnd.isAfter(currentStart)) {
+                               throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
                         }
 
                         if (previousEnd != null) {
