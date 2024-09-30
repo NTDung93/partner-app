@@ -4,15 +4,13 @@ import elca.ntig.partnerapp.be.model.enums.common.Status;
 import elca.ntig.partnerapp.be.model.enums.organisation.CodeNOGA;
 import elca.ntig.partnerapp.be.model.enums.organisation.LegalStatus;
 import elca.ntig.partnerapp.be.model.enums.partner.Language;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrganisationResponseDto {
