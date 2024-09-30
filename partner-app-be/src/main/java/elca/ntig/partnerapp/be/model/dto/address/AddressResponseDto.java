@@ -4,15 +4,13 @@ import elca.ntig.partnerapp.be.model.enums.addess.AddressType;
 import elca.ntig.partnerapp.be.model.enums.addess.CantonAbbr;
 import elca.ntig.partnerapp.be.model.enums.addess.Country;
 import elca.ntig.partnerapp.be.model.enums.common.Status;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressResponseDto {
