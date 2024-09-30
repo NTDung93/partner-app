@@ -120,6 +120,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void updateAddressForPartner(Partner partner, List<AddressResponseDto> addresses) {
         addresses.stream()
+                .filter(address -> address.getStatus() == Status.ACTIVE || address.getStatus() == null)
                 .collect(Collectors.groupingBy(AddressResponseDto::getCategory))
                 .forEach((category, categoryAddresses) -> {
                     categoryAddresses.sort(Comparator.comparing(AddressResponseDto::getValidityStart));
