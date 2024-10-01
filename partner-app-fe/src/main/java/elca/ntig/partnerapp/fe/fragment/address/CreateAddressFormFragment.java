@@ -172,6 +172,14 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         setupCantonComboBox();
         setupComboBoxes();
         setupDatePicker();
+        setupInputMaxLength();
+    }
+
+    private void setupInputMaxLength() {
+        validateMaxLengthTextField(zipCodeValue, 15);
+        validateMaxLengthTextField(localityValue, 50);
+        validateMaxLengthTextField(streetValue, 60);
+        validateMaxLengthTextField(houseNumberValue, 12);
     }
 
     private void setupCantonComboBox() {
@@ -290,10 +298,6 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         validateRequiredTextField(zipCodeValue, zipCodeErrorLabel);
         validateRequiredComboBox(typeComboBox, typeErrorLabel);
         validateRequiredDatePicker(validityStartValue, validityStartErrorLabel);
-        validateMaxLengthTextField(zipCodeValue, 15);
-        validateMaxLengthTextField(localityValue, 50);
-        validateMaxLengthTextField(streetValue, 60);
-        validateMaxLengthTextField(houseNumberValue, 12);
         validateEndDateAfterStartDate(validityStartValue, validityEndValue, validityEndErrorLabel);
     }
 }
