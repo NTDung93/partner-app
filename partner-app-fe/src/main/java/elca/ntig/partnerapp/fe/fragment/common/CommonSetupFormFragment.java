@@ -8,6 +8,8 @@ import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -465,5 +467,32 @@ public abstract class CommonSetupFormFragment<T> {
                 .setValidityStart(addressResponseProto.getValidityStart())
                 .setValidityEnd(addressResponseProto.getValidityEnd())
                 .build();
+    }
+
+    public void uneditableTextField(TextField textField) {
+        if (textField.getLength() == 0) {
+            textField.setPromptText(null);
+        }
+        textField.setEditable(false);
+        textField.getStyleClass().add(ClassNameConstant.UNEDITABLE_FIELD);
+    }
+
+    public void uneditableComboBox(ComboBox<?> comboBox, BindingHelper bindingHelper) {
+        if (comboBox.getValue() == null) {
+            bindingHelper.bindPromptTextProperty(comboBox, "FormFragment.nullField");
+        }
+        comboBox.setFocusTraversable(false);
+        comboBox.addEventFilter(MouseEvent.ANY, event -> event.consume());
+        comboBox.addEventFilter(KeyEvent.ANY, event -> event.consume());
+        comboBox.getStyleClass().add(ClassNameConstant.UNEDITABLE_COMBOBOX);
+    }
+
+    public void uneditableDatePicker(DatePicker datePicker) {
+        if (datePicker.getValue() == null) {
+            datePicker.setPromptText(null);
+        }
+        datePicker.setFocusTraversable(false);
+        datePicker.setEditable(false);
+        datePicker.getStyleClass().add(ClassNameConstant.UNEDITABLE_DATEPICKER);
     }
 }

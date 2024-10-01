@@ -3,6 +3,7 @@ package elca.ntig.partnerapp.fe.common.cell;
 import com.google.protobuf.ProtocolMessageEnum;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Tooltip;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
     protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
         textProperty().unbind();
-        if (empty || item == null || item.getValueDescriptor().toString().contains("NULL_")){
+        if (empty || item == null || item.getValueDescriptor().toString().contains("NULL_")) {
             setText(null);
         } else {
             int subStringIndex = 0;
@@ -28,6 +29,12 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
             }
             String value = item.getValueDescriptor().toString().substring(subStringIndex).toLowerCase();
             textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
+
+//            if (resourcePrefix.equals("Enum.codeNOGA.")) {
+//                Tooltip tooltip = new Tooltip();
+//                tooltip.textProperty().bind(observableResourceFactory.getStringBinding(resourcePrefix + value));
+//                setTooltip(tooltip);
+//            }
         }
     }
 

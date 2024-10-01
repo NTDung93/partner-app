@@ -209,9 +209,30 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         bindTextProperties();
         setupUIControls();
         fillData(responseProto);
+        setupUneditableForm(responseProto.getPerson().getStatus());
         initializeTable();
         setupDoubleClickEventHandler();
         handleEvents();
+    }
+
+    private void setupUneditableForm(StatusProto status) {
+        if (status == StatusProto.INACTIVE) {
+            uneditableTextField(lastNameValue);
+            uneditableTextField(firstNameValue);
+            uneditableTextField(avsNumberValue);
+            uneditableTextField(phoneNumberValue);
+
+            uneditableDatePicker(birthDateValue);
+
+            uneditableComboBox(maritalStatusComboBox, bindingHelper);
+            uneditableComboBox(languageComboBox, bindingHelper);
+            uneditableComboBox(sexComboBox, bindingHelper);
+            uneditableComboBox(nationalityComboBox, bindingHelper);
+            uneditableComboBox(typeComboBox, bindingHelper);
+
+            createAddressButton.setDisable(true);
+            saveButton.setVisible(false);
+        }
     }
 
     private void fillData(GetPersonAlongWithAddressResponseProto responseProto) {
@@ -329,7 +350,7 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_PERSON);
-        typeComboBox.setDisable(true);
+//        typeComboBox.setDisable(true);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
@@ -590,6 +611,7 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
                     UpdateAddressMessage request = UpdateAddressMessage.builder()
                             .partnerType(PartnerTypeProto.TYPE_PERSON)
                             .updateAddressRequestProto(convertAddressResponseProtoToCreateAddressRequestProto(addressProto))
+                            .status(addressProto.getStatus())
                             .build();
                     context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), request);
                 }

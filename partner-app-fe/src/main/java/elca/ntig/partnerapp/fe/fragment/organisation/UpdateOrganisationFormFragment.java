@@ -38,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
@@ -196,9 +197,29 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         bindTextProperties();
         setupUIControls();
         fillData(responseProto);
+        setupUneditableForm(responseProto.getOrganisation().getStatus());
         initializeTable();
         setupDoubleClickEventHandler();
         handleEvents();
+    }
+
+    private void setupUneditableForm(StatusProto status) {
+        if (status == StatusProto.INACTIVE) {
+            uneditableTextField(nameValue);
+            uneditableTextField(additionalNameValue);
+            uneditableTextField(ideNumberValue);
+            uneditableTextField(phoneNumberValue);
+
+            uneditableDatePicker(creationDateValue);
+
+            uneditableComboBox(codeNOGAComboBox, bindingHelper);
+            uneditableComboBox(languageComboBox, bindingHelper);
+            uneditableComboBox(legalStatusComboBox, bindingHelper);
+            uneditableComboBox(typeComboBox, bindingHelper);
+
+            createAddressButton.setDisable(true);
+            saveButton.setVisible(false);
+        }
     }
 
     private void fillData(GetOrganisationAlongWithAddressResponseProto responseProto) {
@@ -311,7 +332,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_ORGANISATION);
-        typeComboBox.setDisable(true);
+//        typeComboBox.setDisable(true);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
@@ -560,6 +581,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                     UpdateAddressMessage request = UpdateAddressMessage.builder()
                             .partnerType(PartnerTypeProto.TYPE_ORGANISATION)
                             .updateAddressRequestProto(convertAddressResponseProtoToCreateAddressRequestProto(addressProto))
+                            .status(addressProto.getStatus())
                             .build();
                     context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), request);
                 }

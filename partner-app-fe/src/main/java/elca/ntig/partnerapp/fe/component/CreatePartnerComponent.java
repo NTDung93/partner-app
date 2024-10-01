@@ -2,6 +2,7 @@ package elca.ntig.partnerapp.fe.component;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
@@ -132,7 +133,7 @@ public class CreatePartnerComponent implements FXComponent {
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);
-            popupWindow.setTitle("Create Address Form");
+//            popupWindow.setTitle("Create Address Form");
 
             Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
             int popupWidth = (int) (resolution.width() * 0.75);
@@ -149,11 +150,11 @@ public class CreatePartnerComponent implements FXComponent {
     private void showUpdateAddressForm(PartnerTypeProto partnerType, CreateAddressRequestProto createAddressRequestProto) {
         updateAddressFormHandler = context.getManagedFragmentHandler(UpdateAddressFormFragment.class);
         updateAddressFormController = updateAddressFormHandler.getController();
-        updateAddressFormController.init(partnerType, createAddressRequestProto, false);
+        updateAddressFormController.init(partnerType, createAddressRequestProto, false, StatusProto.ACTIVE);
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);
-            popupWindow.setTitle("Update Address Form");
+//            popupWindow.setTitle("Update Address Form");
 
             Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
             int popupWidth = (int) (resolution.width() * 0.90);

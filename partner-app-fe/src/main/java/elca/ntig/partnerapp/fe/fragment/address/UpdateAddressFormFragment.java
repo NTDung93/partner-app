@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CantonAbbrProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CountryProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressResponseMessage;
@@ -128,7 +129,7 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
     @FXML
     private Button saveButton;
 
-    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto, boolean isUpdatePartner) {
+    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto, boolean isUpdatePartner, StatusProto currentStatus) {
         currentPartnerType = partnerType;
         this.isUpdatePartner = isUpdatePartner;
         orginalAddressRequestProto = responseProto;
@@ -136,8 +137,27 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
         bindTextProperties();
         setupUIControls();
         fillDataIntoForm(responseProto);
+        setupUneditableForm(currentStatus);
         handleEvents();
         setupComboBoxNullOptionListener();
+    }
+
+    private void setupUneditableForm(StatusProto status) {
+        if (status == StatusProto.INACTIVE) {
+            uneditableTextField(localityValue);
+            uneditableTextField(streetValue);
+            uneditableTextField(houseNumberValue);
+            uneditableTextField(zipCodeValue);
+
+            uneditableDatePicker(validityStartValue);
+            uneditableDatePicker(validityEndValue);
+
+            uneditableComboBox(countryComboBox, bindingHelper);
+            uneditableComboBox(cantonComboBox, bindingHelper);
+            uneditableComboBox(typeComboBox, bindingHelper);
+
+            saveButton.setVisible(false);
+        }
     }
 
     private void setupComboBoxNullOptionListener() {
