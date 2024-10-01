@@ -370,7 +370,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(creationDateValue);
+        setupDatePickerImpl(creationDateValue, true);
     }
 
     private void setupPhoneNumberField() {

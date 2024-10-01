@@ -21,7 +21,7 @@ import java.util.List;
 
 public abstract class CommonSetupFormFragment<T> {
 
-    public void setupDatePickerImpl(DatePicker datePickerValue) {
+    public void setupDatePickerImpl(DatePicker datePickerValue, boolean needCheckDateInPast) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
         datePickerValue.setConverter(new StringConverter<LocalDate>() {
@@ -40,36 +40,28 @@ public abstract class CommonSetupFormFragment<T> {
             }
         });
 
-        datePickerValue.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
-                    setDisable(true);
-                    getStyleClass().add(ClassNameConstant.DISABLED_DATE_PICKER_VALUE);
-                }
+        datePickerValue.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9/]*")) {
+                datePickerValue.getEditor().setText(newValue.replaceAll("[^0-9/]", ""));
+            }
+
+            if (newValue.length() > 10) {
+                datePickerValue.getEditor().setText(newValue.substring(0, 10));
             }
         });
-    }
 
-    public void setupAddressDatePickerImpl(DatePicker datePickerValue) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        datePickerValue.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate date) {
-                return (date != null) ? formatter.format(date) : null;
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                try {
-                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
-                } catch (DateTimeParseException e) {
-                    return null;
+        if (needCheckDateInPast) {
+            datePickerValue.setDayCellFactory(picker -> new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+                        setDisable(true);
+                        getStyleClass().add(ClassNameConstant.DISABLED_DATE_PICKER_VALUE);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void setupIdeNumberFieldImpl(TextField ideNumberValue) {

@@ -232,7 +232,7 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(birthDateValue);
+        setupDatePickerImpl(birthDateValue, true);
     }
 
     @Override

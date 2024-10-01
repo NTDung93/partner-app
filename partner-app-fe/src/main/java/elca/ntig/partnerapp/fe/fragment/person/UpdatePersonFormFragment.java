@@ -395,7 +395,7 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(birthDateValue);
+        setupDatePickerImpl(birthDateValue, true);
     }
 
     private void setupPhoneNumberField() {

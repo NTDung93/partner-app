@@ -211,7 +211,7 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(creationDateValue);
+        setupDatePickerImpl(creationDateValue, true);
     }
 
     @Override
