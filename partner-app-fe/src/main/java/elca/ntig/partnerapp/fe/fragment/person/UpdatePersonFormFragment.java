@@ -3,7 +3,6 @@ package elca.ntig.partnerapp.fe.fragment.person;
 import elca.ntig.partnerapp.common.proto.entity.address.AddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonAlongWithAddressResponseProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.PersonResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.UpdatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
@@ -12,7 +11,6 @@ import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.MaritalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
-import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.callback.person.UpdatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
@@ -22,12 +20,10 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
-import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
-import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -307,6 +303,25 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         setupAvsNumberField();
         setupDatePicker();
         setupPhoneNumberField();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        nationalityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == NationalityProto.NULL_NATIONALITY) {
+                Platform.runLater(() -> {
+                    nationalityComboBox.setValue(null);
+                });
+            }
+        });
+
+        maritalStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == MaritalStatusProto.NULL_MARITAL_STATUS) {
+                Platform.runLater(() -> {
+                    maritalStatusComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -330,12 +345,12 @@ public class UpdatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
 
         nationalityComboBox.getItems().addAll(NationalityProto.values());
-        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
+        nationalityComboBox.getItems().removeAll(NationalityProto.UNRECOGNIZED);
         nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
         nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
 
         maritalStatusComboBox.getItems().addAll(MaritalStatusProto.values());
-        maritalStatusComboBox.getItems().removeAll(MaritalStatusProto.NULL_MARITAL_STATUS, MaritalStatusProto.UNRECOGNIZED);
+        maritalStatusComboBox.getItems().removeAll(MaritalStatusProto.UNRECOGNIZED);
         maritalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.marital."));
         maritalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.marital."));
     }

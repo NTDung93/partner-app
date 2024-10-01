@@ -20,6 +20,7 @@ import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -157,6 +158,25 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         setupIdeNumberField();
         setupDatePicker();
         setupErrorLabelVisibility();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == LanguageProto.NULL_LANGUAGE) {
+                Platform.runLater(() -> {
+                    languageComboBox.setValue(null);
+                });
+            }
+        });
+
+        legalStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == LegalStatusProto.NULL_LEGAL_STATUS) {
+                Platform.runLater(() -> {
+                    legalStatusComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -168,12 +188,12 @@ public class SearchOrganisationFormFragment extends CommonSetupFormFragment impl
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
 
         languageComboBox.getItems().addAll(LanguageProto.values());
-        languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
+        languageComboBox.getItems().removeAll(LanguageProto.UNRECOGNIZED);
         languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
         languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
 
         legalStatusComboBox.getItems().addAll(LegalStatusProto.values());
-        legalStatusComboBox.getItems().removeAll(LegalStatusProto.NULL_LEGAL_STATUS, LegalStatusProto.UNRECOGNIZED);
+        legalStatusComboBox.getItems().removeAll(LegalStatusProto.UNRECOGNIZED);
         legalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
         legalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
     }

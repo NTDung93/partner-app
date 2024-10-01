@@ -5,14 +5,12 @@ import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProt
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.fe.callback.organisation.UpdateOrganisationCallback;
-import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
@@ -21,12 +19,10 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
-import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
-import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -289,6 +285,25 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         setupIdeNumberField();
         setupDatePicker();
         setupPhoneNumberField();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        codeNOGAComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CodeNOGAProto.NULL_CODE_NOGA) {
+                Platform.runLater(() -> {
+                    codeNOGAComboBox.setValue(null);
+                });
+            }
+        });
+
+        legalStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == LegalStatusProto.NULL_LEGAL_STATUS) {
+                Platform.runLater(() -> {
+                    legalStatusComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -307,12 +322,12 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
 
         legalStatusComboBox.getItems().addAll(LegalStatusProto.values());
-        legalStatusComboBox.getItems().removeAll(LegalStatusProto.NULL_LEGAL_STATUS, LegalStatusProto.UNRECOGNIZED);
+        legalStatusComboBox.getItems().removeAll(LegalStatusProto.UNRECOGNIZED);
         legalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
         legalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
 
         codeNOGAComboBox.getItems().addAll(CodeNOGAProto.values());
-        codeNOGAComboBox.getItems().removeAll(CodeNOGAProto.NULL_CODE_NOGA, CodeNOGAProto.UNRECOGNIZED);
+        codeNOGAComboBox.getItems().removeAll(CodeNOGAProto.UNRECOGNIZED);
         codeNOGAComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
         codeNOGAComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
     }

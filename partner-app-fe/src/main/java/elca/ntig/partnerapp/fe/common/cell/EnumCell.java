@@ -19,7 +19,7 @@ public class EnumCell<T extends ProtocolMessageEnum> extends ListCell<T> {
     protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
         textProperty().unbind();
-        if (empty || item == null) {
+        if (empty || item == null || item.getValueDescriptor().toString().contains("NULL_")){
             setText(null);
         } else {
             int subStringIndex = 0;

@@ -21,6 +21,7 @@ import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -165,6 +166,33 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         setupAvsNumberField();
         setupDatePicker();
         setupErrorLabelVisibility();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == LanguageProto.NULL_LANGUAGE) {
+                Platform.runLater(() -> {
+                    languageComboBox.setValue(null);
+                });
+            }
+        });
+
+        sexComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == SexEnumProto.NULL_SEX_ENUM) {
+                Platform.runLater(() -> {
+                    sexComboBox.setValue(null);
+                });
+            }
+        });
+
+        nationalityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == NationalityProto.NULL_NATIONALITY) {
+                Platform.runLater(() -> {
+                    nationalityComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -176,17 +204,17 @@ public class SearchPersonFormFragment extends CommonSetupFormFragment implements
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
 
         languageComboBox.getItems().addAll(LanguageProto.values());
-        languageComboBox.getItems().removeAll(LanguageProto.NULL_LANGUAGE, LanguageProto.UNRECOGNIZED);
+        languageComboBox.getItems().removeAll(LanguageProto.UNRECOGNIZED);
         languageComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.language."));
         languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
 
         sexComboBox.getItems().addAll(SexEnumProto.values());
-        sexComboBox.getItems().removeAll(SexEnumProto.NULL_SEX_ENUM, SexEnumProto.UNRECOGNIZED);
+        sexComboBox.getItems().removeAll(SexEnumProto.UNRECOGNIZED);
         sexComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.sex."));
         sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
 
         nationalityComboBox.getItems().addAll(NationalityProto.values());
-        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
+        nationalityComboBox.getItems().removeAll(NationalityProto.UNRECOGNIZED);
         nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
         nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
     }
