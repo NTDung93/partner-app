@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.fe.common.constant.ExportExcelConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
@@ -93,43 +94,34 @@ public abstract class CommonSetupTableFragment<T> {
 
     public void exportPersonDataToExcel(ObservableList<PersonTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
-            logger.info("No data to export to Excel.");
+            logger.info(ExportExcelConstant.NO_DATA_MSG);
             return;
         }
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Excel File");
+        fileChooser.setTitle(ExportExcelConstant.FILE_CHOOSER_TITLE);
 
         // Set extension filter to only allow Excel files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(ExportExcelConstant.EXTENSTION_FILTER_DESCRIPTION, ExportExcelConstant.EXTENSTION_FILTER_EXTENSION);
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showSaveDialog(window);
         if (file == null) {
-            logger.info("File save operation was canceled.");
             return;
         }
 
         // Ensure the file has the correct extension
-        if (!file.getPath().endsWith(".xlsx")) {
-            file = new File(file.getPath() + ".xlsx");
+        if (!file.getPath().endsWith(ExportExcelConstant.FILE_EXTENSION)) {
+            file = new File(file.getPath() + ExportExcelConstant.FILE_EXTENSION);
         }
 
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Person Data");
+        Sheet sheet = workbook.createSheet(ExportExcelConstant.PERSON_SHEET_NAME);
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"Id", "Last Name", "First Name", "Language", "Gender", "Nationality", "AVS Number", "Birth Date", "Civil Status", "Phone Number", "Status"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-            CellStyle style = workbook.createCellStyle();
-            Font font = workbook.createFont();
-            font.setBold(true);
-            style.setFont(font);
-            cell.setCellStyle(style);
-        }
+        String[] headers = ExportExcelConstant.PERSON_HEADERS;
+        createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
         for (int i = 0; i < data.size(); i++) {
@@ -156,15 +148,7 @@ public abstract class CommonSetupTableFragment<T> {
             sheet.autoSizeColumn(i);
         }
 
-        // Write the Excel file to the selected location
-        try (FileOutputStream fileOut = new FileOutputStream(file)) {
-            workbook.write(fileOut);
-            workbook.close();
-            logger.info("Excel file created successfully at: " + file.getAbsolutePath());
-            showMessageExportExcelSuccessFully(observableResourceFactory);
-        } catch (IOException e) {
-            logger.error("Error writing Excel file: " + e.getMessage());
-        }
+        writeExcelFile(observableResourceFactory, file, workbook);
     }
 
     public String formatAvsNumber(String avsNumber) {
@@ -180,43 +164,34 @@ public abstract class CommonSetupTableFragment<T> {
 
     public void exportOrganizationDataToExcel(ObservableList<OrganisationTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
-            logger.info("No data to export to Excel.");
+            logger.info(ExportExcelConstant.NO_DATA_MSG);
             return;
         }
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Excel File");
+        fileChooser.setTitle(ExportExcelConstant.FILE_CHOOSER_TITLE);
 
         // Set extension filter to only allow Excel files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(ExportExcelConstant.EXTENSTION_FILTER_DESCRIPTION, ExportExcelConstant.EXTENSTION_FILTER_EXTENSION);
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showSaveDialog(window);
         if (file == null) {
-            logger.info("File save operation was canceled.");
             return;
         }
 
         // Ensure the file has the correct extension
-        if (!file.getPath().endsWith(".xlsx")) {
-            file = new File(file.getPath() + ".xlsx");
+        if (!file.getPath().endsWith(ExportExcelConstant.FILE_EXTENSION)) {
+            file = new File(file.getPath() + ExportExcelConstant.FILE_EXTENSION);
         }
 
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Organization Data");
+        Sheet sheet = workbook.createSheet(ExportExcelConstant.ORGANIZATION_SHEET_NAME);
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"ID", "Name", "Additional Name", "Language", "Legal Status", "IDE Number", "Creation Date", "Code NOGA", "Phone Number", "Status"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-            CellStyle style = workbook.createCellStyle();
-            Font font = workbook.createFont();
-            font.setBold(true);
-            style.setFont(font);
-            cell.setCellStyle(style);
-        }
+        String[] headers = ExportExcelConstant.ORGANIZATION_HEADERS;
+        createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
         for (int i = 0; i < data.size(); i++) {
@@ -238,19 +213,32 @@ public abstract class CommonSetupTableFragment<T> {
             row.createCell(9).setCellValue(StringUtils.capitalize(organization.getStatus().toLowerCase()));
         }
 
-        // Adjust column width to fit content
         for (int i = 0; i < headers.length; i++) {
             sheet.autoSizeColumn(i);
         }
 
-        // Write the Excel file to the selected location
+        writeExcelFile(observableResourceFactory, file, workbook);
+    }
+
+    private static void createHeaderRow(String[] headers, Row headerRow, Workbook workbook) {
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            CellStyle style = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            style.setFont(font);
+            cell.setCellStyle(style);
+        }
+    }
+
+    private static void writeExcelFile(ObservableResourceFactory observableResourceFactory, File file, Workbook workbook) {
         try (FileOutputStream fileOut = new FileOutputStream(file)) {
             workbook.write(fileOut);
             workbook.close();
-            logger.info("Excel file created successfully at: " + file.getAbsolutePath());
             showMessageExportExcelSuccessFully(observableResourceFactory);
         } catch (IOException e) {
-            logger.error("Error writing Excel file: " + e.getMessage());
+            logger.error(ExportExcelConstant.ERROR_WHILE_EXPORTING_MSG + e.getMessage());
         }
     }
 

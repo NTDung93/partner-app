@@ -204,6 +204,8 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
     }
 
     private void setupUneditableForm(StatusProto status) {
+        uneditableComboBox(typeComboBox, bindingHelper);
+
         if (status == StatusProto.INACTIVE) {
             uneditableTextField(nameValue);
             uneditableTextField(additionalNameValue);
@@ -215,9 +217,8 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
             uneditableComboBox(codeNOGAComboBox, bindingHelper);
             uneditableComboBox(languageComboBox, bindingHelper);
             uneditableComboBox(legalStatusComboBox, bindingHelper);
-            uneditableComboBox(typeComboBox, bindingHelper);
 
-            createAddressButton.setDisable(true);
+            createAddressButton.setVisible(false);
             saveButton.setVisible(false);
         }
     }
