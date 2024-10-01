@@ -156,7 +156,7 @@ public class CreatePartnerComponent implements FXComponent {
             popupWindow.setTitle("Update Address Form");
 
             Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
-            int popupWidth = (int) (resolution.width() * 0.75);
+            int popupWidth = (int) (resolution.width() * 0.90);
             int popupHeight = (int) (resolution.height() * 0.6);
             popupWindow.setWidth(popupWidth);
             popupWindow.setHeight(popupHeight);
