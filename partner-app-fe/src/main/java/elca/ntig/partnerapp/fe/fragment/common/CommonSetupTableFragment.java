@@ -1,5 +1,6 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.fe.common.cell.LocalizedStringCell;
 import elca.ntig.partnerapp.fe.common.constant.ExportExcelConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
@@ -124,6 +125,7 @@ public abstract class CommonSetupTableFragment<T> {
         createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
+        LocalizedStringCell localizedStringCell = new LocalizedStringCell(observableResourceFactory);
         for (int i = 0; i < data.size(); i++) {
             PersonTableModel person = data.get(i);
             LocalDate date = null;
@@ -134,14 +136,14 @@ public abstract class CommonSetupTableFragment<T> {
             row.createCell(0).setCellValue(person.getId());
             row.createCell(1).setCellValue(person.getLastName());
             row.createCell(2).setCellValue(person.getFirstName());
-            row.createCell(3).setCellValue(StringUtils.capitalize(person.getLanguage().substring(5).toLowerCase()));
-            row.createCell(4).setCellValue(StringUtils.capitalize(person.getGender().toLowerCase()));
-            row.createCell(5).setCellValue((person.getNationality().contains("NULL")) ? "" : StringUtils.capitalize(person.getNationality().substring(12).toLowerCase()));
+            row.createCell(3).setCellValue(localizedStringCell.getLocalizedString("Enum.language.", person.getLanguage()));
+            row.createCell(4).setCellValue(localizedStringCell.getLocalizedString("Enum.sex.", person.getGender()));
+            row.createCell(5).setCellValue(localizedStringCell.getLocalizedString("Enum.nationality.", person.getNationality()));
             row.createCell(6).setCellValue(formatAvsNumber(person.getAvsNumber()));
             row.createCell(7).setCellValue(StringUtils.isBlank(person.getBirthDate()) ? "" : date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-            row.createCell(8).setCellValue((person.getCivilStatus().contains("NULL")) ? "" : StringUtils.capitalize(person.getCivilStatus().toLowerCase()));
+            row.createCell(8).setCellValue(localizedStringCell.getLocalizedString("Enum.marital.", person.getCivilStatus()));
             row.createCell(9).setCellValue(person.getPhoneNumber());
-            row.createCell(10).setCellValue(StringUtils.capitalize(person.getStatus().toLowerCase()));
+            row.createCell(10).setCellValue(localizedStringCell.getLocalizedString("FormFragment.checkBox.", person.getStatus()));
         }
 
         for (int i = 0; i < headers.length; i++) {
@@ -194,6 +196,7 @@ public abstract class CommonSetupTableFragment<T> {
         createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
+        LocalizedStringCell localizedStringCell = new LocalizedStringCell(observableResourceFactory);
         for (int i = 0; i < data.size(); i++) {
             OrganisationTableModel organization = data.get(i);
             LocalDate creationDate = null;
@@ -204,13 +207,14 @@ public abstract class CommonSetupTableFragment<T> {
             row.createCell(0).setCellValue(organization.getId());
             row.createCell(1).setCellValue(organization.getName());
             row.createCell(2).setCellValue(organization.getAdditionalName());
-            row.createCell(3).setCellValue(StringUtils.capitalize(organization.getLanguage().substring(5).toLowerCase()));
-            row.createCell(4).setCellValue((organization.getLegalStatus().contains("NULL")) ? "" : StringUtils.capitalize(organization.getLegalStatus().toLowerCase()));
+            row.createCell(3).setCellValue(localizedStringCell.getLocalizedString("Enum.language.", organization.getLanguage()));
+            row.createCell(4).setCellValue(localizedStringCell.getLocalizedString("Enum.legalStatus.", organization.getLegalStatus()));
             row.createCell(5).setCellValue(organization.getIdeNumber());
             row.createCell(6).setCellValue(StringUtils.isBlank(organization.getCreationDate()) ? "" : creationDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             row.createCell(7).setCellValue((organization.getCodeNoga().contains("NULL")) ? "" : organization.getCodeNoga().substring(5));
             row.createCell(8).setCellValue(organization.getPhoneNumber());
-            row.createCell(9).setCellValue(StringUtils.capitalize(organization.getStatus().toLowerCase()));
+//            row.createCell(9).setCellValue(StringUtils.capitalize(organization.getStatus().toLowerCase()));
+            row.createCell(9).setCellValue(localizedStringCell.getLocalizedString("FormFragment.checkBox.", organization.getStatus()));
         }
 
         for (int i = 0; i < headers.length; i++) {
