@@ -1,5 +1,7 @@
 package elca.ntig.partnerapp.fe.fragment.common;
 
+import elca.ntig.partnerapp.fe.common.cell.LocalizedStringCell;
+import elca.ntig.partnerapp.fe.common.constant.ExportExcelConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.model.OrganisationTableModel;
 import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
@@ -93,45 +95,49 @@ public abstract class CommonSetupTableFragment<T> {
 
     public void exportPersonDataToExcel(ObservableList<PersonTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
-            logger.info("No data to export to Excel.");
+            logger.info(ExportExcelConstant.NO_DATA_MSG);
             return;
         }
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Excel File");
+        fileChooser.setTitle(ExportExcelConstant.FILE_CHOOSER_TITLE);
 
         // Set extension filter to only allow Excel files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(ExportExcelConstant.EXTENSTION_FILTER_DESCRIPTION, ExportExcelConstant.EXTENSTION_FILTER_EXTENSION);
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showSaveDialog(window);
         if (file == null) {
-            logger.info("File save operation was canceled.");
             return;
         }
 
         // Ensure the file has the correct extension
-        if (!file.getPath().endsWith(".xlsx")) {
-            file = new File(file.getPath() + ".xlsx");
+        if (!file.getPath().endsWith(ExportExcelConstant.FILE_EXTENSION)) {
+            file = new File(file.getPath() + ExportExcelConstant.FILE_EXTENSION);
         }
 
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Person Data");
+        Sheet sheet = workbook.createSheet(ExportExcelConstant.PERSON_SHEET_NAME);
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"Id", "Last Name", "First Name", "Language", "Gender", "Nationality", "AVS Number", "Birth Date", "Civil Status", "Phone Number", "Status"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-            CellStyle style = workbook.createCellStyle();
-            Font font = workbook.createFont();
-            font.setBold(true);
-            style.setFont(font);
-            cell.setCellStyle(style);
-        }
+        String[] headers = {
+                observableResourceFactory.getStringBinding("TableFragment.col.baseNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.lastName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.firstName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.language").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.gender").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.nationality").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.avsNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.birthDate").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.civilStatus").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.phoneNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.status").get(),
+        };
+        createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
+        LocalizedStringCell localizedStringCell = new LocalizedStringCell(observableResourceFactory);
         for (int i = 0; i < data.size(); i++) {
             PersonTableModel person = data.get(i);
             LocalDate date = null;
@@ -142,29 +148,21 @@ public abstract class CommonSetupTableFragment<T> {
             row.createCell(0).setCellValue(person.getId());
             row.createCell(1).setCellValue(person.getLastName());
             row.createCell(2).setCellValue(person.getFirstName());
-            row.createCell(3).setCellValue(StringUtils.capitalize(person.getLanguage().substring(5).toLowerCase()));
-            row.createCell(4).setCellValue(StringUtils.capitalize(person.getGender().toLowerCase()));
-            row.createCell(5).setCellValue((person.getNationality().contains("NULL")) ? "" : StringUtils.capitalize(person.getNationality().substring(12).toLowerCase()));
+            row.createCell(3).setCellValue(localizedStringCell.getLocalizedString("Enum.language.", person.getLanguage()));
+            row.createCell(4).setCellValue(localizedStringCell.getLocalizedString("Enum.sex.", person.getGender()));
+            row.createCell(5).setCellValue(localizedStringCell.getLocalizedString("Enum.nationality.", person.getNationality()));
             row.createCell(6).setCellValue(formatAvsNumber(person.getAvsNumber()));
             row.createCell(7).setCellValue(StringUtils.isBlank(person.getBirthDate()) ? "" : date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-            row.createCell(8).setCellValue((person.getCivilStatus().contains("NULL")) ? "" : StringUtils.capitalize(person.getCivilStatus().toLowerCase()));
+            row.createCell(8).setCellValue(localizedStringCell.getLocalizedString("Enum.marital.", person.getCivilStatus()));
             row.createCell(9).setCellValue(person.getPhoneNumber());
-            row.createCell(10).setCellValue(StringUtils.capitalize(person.getStatus().toLowerCase()));
+            row.createCell(10).setCellValue(localizedStringCell.getLocalizedString("FormFragment.checkBox.", person.getStatus()));
         }
 
         for (int i = 0; i < headers.length; i++) {
             sheet.autoSizeColumn(i);
         }
 
-        // Write the Excel file to the selected location
-        try (FileOutputStream fileOut = new FileOutputStream(file)) {
-            workbook.write(fileOut);
-            workbook.close();
-            logger.info("Excel file created successfully at: " + file.getAbsolutePath());
-            showMessageExportExcelSuccessFully(observableResourceFactory);
-        } catch (IOException e) {
-            logger.error("Error writing Excel file: " + e.getMessage());
-        }
+        writeExcelFile(observableResourceFactory, file, workbook);
     }
 
     public String formatAvsNumber(String avsNumber) {
@@ -180,45 +178,48 @@ public abstract class CommonSetupTableFragment<T> {
 
     public void exportOrganizationDataToExcel(ObservableList<OrganisationTableModel> data, Window window, ObservableResourceFactory observableResourceFactory) {
         if (data == null) {
-            logger.info("No data to export to Excel.");
+            logger.info(ExportExcelConstant.NO_DATA_MSG);
             return;
         }
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Excel File");
+        fileChooser.setTitle(ExportExcelConstant.FILE_CHOOSER_TITLE);
 
         // Set extension filter to only allow Excel files
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel Files (*.xlsx)", "*.xlsx");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(ExportExcelConstant.EXTENSTION_FILTER_DESCRIPTION, ExportExcelConstant.EXTENSTION_FILTER_EXTENSION);
         fileChooser.getExtensionFilters().add(extFilter);
 
         File file = fileChooser.showSaveDialog(window);
         if (file == null) {
-            logger.info("File save operation was canceled.");
             return;
         }
 
         // Ensure the file has the correct extension
-        if (!file.getPath().endsWith(".xlsx")) {
-            file = new File(file.getPath() + ".xlsx");
+        if (!file.getPath().endsWith(ExportExcelConstant.FILE_EXTENSION)) {
+            file = new File(file.getPath() + ExportExcelConstant.FILE_EXTENSION);
         }
 
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Organization Data");
+        Sheet sheet = workbook.createSheet(ExportExcelConstant.ORGANIZATION_SHEET_NAME);
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"ID", "Name", "Additional Name", "Language", "Legal Status", "IDE Number", "Creation Date", "Code NOGA", "Phone Number", "Status"};
-        for (int i = 0; i < headers.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(headers[i]);
-            CellStyle style = workbook.createCellStyle();
-            Font font = workbook.createFont();
-            font.setBold(true);
-            style.setFont(font);
-            cell.setCellStyle(style);
-        }
+        String[] headers = {
+                observableResourceFactory.getStringBinding("TableFragment.col.baseNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.name").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.additionalName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.language").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.legalStatus").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.ideNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.creationDate").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.codeNOGA").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.phoneNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.status").get(),
+        };
+        createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
+        LocalizedStringCell localizedStringCell = new LocalizedStringCell(observableResourceFactory);
         for (int i = 0; i < data.size(); i++) {
             OrganisationTableModel organization = data.get(i);
             LocalDate creationDate = null;
@@ -229,28 +230,42 @@ public abstract class CommonSetupTableFragment<T> {
             row.createCell(0).setCellValue(organization.getId());
             row.createCell(1).setCellValue(organization.getName());
             row.createCell(2).setCellValue(organization.getAdditionalName());
-            row.createCell(3).setCellValue(StringUtils.capitalize(organization.getLanguage().substring(5).toLowerCase()));
-            row.createCell(4).setCellValue((organization.getLegalStatus().contains("NULL")) ? "" : StringUtils.capitalize(organization.getLegalStatus().toLowerCase()));
+            row.createCell(3).setCellValue(localizedStringCell.getLocalizedString("Enum.language.", organization.getLanguage()));
+            row.createCell(4).setCellValue(localizedStringCell.getLocalizedString("Enum.legalStatus.", organization.getLegalStatus()));
             row.createCell(5).setCellValue(organization.getIdeNumber());
             row.createCell(6).setCellValue(StringUtils.isBlank(organization.getCreationDate()) ? "" : creationDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
             row.createCell(7).setCellValue((organization.getCodeNoga().contains("NULL")) ? "" : organization.getCodeNoga().substring(5));
             row.createCell(8).setCellValue(organization.getPhoneNumber());
-            row.createCell(9).setCellValue(StringUtils.capitalize(organization.getStatus().toLowerCase()));
+//            row.createCell(9).setCellValue(StringUtils.capitalize(organization.getStatus().toLowerCase()));
+            row.createCell(9).setCellValue(localizedStringCell.getLocalizedString("FormFragment.checkBox.", organization.getStatus()));
         }
 
-        // Adjust column width to fit content
         for (int i = 0; i < headers.length; i++) {
             sheet.autoSizeColumn(i);
         }
 
-        // Write the Excel file to the selected location
+        writeExcelFile(observableResourceFactory, file, workbook);
+    }
+
+    private static void createHeaderRow(String[] headers, Row headerRow, Workbook workbook) {
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            CellStyle style = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            style.setFont(font);
+            cell.setCellStyle(style);
+        }
+    }
+
+    private static void writeExcelFile(ObservableResourceFactory observableResourceFactory, File file, Workbook workbook) {
         try (FileOutputStream fileOut = new FileOutputStream(file)) {
             workbook.write(fileOut);
             workbook.close();
-            logger.info("Excel file created successfully at: " + file.getAbsolutePath());
             showMessageExportExcelSuccessFully(observableResourceFactory);
         } catch (IOException e) {
-            logger.error("Error writing Excel file: " + e.getMessage());
+            logger.error(ExportExcelConstant.ERROR_WHILE_EXPORTING_MSG + e.getMessage());
         }
     }
 

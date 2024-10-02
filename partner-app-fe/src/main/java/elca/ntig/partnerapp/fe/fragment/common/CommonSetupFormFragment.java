@@ -8,6 +8,8 @@ import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,7 +21,7 @@ import java.util.List;
 
 public abstract class CommonSetupFormFragment<T> {
 
-    public void setupDatePickerImpl(DatePicker datePickerValue) {
+    public void setupDatePickerImpl(DatePicker datePickerValue, boolean needCheckDateInPast) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
         datePickerValue.setConverter(new StringConverter<LocalDate>() {
@@ -38,36 +40,28 @@ public abstract class CommonSetupFormFragment<T> {
             }
         });
 
-        datePickerValue.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
-                    setDisable(true);
-                    getStyleClass().add(ClassNameConstant.DISABLED_DATE_PICKER_VALUE);
-                }
+        datePickerValue.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9/]*")) {
+                datePickerValue.getEditor().setText(newValue.replaceAll("[^0-9/]", ""));
+            }
+
+            if (newValue.length() > 10) {
+                datePickerValue.getEditor().setText(newValue.substring(0, 10));
             }
         });
-    }
 
-    public void setupAddressDatePickerImpl(DatePicker datePickerValue) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        datePickerValue.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate date) {
-                return (date != null) ? formatter.format(date) : null;
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                try {
-                    return (string != null && !string.isEmpty()) ? LocalDate.parse(string, formatter) : null;
-                } catch (DateTimeParseException e) {
-                    return null;
+        if (needCheckDateInPast) {
+            datePickerValue.setDayCellFactory(picker -> new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+                        setDisable(true);
+                        getStyleClass().add(ClassNameConstant.DISABLED_DATE_PICKER_VALUE);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void setupIdeNumberFieldImpl(TextField ideNumberValue) {
@@ -465,5 +459,32 @@ public abstract class CommonSetupFormFragment<T> {
                 .setValidityStart(addressResponseProto.getValidityStart())
                 .setValidityEnd(addressResponseProto.getValidityEnd())
                 .build();
+    }
+
+    public void uneditableTextField(TextField textField) {
+        if (textField.getLength() == 0) {
+            textField.setPromptText(null);
+        }
+        textField.setEditable(false);
+        textField.getStyleClass().add(ClassNameConstant.UNEDITABLE_FIELD);
+    }
+
+    public void uneditableComboBox(ComboBox<?> comboBox, BindingHelper bindingHelper) {
+        if (comboBox.getValue() == null) {
+            bindingHelper.bindPromptTextProperty(comboBox, "FormFragment.nullField");
+        }
+        comboBox.setFocusTraversable(false);
+        comboBox.addEventFilter(MouseEvent.ANY, event -> event.consume());
+        comboBox.addEventFilter(KeyEvent.ANY, event -> event.consume());
+        comboBox.getStyleClass().add(ClassNameConstant.UNEDITABLE_COMBOBOX);
+    }
+
+    public void uneditableDatePicker(DatePicker datePicker) {
+        if (datePicker.getValue() == null) {
+            datePicker.setPromptText(null);
+        }
+        datePicker.setFocusTraversable(false);
+        datePicker.setEditable(false);
+        datePicker.getStyleClass().add(ClassNameConstant.UNEDITABLE_DATEPICKER);
     }
 }

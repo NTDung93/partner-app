@@ -1,27 +1,22 @@
 package elca.ntig.partnerapp.fe.fragment.address;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CantonAbbrProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CountryProto;
-import elca.ntig.partnerapp.common.proto.enums.common.PartnerType;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
-import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
-import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.message.CreateAddressMessage;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
-import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
 import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
-import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -138,6 +133,25 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         bindTextProperties();
         setupUIControls();
         handleEvents();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        countryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CountryProto.NULL_COUNTRY) {
+                Platform.runLater(() -> {
+                    countryComboBox.setValue(null);
+                });
+            }
+        });
+
+        cantonComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CantonAbbrProto.NULL_CANTON) {
+                Platform.runLater(() -> {
+                    cantonComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -172,6 +186,14 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         setupCantonComboBox();
         setupComboBoxes();
         setupDatePicker();
+        setupInputMaxLength();
+    }
+
+    private void setupInputMaxLength() {
+        validateMaxLengthTextField(zipCodeValue, 15);
+        validateMaxLengthTextField(localityValue, 50);
+        validateMaxLengthTextField(streetValue, 60);
+        validateMaxLengthTextField(houseNumberValue, 12);
     }
 
     private void setupCantonComboBox() {
@@ -200,12 +222,12 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.addressType."));
 
         countryComboBox.getItems().addAll(CountryProto.values());
-        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED, CountryProto.NULL_COUNTRY);
+        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED);
         countryComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.country."));
         countryComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.country."));
 
         cantonComboBox.getItems().addAll(CantonAbbrProto.values());
-        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED, CantonAbbrProto.NULL_CANTON);
+        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED);
         cantonComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
         cantonComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
     }
@@ -221,8 +243,8 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
 
     @Override
     public void setupDatePicker() {
-        setupAddressDatePickerImpl(validityStartValue);
-        setupAddressDatePickerImpl(validityEndValue);
+        setupDatePickerImpl(validityStartValue, false);
+        setupDatePickerImpl(validityEndValue, false);
     }
 
     @Override
@@ -290,10 +312,6 @@ public class CreateAddressFormFragment extends CommonSetupFormFragment implement
         validateRequiredTextField(zipCodeValue, zipCodeErrorLabel);
         validateRequiredComboBox(typeComboBox, typeErrorLabel);
         validateRequiredDatePicker(validityStartValue, validityStartErrorLabel);
-        validateMaxLengthTextField(zipCodeValue, 15);
-        validateMaxLengthTextField(localityValue, 50);
-        validateMaxLengthTextField(streetValue, 60);
-        validateMaxLengthTextField(houseNumberValue, 12);
         validateEndDateAfterStartDate(validityStartValue, validityEndValue, validityEndErrorLabel);
     }
 }

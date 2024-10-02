@@ -1,8 +1,6 @@
 package elca.ntig.partnerapp.be.utils.mapper;
 
 import elca.ntig.partnerapp.be.model.dto.address.*;
-import elca.ntig.partnerapp.be.model.dto.person.UpdatePersonRequestDto;
-import elca.ntig.partnerapp.be.model.entity.Person;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.AddressTypeMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.CantonAbbrMapper;
 import elca.ntig.partnerapp.be.utils.mapper.enums.address.CountryMapper;

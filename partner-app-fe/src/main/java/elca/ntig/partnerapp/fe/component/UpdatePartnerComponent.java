@@ -4,6 +4,7 @@ import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProt
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.person.GetPersonAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
 import elca.ntig.partnerapp.fe.common.constant.MessageConstant;
 import elca.ntig.partnerapp.fe.common.constant.TargetConstant;
@@ -82,9 +83,9 @@ public class UpdatePartnerComponent implements FXComponent {
         } else if (message.isMessageBodyTypeOf(UpdateAddressMessage.class)) {
             UpdateAddressMessage updateAddressMessage = (UpdateAddressMessage) message.getMessageBody();
             if (updateAddressMessage.getPartnerType().equals(PartnerTypeProto.TYPE_PERSON)) {
-                showUpdateAddressForm(PartnerTypeProto.TYPE_PERSON, updateAddressMessage.getUpdateAddressRequestProto());
+                showUpdateAddressForm(PartnerTypeProto.TYPE_PERSON, updateAddressMessage.getUpdateAddressRequestProto(), updateAddressMessage.getStatus());
             } else if (updateAddressMessage.getPartnerType().equals(PartnerTypeProto.TYPE_ORGANISATION)) {
-                showUpdateAddressForm(PartnerTypeProto.TYPE_ORGANISATION, updateAddressMessage.getUpdateAddressRequestProto());
+                showUpdateAddressForm(PartnerTypeProto.TYPE_ORGANISATION, updateAddressMessage.getUpdateAddressRequestProto(), updateAddressMessage.getStatus());
             }
         }else if (message.isMessageBodyTypeOf(UpdateAddressResponseMessage.class)) {
             UpdateAddressResponseMessage updateAddressResponseMessage = (UpdateAddressResponseMessage) message.getMessageBody();
@@ -133,10 +134,10 @@ public class UpdatePartnerComponent implements FXComponent {
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);
-            popupWindow.setTitle("Create Address Form");
+//            popupWindow.setTitle("Create Address Form");
 
             Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
-            int popupWidth = (int) (resolution.width() * 0.75);
+            int popupWidth = (int) (resolution.width() * 0.90);
             int popupHeight = (int) (resolution.height() * 0.6);
             popupWindow.setWidth(popupWidth);
             popupWindow.setHeight(popupHeight);
@@ -147,14 +148,14 @@ public class UpdatePartnerComponent implements FXComponent {
         });
     }
 
-    private void showUpdateAddressForm(PartnerTypeProto partnerType, CreateAddressRequestProto createAddressRequestProto) {
+    private void showUpdateAddressForm(PartnerTypeProto partnerType, CreateAddressRequestProto createAddressRequestProto, StatusProto status) {
         updateAddressFormHandler = context.getManagedFragmentHandler(UpdateAddressFormFragment.class);
         updateAddressFormController = updateAddressFormHandler.getController();
-        updateAddressFormController.init(partnerType, createAddressRequestProto, true);
+        updateAddressFormController.init(partnerType, createAddressRequestProto, true, status);
         Platform.runLater(() -> {
             Stage popupWindow = new Stage();
             popupWindow.initModality(Modality.APPLICATION_MODAL);
-            popupWindow.setTitle("Update Address Form");
+//            popupWindow.setTitle("Update Address Form");
 
             Resolution resolution = Resolution.resolutionByPrimaryScreenBounds();
             int popupWidth = (int) (resolution.width() * 0.75);

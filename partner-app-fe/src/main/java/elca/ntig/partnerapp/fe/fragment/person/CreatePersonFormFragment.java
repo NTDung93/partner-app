@@ -1,17 +1,13 @@
 package elca.ntig.partnerapp.fe.fragment.person;
 
 import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.address.UpdateAddressRequestProto;
 import elca.ntig.partnerapp.common.proto.entity.person.CreatePersonRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
-import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.common.proto.enums.person.MaritalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.person.NationalityProto;
 import elca.ntig.partnerapp.common.proto.enums.person.SexEnumProto;
 import elca.ntig.partnerapp.fe.callback.person.CreatePersonCallback;
-import elca.ntig.partnerapp.fe.callback.person.GetPersonCallBack;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
@@ -20,7 +16,6 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
-import elca.ntig.partnerapp.fe.common.model.PersonTableModel;
 import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
@@ -260,6 +255,25 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         setupAvsNumberField();
         setupDatePicker();
         setupPhoneNumberField();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        nationalityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == NationalityProto.NULL_NATIONALITY) {
+                Platform.runLater(() -> {
+                    nationalityComboBox.setValue(null);
+                });
+            }
+        });
+
+        maritalStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == MaritalStatusProto.NULL_MARITAL_STATUS) {
+                Platform.runLater(() -> {
+                    maritalStatusComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -281,12 +295,12 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
         sexComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.sex."));
 
         nationalityComboBox.getItems().addAll(NationalityProto.values());
-        nationalityComboBox.getItems().removeAll(NationalityProto.NULL_NATIONALITY, NationalityProto.UNRECOGNIZED);
+        nationalityComboBox.getItems().removeAll(NationalityProto.UNRECOGNIZED);
         nationalityComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.nationality."));
         nationalityComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.nationality."));
 
         maritalStatusComboBox.getItems().addAll(MaritalStatusProto.values());
-        maritalStatusComboBox.getItems().removeAll(MaritalStatusProto.NULL_MARITAL_STATUS, MaritalStatusProto.UNRECOGNIZED);
+        maritalStatusComboBox.getItems().removeAll(MaritalStatusProto.UNRECOGNIZED);
         maritalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.marital."));
         maritalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.marital."));
     }
@@ -309,7 +323,7 @@ public class CreatePersonFormFragment extends CommonSetupFormFragment<AddressTab
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(birthDateValue);
+        setupDatePickerImpl(birthDateValue, true);
     }
 
     private void setupPhoneNumberField() {

@@ -12,7 +12,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      styleClass="root"
+      styleClass="root-address-form"
       stylesheets="@../../../styles/fragments/FormFragment.css"
 >
     <HBox styleClass="header-section" alignment="CENTER_LEFT">
@@ -26,7 +26,7 @@
             <ColumnConstraints percentWidth="15.0"/>
             <ColumnConstraints halignment="RIGHT" percentWidth="15.0"/>
             <ColumnConstraints percentWidth="15.0"/>
-            <ColumnConstraints percentWidth="20.0"/>
+            <ColumnConstraints percentWidth="30.0"/>
         </columnConstraints>
 
         <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_RIGHT">

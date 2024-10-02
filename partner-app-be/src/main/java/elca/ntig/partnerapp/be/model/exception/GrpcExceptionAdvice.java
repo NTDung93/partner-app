@@ -5,16 +5,20 @@ import io.grpc.StatusRuntimeException;
 import io.grpc.Status;
 import net.devh.boot.grpc.server.advice.GrpcAdvice;
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
+import org.apache.log4j.Logger;
 
 import javax.validation.ConstraintViolationException;
 
 @GrpcAdvice
 public class GrpcExceptionAdvice {
 
+    private Logger logger = Logger.getLogger(GrpcExceptionAdvice.class);
+
     private static final Metadata.Key<String> KEY_NAME = Metadata.Key.of("error", Metadata.ASCII_STRING_MARSHALLER);
 
     @GrpcExceptionHandler(RuntimeException.class)
     public StatusRuntimeException handleException(RuntimeException e) {
+        e.printStackTrace();
 
         Status status = Status.UNKNOWN.withDescription(e.getMessage()).withCause(e);
         Metadata metadata = new Metadata();

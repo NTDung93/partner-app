@@ -5,14 +5,12 @@ import elca.ntig.partnerapp.common.proto.entity.address.CreateAddressRequestProt
 import elca.ntig.partnerapp.common.proto.entity.organisation.GetOrganisationAlongWithAddressResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.OrganisationResponseProto;
 import elca.ntig.partnerapp.common.proto.entity.organisation.UpdateOrganisationRequestProto;
-import elca.ntig.partnerapp.common.proto.entity.person.GetPersonRequestProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.CodeNOGAProto;
 import elca.ntig.partnerapp.common.proto.enums.organisation.LegalStatusProto;
 import elca.ntig.partnerapp.common.proto.enums.partner.LanguageProto;
 import elca.ntig.partnerapp.fe.callback.organisation.UpdateOrganisationCallback;
-import elca.ntig.partnerapp.fe.callback.person.DeletePersonCallback;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.cell.LocalizedTableCell;
 import elca.ntig.partnerapp.fe.common.constant.ClassNameConstant;
@@ -21,12 +19,10 @@ import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.dialog.DialogBuilder;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressMessage;
 import elca.ntig.partnerapp.fe.common.model.AddressTableModel;
-import elca.ntig.partnerapp.fe.component.CreatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.UpdatePartnerComponent;
 import elca.ntig.partnerapp.fe.component.ViewPartnerComponent;
 import elca.ntig.partnerapp.fe.fragment.BaseFormFragment;
 import elca.ntig.partnerapp.fe.fragment.common.CommonSetupFormFragment;
-import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.ViewPartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
@@ -42,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.jacpfx.api.annotations.Resource;
 import org.jacpfx.api.annotations.fragment.Fragment;
 import org.jacpfx.api.fragment.Scope;
@@ -200,9 +197,30 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         bindTextProperties();
         setupUIControls();
         fillData(responseProto);
+        setupUneditableForm(responseProto.getOrganisation().getStatus());
         initializeTable();
         setupDoubleClickEventHandler();
         handleEvents();
+    }
+
+    private void setupUneditableForm(StatusProto status) {
+        uneditableComboBox(typeComboBox, bindingHelper);
+
+        if (status == StatusProto.INACTIVE) {
+            uneditableTextField(nameValue);
+            uneditableTextField(additionalNameValue);
+            uneditableTextField(ideNumberValue);
+            uneditableTextField(phoneNumberValue);
+
+            uneditableDatePicker(creationDateValue);
+
+            uneditableComboBox(codeNOGAComboBox, bindingHelper);
+            uneditableComboBox(languageComboBox, bindingHelper);
+            uneditableComboBox(legalStatusComboBox, bindingHelper);
+
+            createAddressButton.setVisible(false);
+            saveButton.setVisible(false);
+        }
     }
 
     private void fillData(GetOrganisationAlongWithAddressResponseProto responseProto) {
@@ -289,6 +307,25 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         setupIdeNumberField();
         setupDatePicker();
         setupPhoneNumberField();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        codeNOGAComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CodeNOGAProto.NULL_CODE_NOGA) {
+                Platform.runLater(() -> {
+                    codeNOGAComboBox.setValue(null);
+                });
+            }
+        });
+
+        legalStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == LegalStatusProto.NULL_LEGAL_STATUS) {
+                Platform.runLater(() -> {
+                    legalStatusComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     @Override
@@ -296,7 +333,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         typeComboBox.getItems().addAll(PartnerTypeProto.values());
         typeComboBox.getItems().removeAll(PartnerTypeProto.UNRECOGNIZED);
         typeComboBox.setValue(PartnerTypeProto.TYPE_ORGANISATION);
-        typeComboBox.setDisable(true);
+//        typeComboBox.setDisable(true);
         typeComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.type."));
         typeComboBox.getStyleClass().add(ClassNameConstant.DISABLED_COMBO_BOX);
@@ -307,12 +344,12 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
         languageComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.language."));
 
         legalStatusComboBox.getItems().addAll(LegalStatusProto.values());
-        legalStatusComboBox.getItems().removeAll(LegalStatusProto.NULL_LEGAL_STATUS, LegalStatusProto.UNRECOGNIZED);
+        legalStatusComboBox.getItems().removeAll(LegalStatusProto.UNRECOGNIZED);
         legalStatusComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
         legalStatusComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.legalStatus."));
 
         codeNOGAComboBox.getItems().addAll(CodeNOGAProto.values());
-        codeNOGAComboBox.getItems().removeAll(CodeNOGAProto.NULL_CODE_NOGA, CodeNOGAProto.UNRECOGNIZED);
+        codeNOGAComboBox.getItems().removeAll(CodeNOGAProto.UNRECOGNIZED);
         codeNOGAComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
         codeNOGAComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.codeNOGA."));
     }
@@ -333,7 +370,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
 
     @Override
     public void setupDatePicker() {
-        setupDatePickerImpl(creationDateValue);
+        setupDatePickerImpl(creationDateValue, true);
     }
 
     private void setupPhoneNumberField() {
@@ -545,6 +582,7 @@ public class UpdateOrganisationFormFragment extends CommonSetupFormFragment<Addr
                     UpdateAddressMessage request = UpdateAddressMessage.builder()
                             .partnerType(PartnerTypeProto.TYPE_ORGANISATION)
                             .updateAddressRequestProto(convertAddressResponseProtoToCreateAddressRequestProto(addressProto))
+                            .status(addressProto.getStatus())
                             .build();
                     context.send(UpdatePartnerPerspective.ID.concat(".").concat(UpdatePartnerComponent.ID), request);
                 }

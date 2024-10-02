@@ -44,10 +44,8 @@ public class AddressServiceImpl implements AddressService {
                                 ? currentAddress.getValidityEnd()
                                 : LocalDate.MAX;
 
-                        if (currentAddress.getValidityEnd() != null) {
-                            if (!currentEnd.isAfter(currentStart)) {
-                                throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
-                            }
+                        if (currentAddress.getValidityEnd() != null && !currentEnd.isAfter(currentStart)) {
+                               throw new EndDateBeforeStartDateException("The validity end date must be after the validity start date");
                         }
 
                         if (previousEnd != null) {
@@ -120,6 +118,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void updateAddressForPartner(Partner partner, List<AddressResponseDto> addresses) {
         addresses.stream()
+                .filter(address -> address.getStatus() == Status.ACTIVE || address.getStatus() == null)
                 .collect(Collectors.groupingBy(AddressResponseDto::getCategory))
                 .forEach((category, categoryAddresses) -> {
                     categoryAddresses.sort(Comparator.comparing(AddressResponseDto::getValidityStart));

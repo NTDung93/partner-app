@@ -5,6 +5,7 @@ import elca.ntig.partnerapp.common.proto.enums.address.AddressTypeProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CantonAbbrProto;
 import elca.ntig.partnerapp.common.proto.enums.address.CountryProto;
 import elca.ntig.partnerapp.common.proto.enums.common.PartnerTypeProto;
+import elca.ntig.partnerapp.common.proto.enums.common.StatusProto;
 import elca.ntig.partnerapp.fe.common.cell.EnumCell;
 import elca.ntig.partnerapp.fe.common.constant.ResourceConstant;
 import elca.ntig.partnerapp.fe.common.message.UpdateAddressResponseMessage;
@@ -16,6 +17,7 @@ import elca.ntig.partnerapp.fe.perspective.CreatePartnerPerspective;
 import elca.ntig.partnerapp.fe.perspective.UpdatePartnerPerspective;
 import elca.ntig.partnerapp.fe.utils.BindingHelper;
 import elca.ntig.partnerapp.fe.utils.ObservableResourceFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -127,7 +129,7 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
     @FXML
     private Button saveButton;
 
-    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto, boolean isUpdatePartner) {
+    public void init(PartnerTypeProto partnerType, CreateAddressRequestProto responseProto, boolean isUpdatePartner, StatusProto currentStatus) {
         currentPartnerType = partnerType;
         this.isUpdatePartner = isUpdatePartner;
         orginalAddressRequestProto = responseProto;
@@ -135,7 +137,45 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
         bindTextProperties();
         setupUIControls();
         fillDataIntoForm(responseProto);
+        setupUneditableForm(currentStatus);
         handleEvents();
+        setupComboBoxNullOptionListener();
+    }
+
+    private void setupUneditableForm(StatusProto status) {
+        if (status == StatusProto.INACTIVE) {
+            uneditableTextField(localityValue);
+            uneditableTextField(streetValue);
+            uneditableTextField(houseNumberValue);
+            uneditableTextField(zipCodeValue);
+
+            uneditableDatePicker(validityStartValue);
+            uneditableDatePicker(validityEndValue);
+
+            uneditableComboBox(countryComboBox, bindingHelper);
+            uneditableComboBox(cantonComboBox, bindingHelper);
+            uneditableComboBox(typeComboBox, bindingHelper);
+
+            saveButton.setVisible(false);
+        }
+    }
+
+    private void setupComboBoxNullOptionListener() {
+        countryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CountryProto.NULL_COUNTRY) {
+                Platform.runLater(() -> {
+                    countryComboBox.setValue(null);
+                });
+            }
+        });
+
+        cantonComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == CantonAbbrProto.NULL_CANTON) {
+                Platform.runLater(() -> {
+                    cantonComboBox.setValue(null);
+                });
+            }
+        });
     }
 
     private void fillDataIntoForm(CreateAddressRequestProto responseProto) {
@@ -188,6 +228,14 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
         setupCantonComboBox();
         setupComboBoxes();
         setupDatePicker();
+        setupInputMaxLength();
+    }
+
+    private void setupInputMaxLength() {
+        validateMaxLengthTextField(zipCodeValue, 15);
+        validateMaxLengthTextField(localityValue, 50);
+        validateMaxLengthTextField(streetValue, 60);
+        validateMaxLengthTextField(houseNumberValue, 12);
     }
 
     private void setupCantonComboBox() {
@@ -216,12 +264,12 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
         typeComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.addressType."));
 
         countryComboBox.getItems().addAll(CountryProto.values());
-        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED, CountryProto.NULL_COUNTRY);
+        countryComboBox.getItems().removeAll(CountryProto.UNRECOGNIZED);
         countryComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.country."));
         countryComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.country."));
 
         cantonComboBox.getItems().addAll(CantonAbbrProto.values());
-        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED, CantonAbbrProto.NULL_CANTON);
+        cantonComboBox.getItems().removeAll(CantonAbbrProto.UNRECOGNIZED);
         cantonComboBox.setCellFactory(cell -> new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
         cantonComboBox.setButtonCell(new EnumCell<>(observableResourceFactory, "Enum.cantonAbbr."));
     }
@@ -237,8 +285,8 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
 
     @Override
     public void setupDatePicker() {
-        setupAddressDatePickerImpl(validityStartValue);
-        setupAddressDatePickerImpl(validityEndValue);
+        setupDatePickerImpl(validityStartValue, false);
+        setupDatePickerImpl(validityEndValue, false);
     }
 
     @Override
@@ -306,10 +354,6 @@ public class UpdateAddressFormFragment extends CommonSetupFormFragment implement
         validateRequiredTextField(zipCodeValue, zipCodeErrorLabel);
         validateRequiredComboBox(typeComboBox, typeErrorLabel);
         validateRequiredDatePicker(validityStartValue, validityStartErrorLabel);
-        validateMaxLengthTextField(zipCodeValue, 15);
-        validateMaxLengthTextField(localityValue, 50);
-        validateMaxLengthTextField(streetValue, 60);
-        validateMaxLengthTextField(houseNumberValue, 12);
         validateEndDateAfterStartDate(validityStartValue, validityEndValue, validityEndErrorLabel);
     }
 }

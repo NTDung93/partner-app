@@ -5,10 +5,7 @@ import elca.ntig.partnerapp.be.model.enums.partner.Language;
 import elca.ntig.partnerapp.be.model.enums.person.MaritalStatus;
 import elca.ntig.partnerapp.be.model.enums.person.Nationality;
 import elca.ntig.partnerapp.be.model.enums.person.SexEnum;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePersonRequestDto {

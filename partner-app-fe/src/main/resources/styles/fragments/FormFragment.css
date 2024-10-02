@@ -4,6 +4,12 @@
     -fx-font-size: 16;
 }
 
+.root-address-form {
+    -fx-padding: 40 0 40 40;
+    -fx-background-color: white;
+    -fx-font-size: 16;
+}
+
 .header-section {
     -fx-padding: 0 0 20 0;
 }
@@ -145,4 +151,42 @@ Button{
     -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-border-width: 0;
+}
+
+.uneditable-field{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+}
+
+.uneditable-combobox{
+    -fx-opacity: 1 !important;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+}
+
+.uneditable-combobox:disabled {
+    -fx-opacity: 1 !important;
+    -fx-text-fill: black !important;
+}
+
+.uneditable-combobox .arrow-button {
+    -fx-opacity: 0 !important;
+    -fx-background-color: transparent !important;
+}
+
+.uneditable-date-picker {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: transparent;     /* Remove the border */
+}
+
+.uneditable-date-picker .text-field {
+    -fx-background-color: transparent; /* Transparent background for the editor */
+    -fx-border-color: transparent;     /* Remove the border for the text field */
+    -fx-text-fill: black;              /* Make sure the text is black */
+}
+
+.uneditable-date-picker .arrow-button {
+    -fx-opacity: 0; /* Hide the dropdown arrow */
 }
