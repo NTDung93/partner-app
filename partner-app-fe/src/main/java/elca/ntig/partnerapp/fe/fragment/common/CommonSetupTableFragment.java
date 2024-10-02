@@ -121,7 +121,19 @@ public abstract class CommonSetupTableFragment<T> {
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = ExportExcelConstant.PERSON_HEADERS;
+        String[] headers = {
+                observableResourceFactory.getStringBinding("TableFragment.col.baseNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.lastName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.firstName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.language").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.gender").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.nationality").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.avsNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.birthDate").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.civilStatus").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.phoneNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.status").get(),
+        };
         createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
@@ -192,7 +204,18 @@ public abstract class CommonSetupTableFragment<T> {
 
         // Create header row
         Row headerRow = sheet.createRow(0);
-        String[] headers = ExportExcelConstant.ORGANIZATION_HEADERS;
+        String[] headers = {
+                observableResourceFactory.getStringBinding("TableFragment.col.baseNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.name").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.additionalName").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.language").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.legalStatus").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.ideNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.creationDate").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.codeNOGA").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.phoneNumber").get(),
+                observableResourceFactory.getStringBinding("TableFragment.col.status").get(),
+        };
         createHeaderRow(headers, headerRow, workbook);
 
         // Write data rows from the TableView
